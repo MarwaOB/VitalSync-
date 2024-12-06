@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
         'corsheaders',
     'users.apps.UsersConfig',
     'django.contrib.admin',
@@ -59,7 +60,9 @@ ROOT_URLCONF = 'Tp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+         'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),  
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,8 +83,17 @@ WSGI_APPLICATION = 'Tp.wsgi.application'
 
 DATABASES = {
     'default': {
+<<<<<<< Updated upstream
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+=======
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'VitalSync',
+        'USER': 'root',
+        'PASSWORD': '0123456789',
+        'HOST': 'localhost',  # Or your database host
+        'PORT': '3306',       # Default MySQL port
+>>>>>>> Stashed changes
     }
 }
 
