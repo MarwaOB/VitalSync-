@@ -1,0 +1,44 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+
+# IDE/Editor
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Frontend files (if any)
+node_modules/
+
+# MySQL Database Dumps
+*.sql
+*.sql.gz
+
+# MySQL specific files
+*.ibd
+*.frm
+*.myd
+*.myi
+
+# Local MySQL configuration (if any)
+my.cnf
+
+# Backup files
+*.bak
+*.backup
