@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create DPI</title>
+    <script>
+        // JavaScript to dynamically add new forms
+        function addForm() {
+            var formCount = document.getElementById("id_form-TOTAL_FORMS").value;
+            var newForm = document.getElementById("form-0").cloneNode(true);
+            
+            // Reset the input values in the cloned form
+            var inputs = newForm.querySelectorAll("input, textarea");
+            inputs.forEach(input => input.value = "");
+
+            // Update the form count in the cloned form
+            newForm.id = "form-" + formCount;
+            document.getElementById("formset-container").appendChild(newForm);
+
+            // Increment the form count in the hidden field
+            document.getElementById("id_form-TOTAL_FORMS").value = parseInt(formCount) + 1;
+        }
+    </script>
+</head>
+<body>
+    <h1>Create DPI</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Render the formset -->
+        <div id="formset-container">
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div class="form-row" id="form-{{ forloop.counter0 }}">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button" onclick="addForm()">Add Antecedent</button>
+
+        <button type="submit">Save DPI</button>
+    </form>
+</body>
+</html>

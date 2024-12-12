@@ -1,4 +1,6 @@
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractUser
+from hospitals.models import Hospital  # Adjust the import path based on your project structure
 from django.db import models
 
 class CustomUser(AbstractUser):
@@ -13,81 +15,103 @@ class CustomUser(AbstractUser):
         ('laborantin', 'Laborantin'),
         ('pharmacien', 'Pharmacien'),
     ]
+
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='patient')
-    numero_securite_sociale = models.CharField(max_length=15, unique=True)  # Security number
-    nom = models.CharField(max_length=50)  # Last name
-    prenom = models.CharField(max_length=50)  # First name
     date_de_naissance = models.DateField()  # Date of birth
     adresse = models.TextField()  # Address
     telephone = models.CharField(max_length=15)  # Phone number
     mutuelle = models.CharField(max_length=5000, blank=True, null=True)  # Insurance
+    hospital = models.ForeignKey(
+    'hospitals.Hospital',  # Use the app label and model name if the model is in another app
+    on_delete=models.CASCADE,
+    null=True,
+    blank=True
+    )
+
+
+    def clean(self):
+        """
+        Custom validation logic to ensure adminCentral users do not have a hospital.
+        """
+        if self.role == 'adminCentral' and self.hospital is not None:
+            raise ValidationError("AdminCentral users cannot be associated with a hospital.")
+
+    def save(self, *args, **kwargs):
+        """
+        Override the save method to include the custom validation.
+        """
+        self.clean()  # Run custom validation
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.username} ({self.role})"
-
+    
 # Proxy models for different roles
 class AdminCentral(CustomUser):
     class Meta:
         proxy = True
 
     def __str__(self):
-        return f"Admin Central: {self.nom} {self.prenom}"
+        return f"Admin Central: {self.first_name} {self.last_name}"
 
 class AdminSys(CustomUser):
     class Meta:
         proxy = True
 
     def __str__(self):
-        return f"Admin System: {self.nom} {self.prenom}"
-
-class Medecin(CustomUser):
-    class Meta:
-        proxy = True
-
-    def __str__(self):
-        return f"Medecin: {self.nom} {self.prenom}"
+        return f"Admin System: {self.first_name} {self.last_name}"
     
 class Pharmacien(CustomUser):
     class Meta:
         proxy = True
 
     def __str__(self):
-        return f"Pharmacien: {self.nom} {self.prenom}"    
+        return f"Pharmacien: {self.first_name} {self.last_name}"    
+
+class Medecin(CustomUser):
+    class Meta:
+        proxy = True
+
+    def __str__(self):
+        return f"Medecin: {self.first_name} {self.last_name}"
+       
 
 class Infermier(CustomUser):
     class Meta:
         proxy = True
 
     def __str__(self):
-        return f"Infermier: {self.nom} {self.prenom}"
+        return f"Infermier: {self.first_name} {self.last_name}"
 
 class Radioloque(CustomUser):
     class Meta:
         proxy = True
 
     def __str__(self):
-        return f"Radioloque: {self.nom} {self.prenom}"
+        return f"Radioloque: {self.first_name} {self.last_name}"
 
 class Biologiste(CustomUser):
     class Meta:
         proxy = True
 
     def __str__(self):
-        return f"Biologiste: {self.nom} {self.prenom}"
+        return f"Biologiste: {self.first_name} {self.last_name}"
 
 class Laborantin(CustomUser):
     class Meta:
         proxy = True
 
     def __str__(self):
-        return f"Laborantin: {self.nom} {self.prenom}"
+        return f"Laborantin: {self.first_name} {self.last_name}"
 
 # Patient Model
 class Patient(models.Model):
+    # Assuming a ForeignKey to CustomUser to associate a patient with their user account
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     person_a_contacter_telephone = models.JSONField(default=list, blank=True)  # Contact person phone numbers
     date_debut_hospitalisation = models.JSONField(default=list, blank=True)  # Start dates of hospitalization
     date_fin_hospitalisation = models.JSONField(default=list, blank=True)  # End dates of hospitalization
 
     def __str__(self):
         # Display patient name and hospitalization periods
-        return f"Patient: {self.user.nom} {self.user.prenom}, Hospitalization Periods: {', '.join([f'{start} - {end}' for start, end in zip(self.date_debut_hospitalisation, self.date_fin_hospitalisation)])}"
+        return f"Patient: {self.user.first_name} {self.user.last_name}, Hospitalization Periods: {', '.join([f'{start} - {end}' for start, end in zip(self.date_debut_hospitalisation, self.date_fin_hospitalisation)])}"

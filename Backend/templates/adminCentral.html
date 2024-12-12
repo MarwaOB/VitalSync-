@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un utilisateur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ajouter un nouvel hôpital</h1>
+    <form method="POST" action="/add-hospital/">
+        {% csrf_token %}
+        
+        <!-- Informations sur l'hôpital -->
+        <label for="name">Nom de l'hôpital</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="lieu">Lieu</label>
+        <input type="text" id="lieu" name="lieu" required>
+
+        <label for="type">Type</label>
+        <select id="type" name="type" required>
+            <option value="hopital">Hôpital</option>
+            <option value="clinique">Clinique</option>
+        </select>
+
+        <label for="date_de_creation">Date de création</label>
+        <input type="date" id="date_de_creation" name="date_de_creation" required>
+
+        <h1>Ajouter l'admin système</h1>
+        
+        <!-- Informations sur l'admin système -->
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="date_de_naissance">Date de naissance</label>
+        <input type="date" id="date_de_naissance" name="date_de_naissance" required>
+
+        <label for="adresse">Adresse</label>
+        <textarea id="adresse" name="adresse" required></textarea>
+
+        <label for="telephone">Numéro de téléphone</label>
+        <input type="tel" id="telephone" name="telephone" required>
+
+        <label for="mutuelle">Mutuelle (facultatif)</label>
+        <textarea id="mutuelle" name="mutuelle"></textarea>
+
+        <button type="submit">Ajouter</button>
+    </form>
+</body>
+</html>

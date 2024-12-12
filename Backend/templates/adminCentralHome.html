@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitals Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Central Management</h1>
+        <p>Click on one of the buttons below to either add a new user or view existing users.</p>
+        
+        <!-- Form to add a new user -->
+        <form method="POST" action="{% url 'admin_Central_Home' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_user">
+            <button type="submit" class="button">Add New Hospital</button>
+        </form>
+
+        <!-- Form to show users -->
+        <form method="POST" action="{% url 'admin_Central_Home' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="show_users">
+            <button type="submit" class="button">Show Hospitals</button>
+        </form>
+    </div>
+</body>
+</html>
