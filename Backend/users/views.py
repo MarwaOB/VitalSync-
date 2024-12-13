@@ -1,12 +1,15 @@
 import logging
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
-from .models import CustomUser, Hospital
+from .models import CustomUser, Hospital, Patient
 from dpi.models import  Dpi, Antecedent
-from .forms import AntecedentFormSet  # Import the formset
+from .forms import AntecedentFormSet, DpiForm  # Import the formset
+from django.contrib import messages
+
 
 
 @csrf_exempt
@@ -33,7 +36,7 @@ def add_hospital(request):
         date_de_naissance = request.POST['date_de_naissance']
         adresse = request.POST['adresse']
         telephone = request.POST['telephone']
-        mutuelle = request.POST.get('mutuelle', '')
+        mutuelle = request.FILES.get('mutuelle', None)  # Get the uploaded PDF file if any
 
         try:
             # Create hospital
@@ -64,31 +67,54 @@ def add_hospital(request):
     
     return render(request, 'adminCentral.html')
 
-
+@csrf_exempt
 def add_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        NSS = request.POST['NSS']
+        last_name = request.POST['last_name']
+        first_name = request.POST['first_name']
         role = request.POST['role']
         date_de_naissance = request.POST['date_de_naissance']
         adresse = request.POST['adresse']
         telephone = request.POST['telephone']
         mutuelle = request.POST.get('mutuelle', '')
 
+        if CustomUser.objects.filter(username=username).exists():
+            messages.error(request, "Le nom d'utilisateur existe déjà.")
+            return redirect('add_user')  
+
+        if CustomUser.objects.filter(telephone=telephone).exists():
+            messages.error(request, "Le numéro de téléphone est déjà utilisé.")
+            return redirect('add_user') 
+
+
         user = CustomUser.objects.create_user(
             username=username,
             password=password,
+            NSS=NSS,
+            first_name=first_name,
+            last_name=last_name,
             role=role,
             date_de_naissance=date_de_naissance,
             adresse=adresse,
             telephone=telephone,
             mutuelle=mutuelle,
-            hospital= request.user.hospital,
+            hospital=request.user.hospital,
         )
-        if (user.role == 'patient'):
-            return redirect('creerDPI')
+
+        # Handle patient-specific fields
+        if role == 'patient':
+            contact_person = request.POST.get('contact_person', '')
+            
+            patient = Patient.objects.create(
+                user=user,
+                person_a_contacter_telephone=[contact_person],
+            )
+            return redirect('creerDPI')  # Redirect to the next page (e.g., creating DPI)
         else:
-            return redirect('adminSys') 
+            return redirect('adminSys')  # Redirect to appropriate page for non-patient roles
 
     return render(request, 'adminSys.html')
 
@@ -114,7 +140,7 @@ def sign_in(request):
                 elif role == 'medecin':
                     return HttpResponse("medecin")
                 elif role == 'patient':
-                    return HttpResponse("patient")
+                    return redirect("patient_Home")
                 elif role == 'infermier':
                     return HttpResponse("infermier")
                 elif role == 'radioloque':
@@ -143,27 +169,45 @@ def adminsys(request):
 
 def creerDPI(request):
     if request.method == 'POST':
-        # Create Dpi object (you can add fields here as needed)
-        dpi = Dpi.objects.create()
-
-        # Create formset for antecedents
+        dpi_form = DpiForm(request.POST)
         formset = AntecedentFormSet(request.POST)
-        
-        if formset.is_valid():
-            # Assign the current dpi to each antecedent in the formset
-            for form in formset:
-                antecedent = form.save(commit=False)  # Do not save yet
-                antecedent.dpi = dpi  # Assign the current dpi to this antecedent
-                antecedent.save()  # Save the antecedent to the database
-            
-            return redirect('adminSys')  # Redirect to a success page or whatever is needed
-        else:
-            # If formset is invalid, show the form with errors
-            return render(request, 'creerDPI.html', {'formset': formset, 'dpi': dpi})
 
-    # Initialize a new empty formset for GET requests
-    formset = AntecedentFormSet(queryset=Antecedent.objects.none())
-    return render(request, 'creerDPI.html', {'formset': formset})
+        if dpi_form.is_valid() and formset.is_valid():
+            dpi = dpi_form.save()
+
+            for form in formset:
+                antecedent = form.save(commit=False)
+                antecedent.dpi = dpi
+                antecedent.save()
+
+            return redirect('adminSys')  # Redirect to a success page
+        else:
+            print("DPI form errors:", dpi_form.errors)
+            print("Formset errors:", formset.errors)
+    else:
+        dpi_form = DpiForm()
+        formset = AntecedentFormSet(queryset=Antecedent.objects.none())
+    
+    return render(request, 'creerDPI.html', {
+        'dpi_form': dpi_form,
+        'formset': formset
+    })
+
+
+@csrf_exempt
+def patient_Home(request):
+    if request.method == "POST":
+        action = request.POST.get("action")  # Get the action value from the form submission
+
+        if action == "show_dpis":
+            return redirect('show_dpi_by_patient')  # Redirect to show users page
+        elif action == "recherche_dpi":
+            return redirect('rechercheDpi')  # Redirect to show users page
+        else:
+            # Handle the case where the action is not recognized
+            return HttpResponse("Invalid action", status=400)
+
+    return render(request, 'patientHome.html')
 
 @csrf_exempt
 def admin_Sys_Home(request):
@@ -179,6 +223,25 @@ def admin_Sys_Home(request):
             return HttpResponse("Invalid action", status=400)
 
     return render(request, 'adminSysHome.html')
+
+@csrf_exempt
+def show_dpi_by_patient(request):
+    try:
+        # Get the patient object associated with the logged-in user
+        patient = Patient.objects.get(user=request.user)
+        
+        # Get the associated DPI record for the patient
+        dpi = Dpi.objects.get(patient=patient)
+
+        # Pass the details to the template
+        return render(request, 'patientShow.html', {
+            'patient': patient,
+            'dpi': dpi,
+            'antecedents': dpi.antecedents.all(),  # Fetch all related antecedents
+        })
+    except ObjectDoesNotExist:
+        # Handle case where patient or DPI doesn't exist
+        raise Http404("No DPI found for this patient.")
 
 @csrf_exempt    
 def admin_Central_Home(request):

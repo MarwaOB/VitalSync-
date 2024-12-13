@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create DPI</title>
     <script>
-        // JavaScript to dynamically add new forms
         function addForm() {
             var formCount = document.getElementById("id_form-TOTAL_FORMS").value;
             var newForm = document.getElementById("form-0").cloneNode(true);
-            
-            // Reset the input values in the cloned form
-            var inputs = newForm.querySelectorAll("input, textarea");
-            inputs.forEach(input => input.value = "");
 
-            // Update the form count in the cloned form
+            var inputs = newForm.querySelectorAll("input, textarea");
+            inputs.forEach(input => {
+                input.name = input.name.replace("-0-", `-${formCount}-`);
+                input.id = input.id.replace("-0-", `-${formCount}-`);
+                input.value = "";
+            });
+
             newForm.id = "form-" + formCount;
             document.getElementById("formset-container").appendChild(newForm);
-
-            // Increment the form count in the hidden field
             document.getElementById("id_form-TOTAL_FORMS").value = parseInt(formCount) + 1;
         }
     </script>
@@ -28,8 +27,14 @@
 
     <form method="post">
         {% csrf_token %}
-        
-        <!-- Render the formset -->
+
+        <!-- DPI Form -->
+        <div>
+            <h2>Assign Patient and Doctor</h2>
+            {{ dpi_form.as_p }}
+        </div>
+
+        <!-- Antecedents Formset -->
         <div id="formset-container">
             {{ formset.management_form }}
             {% for form in formset %}
@@ -40,7 +45,6 @@
         </div>
 
         <button type="button" onclick="addForm()">Add Antecedent</button>
-
         <button type="submit">Save DPI</button>
     </form>
 </body>
