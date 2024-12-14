@@ -112,12 +112,12 @@ def add_user(request):
                 user=user,
                 person_a_contacter_telephone=[contact_person],
             )
-            return redirect('creerDPI')  # Redirect to the next page (e.g., creating DPI)
-        else:
+      
             return redirect('adminSys')  # Redirect to appropriate page for non-patient roles
 
     return render(request, 'adminSys.html')
 
+@csrf_exempt
 def sign_in(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -138,9 +138,9 @@ def sign_in(request):
                 elif role == 'adminSys':
                     return redirect("admin_Sys_Home")
                 elif role == 'medecin':
-                    return HttpResponse("medecin")
+                    return redirect("medecin_Home")
                 elif role == 'patient':
-                    return redirect("patient_Home")
+                    return redirect("show_dpi_by_patient")
                 elif role == 'infermier':
                     return HttpResponse("infermier")
                 elif role == 'radioloque':
@@ -166,7 +166,6 @@ def admincentral(request):
 
 def adminsys(request):
     return render(request, 'adminSys.html')
-
 def creerDPI(request):
     if request.method == 'POST':
         dpi_form = DpiForm(request.POST)
@@ -174,7 +173,9 @@ def creerDPI(request):
 
         if dpi_form.is_valid() and formset.is_valid():
             dpi = dpi_form.save()
-
+            patient = dpi.patient.user
+            patient.dpi_null = False
+            patient.save()
             for form in formset:
                 antecedent = form.save(commit=False)
                 antecedent.dpi = dpi
@@ -195,19 +196,35 @@ def creerDPI(request):
 
 
 @csrf_exempt
-def patient_Home(request):
+def medecin_Home(request):
     if request.method == "POST":
-        action = request.POST.get("action")  # Get the action value from the form submission
+        action = request.POST.get("action")  
 
         if action == "show_dpis":
-            return redirect('show_dpi_by_patient')  # Redirect to show users page
+            try:
+                medecin = request.user
+                dpis = Dpi.objects.filter(medecin=medecin)
+                return render(request, 'medecinShow.html', {
+                    'dpis': dpis,
+                })
+            except ObjectDoesNotExist:
+                raise Http404("No DPI found for this doctor.")
+
         elif action == "recherche_dpi":
-            return redirect('rechercheDpi')  # Redirect to show users page
+            # Redirect to a search page
+            return redirect('rechercheDpi')  
+
+        elif action == "creer-dpi":
+            # Redirect to a search page
+            return redirect('creerDPI')  
+            
         else:
-            # Handle the case where the action is not recognized
+            # Handle invalid action
             return HttpResponse("Invalid action", status=400)
 
-    return render(request, 'patientHome.html')
+    # If not a POST request, render the home page
+    return render(request, 'medecinHome.html')
+
 
 @csrf_exempt
 def admin_Sys_Home(request):
@@ -226,22 +243,31 @@ def admin_Sys_Home(request):
 
 @csrf_exempt
 def show_dpi_by_patient(request):
-    try:
-        # Get the patient object associated with the logged-in user
-        patient = Patient.objects.get(user=request.user)
-        
-        # Get the associated DPI record for the patient
-        dpi = Dpi.objects.get(patient=patient)
+        try:
+            patient = Patient.objects.get(user=request.user)
+            dpi = Dpi.objects.get(patient=patient)
+            return render(request, 'dpiShow.html', {
+                'patient': patient,
+                'dpi': dpi,
+                'antecedents': dpi.antecedents.all(),
+            })
+        except ObjectDoesNotExist:
+            raise Http404("No DPI found for this patient.")
 
-        # Pass the details to the template
-        return render(request, 'patientShow.html', {
-            'patient': patient,
-            'dpi': dpi,
-            'antecedents': dpi.antecedents.all(),  # Fetch all related antecedents
-        })
-    except ObjectDoesNotExist:
-        # Handle case where patient or DPI doesn't exist
-        raise Http404("No DPI found for this patient.")
+
+def Consultation(request):
+    if request.method == "GET":
+        dpi_id = request.GET.get('dpi_id')
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)  # Fetch DPI by its ID
+            patient = dpi.patient  # Get the patient associated with the DPI
+            return render(request, 'dpiShow.html', {
+                'patient': patient,
+                'dpi': dpi,
+                'antecedents': dpi.antecedents.all(),
+            })
+        except Dpi.DoesNotExist:
+            raise Http404("DPI not found.")
 
 @csrf_exempt    
 def admin_Central_Home(request):

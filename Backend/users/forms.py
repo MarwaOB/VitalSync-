@@ -7,7 +7,7 @@ from django.forms import modelformset_factory
 
 class DpiForm(forms.ModelForm):
     patient = forms.ModelChoiceField(
-        queryset=Patient.objects.all(),
+        queryset=Patient.objects.filter(dpi_null = False),
         label="Patient",
         widget=forms.Select,
         required=True

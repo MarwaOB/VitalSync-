@@ -111,6 +111,7 @@ class Patient(models.Model):
     person_a_contacter_telephone = models.JSONField(default=list, blank=True)  # Contact person phone numbers
     date_debut_hospitalisation = models.JSONField(default=list, blank=True)  # Start dates of hospitalization
     date_fin_hospitalisation = models.JSONField(default=list, blank=True)  # End dates of hospitalization
+    dpi_null = models.BooleanField(default =True)
 
     def __str__(self):
         # Display patient name and hospitalization periods
