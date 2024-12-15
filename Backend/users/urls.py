@@ -12,6 +12,5 @@ urlpatterns = [
     path('admincentralShow/', views.show_hospital, name='show_hospital'), 
     path('home/', views.admin_Sys_Home, name='admin_Sys_Home'),
     path('show_users_by_hospital/', views.show_users_by_hospital, name='show_users_by_hospital'),
-
-
+    path('admin/', views.add_admin, name='add_admin'),
 ]

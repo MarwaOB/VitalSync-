@@ -7,12 +7,24 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import CustomUser, Hospital
 from dpi.models import  Dpi, Antecedent
 from .forms import AntecedentFormSet  # Import the formset
+import random
+import string
+from datetime import datetime, timedelta
+from django.http import JsonResponse
+from django.utils.timezone import now
+from datetime import date
+from django.contrib.auth.decorators import login_required  # Import the login_required decorator
+
+
+
+
 
 
 @csrf_exempt
 
 
 @csrf_exempt
+@login_required
 def add_hospital(request):
 
     if request.method == 'POST':
@@ -64,7 +76,7 @@ def add_hospital(request):
     
     return render(request, 'adminCentral.html')
 
-
+@login_required
 def add_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -92,6 +104,7 @@ def add_user(request):
 
     return render(request, 'adminSys.html')
 
+@login_required
 def sign_in(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -219,3 +232,37 @@ def adminSysHome(request):
 
 def adminSysShow(request):
     return render(request, 'adminSysShow.html')  
+
+def add_admin(request):
+    # Define the admin details
+    username = "Merieem"
+    password = "meriem"  # Ideally hashed, but for simplicity, leaving plain
+    email = "admin@example.com"
+
+    # Check if the user already exists
+    if CustomUser.objects.filter(username=username).exists():
+        return JsonResponse({"message": "Admin user already exists!"}, status=400)
+
+    # Create the admin user
+    admin_user = CustomUser.objects.create_superuser(
+        username=username,
+        password=password,
+        email=email,
+        first_name="meriem",
+        last_name="Admin",
+        is_staff=True,
+        is_active=True,
+        date_de_naissance=date(1990, 1, 1),
+        date_joined=now()
+    )
+
+    # Optionally add extra fields if your model has them
+    admin_user.role = "adminCentral"
+    admin_user.save()
+
+    return JsonResponse({
+        "message": "Admin user created successfully!",
+        "username": admin_user.username,
+        "email": admin_user.email,
+        "role": admin_user.role,
+    })

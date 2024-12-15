@@ -456,3 +456,349 @@ Traceback (most recent call last):
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'admincentral' not found. 'admincentral' is not a valid view function or pattern name.
 "POST /admincentralHome/ HTTP/1.1" 500 91887
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67607
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67607
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67613
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 89, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67919
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 87, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67879
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 87, in add_user
+    hospital_id= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67885
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 87, in add_user
+    hospital_id= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67885
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital_id= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67716
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital_id= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67714
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital__id= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67716
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital__id= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67716
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67714
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67714
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67708
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 86, in add_user
+    hospital= request.user.hospital,
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'hospital'
+"POST /add-user/ HTTP/1.1" 500 67577
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 234, in add_admin
+    return JsonResponse({"message": "Admin user already exists!"}, status=400)
+NameError: name 'JsonResponse' is not defined
+"GET /admin/ HTTP/1.1" 500 61371
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 247, in add_admin
+    date_joined=now()
+NameError: name 'now' is not defined
+"GET /admin/ HTTP/1.1" 500 61057
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1048, "Column 'date_de_naissance' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 241, in add_admin
+    admin_user = CustomUser.objects.create_superuser(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/models.py", line 173, in create_superuser
+    return self._create_user(username, email, password, **extra_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/models.py", line 156, in _create_user
+    user.save(using=self._db)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/models.py", line 44, in save
+    super().save(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/base_user.py", line 62, in save
+    super().save(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1048, "Column 'date_de_naissance' cannot be null")
+"GET /admin/ HTTP/1.1" 500 191902
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 249, in add_admin
+    date_de_naissance=date(1990, 1, 1),
+NameError: name 'date' is not defined
+"GET /admin/ HTTP/1.1" 500 61122
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1062, "Duplicate entry 'ben@ben.dz' for key 'users_customuser.username'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 90, in add_user
+    user = CustomUser.objects.create_user(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/models.py", line 162, in create_user
+    return self._create_user(username, email, password, **extra_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/models.py", line 156, in _create_user
+    user.save(using=self._db)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/models.py", line 44, in save
+    super().save(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/base_user.py", line 62, in save
+    super().save(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1062, "Duplicate entry 'ben@ben.dz' for key 'users_customuser.username'")
+"POST /add-user/ HTTP/1.1" 500 200162
