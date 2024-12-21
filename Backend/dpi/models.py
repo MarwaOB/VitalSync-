@@ -96,19 +96,6 @@ class Dpi(models.Model):
             canvas.close()
 
 
-class Consultation(models.Model):
-    date = models.DateField(null=True, blank=True)  # Allow null and blank values
-    dpi = models.ForeignKey(
-        'Dpi', 
-        on_delete=models.CASCADE, 
-        related_name='consultations'
-    )  # One-to-Many relationship with Dpi
-    resume = models.TextField()
-
-    def __str__(self):
-        return f"Consultation on {self.date} for {self.dpi.patient.user.get_full_name()}"
-
-
 
 class Bilan(models.Model):
     BILAN_TYPES = [
@@ -123,12 +110,6 @@ class Bilan(models.Model):
     
     date = models.DateField(null=True, blank=True)  # Date of the bilan
 
-    def clean(self):
-        """
-        Ensures that a consultation can only have 0 to 2 bilans.
-        """
-        if self.consultation.bilans.count() >= 2:
-            raise ValidationError("A consultation can only have 2 bilans (biological or radiological).")
 
     def __str__(self):
         return f"Bilan {self.bilan_type} for Consultation on {self.consultation.date}"
@@ -138,11 +119,7 @@ class Bilan(models.Model):
 
 
 class Biologique(Bilan):
-    consultation = models.ForeignKey(
-        'Consultation',
-        on_delete=models.CASCADE,
-        related_name='biologique_bilans'  # Unique related_name
-    )
+    
     laborantin = models.ForeignKey(
         'users.CustomUser',
         on_delete=models.CASCADE,
@@ -157,14 +134,10 @@ class Biologique(Bilan):
     tauxCholesterol = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)  
 
     def __str__(self):
-        return f"Biologique Bilan for Consultation on {self.consultation.date}"
+        return f"Biologique Bilan for Consultation "
 
 class Radiologique(Bilan):  
-    consultation = models.ForeignKey(
-        'Consultation',
-        on_delete=models.CASCADE,
-        related_name='radiologique_bilans'  # Unique related_name
-    )
+    
     radioloque = models.ForeignKey(
         'users.CustomUser',
         on_delete=models.CASCADE,
@@ -175,7 +148,7 @@ class Radiologique(Bilan):
     )
 
     def __str__(self):
-        return f"Radiologique Bilan for Consultation on {self.consultation.date}"
+        return f"Radiologique Bilan for Consultation "
 
     
 class Examen(models.Model):
@@ -192,20 +165,15 @@ class Examen(models.Model):
     )
 
     def __str__(self):
-        return f"Examen {self.type} for Bilan {self.bilan_radiologique.consultation.date}"
+        return f"Examen {self.type} for Bilan {self.bilan_radiologique}"
 
 
 class Diagnostic(models.Model):
-   consultation = models.ForeignKey(
-        'Consultation',
-        on_delete=models.CASCADE,
-        related_name='consultation_diagnostic'  # Unique related_name
-    ) 
    
    ordonnance = models.OneToOneField('Ordonnance', on_delete=models.CASCADE, related_name='ordonnance' )
 
 def __str__(self):
-        return f"Diagnostic for consultation {self.consultation.date}"   
+        return f"Diagnostic for consultation "   
 
 class Ordonnance(models.Model):
     diagnostic = models.OneToOneField('Diagnostic', on_delete=models.CASCADE, related_name='diagnostic' )
@@ -213,7 +181,7 @@ class Ordonnance(models.Model):
     is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
 
 def __str__(self):
-        return f"Ordonnance for Diagnostic {self.consultation.date}" 
+        return f"Ordonnance for Diagnostic " 
 
 class Medicament(models.Model):
     nom = models.CharField(max_length=150)
@@ -226,3 +194,45 @@ class Medicament(models.Model):
         on_delete=models.CASCADE,
         related_name='meds'  # Unique related_name
     ) 
+
+class Consultation(models.Model):
+    date = models.DateField(null=True, blank=True)  # Allow null and blank values
+    dpi = models.ForeignKey(
+        'Dpi', 
+        on_delete=models.CASCADE, 
+        related_name='consultations'
+    )  # One-to-Many relationship with Dpi
+    resume = models.TextField()
+    diagnostic = models.OneToOneField(
+        'Diagnostic', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        related_name='consultation'
+    )  # One diagnostic, but it can be null
+
+    bilanBiologique = models.OneToOneField(
+        'Biologique', 
+        on_delete=models.SET_NULL, 
+        related_name='bilanBiologique',
+        null=True, 
+        blank=True
+    )  # One bilanBiologique, but it can be null
+
+    bilanRadiologique = models.OneToOneField(
+        'Radiologique', 
+        on_delete=models.SET_NULL, 
+        related_name='bilanRadiologique', 
+        null=True, 
+        blank=True
+    )  # One bilanRadiologique, but it can be null
+
+    def clean(self):
+        """
+        Ensures that a consultation can only have 0 to 2 bilans.
+        """
+        if (self.bilanBiologique or self.bilanRadiologique) and self.diagnostic:
+            raise ValidationError("A consultation can only have bilans or a diagnostic .")
+        
+    def __str__(self):
+        return f"Consultation on {self.date} for {self.dpi.patient.user.get_full_name()}"

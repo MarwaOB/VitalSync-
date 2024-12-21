@@ -367,20 +367,32 @@ def rechercheDpi_qrcode(request):
             # Try to retrieve the patient based on the NSS
             user = CustomUser.objects.get(NSS=nss)
             patient = Patient.objects.get(user=user)
-            dpis = Dpi.objects.filter(patient=patient)
+
+            # Retrieve the hospital of the current user
+            current_user_hospital = request.user.hospital  # Adjust this line based on your model relationships
+
+            # Filter DPIs by patient and hospital
+            dpis = Dpi.objects.filter(patient=patient, hospital=current_user_hospital)
 
             if dpis.exists():
                 return render(request, 'medecinShow.html', {'dpis': dpis})
             else:
-                messages.error(request, "Aucun DPI trouvé pour ce patient.")
+                messages.error(request, "Aucun DPI trouvé pour ce patient dans votre hôpital.")
                 return redirect('rechercheDpi_qrcode')
 
+        except CustomUser.DoesNotExist:
+            messages.error(request, "Aucun utilisateur trouvé avec ce NSS.")
+            return redirect('rechercheDpi_qrcode')
+        except Patient.DoesNotExist:
+            messages.error(request, "Aucun patient trouvé avec ce NSS.")
+            return redirect('rechercheDpi_qrcode')
         except Exception as e:
             logging.error(f"Erreur lors du traitement du QR code: {e}")
             messages.error(request, "Une erreur s'est produite lors de la lecture du QR code.")
             return redirect('rechercheDpi_qrcode')
     
     return render(request, 'rechercheDpi_qrcode.html')
+
 
 @login_required
 def dpi_list(request):
@@ -404,3 +416,8 @@ def dpi_list(request):
         message = "Veuillez entrer un NSS valide."
 
     return render(request, 'medecinShow.html', {'dpis': dpis, 'message': message})
+
+@login_required
+def ajouter_consultation(request, dpi_id):
+    # Your logic here, using dpi_id as needed
+    return render(request, 'ajouter_consultation.html', {'dpi_id': dpi_id})
