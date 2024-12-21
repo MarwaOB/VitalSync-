@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un utilisateur</title>
     <style>
+        /* Add your existing styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -39,10 +40,45 @@
         button:hover {
             background: #0056b3;
         }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        /* Style for hidden patient fields */
+        .patient-fields {
+            display: none;
+        }
     </style>
+    <script>
+        // JavaScript to toggle patient-specific fields based on the role selection
+        function togglePatientFields() {
+            const role = document.getElementById('role').value;
+            const patientFields = document.getElementById('patient-fields');
+            const emailField = document.getElementById('email-field');
+            if (role === 'patient') {
+                patientFields.style.display = 'block';
+                emailField.style.display = 'block';  // Show the email field for patients
+            } else {
+                patientFields.style.display = 'none';
+                emailField.style.display = 'none';  // Hide the email field for other roles
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Ajouter un nouvel utilisateur</h1>
+
+    <!-- Display error messages if any -->
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="error-message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method="POST" action="/add-user/">
         {% csrf_token %}
         <label for="username">Nom d'utilisateur</label>
@@ -51,15 +87,21 @@
         <label for="password">Mot de passe</label>
         <input type="password" id="password" name="password" required>
 
+        <label for="NSS">NSS</label>
+        <input type="text" id="NSS" name="NSS" required> 
+
+        <label for="first_name">Prénom</label>
+        <input type="text" id="first_name" name="first_name" required> 
+
+        <label for="last_name">Nom de famille</label>
+        <input type="text" id="last_name" name="last_name" required> 
+
         <label for="role">Rôle</label>
-        <select id="role" name="role" required>
-            <option value="adminCentral">Administrateur Central</option>
-             <option value="adminSys">Administrateur Système</option>
-            <option value="patient">Patient</option>
+        <select id="role" name="role" required onchange="togglePatientFields()">
             <option value="medecin">Médecin</option>
+            <option value="patient">Patient</option>
             <option value="infermier">Infirmier</option>
             <option value="radioloque">Radiologue</option>
-            <option value="biologiste">Biologiste</option>
             <option value="laborantin">Laborantin</option>
         </select>
 
@@ -72,8 +114,20 @@
         <label for="telephone">Numéro de téléphone</label>
         <input type="tel" id="telephone" name="telephone" required>
 
-        <label for="mutuelle">Mutuelle (facultatif)</label>
-        <textarea id="mutuelle" name="mutuelle"></textarea>
+        <!-- Patient-specific fields (hidden by default) -->
+        <div id="patient-fields" class="patient-fields">
+            <label for="contact_person">Personne à contacter</label>
+            <input type="text" id="contact_person" name="contact_person">
+
+            <!-- Email field for patients only -->
+            <div id="email-field" style="display: none;">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+        </div>
+
+        <label for="mutuelle">Mutuelle (PDF)</label>
+        <input type="file" id="mutuelle" name="mutuelle" accept="application/pdf">
 
         <button type="submit">Ajouter</button>
     </form>

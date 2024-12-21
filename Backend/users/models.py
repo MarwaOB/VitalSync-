@@ -11,16 +11,15 @@ class CustomUser(AbstractUser):
         ('medecin', 'Medecin'),
         ('infermier', 'Infermier'),
         ('radioloque', 'Radioloque'),
-        ('biologiste', 'Biologiste'),
         ('laborantin', 'Laborantin'),
         ('pharmacien', 'Pharmacien'),
     ]
-
+    NSS = models.IntegerField(default=0)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='patient')
-    date_de_naissance = models.DateField()  # Date of birth
+    date_de_naissance = models.DateField(null=True, blank=True)  # Allow null and blank values
     adresse = models.TextField()  # Address
     telephone = models.CharField(max_length=15)  # Phone number
-    mutuelle = models.CharField(max_length=5000, blank=True, null=True)  # Insurance
+    mutuelle = models.FileField(upload_to='mutuelle_pdfs/', null=True, blank=True)
     hospital = models.ForeignKey(
     'hospitals.Hospital',  # Use the app label and model name if the model is in another app
     on_delete=models.CASCADE,
@@ -33,7 +32,7 @@ class CustomUser(AbstractUser):
         """
         Custom validation logic to ensure adminCentral users do not have a hospital.
         """
-        if self.role == 'adminCentral' and self.hospital is not None:
+        if (self.role == 'adminCentral' or self.role == 'pharmacien') and self.hospital is not None:
             raise ValidationError("AdminCentral users cannot be associated with a hospital.")
 
     def save(self, *args, **kwargs):
@@ -111,6 +110,7 @@ class Patient(models.Model):
     person_a_contacter_telephone = models.JSONField(default=list, blank=True)  # Contact person phone numbers
     date_debut_hospitalisation = models.JSONField(default=list, blank=True)  # Start dates of hospitalization
     date_fin_hospitalisation = models.JSONField(default=list, blank=True)  # End dates of hospitalization
+    dpi_null = models.BooleanField(default =True)
 
     def __str__(self):
         # Display patient name and hospitalization periods

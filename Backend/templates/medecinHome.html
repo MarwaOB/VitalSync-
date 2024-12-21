@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users Management</title>
+    <title>Patient HomePage</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,24 +33,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>Admin System Management</h1>
-        <p>Click on one of the buttons below to either add a new user or view existing users.</p>
+        <h1>Medecin Management</h1>
+        <p>Click on one of the buttons below to either add a show all dpis or search.</p>
         
-        <!-- Form to add a new user -->
-        <form method="POST" action="{% url 'admin_Sys_Home' %}">
+        <form method="POST" action="{% url 'medecin_Home' %}">
             {% csrf_token %}
-            <input type="hidden" name="action" value="add_user">
-            <button type="submit" class="button">Add New User</button>
+            <input type="hidden" name="action" value="recherche_dpi_qrCode">
+            <button type="submit" class="button">Rechercher DPI par QR Code</button>
         </form>
 
-        <!-- Form to show users -->
-        <form method="POST" action="{% url 'admin_Sys_Home' %}">
+        <form method="POST" action="{% url 'medecin_Home' %}">
             {% csrf_token %}
-            <input type="hidden" name="action" value="show_users">
-            <button type="submit" class="button">Show Users</button>
+            <input type="hidden" name="action" value="show_dpis">
+            <button type="submit" class="button">Show DPIs</button>
         </form>
 
-        
         <form method="POST" action="{% url 'medecin_Home' %}">
             {% csrf_token %}
             <input type="hidden" name="action" value="creer-dpi">
