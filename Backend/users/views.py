@@ -417,7 +417,3 @@ def dpi_list(request):
 
     return render(request, 'medecinShow.html', {'dpis': dpis, 'message': message})
 
-@login_required
-def ajouter_consultation(request, dpi_id):
-    # Your logic here, using dpi_id as needed
-    return render(request, 'ajouter_consultation.html', {'dpi_id': dpi_id})

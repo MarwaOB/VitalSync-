@@ -16,7 +16,6 @@ urlpatterns = [
     path('show_dpi_by_patient/', views.show_dpi_by_patient, name='show_dpi_by_patient'),
     path('Consultation/', views.Consultation, name='Consultation'),
     path('DPIList/', views.dpi_list, name='DPIList'),
-    path('ajouter_consultation/<int:dpi_id>/', views.ajouter_consultation, name='ajouter_consultation'),
     path('recherche-dpi-qr-code/', views.rechercheDpi_qrcode, name='rechercheDpi_qrcode'),
 
 

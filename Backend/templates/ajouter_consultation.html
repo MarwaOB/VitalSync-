@@ -26,7 +26,7 @@
     <h1>Ajouter une Consultation</h1>
 
     <p>Veuillez choisir une option pour la consultation :</p>
-    <a href="{% url 'ajouter_bilan' consultation_id %}" class="button">Bilan</a>
-    <a href="{% url 'ajouter_diagnostic' consultation_id %}" class="button">Diagnostic</a>
+    <a href="{% url 'ajouter_bilan' consultation_id=consultation_id %}" class="button">Bilan</a>
+    <a href="{% url 'ajouter_diagnostic' consultation_id=consultation_id %}" class="button">Diagnostic</a>
 </body>
 </html>
