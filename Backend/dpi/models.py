@@ -103,25 +103,12 @@ class Consultation(models.Model):
         on_delete=models.CASCADE, 
         related_name='consultations'
     )  # One-to-Many relationship with Dpi
-    resume = models.OneToOneField('Resume', on_delete=models.CASCADE, related_name='consultation_resume')
+    resume = models.TextField()
 
     def __str__(self):
         return f"Consultation on {self.date} for {self.dpi.patient.user.get_full_name()}"
 
-class Resume(models.Model):
-   """
-   It is mentioned that in resume, we add antecedents, so this point is to talk about
-   """
-   consultation = models.OneToOneField(
-        'Consultation', 
-        on_delete=models.CASCADE,
-        related_name='resume_consultation'
-    )  # One-to-One relationship with Consultation
 
-   description = models.TextField()
-
-   def __str__(self):
-        return f"Resume for {self.consultation.dpi.patient.user.get_full_name()} - {self.consultation.date}"
 
 class Bilan(models.Model):
     BILAN_TYPES = [
@@ -206,3 +193,36 @@ class Examen(models.Model):
 
     def __str__(self):
         return f"Examen {self.type} for Bilan {self.bilan_radiologique.consultation.date}"
+
+
+class Diagnostic(models.Model):
+   consultation = models.ForeignKey(
+        'Consultation',
+        on_delete=models.CASCADE,
+        related_name='consultation_diagnostic'  # Unique related_name
+    ) 
+   
+   ordonnance = models.OneToOneField('Ordonnance', on_delete=models.CASCADE, related_name='ordonnance' )
+
+def __str__(self):
+        return f"Diagnostic for consultation {self.consultation.date}"   
+
+class Ordonnance(models.Model):
+    diagnostic = models.OneToOneField('Diagnostic', on_delete=models.CASCADE, related_name='diagnostic' )
+    duree = models.IntegerField(help_text="Duration of the prescription in days")
+    is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
+
+def __str__(self):
+        return f"Ordonnance for Diagnostic {self.consultation.date}" 
+
+class Medicament(models.Model):
+    nom = models.CharField(max_length=150)
+    duree = models.IntegerField(help_text="Duration of the prescription in days")
+    dose = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
+    dosePrise = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
+    dosePrevues = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
+    ordonnance = models.ForeignKey(
+        'Ordonnance',
+        on_delete=models.CASCADE,
+        related_name='meds'  # Unique related_name
+    ) 
