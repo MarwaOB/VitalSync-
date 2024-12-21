@@ -1,4 +1,4 @@
-import logging
+import logging, qrcode
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
@@ -9,13 +9,18 @@ from .models import CustomUser, Hospital, Patient
 from dpi.models import  Dpi, Antecedent
 from .forms import AntecedentFormSet, DpiForm  # Import the formset
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+from pyzbar.pyzbar import decode
+from django.core.files.storage import FileSystemStorage
+from PIL import Image
+import io
 
 
 @csrf_exempt
 
 
 @csrf_exempt
+@login_required
 def add_hospital(request):
 
     if request.method == 'POST':
@@ -68,6 +73,7 @@ def add_hospital(request):
     return render(request, 'adminCentral.html')
 
 @csrf_exempt
+@login_required
 def add_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -79,6 +85,8 @@ def add_user(request):
         date_de_naissance = request.POST['date_de_naissance']
         adresse = request.POST['adresse']
         telephone = request.POST['telephone']
+        email = request.POST['email']
+
         mutuelle = request.POST.get('mutuelle', '')
 
         if CustomUser.objects.filter(username=username).exists():
@@ -88,6 +96,10 @@ def add_user(request):
         if CustomUser.objects.filter(telephone=telephone).exists():
             messages.error(request, "Le numéro de téléphone est déjà utilisé.")
             return redirect('add_user') 
+        
+       # if CustomUser.objects.filter(email=telephone).exists():
+        #    messages.error(request, "L'email est déjà utilisé.")
+         #   return redirect('add_user') 
 
 
         user = CustomUser.objects.create_user(
@@ -101,6 +113,7 @@ def add_user(request):
             adresse=adresse,
             telephone=telephone,
             mutuelle=mutuelle,
+            email=email,
             hospital=request.user.hospital,
         )
 
@@ -145,8 +158,6 @@ def sign_in(request):
                     return HttpResponse("infermier")
                 elif role == 'radioloque':
                     return HttpResponse("radioloque")
-                elif role == 'biologiste':
-                    return HttpResponse("biologiste")
                 elif role == 'laborantin':
                     return HttpResponse("laborantin")
                 elif role == 'pharmacien':
@@ -161,41 +172,56 @@ def sign_in(request):
     
     return render(request, 'signin.html')
 
+@login_required
 def admincentral(request):
     return render(request, 'adminCentral.html')
 
+@login_required
 def adminsys(request):
     return render(request, 'adminSys.html')
+
+@login_required
 def creerDPI(request):
     if request.method == 'POST':
-        dpi_form = DpiForm(request.POST)
+        dpi_form = DpiForm(request.POST, user=request.user)
         formset = AntecedentFormSet(request.POST)
 
         if dpi_form.is_valid() and formset.is_valid():
-            dpi = dpi_form.save()
-            patient = dpi.patient.user
+            dpi = dpi_form.save(commit=False)
+
+            # Associate the medecin if the user is a medecin
+            if request.user.role == 'medecin':
+                dpi.medecin = request.user
+
+            dpi.save()
+
+            # Update the patient's DPI status
+            patient = dpi.patient
             patient.dpi_null = False
             patient.save()
+
+            # Save antecedents
             for form in formset:
                 antecedent = form.save(commit=False)
                 antecedent.dpi = dpi
                 antecedent.save()
 
-            return redirect('adminSys')  # Redirect to a success page
+            return redirect('admin_Sys_Home' if request.user.role == 'adminSys' else 'medecin_Home')
         else:
             print("DPI form errors:", dpi_form.errors)
             print("Formset errors:", formset.errors)
     else:
-        dpi_form = DpiForm()
+        dpi_form = DpiForm(user=request.user)
         formset = AntecedentFormSet(queryset=Antecedent.objects.none())
-    
+
     return render(request, 'creerDPI.html', {
         'dpi_form': dpi_form,
-        'formset': formset
+        'formset': formset,
     })
 
 
 @csrf_exempt
+@login_required
 def medecin_Home(request):
     if request.method == "POST":
         action = request.POST.get("action")  
@@ -210,9 +236,9 @@ def medecin_Home(request):
             except ObjectDoesNotExist:
                 raise Http404("No DPI found for this doctor.")
 
-        elif action == "recherche_dpi":
+        elif action == "recherche_dpi_qrCode":
             # Redirect to a search page
-            return redirect('rechercheDpi')  
+            return redirect('rechercheDpi_qrcode')  
 
         elif action == "creer-dpi":
             # Redirect to a search page
@@ -227,6 +253,7 @@ def medecin_Home(request):
 
 
 @csrf_exempt
+@login_required
 def admin_Sys_Home(request):
     if request.method == "POST":
         action = request.POST.get("action")  # Get the action value from the form submission
@@ -242,6 +269,7 @@ def admin_Sys_Home(request):
     return render(request, 'adminSysHome.html')
 
 @csrf_exempt
+@login_required
 def show_dpi_by_patient(request):
         try:
             patient = Patient.objects.get(user=request.user)
@@ -254,7 +282,7 @@ def show_dpi_by_patient(request):
         except ObjectDoesNotExist:
             raise Http404("No DPI found for this patient.")
 
-
+@login_required
 def Consultation(request):
     if request.method == "GET":
         dpi_id = request.GET.get('dpi_id')
@@ -269,7 +297,8 @@ def Consultation(request):
         except Dpi.DoesNotExist:
             raise Http404("DPI not found.")
 
-@csrf_exempt    
+@csrf_exempt  
+@login_required
 def admin_Central_Home(request):
     if request.method == "POST":
         action = request.POST.get("action")  
@@ -285,6 +314,7 @@ def admin_Central_Home(request):
     return render(request, 'adminCentralHome.html')
 
 @csrf_exempt
+@login_required
 def show_users_by_hospital(request):
     user_hospital_id = request.user.hospital.id
 
@@ -292,19 +322,85 @@ def show_users_by_hospital(request):
 
     return render(request, 'adminSysShow.html', {'users': users_in_hospital})
 
+@login_required
 def show_hospital(request):
     hospitals = Hospital.objects.all()
     return render(request, 'adminCentralShow.html', {
         'hospitals': hospitals,
     })
 
+@login_required
 def admincentralShow(request):
     return render(request, 'adminCentralShow.html')
 
-
+@login_required
 def adminSysHome(request):
     return render(request, 'adminSysHome.html')
 
-
+@login_required
 def adminSysShow(request):
     return render(request, 'adminSysShow.html')  
+
+@csrf_exempt
+@login_required
+def rechercheDpi_qrcode(request):
+    if request.method == "POST" and request.FILES['qr_code']:
+        qr_file = request.FILES['qr_code']
+        
+        # Ensure file is a valid image (QR codes are image-based)
+        if qr_file.content_type not in ['image/png', 'image/jpeg', 'image/jpg']:
+            messages.error(request, "Veuillez télécharger une image valide pour le QR code.")
+            return redirect('rechercheDpi_qrcode')
+        
+        try:
+            # Open the image file
+            img = Image.open(qr_file)
+            decoded_objects = decode(img)
+            
+            if not decoded_objects:
+                messages.error(request, "Aucun QR code trouvé dans l'image téléchargée.")
+                return redirect('rechercheDpi_qrcode')
+
+            # Extract NSS from decoded QR code (assuming QR code contains the NSS directly)
+            nss = decoded_objects[0].data.decode('utf-8')
+
+            # Try to retrieve the patient based on the NSS
+            user = CustomUser.objects.get(NSS=nss)
+            patient = Patient.objects.get(user=user)
+            dpis = Dpi.objects.filter(patient=patient)
+
+            if dpis.exists():
+                return render(request, 'medecinShow.html', {'dpis': dpis})
+            else:
+                messages.error(request, "Aucun DPI trouvé pour ce patient.")
+                return redirect('rechercheDpi_qrcode')
+
+        except Exception as e:
+            logging.error(f"Erreur lors du traitement du QR code: {e}")
+            messages.error(request, "Une erreur s'est produite lors de la lecture du QR code.")
+            return redirect('rechercheDpi_qrcode')
+    
+    return render(request, 'rechercheDpi_qrcode.html')
+
+@login_required
+def dpi_list(request):
+    nss = request.GET.get('nss')
+    dpis = None
+    message = None  
+
+    if nss:
+        try:
+            user = CustomUser.objects.get(NSS=nss)
+            patient = Patient.objects.get(user=user)
+            dpis = Dpi.objects.filter(patient=patient)
+    
+            if not dpis.exists():
+                message = "Aucun DPI trouvé pour ce NSS."
+        except CustomUser.DoesNotExist:
+            message = "Utilisateur introuvable pour ce NSS."
+        except Patient.DoesNotExist:
+            message = "Patient introuvable pour ce NSS."
+    else:
+        message = "Veuillez entrer un NSS valide."
+
+    return render(request, 'medecinShow.html', {'dpis': dpis, 'message': message})

@@ -30,9 +30,12 @@
 
         <!-- DPI Form -->
         <div>
-            <h2>Assign Patient and Doctor</h2>
-            {{ dpi_form.as_p }}
-        </div>
+            <h2>Attribuer un patient{% if request.user.role == 'adminSys' %} et un médecin{% endif %}</h2>
+            {{ dpi_form.patient }}
+            {% if request.user.role == 'adminSys' %}
+                {{ dpi_form.medecin }}
+            {% endif %}
+        </div>        
 
         <!-- Antecedents Formset -->
         <div id="formset-container">
@@ -47,5 +50,12 @@
         <button type="button" onclick="addForm()">Add Antecedent</button>
         <button type="submit">Save DPI</button>
     </form>
+
+    <!-- Display QR Code -->
+    <div class="qr-img">
+        {% if dpi_form.instance.QR_Code %}
+            <img src="{{ dpi_form.instance.QR_Code.url }}" alt="QR Code">
+        {% endif %}
+    </div>
 </body>
 </html>

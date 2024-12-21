@@ -11,7 +11,6 @@ class CustomUser(AbstractUser):
         ('medecin', 'Medecin'),
         ('infermier', 'Infermier'),
         ('radioloque', 'Radioloque'),
-        ('biologiste', 'Biologiste'),
         ('laborantin', 'Laborantin'),
         ('pharmacien', 'Pharmacien'),
     ]

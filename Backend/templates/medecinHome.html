@@ -38,8 +38,8 @@
         
         <form method="POST" action="{% url 'medecin_Home' %}">
             {% csrf_token %}
-            <input type="hidden" name="action" value="recherche_dpi">
-            <button type="submit" class="button">Rechercher DPI</button>
+            <input type="hidden" name="action" value="recherche_dpi_qrCode">
+            <button type="submit" class="button">Rechercher DPI par QR Code</button>
         </form>
 
         <form method="POST" action="{% url 'medecin_Home' %}">
