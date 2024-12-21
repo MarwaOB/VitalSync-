@@ -6,10 +6,6 @@ from django.contrib.auth.decorators import login_required
 @login_required
 
 def creer_ordonnance(request):
-    Ordonnance.objects.all().delete()
-
-# Delete all entries from Medicament
-    Medicament.objects.all().delete()
     # Check if the user is authenticated
     if not request.user.is_authenticated:
         messages.error(request, "You must be logged in to create an ordonnance.")
