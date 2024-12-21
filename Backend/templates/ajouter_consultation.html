@@ -23,10 +23,18 @@
     </style>
 </head>
 <body>
-    <h1>Ajouter une Consultation</h1>
-
-    <p>Veuillez choisir une option pour la consultation :</p>
-    <a href="{% url 'ajouter_bilan' consultation_id=consultation_id %}" class="button">Bilan</a>
-    <a href="{% url 'ajouter_diagnostic' consultation_id=consultation_id %}" class="button">Diagnostic</a>
+    <form method="POST" action="{% url 'ajouter_consultation' dpi.id %}">
+        {% csrf_token %}
+        <label for="date">Date de Consultation</label>
+        <input type="date" id="date" name="date" required>
+    
+        <p>Veuillez choisir une option pour la consultation :</p>
+        <label for="type">Type</label>
+        <select id="type" name="type" required>
+            <option value="Diagnostic">Diagnostic</option>
+            <option value="Bilan">Bilan</option>
+        </select>
+        <button type="submit" class="button">Ajouter</button>
+    </form>    
 </body>
 </html>

@@ -12,6 +12,36 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
+@login_required
+def ajouter_consultation(request, dpi_id):
+    dpi = get_object_or_404(Dpi, id=dpi_id)
+
+    if request.method == 'POST':
+        date = request.POST['date']
+        type = request.POST['type']
+
+        # Check for duplicate consultation
+        if Consultation.objects.filter(date=date, dpi=dpi).exists():
+            messages.error(request, "Une consultation à la même date pour ce patient existe déjà.")
+            return redirect('ajouter_consultation', dpi_id=dpi.id)  # Redirect back with the DPI ID
+
+        # Create the consultation
+        consultation = Consultation.objects.create(
+            date=date,
+            dpi=dpi,
+        )
+
+        # Redirect based on the type of consultation
+        if type == 'Diagnostic':
+            return redirect('ajouter_diagnostic', consultation_id=consultation.id)
+        elif type == 'Bilan':
+            return redirect('ajouter_bilan', consultation_id=consultation.id)
+
+        # Fallback: Redirect to showdpi
+        return redirect('showdpi', dpi_id=dpi.id)
+
+    # Render the consultation form
+    return render(request, 'ajouter_consultation.html', {'dpi': dpi})
 
 @login_required
 def ajouter_bilan(request, consultation_id):
