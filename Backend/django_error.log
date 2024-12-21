@@ -4650,3 +4650,213 @@ Traceback (most recent call last):
     messages.error(request, "You must be a doctor to create an ordonnance.")
 NameError: name 'messages' is not defined
 "POST /creer_ord/ HTTP/1.1" 500 67828
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 30, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'MedicamentFormSet' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 66258
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 13, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(request.POST, queryset=Medicament.objects.none())
+NameError: name 'MedicamentFormSet' is not defined
+"POST /creer_ord/ HTTP/1.1" 500 67193
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 13, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(request.POST, queryset=Medicament.objects.none())
+NameError: name 'MedicamentFormSet' is not defined
+"POST /creer_ord/ HTTP/1.1" 500 67193
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 13, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(request.POST, queryset=Medicament.objects.none())
+NameError: name 'MedicamentFormSet' is not defined
+"POST /creer_ord/ HTTP/1.1" 500 67193
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 13, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(request.POST, queryset=Medicament.objects.none())
+NameError: name 'MedicamentFormSet' is not defined
+"POST /creer_ord/ HTTP/1.1" 500 67193
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 13, in creer_ordonnance
+    Medicament.objects.all().delete()
+NameError: name 'Medicament' is not defined
+"POST /creer_ord/ HTTP/1.1" 500 67111
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 27, in creer_ordonnance
+    ordonnance = form.save()  # Save the Ordonnance first
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 29, in save
+    return JsonResponse({
+NameError: name 'JsonResponse' is not defined
+"POST /creer_ord/ HTTP/1.1" 500 73612
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 27, in creer_ordonnance
+    ordonnance = form.save()  # Save the Ordonnance first
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 30, in save
+    return JsonResponse({
+TypeError: unhashable type: 'list'
+"POST /creer_ord/ HTTP/1.1" 500 73568
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 28, in creer_ordonnance
+    medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
+NameError: name 'Medicament' is not defined
+"GET /creer_ord/ HTTP/1.1" 500 61664
