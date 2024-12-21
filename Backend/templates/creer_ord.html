@@ -1,0 +1,61 @@
+<p>Welcome, {{ request.user.first_name }}!</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div id="medicaments_container">
+        <div class="medicament_row" id="medicament_0">
+            <input type="text" name="medicaments_0_nom" placeholder="Nom du médicament">
+            <input type="number" name="medicaments_0_duree" placeholder="Durée">
+            <input type="number" step="0.001" name="medicaments_0_dose" placeholder="Dose">
+            <button type="button" onclick="removeMedicament(0)">remove med "-" </button>
+        </div>
+    </div>
+
+    <input type="hidden" name="medicaments" id="medicaments">
+
+    <button type="button" onclick="addMedicament()">Ajouter un médicament</button>
+    <button type="submit">Enregistrer l'ordonnance</button>
+</form>
+
+<script>
+    let medicamentIndex = 1;
+
+    function addMedicament() {
+        let container = document.getElementById('medicaments_container');
+        let newMedicament = document.createElement('div');
+        newMedicament.classList.add('medicament_row');
+        newMedicament.id = 'medicament_' + medicamentIndex;
+
+        newMedicament.innerHTML = `
+            <input type="text" name="medicaments_${medicamentIndex}_nom" placeholder="Nom du médicament">
+            <input type="number" name="medicaments_${medicamentIndex}_duree" placeholder="Durée">
+            <input type="number" step="0.001" name="medicaments_${medicamentIndex}_dose" placeholder="Dose">
+            <button type="button" onclick="removeMedicament(${medicamentIndex})">-</button>
+        `;
+
+        container.appendChild(newMedicament);
+        medicamentIndex++;
+        updateHiddenField();
+    }
+
+    function removeMedicament(index) {
+        let medicamentRow = document.getElementById('medicament_' + index);
+        medicamentRow.remove();
+        updateHiddenField();
+    }
+
+    function updateHiddenField() {
+        let medicaments = [];
+        document.querySelectorAll('.medicament_row').forEach(function(row, index) {
+            let nom = row.querySelector('input[name^="medicaments_"][name$="_nom"]').value;
+            let duree = row.querySelector('input[name^="medicaments_"][name$="_duree"]').value;
+            let dose = row.querySelector('input[name^="medicaments_"][name$="_dose"]').value;
+            if (nom && duree && dose) {
+                medicaments.push(`${nom},${duree},${dose}`);
+            }
+        });
+        document.getElementById('medicaments').value = medicaments.join(';');
+    }
+</script>

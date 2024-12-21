@@ -176,7 +176,7 @@ def __str__(self):
         return f"Diagnostic for consultation "   
 
 class Ordonnance(models.Model):
-    diagnostic = models.OneToOneField('Diagnostic', on_delete=models.CASCADE, related_name='diagnostic' )
+    
     duree = models.IntegerField(help_text="Duration of the prescription in days")
     is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
 

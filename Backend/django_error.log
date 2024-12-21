@@ -3745,3 +3745,908 @@ Traceback (most recent call last):
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_bilan' not found. 'ajouter_bilan' is not a valid view function or pattern name.
 "GET /ajouter_consultation/25/ HTTP/1.1" 500 126487
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 260, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 229, in inner
+    if not self.has_permission(request):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 202, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+"GET /admin/ HTTP/1.1" 500 207854
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 260, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 229, in inner
+    if not self.has_permission(request):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 202, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+"GET /admin/ HTTP/1.1" 500 207854
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 260, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 229, in inner
+    if not self.has_permission(request):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 202, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+"GET /admin/ HTTP/1.1" 500 207854
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 260, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 229, in inner
+    if not self.has_permission(request):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 202, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+"GET /admin/ HTTP/1.1" 500 207854
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 260, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 229, in inner
+    if not self.has_permission(request):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 202, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+"GET /admin/ HTTP/1.1" 500 207854
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 260, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 229, in inner
+    if not self.has_permission(request):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 202, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+"GET /admin/ HTTP/1.1" 500 207854
+Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 260, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 229, in inner
+    if not self.has_permission(request):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/admin/sites.py", line 202, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.OperationalError: (1054, "Unknown column 'users_customuser.NSS' in 'field list'")
+"GET /admin/ HTTP/1.1" 500 207854
+Internal Server Error: /creerDPI/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 204, in creerDPI
+    dpi.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/models.py", line 92, in save
+    email.send()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 136, in send_messages
+    sent = self._send(message)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 155, in _send
+    self.connection.sendmail(
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/smtplib.py", line 887, in sendmail
+    raise SMTPSenderRefused(code, resp, from_addr)
+smtplib.SMTPSenderRefused: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/mail/?p=WantAuthError ffacd0b85a97d-38a1c89e150sm6557781f8f.66 - gsmtp', 'mm_benyammi@esi.dz')
+"POST /creerDPI/ HTTP/1.1" 500 97023
+Internal Server Error: /ajouter_consultation/1/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 465, in ajouter_consultation
+    return render(request, 'ajouter_consultation.html', {'dpi_id': dpi_id})
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_bilan' not found. 'ajouter_bilan' is not a valid view function or pattern name.
+"GET /ajouter_consultation/1/ HTTP/1.1" 500 116518
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1364, "Field 'diagnostic_id' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 10, in creer_ordonnance
+    ordonnance = form.save()  # Save the Ordonnance first
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 22, in save
+    ordonnance.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1364, "Field 'diagnostic_id' doesn't have a default value")
+"POST /creer_ord/ HTTP/1.1" 500 166186
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1264, "Out of range value for column 'dose' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 10, in creer_ordonnance
+    ordonnance = form.save()  # Save the Ordonnance first
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 39, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1264, "Out of range value for column 'dose' at row 1")
+"POST /creer_ord/ HTTP/1.1" 500 170786
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1264, "Out of range value for column 'dose' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 13, in creer_ordonnance
+    ordonnance = form.save()  # Save the Ordonnance first
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 39, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1264, "Out of range value for column 'dose' at row 1")
+"POST /creer_ord/ HTTP/1.1" 500 176043
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1264, "Out of range value for column 'dose' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 13, in creer_ordonnance
+    ordonnance = form.save()  # Save the Ordonnance first
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 39, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1264, "Out of range value for column 'dose' at row 1")
+"POST /creer_ord/ HTTP/1.1" 500 176039
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 21, in creer_ordonnance
+    return render(request, 'creer_ord.html', {'form': form})
+UnboundLocalError: local variable 'form' referenced before assignment
+"GET /creer_ord/ HTTP/1.1" 500 65277
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 21, in creer_ordonnance
+    return render(request, 'creer_ord.html', {'form': form})
+UnboundLocalError: local variable 'form' referenced before assignment
+"GET /creer_ord/ HTTP/1.1" 500 65277
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 21, in creer_ordonnance
+    return render(request, 'creer_ord.html', {'form': form})
+UnboundLocalError: local variable 'form' referenced before assignment
+"GET /creer_ord/ HTTP/1.1" 500 65277
+Internal Server Error: /creer_ord/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 19, in creer_ordonnance
+    messages.error(request, "You must be a doctor to create an ordonnance.")
+NameError: name 'messages' is not defined
+"POST /creer_ord/ HTTP/1.1" 500 67828

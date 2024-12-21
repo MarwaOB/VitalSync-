@@ -351,7 +351,7 @@ def adminSysShow(request):
 
 def add_admin(request):
     # Define the admin details
-    username = "Merieem"
+    username = "Meriem"
     password = "meriem"  # Ideally hashed, but for simplicity, leaving plain
     email = "admin@example.com"
 
@@ -361,6 +361,7 @@ def add_admin(request):
 
     # Create the admin user
     admin_user = CustomUser.objects.create_superuser(
+        NSS=1234,
         username=username,
         password=password,
         email=email,
