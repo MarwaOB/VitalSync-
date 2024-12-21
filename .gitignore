@@ -42,3 +42,5 @@ my.cnf
 # Backup files
 *.bak
 *.backup
+.env
+django_error.log

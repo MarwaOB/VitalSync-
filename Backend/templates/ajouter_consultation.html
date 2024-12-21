@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter Consultation</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ajouter une Consultation</h1>
+
+    <p>Veuillez choisir une option pour la consultation :</p>
+    <a href="{% url 'ajouter_bilan' consultation_id %}" class="button">Bilan</a>
+    <a href="{% url 'ajouter_diagnostic' consultation_id %}" class="button">Diagnostic</a>
+</body>
+</html>

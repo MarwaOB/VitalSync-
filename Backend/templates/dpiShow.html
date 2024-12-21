@@ -25,6 +25,23 @@
             display: block;
             margin-top: 10px;
         }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +79,10 @@
                 <p>Aucun antécédent trouvé.</p>
             {% endif %}
         </div>
+        {% if user.role == 'medecin' %}
+            <a href="{% url 'ajouter_consultation' dpi.id %}" class="button">Ajouter Consultation</a>
+        {% endif %}
+
     {% else %}
         <p>Aucun DPI trouvé pour ce patient.</p>
     {% endif %}
