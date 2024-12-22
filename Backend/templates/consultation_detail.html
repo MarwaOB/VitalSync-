@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Details</title>
+</head>
+<body>
+    <h1>Consultation Details</h1>
+
+    <h2>Consultation on {{ consultation.date }}</h2>
+    <p><strong>Patient:</strong> {{ consultation.dpi.patient.user.get_full_name }}</p>
+    <p><strong>Summary:</strong> {{ consultation.resume }}</p>
+
+    <h3>Bilans</h3>
+    {% if bilan_biologique %}
+        <p><strong>Biologique Bilan:</strong></p>
+        <ul>
+            <li><strong>Description:</strong> {{ bilan_biologique.description }}</li>
+            <li><strong>Taux Glycémie:</strong> {{ bilan_biologique.tauxGlycemie }}</li>
+            <li><strong>Taux Pression Artérielle:</strong> {{ bilan_biologique.tauxPressionArterielle }}</li>
+            <li><strong>Taux Cholestérol:</strong> {{ bilan_biologique.tauxCholesterol }}</li>
+        </ul>
+    {% else %}
+        <p>No Biologique Bilan created yet.</p>
+    {% endif %}
+
+    {% if bilan_radiologique %}
+        <p><strong>Radiologique Bilan:</strong></p>
+        <ul>
+            <li><strong>Radiologist:</strong> {{ bilan_radiologique.radioloque }}</li>
+        </ul>
+    {% else %}
+        <p>No Radiologique Bilan created yet.</p>
+    {% endif %}
+
+</body>
+</html>

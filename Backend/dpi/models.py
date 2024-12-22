@@ -112,7 +112,7 @@ class Bilan(models.Model):
 
 
     def __str__(self):
-        return f"Bilan {self.bilan_type} for Consultation on {self.consultation.date}"
+        return f"Bilan {self.bilan_type} for Consultation "
 
     class Meta:
         abstract = True  # This class won't create its own table

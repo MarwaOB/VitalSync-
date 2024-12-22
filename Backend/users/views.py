@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomUser, Hospital, Patient
-from dpi.models import  Dpi, Antecedent
+from dpi.models import  Dpi, Antecedent, Consultation
 from .forms import AntecedentFormSet, DpiForm  # Import the formset
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -235,7 +235,15 @@ def medecin_Home(request):
                 })
             except ObjectDoesNotExist:
                 raise Http404("No DPI found for this doctor.")
+            
+        elif action == "show_consultations":
+            try:
+                consultations = Consultation.objects.all()
+                return render(request, "consultation_list.html", {"consultations": consultations})
 
+            except ObjectDoesNotExist:
+                raise Http404("No DPI found for this doctor.")
+            
         elif action == "recherche_dpi_qrCode":
             # Redirect to a search page
             return redirect('rechercheDpi_qrcode')  
@@ -283,7 +291,7 @@ def show_dpi_by_patient(request):
             raise Http404("No DPI found for this patient.")
 
 @login_required
-def Consultation(request):
+def Consultation_dpi(request):
     if request.method == "GET":
         dpi_id = request.GET.get('dpi_id')
         try:

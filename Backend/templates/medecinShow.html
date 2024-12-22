@@ -78,7 +78,7 @@
                 <h2>Détails du DPI (ID: {{ dpi.id }}):</h2>
                 <p><strong>Patient:</strong> {{ dpi.patient.user.first_name }} {{ dpi.patient.user.last_name }}</p>
                 <!-- Submit form with DPI ID -->
-                <form action="{% url 'Consultation' %}" method="GET">
+                <form action="{% url 'Consultation_dpi' %}" method="GET">
                     <input type="hidden" name="dpi_id" value="{{ dpi.id }}">
                     <button type="submit" class="btn-consulter">Consulter</button>
                 </form>
