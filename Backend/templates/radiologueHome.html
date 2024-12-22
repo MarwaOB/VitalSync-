@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPI du Patient</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .section strong {
+            display: block;
+            margin-top: 10px;
+        }
+        .btn-consulter {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-consulter:hover {
+            background-color: #0056b3;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+  <h1>Bilan a realiser <h1>
+    {% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+    {% if dpis %}
+        {% for dpi in dpis %}
+            <div class="section">
+                <h2>Détails du DPI (ID: {{ dpi.id }}):</h2>
+                <p><strong>Patient:</strong> {{ dpi.patient.user.first_name }} {{ dpi.patient.user.last_name }}</p>
+                <!-- Submit form with DPI ID -->
+                <form action="{% url 'Consultation_dpi' %}" method="GET">
+                    <input type="hidden" name="dpi_id" value="{{ dpi.id }}">
+                    <button type="submit" class="btn-consulter">Consulter</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucun Test a realiser pour l'instant.</p>
+    {% endif %}
+    
+</body>
+</html>

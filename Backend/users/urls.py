@@ -12,6 +12,7 @@ urlpatterns = [
     path('admincentralShow/', views.show_hospital, name='show_hospital'), 
     path('home/', views.admin_Sys_Home, name='admin_Sys_Home'),
     path('medecin_Home/', views.medecin_Home, name='medecin_Home'),
+    path('radiologue_Home/', views.radiologueHome, name='radiologueHome'),
     path('show_users_by_hospital/', views.show_users_by_hospital, name='show_users_by_hospital'),
     path('show_dpi_by_patient/', views.show_dpi_by_patient, name='show_dpi_by_patient'),
     path('Consultation_dpi/', views.Consultation_dpi, name='Consultation_dpi'),

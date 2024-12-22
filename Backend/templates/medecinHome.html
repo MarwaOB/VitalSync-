@@ -48,11 +48,7 @@
             <button type="submit" class="button">Show DPIs</button>
         </form>
 
-        <form method="POST" action="{% url 'medecin_Home' %}">
-            {% csrf_token %}
-            <input type="hidden" name="action" value="show_consultations">
-            <button type="submit" class="button">Show Consultations</button>
-        </form>
+       
 
         <form method="POST" action="{% url 'medecin_Home' %}">
             {% csrf_token %}

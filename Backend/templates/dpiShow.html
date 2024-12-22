@@ -79,6 +79,24 @@
                 <p>Aucun antécédent trouvé.</p>
             {% endif %}
         </div>
+
+        <div class="section">
+            <h2>Consultations :</h2>
+            {% if dpi.consultations.all %}
+                {% for consultation in dpi.consultations.all %}
+                    <div class="section">
+                        <h3>Consultation du {{ consultation.date }}</h3>
+                        <p><strong>Résumé :</strong> {{ consultation.resume }}</p>
+                        <form action="{% url 'consultation_detail' consultation.id %}" method="GET">
+                            <button type="submit" class="btn-consulter">Voir</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Aucune consultation trouvée.</p>
+            {% endif %}
+        </div>
+
         {% if user.role == 'medecin' %}
             <a href="{% url 'ajouter_consultation' dpi.id %}" class="button">Ajouter Consultation</a>
         {% endif %}

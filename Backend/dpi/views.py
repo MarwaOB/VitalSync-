@@ -96,14 +96,19 @@ def ajouter_biologique_bilan(request, consultation_id):
 
     if request.method == "POST":
         logger.info("Creating a new Biologique Bilan")
-        # Create the Biologique bilan
-        Biologique.objects.create(consultation=consultation)
+        
+        bilanBiologique =  Biologique.objects.create() 
+        consultation.bilanBiologique = bilanBiologique  
+        consultation.save()
+       
         messages.success(request, "Biologique Bilan created successfully.")
         logger.info(f"Biologique Bilan created successfully for consultation_id={consultation.id}")
         return redirect("consultation_detail", consultation_id=consultation.id)
 
     logger.debug("Rendering ajouter_biologique_bilan template")
     return render(request, "ajouter_biologique_bilan.html", {"consultation": consultation})
+
+
 @login_required
 def ajouter_radiologique_bilan(request, consultation_id):
     consultation = get_object_or_404(Consultation, id=consultation_id)
@@ -113,12 +118,16 @@ def ajouter_radiologique_bilan(request, consultation_id):
         return redirect("ajouter_bilan", consultation_id=consultation.id)
 
     if request.method == "POST":
-        # Create the Radiologique bilan
-        Radiologique.objects.create(consultation=consultation)
+        # Create the Radiologique bilan and associate it with the consultation
+        bilan_radiologique = Radiologique.objects.create()  # No need to pass 'consultation'
+        consultation.bilanRadiologique = bilan_radiologique  # Associate it with the consultation
+        consultation.save()
+
         messages.success(request, "Radiologique Bilan created successfully.")
         return redirect("consultation_detail", consultation_id=consultation.id)
 
-    return render(request, "ajouter_radiologique_bilan.html", {"consultation": consultation}) 
+    return render(request, "ajouter_radiologique_bilan.html", {"consultation": consultation})
+
 
 def consultation_detail(request, consultation_id):
     # Fetch the consultation or return a 404 error if it doesn't exist

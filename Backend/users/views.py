@@ -157,7 +157,7 @@ def sign_in(request):
                 elif role == 'infermier':
                     return HttpResponse("infermier")
                 elif role == 'radioloque':
-                    return HttpResponse("radioloque")
+                    return redirect("radiologueHome")
                 elif role == 'laborantin':
                     return HttpResponse("laborantin")
                 elif role == 'pharmacien':
@@ -348,6 +348,26 @@ def adminSysHome(request):
 @login_required
 def adminSysShow(request):
     return render(request, 'adminSysShow.html')  
+
+    
+@login_required    
+def radiologueHome(request):
+    user_hospital = request.user.hospital  
+    dpis = Dpi.objects.filter(
+        medecin__hospital=user_hospital
+    ).filter(
+        consultations__isnull=False,  # Ensure the Dpi has consultations
+        consultations__bilanRadiologique__isnull=False  # Ensure a radiological bilan exists for the consultation
+    ).distinct()  # Use distinct to avoid duplicate DPIs in the case of multiple consultations
+
+    # Pass the filtered dpis to the context
+    context = {
+        'dpis': dpis,
+    }
+    
+    # Render the page with the filtered data
+    return render(request, 'radiologueHome.html', context)
+
 
 @csrf_exempt
 @login_required

@@ -13,6 +13,7 @@
     <p><strong>Summary:</strong> {{ consultation.resume }}</p>
 
     <h3>Bilans</h3>
+    
     {% if bilan_biologique %}
         <p><strong>Biologique Bilan:</strong></p>
         <ul>
@@ -23,6 +24,11 @@
         </ul>
     {% else %}
         <p>No Biologique Bilan created yet.</p>
+        {% if user.role == 'medecin' %}
+            <form action="{% url 'ajouter_biologique_bilan' consultation.id %}" method="GET">
+                <button type="submit">Demander un Bilan Biologique</button>
+            </form>
+        {% endif %}
     {% endif %}
 
     {% if bilan_radiologique %}
@@ -32,6 +38,11 @@
         </ul>
     {% else %}
         <p>No Radiologique Bilan created yet.</p>
+        {% if user.role == 'medecin' %}
+            <form action="{% url 'ajouter_radiologique_bilan' consultation.id %}" method="GET">
+                <button type="submit">Demander un Bilan Radiologique</button>
+            </form>
+        {% endif %}
     {% endif %}
 
 </body>
