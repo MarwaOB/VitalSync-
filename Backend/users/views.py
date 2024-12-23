@@ -7,13 +7,17 @@ from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomUser, Hospital, Patient
 from dpi.models import  Dpi, Antecedent, Consultation
-from .forms import AntecedentFormSet, DpiForm  # Import the formset
+from .forms import AntecedentFormSet, DpiForm , BilanForm # Import the formset
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from pyzbar.pyzbar import decode
 from django.core.files.storage import FileSystemStorage
 from PIL import Image
+from django.db.models import Max
 import io
+import matplotlib.pyplot as plt
+import base64
+from django.core.files.base import ContentFile
 
 
 @csrf_exempt
@@ -159,7 +163,7 @@ def sign_in(request):
                 elif role == 'radioloque':
                     return redirect("radiologueHome")
                 elif role == 'laborantin':
-                    return HttpResponse("laborantin")
+                    return redirect("laborantinHome")
                 elif role == 'pharmacien':
                     return HttpResponse("pharmacien")
                 else:
@@ -350,23 +354,164 @@ def adminSysShow(request):
     return render(request, 'adminSysShow.html')  
 
     
-@login_required    
+@login_required
 def radiologueHome(request):
-    user_hospital = request.user.hospital  
-    dpis = Dpi.objects.filter(
-        medecin__hospital=user_hospital
-    ).filter(
-        consultations__isnull=False,  # Ensure the Dpi has consultations
-        consultations__bilanRadiologique__isnull=False  # Ensure a radiological bilan exists for the consultation
-    ).distinct()  # Use distinct to avoid duplicate DPIs in the case of multiple consultations
+    user_hospital = request.user.hospital
+    dpis = Dpi.objects.filter(medecin__hospital=user_hospital)
+    dpis_with_pending_bilan = []
+    for dpi in dpis:
+        last_consultation_with_bilan = dpi.consultations.filter(bilanRadiologique__isnull=False).last()
+        if last_consultation_with_bilan:
+            if last_consultation_with_bilan.bilanRadiologique.radioloque is None:
+                dpis_with_pending_bilan.append(dpi)
+          
 
-    # Pass the filtered dpis to the context
     context = {
-        'dpis': dpis,
+        'dpis': dpis_with_pending_bilan,
     }
     
-    # Render the page with the filtered data
+    # Rendre la page avec les données filtrées
     return render(request, 'radiologueHome.html', context)
+@csrf_exempt
+@login_required
+def laborantinHome(request):
+    user_hospital = request.user.hospital
+    dpis = Dpi.objects.filter(medecin__hospital=user_hospital)
+    dpis_with_pending_bilan = []
+    for dpi in dpis:
+        last_consultation_with_bilan = dpi.consultations.filter(bilanBiologique__isnull=False).last()
+        if last_consultation_with_bilan:
+            if last_consultation_with_bilan.bilanBiologique.laborantin is None:
+                dpis_with_pending_bilan.append(dpi)
+          
+
+    context = {
+        'dpis': dpis_with_pending_bilan,
+    }
+    
+    # Rendre la page avec les données filtrées
+    return render(request, 'laborantinHome.html', context)
+
+
+@login_required
+def Consultation_dpi_Bilan(request):
+    if request.method == "GET":
+        dpi_id = request.GET.get('dpi_id')
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)  # Récupérer le DPI par son ID
+            patient = dpi.patient  # Obtenir le patient associé au DPI
+            latest_consultation = dpi.consultations.order_by('-date').first()  # Dernière consultation par date
+            return render(request, 'dpiShowBilan.html', {
+                'patient': patient,
+                'dpi': dpi,
+                'latest_consultation': latest_consultation,
+                'antecedents': dpi.antecedents.all(),
+            })
+        except Dpi.DoesNotExist:
+            raise Http404("DPI not found.")
+@csrf_exempt
+@login_required
+def faire_bilan(request, consultation_id):
+    consultation = Consultation.objects.get(id=consultation_id)
+    bilan = consultation.bilanBiologique
+
+    if request.method == 'POST':
+        form = BilanForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            description = form.cleaned_data['description']
+            taux1 = form.cleaned_data['taux1']
+            taux2 = form.cleaned_data['taux2']
+            taux3 = form.cleaned_data['taux3']
+            bilan.tauxGlycemie = taux1
+            bilan.tauxPressionArterielle = taux2
+            bilan.tauxCholesterol = taux3
+            bilan.description = description
+            bilan.laborantin = request.user
+            bilan.save()
+            consultation.bilanBiologique = bilan
+            consultation.is_bilanBiologique_fait = True
+            consultation.save()
+
+            return render(request, 'faire_bilan.html', {'form': form, 'consultation': consultation, 'graph_generated': False})
+    else:
+        form = BilanForm()
+
+    return render(request, 'faire_bilan.html', {'form': form, 'consultation': consultation, 'graph_generated': False})
+
+def generate_graph_view(request, consultation_id):
+    consultation = Consultation.objects.get(id=consultation_id)
+    taux1 = consultation.bilanBiologique.tauxGlycemie
+    taux2 = consultation.bilanBiologique.tauxPressionArterielle
+    taux3 = consultation.bilanBiologique.tauxCholesterol
+
+    # Generate the graph
+    graph_path = generate_graph(taux1, taux2, taux3, consultation)
+    consultation.grapheBiologique = graph_path
+    consultation.save()
+
+    return render(request, 'graph_page.html', {'graph_url': consultation.grapheBiologique.url})
+
+def generate_graph(taux1, taux2, taux3, consultation):
+    import matplotlib
+    matplotlib.use('Agg')  # Use non-interactive backend
+    import matplotlib.pyplot as plt
+    import io
+    from django.core.files.images import ImageFile
+
+    # Initialize data
+    current_data = [taux1, taux2, taux3]
+    previous_data = []
+
+    # Fetch all consultations belonging to the same DPI
+    consultations = consultation.dpi.consultations.filter(date__lt=consultation.date).order_by('-date')
+
+    # Iterate through consultations to find the earliest with a valid bilanBiologique
+    for previous_consultation in consultations:
+        bilan = previous_consultation.bilanBiologique
+        if bilan and bilan.tauxGlycemie is not None:
+            previous_data = [
+                bilan.tauxGlycemie,
+                bilan.tauxPressionArterielle,
+                bilan.tauxCholesterol
+            ]
+            break  # Stop iterating once a valid consultation is found
+
+    # Generate the graph
+    fig, ax = plt.subplots()
+
+    # Plot the current data
+    ax.bar([1, 2, 3], current_data, label='Nouveau Bilan')
+
+    if previous_data:
+        # Plot the previous data as stacked bars
+        ax.bar([1, 2, 3], previous_data, bottom=current_data, label='Bilan Précédent')
+
+    # Set custom x-axis labels
+    ax.set_xticks([1, 2, 3])
+    ax.set_xticklabels(['Glycémie', 'Pression Artérielle', 'Cholestérol'])
+    ax.set_xlabel('Paramètres Mesurés')  # Title for the x-axis
+
+    # Set labels and titles
+    ax.set_ylabel('Taux')
+    ax.set_title('Comparaison des Bilans')
+    ax.legend()
+
+    # Save the graph to an image file
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    # Save the image to the media directory
+    filename = f'graphesBiologiques/graph_{consultation.id}.png'
+    graph_path = consultation.grapheBiologique.storage.save(filename, ImageFile(buffer))
+
+    # Close the plot
+    plt.close(fig)
+
+    return graph_path
+
+
 
 
 @csrf_exempt

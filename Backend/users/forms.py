@@ -49,4 +49,8 @@ AntecedentFormSet = modelformset_factory(
 
 
 
-  
+class BilanForm(forms.Form):
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 50}), label='Description')
+    taux1 = forms.FloatField(label='Taux 1')
+    taux2 = forms.FloatField(label='Taux 2')
+    taux3 = forms.FloatField(label='Taux 3')

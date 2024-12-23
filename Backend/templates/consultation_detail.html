@@ -4,46 +4,257 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultation Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .antecedent, .antecedant-section, .examen-section {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .antecedent strong, .examen-section strong {
+            color: #333;
+        }
+        .antecedent p, .examen-section p {
+            color: #666;
+        }
+        .antecedent hr, .examen-section hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+        }
+        .antecedant-section label, .examen-section label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        #antecedants-container, #examens-container {
+            margin-top: 20px;
+        }
+        .section button {
+            margin-top: 10px;
+        }
+        hr {
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Consultation Details</h1>
 
     <h2>Consultation on {{ consultation.date }}</h2>
     <p><strong>Patient:</strong> {{ consultation.dpi.patient.user.get_full_name }}</p>
-    <p><strong>Summary:</strong> {{ consultation.resume }}</p>
+    <p><strong>Summary:</strong></p>
+
+    {% if user.role == 'medecin' %}
+    <form action="{% url 'ajouter_resume' consultation.id %}" method="POST">
+        <textarea name="resume" placeholder="{{ consultation.resume }}" rows="5"></textarea>
+        
+        <h2>Antécédents</h2>
+        <div id="antecedants-container">
+            {% for antecedent in consultation.dpi.antecedents.all %}
+            <div class="antecedent">
+                {% if antecedent.is_chirugical %}
+                <strong>Type d'antécédent:</strong> Chirurgical  <br>
+                {% else %}
+                <strong>Type d'antécédent:</strong> Médical <br>
+                {% endif %}
+
+                <strong>Titre:</strong> {{ antecedent.titre }} <br>
+                <strong>Description:</strong> {{ antecedent.description }} <br>
+                <hr>
+            </div>
+            {% empty %}
+            <p>Aucun antécédent trouvé.</p>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <h2>Ajouter Des antécédents</h2>
+            {% csrf_token %}
+            <div id="antecedants-container">
+                <!-- Antécédents sections will be added here -->
+            </div>
+            <button type="button" onclick="ajouterAntecedant()" class="button">Ajouter un nouvel antécédent</button>
+        </div>
+
+        <button type="submit" class="button">Save</button>
+    </form>
+    {% endif %}
 
     <h3>Bilans</h3>
-    
+    {% if user.role == 'medecin' %}
     {% if bilan_biologique %}
-        <p><strong>Biologique Bilan:</strong></p>
-        <ul>
-            <li><strong>Description:</strong> {{ bilan_biologique.description }}</li>
-            <li><strong>Taux Glycémie:</strong> {{ bilan_biologique.tauxGlycemie }}</li>
-            <li><strong>Taux Pression Artérielle:</strong> {{ bilan_biologique.tauxPressionArterielle }}</li>
-            <li><strong>Taux Cholestérol:</strong> {{ bilan_biologique.tauxCholesterol }}</li>
-        </ul>
+    <p><strong>Biologique Bilan:</strong></p>
+    <ul>
+        <li><strong>Laborantin:</strong> {{ bilan_biologique.laborantin }}</li>
+        <li><strong>Description:</strong> {{ bilan_biologique.description }}</li>
+        <li><strong>Taux Glycémie:</strong> {{ bilan_biologique.tauxGlycemie }}</li>
+        <li><strong>Taux Pression Artérielle:</strong> {{ bilan_biologique.tauxPressionArterielle }}</li>
+        <li><strong>Taux Cholestérol:</strong> {{ bilan_biologique.tauxCholesterol }}</li>
+    </ul>
     {% else %}
-        <p>No Biologique Bilan created yet.</p>
-        {% if user.role == 'medecin' %}
-            <form action="{% url 'ajouter_biologique_bilan' consultation.id %}" method="GET">
-                <button type="submit">Demander un Bilan Biologique</button>
-            </form>
-        {% endif %}
+    <p>No Biologique Bilan created yet.</p>
+    <form action="{% url 'ajouter_biologique_bilan' consultation.id %}" method="POST">
+        <button type="submit" class="button">Demander un Bilan Biologique</button>
+    </form>
+    {% endif %}
+    {% else %}
+    {% if user.role == 'laborantin' %}
+    <form action="{% url 'faire_bilan' consultation.id %}" method="POST">
+        <button type="submit" class="button">Faire le Bilan Biologique</button>
+    </form>
+    {% endif %}
     {% endif %}
 
     {% if bilan_radiologique %}
-        <p><strong>Radiologique Bilan:</strong></p>
-        <ul>
-            <li><strong>Radiologist:</strong> {{ bilan_radiologique.radioloque }}</li>
-        </ul>
-    {% else %}
-        <p>No Radiologique Bilan created yet.</p>
-        {% if user.role == 'medecin' %}
-            <form action="{% url 'ajouter_radiologique_bilan' consultation.id %}" method="GET">
-                <button type="submit">Demander un Bilan Radiologique</button>
+    <p><strong>Radiologique Bilan:</strong></p>
+    <ul>
+        {% if user.role == 'radioloque' %}
+        <div class="section">
+            <h2>Ajouter Un Examen Radiologique</h2>
+            <form action="{% url 'ajouter_examen' consultation.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="examens-container">
+                    <!-- Examen Radiologique sections will be added here -->
+                </div>
+                <button type="button" onclick="ajouterTest()" class="button">Ajouter un autre test</button>
+                <button type="submit" class="button">Soumettre</button>
             </form>
+        </div>
+        {% else %}
+        <li><strong>Radiologist:</strong> {{ bilan_radiologique.radioloque }}</li>
+        <h3>Examens Radiologiques :</h3>
+        <ul>
+            {% for examen in bilan_radiologique.examens.all %}
+            <li>
+                <strong>Type:</strong> {{ examen.type }} <br>
+                <strong>Description:</strong> {{ examen.description }} <br>
+                {% if examen.images %}
+                <img src="{{ examen.images.url }}" alt="Examen Image" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+                {% else %}
+                <em>Pas d'image disponible</em>
+                {% endif %}
+            </li>
+            <hr>
+            {% endfor %}
+        </ul>
         {% endif %}
+    </ul>
+    {% else %}
+    <p>No Radiologique Bilan created yet.</p>
+    {% if user.role == 'medecin' %}
+    <form action="{% url 'ajouter_radiologique_bilan' consultation.id %}" method="POST">
+        <button type="submit" class="button">Demander un Bilan Radiologique</button>
+    </form>
+    {% endif %}
     {% endif %}
 
 </body>
 </html>
+
+<script>
+    function ajouterAntecedant() {
+        const container = document.getElementById('antecedants-container');
+
+        // Create a new div for each antecedent to be added
+        const div = document.createElement('div');
+        div.classList.add('antecedant-section');
+
+        div.innerHTML = `
+            <label for="type_antecedant">Type d'antécédent :</label>
+            <select name="type_antecedant[]">
+                <option value="Chirurgical">Chirurgical</option>
+                <option value="Médical">Médical</option>
+            </select>
+            <label for="titre">Titre :</label>
+            <input type="text" name="titre[]" placeholder="Titre de l'antécédent">
+            <label for="description">Description :</label>
+            <textarea name="description[]" placeholder="Décrire l'antécédent" rows="5" style="width: 100%; margin-bottom: 10px;"></textarea>
+            <hr>
+        `;
+
+        // Append the new antecedent section to the container
+        container.appendChild(div);
+    }
+
+    function ajouterTest() {
+        const container = document.getElementById('examens-container');
+
+        // Create a new div for each test to be added
+        const div = document.createElement('div');
+        div.classList.add('examen-section');
+
+        div.innerHTML = `
+            <label for="type_examen">Type d'Examen :</label>
+            <select name="type_examen[]">
+                <option value="radiographie">Radiographie</option>
+                <option value="scanner">Scanner (CT)</option>
+                <option value="irm">IRM</option>
+                <option value="echographie">Échographie</option>
+                <option value="mammographie">Mammographie</option>
+                <option value="angiographie">Angiographie</option>
+                <option value="scintigraphie">Scintigraphie</option>
+                <option value="tep">Tomographie par émission de positons (PET)</option>
+                <option value="radiologie_interventionnelle">Radiologie Interventionnelle</option>
+            </select>
+
+            <label for="compte_rendu">Compte rendu de l'examen :</label>
+            <textarea name="compte_rendu[]" placeholder="Écrire un autre compte rendu" rows="5" style="width: 100%; margin-bottom: 10px;"></textarea>
+            
+            <label for="image">Insérer une image :</label>
+            <input type="file" name="image[]" accept="image/*" style="margin-bottom: 10px;">
+            <hr>
+        `;
+
+        // Append the new exam section to the container
+        container.appendChild(div);
+    }
+</script>

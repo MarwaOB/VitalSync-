@@ -130,7 +130,8 @@ class Biologique(Bilan):
     )
     description = models.TextField()
     tauxGlycemie = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True) 
-    tauxPressionArterielle = models.CharField(max_length=20, null=True, blank=True)  # Blood pressure (e.g., "120/80")
+    #tauxPressionArterielle = models.CharField(max_length=20, null=True, blank=True)  # Blood pressure (e.g., "120/80")
+    tauxPressionArterielle = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)  
     tauxCholesterol = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)  
 
     def __str__(self):
@@ -219,6 +220,9 @@ class Consultation(models.Model):
         blank=True
     )  # One bilanBiologique, but it can be null
 
+    is_bilanBiologique_fait = models.BooleanField(default=False)  # False = not fait, True = fait
+    is_bilanRadiologique_fait = models.BooleanField(default=False)  # False = not fait, True = fait
+
     bilanRadiologique = models.OneToOneField(
         'Radiologique', 
         on_delete=models.SET_NULL, 
@@ -226,6 +230,8 @@ class Consultation(models.Model):
         null=True, 
         blank=True
     )  # One bilanRadiologique, but it can be null
+    grapheBiologique = models.ImageField(upload_to='graphesBiologiques/', blank=True)
+
 
     def clean(self):
         """
