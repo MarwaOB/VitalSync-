@@ -423,11 +423,13 @@ def faire_bilan(request, consultation_id):
             taux1 = form.cleaned_data['taux1']
             taux2 = form.cleaned_data['taux2']
             taux3 = form.cleaned_data['taux3']
+            date = form.cleaned_data['date']
             bilan.tauxGlycemie = taux1
             bilan.tauxPressionArterielle = taux2
             bilan.tauxCholesterol = taux3
             bilan.description = description
             bilan.laborantin = request.user
+            bilan.date=date
             bilan.save()
             consultation.bilanBiologique = bilan
             consultation.is_bilanBiologique_fait = True
@@ -545,7 +547,7 @@ def rechercheDpi_qrcode(request):
             current_user_hospital = request.user.hospital  # Adjust this line based on your model relationships
 
             # Filter DPIs by patient and hospital
-            dpis = Dpi.objects.filter(patient=patient, hospital=current_user_hospital)
+            dpis = Dpi.objects.filter(patient=patient)
 
             if dpis.exists():
                 return render(request, 'medecinShow.html', {'dpis': dpis})

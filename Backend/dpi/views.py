@@ -84,7 +84,7 @@ def ajouter_examen(request, consultation_id):
         if not bilan_radiologique:
             bilan_radiologique = Radiologique.objects.create(
                 radioloque=request.user,
-                date=request.POST.get('date', None)
+                date=request.POST.get('date')
             )
             consultation.bilanRadiologique = bilan_radiologique
             consultation.save()

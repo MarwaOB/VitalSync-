@@ -157,6 +157,8 @@
     {% if bilan_radiologique %}
     {% if user.role == 'radioloque' %}
     <p><strong>Radiologique Bilan:</strong></p>
+    <label for="date">Date </label>
+    <input type="date" id="date" name="date" required>
     <ul>
         <div class="section">
             <h2>Ajouter Un Examen Radiologique</h2>
@@ -251,6 +253,8 @@
 
             <label for="compte_rendu">Compte rendu de l'examen :</label>
             <textarea name="compte_rendu[]" placeholder="Écrire un autre compte rendu" rows="5" style="width: 100%; margin-bottom: 10px;"></textarea>
+            
+            
             
             <label for="image">Insérer une image :</label>
             <input type="file" name="image[]" accept="image/*" style="margin-bottom: 10px;">
