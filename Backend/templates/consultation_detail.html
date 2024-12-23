@@ -155,9 +155,9 @@
     {% endif %}
 
     {% if bilan_radiologique %}
+    {% if user.role == 'radioloque' %}
     <p><strong>Radiologique Bilan:</strong></p>
     <ul>
-        {% if user.role == 'radioloque' %}
         <div class="section">
             <h2>Ajouter Un Examen Radiologique</h2>
             <form action="{% url 'ajouter_examen' consultation.id %}" method="POST" enctype="multipart/form-data">
@@ -169,7 +169,8 @@
                 <button type="submit" class="button">Soumettre</button>
             </form>
         </div>
-        {% else %}
+    {% else %}
+    {% if user.role == 'medecin' %}
         <li><strong>Radiologist:</strong> {{ bilan_radiologique.radioloque }}</li>
         <h3>Examens Radiologiques :</h3>
         <ul>
@@ -187,10 +188,12 @@
             {% endfor %}
         </ul>
         {% endif %}
+
+    {% endif %}
     </ul>
     {% else %}
-    <p>No Radiologique Bilan created yet.</p>
     {% if user.role == 'medecin' %}
+    <p>No Radiologique Bilan created yet.</p>
     <form action="{% url 'ajouter_radiologique_bilan' consultation.id %}" method="POST">
         <button type="submit" class="button">Demander un Bilan Radiologique</button>
     </form>

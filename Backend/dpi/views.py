@@ -72,9 +72,9 @@ def ajouter_biologique_bilan(request, consultation_id):
 def ajouter_examen(request, consultation_id):
     if request.method == 'POST':
         # Récupérer les données envoyées via le formulaire
-        compte_rendu_list = request.POST.getlist('compte_rendu')  # List of compte_rendu fields
-        image_list = request.FILES.getlist('image')  # List of image fields
-        type_examen_list = request.POST.getlist('type_examen')  # List of type_examen fields
+        compte_rendu_list = request.POST.getlist('compte_rendu[]')  # List of compte_rendu fields
+        image_list = request.FILES.getlist('image[]')  # List of image fields
+        type_examen_list = request.POST.getlist('type_examen[]')  # List of type_examen fields
 
         # Récupérer l'objet Consultation correspondant
         consultation = get_object_or_404(Consultation, id=consultation_id)
@@ -146,43 +146,6 @@ def ajouter_diagnostic(request, consultation_id):
     return render(request, 'ajouter_diagnostic.html', {
         'consultation_id': consultation.id,  # Pass the consultation ID to the template
     })
-
-@csrf_exempt
-@login_required
-def ajouter_examen(request, consultation_id):
-    if request.method == 'POST':
-        # Récupérer les données envoyées via le formulaire
-        compte_rendu_list = request.POST.getlist('compte_rendu')  # List of compte_rendu fields
-        image_list = request.FILES.getlist('image')  # List of image fields
-        type_examen_list = request.POST.getlist('type_examen')  # List of type_examen fields
-
-        # Récupérer l'objet Consultation correspondant
-        consultation = get_object_or_404(Consultation, id=consultation_id)
-
-        # Vérifier ou créer le Bilan radiologique associé à la consultation
-        bilan_radiologique = consultation.bilanRadiologique
-        if not bilan_radiologique:
-            bilan_radiologique = Radiologique.objects.create(
-                radioloque=request.user,
-                date=request.POST.get('date', None)
-            )
-            consultation.bilanRadiologique = bilan_radiologique
-            consultation.save()
-
-        bilan_radiologique.radioloque = request.user
-        bilan_radiologique.save()
-
-        # Créer un nouvel objet Examen pour chaque examen dans les données
-        for compte_rendu, image, type_examen in zip(compte_rendu_list, image_list, type_examen_list):
-            Examen.objects.create(
-                type=type_examen,
-                description=compte_rendu,
-                images=image,
-                bilan_radiologique=bilan_radiologique
-            )
-
-        # Redirection vers la page des détails de la consultation (ou du DPI)
-        return redirect('consultation_detail', consultation_id=consultation.id)
 
 
 @csrf_exempt
