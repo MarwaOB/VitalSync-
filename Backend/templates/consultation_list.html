@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation List</title>
+</head>
+<body>
+    <h1>Consultation List</h1>
+    <ul>
+        {% for consultation in consultations %}
+            <li>
+                <a href="{% url 'consultation_detail' consultation.id %}">
+                    Consultation on {{ consultation.date }} for {{ consultation.dpi.patient.user.get_full_name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

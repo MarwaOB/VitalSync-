@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+:root {
+    --colorVert1: #05685E;
+    --colorVert2: #22797B;
+    --colorNavText: #6A727A;
+
+    --linear-grad: linear-gradient(to right, #05685E, #0ACEBA);
+
+    --grad-clr1: #141E30;
+    --grad-clr2: #243B55;
+
+}

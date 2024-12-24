@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faire le Bilan</title>
+</head>
+<body>
+    <h1>Faire le Bilan pour {{ consultation.dpi.patient.user.first_name }} {{ consultation.dpi.patient.user.last_name }}</h1>
+    
+    {% if not form.is_valid %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Soumettre</button>
+    </form>
+    {% endif %}
+
+    <!-- Add a button for generating the graph -->
+    {% if form.is_valid %}
+    <form action="{% url 'generate_graph' consultation.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button">Générer le Graphique</button>
+    </form>
+    {% endif %}
+    
+</body>
+</html>

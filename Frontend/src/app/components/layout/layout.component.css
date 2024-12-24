@@ -1,0 +1,37 @@
+/* layout.component.css */
+
+/* Style the header to stay on top */
+app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure it's on top of the content */
+  }
+  
+  /* The main container will take full height of the viewport */
+  .main-container {
+    display: flex;
+    margin-top: 88px; /* Adjust to the height of the header */
+    height: 100vh;
+  }
+  
+  /* The menu should start below the header */
+  app-menu {
+    width: 250px;
+    height: calc(100vh - 88px); /* Subtract header height */
+    position: fixed;
+    top: 88px; /* Start just below the header */
+    left: 0;
+    background-color: #2c3e50;
+    z-index: 999; /* Ensure it's under the header */
+  }
+  
+  /* Content area will take the remaining width */
+  .content {
+    margin-left: 250px; /* Adjust this to the width of the menu */
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto; /* To allow scrolling if content exceeds screen size */
+  }
+  

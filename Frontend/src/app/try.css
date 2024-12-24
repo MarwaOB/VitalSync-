@@ -1,0 +1,404 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+/* a blue color as a generic focus style */
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+a {
+  text-decoration: none;
+}
+:root {
+    --variable-collection-color1: rgba(5, 104, 94, 1);
+    --variable-collection-color2: rgba(106, 114, 122, 1);
+    --variable-collection-color3: rgba(198, 218, 217, 1);
+    --variable-collection-color4: rgba(34, 121, 123, 1);
+  }
+  .box {
+    width: 256px;
+    height: 936px;
+  }
+  
+  .box .rectangle {
+    position: fixed;
+    width: 256px;
+    height: 936px;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-color: #eff0f2;
+  }
+  .menu-logout,
+  .menu-logout * {
+    box-sizing: border-box;
+  }
+  .menu-logout {
+    width: 205px;
+    height: 876px;
+    position: relative;
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 205px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+  .frame-427320668 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .frame-427320667 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .profile {
+    background: #ffffff;
+    padding: 12px 16px 12px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .frame {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .layer-2 {
+    height: auto;
+    position: absolute;
+    left: 3.75px;
+    top: 2.5px;
+    overflow: visible;
+  }
+  .frame-427319864 {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 120px;
+    position: relative;
+  }
+  .profile2 {
+    color: var(--nav-text, #6a727a);
+    text-align: left;
+    font-family: var(
+      --ubuntu-14-regular-font-family,
+      "Ubuntu-Regular",
+      sans-serif
+    );
+    font-size: var(--ubuntu-14-regular-font-size, 14px);
+    line-height: var(--ubuntu-14-regular-line-height, 160%);
+    font-weight: var(--ubuntu-14-regular-font-weight, 400);
+    position: relative;
+    width: 120px;
+  }
+  .frame-427320669 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .dashboard {
+    background: #ffffff;
+    padding: 12px 16px 12px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .frame-4273198642 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .frame-427319867 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .component-6-dashboard {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+  .vuesax-linear-element-3 {
+    height: auto;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow: visible;
+  }
+  .home {
+    color: var(--nav-text, #6a727a);
+    text-align: left;
+    font-family: var(
+      --ubuntu-14-regular-font-family,
+      "Ubuntu-Regular",
+      sans-serif
+    );
+    font-size: var(--ubuntu-14-regular-font-size, 14px);
+    line-height: var(--ubuntu-14-regular-line-height, 160%);
+    font-weight: var(--ubuntu-14-regular-font-weight, 400);
+    position: relative;
+    width: 120px;
+  }
+  .frame-427320670 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .layer-22 {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .icons {
+    height: auto;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow: visible;
+  }
+  .patients {
+    color: var(--nav-text, #6a727a);
+    text-align: left;
+    font-family: var(
+      --ubuntu-14-regular-font-family,
+      "Ubuntu-Regular",
+      sans-serif
+    );
+    font-size: var(--ubuntu-14-regular-font-size, 14px);
+    line-height: var(--ubuntu-14-regular-line-height, 160%);
+    font-weight: var(--ubuntu-14-regular-font-weight, 400);
+    position: relative;
+    width: 120px;
+  }
+  .frame-427320671 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .icons2 {
+    height: auto;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow: visible;
+  }
+  .frame-4273198643 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 146px;
+    position: relative;
+  }
+  .medecins {
+    color: var(--nav-text, #6a727a);
+    text-align: left;
+    font-family: var(
+      --ubuntu-14-regular-font-family,
+      "Ubuntu-Regular",
+      sans-serif
+    );
+    font-size: var(--ubuntu-14-regular-font-size, 14px);
+    line-height: var(--ubuntu-14-regular-line-height, 160%);
+    font-weight: var(--ubuntu-14-regular-font-weight, 400);
+    position: relative;
+    width: 157px;
+  }
+  .frame-427319868 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    position: relative;
+  }
+  .frame-427320672 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .icons3 {
+    height: auto;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow: visible;
+  }
+  .infermiers {
+    color: var(--nav-text, #6a727a);
+    text-align: left;
+    font-family: var(
+      --ubuntu-14-regular-font-family,
+      "Ubuntu-Regular",
+      sans-serif
+    );
+    font-size: var(--ubuntu-14-regular-font-size, 14px);
+    line-height: var(--ubuntu-14-regular-line-height, 160%);
+    font-weight: var(--ubuntu-14-regular-font-weight, 400);
+    position: relative;
+    width: 157px;
+  }
+  .frame-427319872 {
+    border-style: solid;
+    border-color: var(--stroke, #eff0f2);
+    border-width: 1px 0px 0px 0px;
+    padding: 32px 12px 32px 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 115px;
+    position: absolute;
+    left: 45px;
+    top: 790px;
+  }
+  .frame-4273198644 {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .vuesax-linear-logout {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+  .vuesax-linear-logout2 {
+    height: auto;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow: visible;
+  }
+  .log-out {
+    color: #05685e;
+    text-align: left;
+    font-family: var(
+      --ubuntu-14-regular-font-family,
+      "Ubuntu-Regular",
+      sans-serif
+    );
+    font-size: var(--ubuntu-14-regular-font-size, 14px);
+    line-height: var(--ubuntu-14-regular-line-height, 160%);
+    font-weight: var(--ubuntu-14-regular-font-weight, 400);
+    position: relative;
+    width: 128px;
+  }
+  .dashboard2 {
+    background: #ffffff;
+    padding: 12px 16px 12px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 205px;
+    position: absolute;
+    left: 0px;
+    top: 290px;
+  }
+  .clip-path-group {
+    flex-shrink: 0;
+    width: 19.85px;
+    height: 20px;
+    position: relative;
+    overflow: visible;
+  }
+  .demande-certificats {
+    color: var(--nav-text, #6a727a);
+    text-align: left;
+    font-family: var(
+      --ubuntu-14-regular-font-family,
+      "Ubuntu-Regular",
+      sans-serif
+    );
+    font-size: var(--ubuntu-14-regular-font-size, 14px);
+    line-height: var(--ubuntu-14-regular-line-height, 160%);
+    font-weight: var(--ubuntu-14-regular-font-weight, 400);
+    position: relative;
+    width: 157px;
+  }
+  
