@@ -200,7 +200,7 @@ class Medicament(models.Model):
     # Dose totale prescrite
     dose_prescrite = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True)
     # Unité de mesure (mg, ml, etc.)
-    unite = models.CharField(max_length=10,null=True, blank=True)
+    unite = models.CharField(max_length=20,null=True, blank=True)
     # Mode d'administration
     mode_administration = models.CharField(max_length=50, null=True, blank=True)
     #ajouter une observation , indication, retriction 

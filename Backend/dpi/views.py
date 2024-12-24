@@ -20,6 +20,7 @@ from reportlab.lib.pagesizes import A5
 
 
 
+
 @login_required
 
 def ajouter_diagnostic(request, consultation_id):
@@ -153,5 +154,3 @@ def render_pdf_view(request, consultation_id,diagnostic_id):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
-
-    

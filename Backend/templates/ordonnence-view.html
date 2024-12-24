@@ -63,7 +63,8 @@
     <span  class="right"> Age : {{age}} ans</span>
 
     
-    
+          {% load custom_filters %}
+
         <p>Date: {{ consultation.date }}</p>
         <h1 style="text-align: center;">Ordonnance</h1>
         <!-- Medicaments List -->
@@ -73,11 +74,22 @@
             {% for medicament in medicaments %}
             <table style="width: 100%; border: none;">
                 <tr>
-                    <td style="width: 90%;"> <strong>{{ medicament.nom }}</strong>  {{ medicament.dose }} {{medicament.unite }} {{ medicament.frequence }} fois par jours  pendant {{ medicament.duree }} jours en voie {{ medicament.mode_administration }} {% if medicament.observation %} ({{medicament.observation}})
-                        {% endif %}</td>
+                    <td style="width: 90%;"> <strong>{{ medicament.nom }}</strong>  
+                        {{ medicament.dose | format_dose }} 
+                        {{ medicament.unite }} 
+                        {{ medicament.frequence }} fois par jours pendant 
+                        {{ medicament.duree }} jours 
+                        {% if  medicament.mode_administration == 'PO' %}
+                         per os
+                        {% else %}
+                        par voie {{ medicament.mode_administration }}  
+                        {% endif %}
+                        {% if medicament.observation %} 
+                            ({{ medicament.observation }})
+                        {% endif %}
+                    </td>
                     <td style="text-align: right;"><strong>Qte:</strong>{{ medicament.qte }}</td>
                 </tr>
-           
             </table>
             
             <br>
