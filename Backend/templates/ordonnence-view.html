@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordonnance_{{patient.user.NSS}}_{{consultation.id}}_view</title>
+    <style>
+        @page {
+            size: A5 ; /* Orientation paysage */
+            margin: 10mm; /* Marges pour l'impression */
+        }
+        body {
+
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+            line-height: 1.5;
+        }
+        h1 {
+            text-align: center;
+        }
+        .header-row {
+            display: flex;
+            justify-content: space-between; /* Aligne à gauche et à droite */
+            align-items: center; /* Aligne verticalement */
+            margin-bottom: 10px;
+        }
+
+        .header-row h3 {
+            margin: 0; /* Supprime les marges par défaut */
+        }
+
+        .left {
+            text-align: left; /* Optionnel */
+        }
+
+        .right {
+            text-align: right; /* Optionnel */
+        }
+        .medicament-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+        .medicament-row span {
+            flex: 1;
+        }
+        
+
+    </style>
+</head>
+<body >
+    
+    <!-- Patient Details -->
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="text-align: left;"><strong>Dr. {{ dpi.medecin.first_name }} {{ dpi.medecin.last_name }}</strong></td>
+            <td style="text-align: right;">Patient: {{ patient.user.first_name }} {{ patient.user.last_name }}</td>
+
+        </tr>
+
+    </table>
+    <span  class="right"> Age : {{age}} ans</span>
+
+    
+    
+        <p>Date: {{ consultation.date }}</p>
+        <h1 style="text-align: center;">Ordonnance</h1>
+        <!-- Medicaments List -->
+       
+        {% if medicaments %}
+        <div>
+            {% for medicament in medicaments %}
+            <table style="width: 100%; border: none;">
+                <tr>
+                    <td style="width: 90%;"> <strong>{{ medicament.nom }}</strong>  {{ medicament.dose }} {{medicament.unite }} {{ medicament.frequence }} fois par jours  pendant {{ medicament.duree }} jours en voie {{ medicament.mode_administration }} {% if medicament.observation %} ({{medicament.observation}})
+                        {% endif %}</td>
+                    <td style="text-align: right;"><strong>Qte:</strong>{{ medicament.qte }}</td>
+                </tr>
+           
+            </table>
+            
+            <br>
+            {% endfor %}
+
+           
+        </div>
+        {% else %}
+        <p>No medicaments found for this ordonnance.</p>
+        {% endif %}
+
+        <div>
+        {{ordonnance.observation}}
+        </div>
+</body>
+</html>
+

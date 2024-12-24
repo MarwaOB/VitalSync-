@@ -4860,3 +4860,1830 @@ Traceback (most recent call last):
     medicament_formset = MedicamentFormSet(queryset=Medicament.objects.none())
 NameError: name 'Medicament' is not defined
 "GET /creer_ord/ HTTP/1.1" 500 61664
+Internal Server Error: /consultation/4/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 92, in ajouter_diagnostic
+    return render(request, 'ajouter_ord.html', {
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ajouter_ord.html
+"GET /consultation/4/diagnostic/ HTTP/1.1" 500 80993
+Internal Server Error: /consultation/5/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 49, in ajouter_diagnostic
+    return render(request, 'ajouter_diagnostic', {
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ajouter_diagnostic
+"GET /consultation/5/diagnostic/ HTTP/1.1" 500 81903
+Internal Server Error: /medecin_Home/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 260, in medecin_Home
+    return render(request, 'medecinHome.html')
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'creer_ord' not found. 'creer_ord' is not a valid view function or pattern name.
+"GET /medecin_Home/ HTTP/1.1" 500 122065
+Internal Server Error: /consultation/1/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 50, in ajouter_diagnostic
+    return render(request, 'creer_ord.html', {
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_diagnostic' with arguments '('',)' not found. 1 pattern(s) tried: ['consultation/(?P<consultation_id>[0-9]+)/diagnostic/\\Z']
+"GET /consultation/1/diagnostic/ HTTP/1.1" 500 121617
+Internal Server Error: /consultation/1/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 50, in ajouter_diagnostic
+    return render(request, 'creer_ord.html', {
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_diagnostic' with arguments '('',)' not found. 1 pattern(s) tried: ['consultation/(?P<consultation_id>[0-9]+)/diagnostic/\\Z']
+"GET /consultation/1/diagnostic/ HTTP/1.1" 500 121617
+Internal Server Error: /consultation/1/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 50, in ajouter_diagnostic
+    return render(request, 'creer_ord.html', {
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_diagnostic' with arguments '('',)' not found. 1 pattern(s) tried: ['consultation/(?P<consultation_id>[0-9]+)/diagnostic/\\Z']
+"GET /consultation/1/diagnostic/ HTTP/1.1" 500 121771
+Internal Server Error: /creerDPI/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 204, in creerDPI
+    dpi.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/models.py", line 92, in save
+    email.send()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 136, in send_messages
+    sent = self._send(message)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 155, in _send
+    self.connection.sendmail(
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/smtplib.py", line 887, in sendmail
+    raise SMTPSenderRefused(code, resp, from_addr)
+smtplib.SMTPSenderRefused: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/mail/?p=WantAuthError 5b1f17b1804b1-4364a37697asm216095625e9.0 - gsmtp', 'mm_benyammi@esi.dz')
+"POST /creerDPI/ HTTP/1.1" 500 97219
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 93, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 75596
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 93, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 75596
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 93, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 74440
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 93, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 75801
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 93, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 75801
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 81, in save
+    frequence=int(medicament_fields[3]),
+ValueError: invalid literal for int() with base 10: '0.04'
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 75344
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    dosePrevues=int(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.04'
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 75256
+Internal Server Error: /consultation/2/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    dosePrevues=int(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.04'
+"POST /consultation/2/diagnostic/ HTTP/1.1" 500 75256
+Internal Server Error: /consultation/3/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    dosePrevues=int(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.04'
+"POST /consultation/3/diagnostic/ HTTP/1.1" 500 75404
+Internal Server Error: /consultation/3/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    dosePrevues=float(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.04'
+"POST /consultation/3/diagnostic/ HTTP/1.1" 500 76262
+Internal Server Error: /consultation/3/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    dosePrevues=float(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.04'
+"POST /consultation/3/diagnostic/ HTTP/1.1" 500 77117
+Internal Server Error: /consultation/3/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    dosePrevues=float(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.04'
+"POST /consultation/3/diagnostic/ HTTP/1.1" 500 77108
+Internal Server Error: /consultation/4/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    dosePrevues=float(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.02'
+"POST /consultation/4/diagnostic/ HTTP/1.1" 500 75262
+Internal Server Error: /consultation/4/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 77, in save
+    frequence = int(medicament_fields[3])  # Convertir frequence en entier
+ValueError: invalid literal for int() with base 10: '0.02'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 80, in save
+    raise ValueError(f"Erreur lors de la conversion des données : {e}")
+ValueError: Erreur lors de la conversion des données : invalid literal for int() with base 10: '0.02'
+"POST /consultation/4/diagnostic/ HTTP/1.1" 500 81553
+Internal Server Error: /consultation/4/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 83, in save
+    dose=decimal(medicament_fields[3]),
+NameError: name 'decimal' is not defined
+"POST /consultation/4/diagnostic/ HTTP/1.1" 500 75225
+Internal Server Error: /consultation/4/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 88, in save
+    dosePrevues=Decimal(medicament_fields[1]) * int(medicament_fields[3]) * float(medicament_fields[2]),
+ValueError: invalid literal for int() with base 10: '0.02'
+"POST /consultation/4/diagnostic/ HTTP/1.1" 500 75268
+Internal Server Error: /consultation/5/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1264, "Out of range value for column 'dosePrevues' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 91, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1264, "Out of range value for column 'dosePrevues' at row 1")
+"POST /consultation/5/diagnostic/ HTTP/1.1" 500 183383
+Internal Server Error: /consultation/8/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 86, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1835, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1758, in as_sql
+    value_rows = [
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1759, in <listcomp>
+    [
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1760, in <listcomp>
+    self.prepare_value(field, self.pre_save_val(field, obj))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1699, in prepare_value
+    return field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 1008, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 1001, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 1184, in get_prep_value
+    return self.to_python(value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 1174, in to_python
+    raise exceptions.ValidationError(
+django.core.exceptions.ValidationError: ['“frf” value must be either True or False.']
+"POST /consultation/8/diagnostic/ HTTP/1.1" 500 148164
+Internal Server Error: /consultation/10/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 89, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/10/diagnostic/ HTTP/1.1" 500 74745
+Internal Server Error: /consultation/10/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 89, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/10/diagnostic/ HTTP/1.1" 500 74745
+Internal Server Error: /consultation/11/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 75, in save
+    valid_modes = dict(MODE_ADMINISTRATION_CHOICES)  # Transformer la liste de choix en dictionnaire
+NameError: name 'MODE_ADMINISTRATION_CHOICES' is not defined
+"POST /consultation/11/diagnostic/ HTTP/1.1" 500 75651
+Internal Server Error: /consultation/12/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 66, in save
+    mode_administration=medicament_fields[6] if medicament_fields[5] == 'true' else none,
+NameError: name 'none' is not defined
+"POST /consultation/12/diagnostic/ HTTP/1.1" 500 78383
+Internal Server Error: /consultation/15/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1406, "Data too long for column 'unite' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 79, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1406, "Data too long for column 'unite' at row 1")
+"POST /consultation/15/diagnostic/ HTTP/1.1" 500 184172
+Internal Server Error: /consultation/19/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1406, "Data too long for column 'unite' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 76, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1406, "Data too long for column 'unite' at row 1")
+"POST /consultation/19/diagnostic/ HTTP/1.1" 500 183400
+Internal Server Error: /consultation/19/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1406, "Data too long for column 'unite' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 76, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1406, "Data too long for column 'unite' at row 1")
+"POST /consultation/19/diagnostic/ HTTP/1.1" 500 183400
+Internal Server Error: /consultation/19/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1406, "Data too long for column 'unite' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 76, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1406, "Data too long for column 'unite' at row 1")
+"POST /consultation/19/diagnostic/ HTTP/1.1" 500 183400
+Internal Server Error: /consultation/19/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1406, "Data too long for column 'unite' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 76, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1406, "Data too long for column 'unite' at row 1")
+"POST /consultation/19/diagnostic/ HTTP/1.1" 500 183886
+Internal Server Error: /consultation/19/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.DataError: (1406, "Data too long for column 'unite' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 76, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.DataError: (1406, "Data too long for column 'unite' at row 1")
+"POST /consultation/19/diagnostic/ HTTP/1.1" 500 183886
+Internal Server Error: /creerDPI/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 204, in creerDPI
+    dpi.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/models.py", line 92, in save
+    email.send()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 136, in send_messages
+    sent = self._send(message)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 155, in _send
+    self.connection.sendmail(
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/smtplib.py", line 887, in sendmail
+    raise SMTPSenderRefused(code, resp, from_addr)
+smtplib.SMTPSenderRefused: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/mail/?p=WantAuthError 5b1f17b1804b1-4364b0532a6sm191992805e9.1 - gsmtp', 'mm_benyammi@esi.dz')
+"POST /creerDPI/ HTTP/1.1" 500 97733
+Internal Server Error: /consultation/24/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1048, "Column 'duree' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 54, in save
+    ordonnance.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1048, "Column 'duree' cannot be null")
+"POST /consultation/24/diagnostic/ HTTP/1.1" 500 173715
+Internal Server Error: /consultation/24/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1048, "Column 'duree' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 55, in save
+    ordonnance.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/backends/mysql/base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/MySQLdb/connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1048, "Column 'duree' cannot be null")
+"POST /consultation/24/diagnostic/ HTTP/1.1" 500 173734
+Internal Server Error: /consultation/24/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 60, in save
+    if duree_medicament > max_duree:
+UnboundLocalError: local variable 'max_duree' referenced before assignment
+"POST /consultation/24/diagnostic/ HTTP/1.1" 500 75024
+Internal Server Error: /consultation/24/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 61, in save
+    if duree_medicament > max_duree:
+UnboundLocalError: local variable 'max_duree' referenced before assignment
+"POST /consultation/24/diagnostic/ HTTP/1.1" 500 74932
+Internal Server Error: /consultation/24/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 78, in save
+    medicament.save()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 847, in save
+    self._prepare_related_fields_for_save(operation_name="save")
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/base.py", line 1233, in _prepare_related_fields_for_save
+    raise ValueError(
+ValueError: save() prohibited to prevent data loss due to unsaved related object 'ordonnance'.
+"POST /consultation/24/diagnostic/ HTTP/1.1" 500 84607
+Internal Server Error: /consultation/24/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 63, in save
+    if duree_medicament > max_duree:
+UnboundLocalError: local variable 'max_duree' referenced before assignment
+"POST /consultation/24/diagnostic/ HTTP/1.1" 500 74955
+Internal Server Error: /consultation/25/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 35, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 63, in save
+    duree_medicament = int(medicament_fields[1])
+ValueError: invalid literal for int() with base 10: 'k'
+"POST /consultation/25/diagnostic/ HTTP/1.1" 500 78204
+Internal Server Error: /consultation/26/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 45, in ajouter_diagnostic
+    return redirect('ord-view')  # Redirection après l'ajout du diagnostic
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ord-view' with no arguments not found. 1 pattern(s) tried: ['consultation/(?P<consultation_id>[0-9]+)/diagnostic/ordonnance\\-view\\Z']
+"POST /consultation/26/diagnostic/ HTTP/1.1" 500 90333
+Internal Server Error: /consultation/26/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 46, in ajouter_diagnostic
+    return render(request, 'ord-view', {
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ord-view
+"POST /consultation/26/diagnostic/ HTTP/1.1" 500 84785
+Internal Server Error: /consultation/26/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 46, in ajouter_diagnostic
+    return render(request, 'ord-view', {
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ord-view
+"POST /consultation/26/diagnostic/ HTTP/1.1" 500 84858
+Internal Server Error: /consultation/26/24/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 113, in render_pdf_view
+    template = get_template(template_path)
+NameError: name 'get_template' is not defined
+"GET /consultation/26/24/ordonnance-view HTTP/1.1" 500 63867
+Internal Server Error: /consultation/26/24/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 118, in render_pdf_view
+    pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
+NameError: name 'pisa' is not defined
+"GET /consultation/26/24/ordonnance-view HTTP/1.1" 500 64439
+Internal Server Error: /consultation/26/24/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 119, in render_pdf_view
+    pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
+NameError: name 'link_callback' is not defined
+"GET /consultation/26/24/ordonnance-view HTTP/1.1" 500 64475
+Internal Server Error: /consultation/26/26/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 118, in render_pdf_view
+    ordonnances = Ordonnance.objects.filter(diagnostic=diagnostic)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1768, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'diagnostic' into field. Choices are: duree, id, is_valid, meds, observation, ordonnance
+"GET /consultation/26/26/ordonnance-view HTTP/1.1" 500 109788
+Internal Server Error: /consultation/26/27/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 125, in render_pdf_view
+    medicaments = Medicament.objects.filter(ordonnance = ordonnance.id)
+NameError: name 'ordonnance' is not defined
+"GET /consultation/26/27/ordonnance-view HTTP/1.1" 500 63501
+Internal Server Error: /consultation/26/28/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 125, in render_pdf_view
+    medicaments = Medicament.objects.filter(ordonnance = ordonnances.id)
+AttributeError: 'QuerySet' object has no attribute 'id'
+"GET /consultation/26/28/ordonnance-view HTTP/1.1" 500 63600
+Internal Server Error: /consultation/26/28/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 133, in render_pdf_view
+    'ordonnances': ordonnances,
+NameError: name 'ordonnances' is not defined
+"GET /consultation/26/28/ordonnance-view HTTP/1.1" 500 63809
+Internal Server Error: /consultation/26/28/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 115, in render_pdf_view
+    patient = get_object_or_404(Users.Patient, id=dpi.patient.id)  # Ensure you're getting the right Patient
+NameError: name 'Users' is not defined
+"GET /consultation/26/28/ordonnance-view HTTP/1.1" 500 63081
+Internal Server Error: /consultation/26/28/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2123, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'Patient'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 115, in render_pdf_view
+    patient = get_object_or_404(Patient, id=dpi.patient)  # Ensure you're getting the right Patient
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+TypeError: Field 'id' expected a number but got <Patient: Patient: r'r rr'', Hospitalization Periods: >.
+"GET /consultation/26/28/ordonnance-view HTTP/1.1" 500 128686
+Internal Server Error: /consultation/26/28/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2123, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'Patient'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 115, in render_pdf_view
+    patient = get_object_or_404(Patient, id=dpi.patient)  # Ensure you're getting the right Patient
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+TypeError: Field 'id' expected a number but got <Patient: Patient: r'r rr'', Hospitalization Periods: >.
+"GET /consultation/26/28/ordonnance-view HTTP/1.1" 500 128686
+Internal Server Error: /consultation/26/28/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2123, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'Patient'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 115, in render_pdf_view
+    patient = get_object_or_404(Patient, id=dpi.patient)  # Ensure you're getting the right Patient
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+TypeError: Field 'id' expected a number but got <Patient: Patient: r'r rr'', Hospitalization Periods: >.
+"GET /consultation/26/28/ordonnance-view HTTP/1.1" 500 128686
+Internal Server Error: /consultation/26/28/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2123, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'Dpi'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 112, in render_pdf_view
+    dpi = get_object_or_404(Dpi, id=consultation.dpi)  # Get the actual Dpi object
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+TypeError: Field 'id' expected a number but got <Dpi: Dpi object (1)>.
+"GET /consultation/26/28/ordonnance-view HTTP/1.1" 500 126643
+Internal Server Error: /consultation/26/diagnostic/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 39, in ajouter_diagnostic
+    ordonnance = form.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/forms.py", line 89, in save
+    raise ValueError("Les données du médicament sont mal formatées.")
+ValueError: Les données du médicament sont mal formatées.
+"POST /consultation/26/diagnostic/ HTTP/1.1" 500 76988
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 128, in render_pdf_view
+    age = datetime.now.year - patient.user.date_de_naissance
+AttributeError: 'builtin_function_or_method' object has no attribute 'year'
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 63857
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 129, in render_pdf_view
+    age = aujourdhui.year - date_de_naissance.year
+NameError: name 'date_de_naissance' is not defined
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 63736
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 139, in render_pdf_view
+    'age': ge,
+NameError: name 'ge' is not defined
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 64177
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 122, in render_pdf_view
+    medecin = dpi.get_object_or_404(Users,id = dpi.medecin)
+AttributeError: 'Dpi' object has no attribute 'get_object_or_404'
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 63504
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 122, in render_pdf_view
+    medecin = get_object_or_404(Users,id = dpi.medecin)
+NameError: name 'Users' is not defined
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 63338
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 122, in render_pdf_view
+    medecin = get_object_or_404(User,id = dpi.medecin)
+NameError: name 'User' is not defined
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 63332
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 122, in render_pdf_view
+    medecin = get_object_or_404(users,id = dpi.medecin)
+NameError: name 'users' is not defined
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 63338
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2123, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'CustomUser'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 122, in render_pdf_view
+    medecin = get_object_or_404(CustomUser,id = dpi.medecin)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+TypeError: Field 'id' expected a number but got <CustomUser: medecin (medecin)>.
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 128899
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 152, in render_pdf_view
+    html_content, dest=response, default_page_size=A4
+NameError: name 'html_content' is not defined
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 68579
+Internal Server Error: /consultation/24/33/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 151, in render_pdf_view
+    pisa_status = pisa.CreatePDF(html, dest=response, default_page_size=A4)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/document.py", line 139, in pisaDocument
+    context = pisaStory(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/document.py", line 75, in pisaStory
+    pisaParser(src, context, default_css, xhtml, encoding, xml_output)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/parser.py", line 823, in pisaParser
+    context.parseCSS()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/context.py", line 690, in parseCSS
+    self.css = self.cssParser.parse(self.cssText)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/w3c/cssParser.py", line 458, in parse
+    src, stylesheet = self._parseStylesheet(src)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/w3c/cssParser.py", line 566, in _parseStylesheet
+    src, ruleset = self._parseRuleset(src)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/w3c/cssParser.py", line 919, in _parseRuleset
+    src, properties = self._parseDeclarationGroup(src.lstrip())
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/xhtml2pdf/w3c/cssParser.py", line 1120, in _parseDeclarationGroup
+    raise self.ParseError(msg, src, ctxsrc)
+xhtml2pdf.w3c.cssParser.CSSParseError: Declaration group closing '}' not found:: ('{\n\n            font-family: Arial, sans-serif;\n            font-size: 12pt;\n            line-height: 1.5;\n            body ', '{\n        width: 210')
+"GET /consultation/24/33/ordonnance-view HTTP/1.1" 500 129172
+Internal Server Error: /creerDPI/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/users/views.py", line 204, in creerDPI
+    dpi.save()
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/models.py", line 95, in save
+    email.send()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 136, in send_messages
+    sent = self._send(message)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/mail/backends/smtp.py", line 155, in _send
+    self.connection.sendmail(
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/smtplib.py", line 887, in sendmail
+    raise SMTPSenderRefused(code, resp, from_addr)
+smtplib.SMTPSenderRefused: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/mail/?p=WantAuthError ffacd0b85a97d-38a1c84705esm12657067f8f.44 - gsmtp', 'mm_benyammi@esi.dz')
+"POST /creerDPI/ HTTP/1.1" 500 97795
+Internal Server Error: /consultation/28/45/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+KeyError: '==medicament.dose.to_integral_value()%'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 148, in render_pdf_view
+    template = get_template(template_path)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 894, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/smartif.py", line 182, in translate_token
+    return self.create_var(token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 897, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '==medicament.dose.to_integral_value()%' from '==medicament.dose.to_integral_value()%'
+"GET /consultation/28/45/ordonnance-view HTTP/1.1" 500 211568
+Internal Server Error: /consultation/28/45/ordonnance-view
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+KeyError: '==medicament.dose.to_integral_value()%'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 148, in render_pdf_view
+    template = get_template(template_path)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 894, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/smartif.py", line 182, in translate_token
+    return self.create_var(token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 897, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '==medicament.dose.to_integral_value()%' from '==medicament.dose.to_integral_value()%'
+"GET /consultation/28/45/ordonnance-view HTTP/1.1" 500 210600

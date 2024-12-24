@@ -31,10 +31,22 @@
         <p>Veuillez choisir une option pour la consultation :</p>
         <label for="type">Type</label>
         <select id="type" name="type" required>
-            <option value="Diagnostic">Diagnostic</option>
+            <option value="Diagnostic" >Diagnostic</option>
             <option value="Bilan">Bilan</option>
         </select>
+        
         <button type="submit" class="button">Ajouter</button>
     </form>    
 </body>
 </html>
+<script>
+    // Récupérer l'élément input date
+    const dateInput = document.getElementById('date');
+
+    // Obtenir la date d'aujourd'hui au format YYYY-MM-DD
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+
+    // Définir la date par défaut sur l'input
+    dateInput.value = formattedDate;
+</script>

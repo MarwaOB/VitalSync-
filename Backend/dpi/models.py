@@ -7,6 +7,9 @@ import qrcode
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django. template. loader import get_template 
+from xhtml2pdf import pisa
+
 
 
 class Antecedent(models.Model):
@@ -177,23 +180,51 @@ def __str__(self):
 
 class Ordonnance(models.Model):
     
-    duree = models.IntegerField(help_text="Duration of the prescription in days")
+    duree = models.IntegerField( null=True, blank=True,help_text="Duration of the prescription in days")
     is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
+    observation = models.TextField(null=True, blank=True)
 
 def __str__(self):
         return f"Ordonnance for Diagnostic " 
 
 class Medicament(models.Model):
+    
+    # Nom du médicament
     nom = models.CharField(max_length=150)
-    duree = models.IntegerField(help_text="Duration of the prescription in days")
-    dose = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
-    dosePrise = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
-    dosePrevues = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
+    # Durée du traitement en jours
+    duree = models.IntegerField()
+    # Fréquence de prise (ex : 3 fois/jour)
+    frequence = models.IntegerField(null=True, blank=True)  # Autorise les valeurs nulles
+    # Dose par prise
+    dose = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    # Dose totale prescrite
+    dose_prescrite = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True)
+    # Unité de mesure (mg, ml, etc.)
+    unite = models.CharField(max_length=10,null=True, blank=True)
+    # Mode d'administration
+    mode_administration = models.CharField(max_length=50, null=True, blank=True)
+    #ajouter une observation , indication, retriction 
+    observation = models.TextField(null=True, blank=True)
+    # Dose prise à chaque prise
+    dosePrise = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    # Dose totale prévue pour le traitement
+    dosePrevues = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+     # la quantité de med
+    qte = models.IntegerField(default = 1)
+
+    # Référence vers l'ordonnance
     ordonnance = models.ForeignKey(
         'Ordonnance',
         on_delete=models.CASCADE,
-        related_name='meds'  # Unique related_name
-    ) 
+        related_name='meds'  # Nom unique pour la relation inverse
+    )
+
+    def clean(self):
+        if self.duree < 0:
+            raise ValidationError("La durée doit être positive.")
+        if self.dose and self.dose < 0:
+            raise ValidationError("La dose doit être positive.")
+
 
 class Consultation(models.Model):
     date = models.DateField(null=True, blank=True)  # Allow null and blank values
