@@ -1,0 +1,251 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+/* a blue color as a generic focus style */
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+a {
+  text-decoration: none;
+}
+:root {
+ 
+        --stroke: rgba(239, 240, 242, 1);
+        --ubuntu-14-regular-font-family: "Ubuntu", Helvetica;
+        --ubuntu-14-regular-font-weight: 400;
+        --ubuntu-14-regular-font-size: 14px;
+        --ubuntu-14-regular-letter-spacing: 0px;
+        --ubuntu-14-regular-line-height: 160.0000023841858%;
+        --ubuntu-14-regular-font-style: normal;
+        --variable-collection-color1: rgba(5, 104, 94, 1);
+        --variable-collection-color2: rgba(106, 114, 122, 1);
+        --variable-collection-color3: rgba(198, 218, 217, 1);
+        --variable-collection-color4: rgba(34, 121, 123, 1);
+        --variable-collection-nav-text: rgba(106, 114, 122, 1);
+      
+    }
+  .box {
+    width: 256px;
+    height: 936px;
+  }
+  
+  .box .rectangle {
+    position: fixed;
+    width: 256px;
+    height: 936px;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-color: #eff0f2;
+    display: flex;               /* Apply Flexbox layout */
+    justify-content: center;     /* Center content horizontally */
+    align-items: center;
+  }
+  .menu {
+    position: fixed;
+    top: 88px; /* Start right below the header */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 88px); /* Adjust to the remaining height after the header */
+    background-color: #ffffff;
+    padding-top: 20px;
+    z-index: 999; /* Ensure it's under the header */
+  }
+  
+  /* Menu content style */
+  .menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu ul li {
+    margin: 10px 0;
+  }
+  
+  .menu ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+  }
+  .menu-logout {
+    position: relative;
+    width: 205px;
+    height: 876px;
+  }
+  
+  .menu-logout .menu {
+    display: flex;
+    flex-direction: column;
+    width: 205px;
+    align-items: flex-end;
+    gap: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .menu-logout .frame {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  
+  .menu-logout .div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+  }
+  
+  .menu-logout .img {
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .menu-logout .frame-2 {
+    display: flex;
+    width: 120px;
+    gap: 8px;
+    align-items: center;
+    position: relative;
+  }
+  
+  .menu-logout .text-wrapper {
+    position: relative;
+    width: 120px;
+    margin-top: -1.00px;
+    font-family: var(--ubuntu-14-regular-font-family);
+    font-weight: var(--ubuntu-14-regular-font-weight);
+    color: var(--variable-collection-nav-text);
+    font-size: var(--ubuntu-14-regular-font-size);
+    letter-spacing: var(--ubuntu-14-regular-letter-spacing);
+    line-height: var(--ubuntu-14-regular-line-height);
+    font-style: var(--ubuntu-14-regular-font-style);
+  }
+  
+  .menu-logout .frame-3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  
+  .menu-logout .frame-4 {
+    position: relative;
+    flex: 0 0 auto;
+  }
+  
+  .menu-logout .div-wrapper {
+    display: flex;
+    width: 146px;
+    gap: 10px;
+    margin-right: -3.00px;
+    align-items: center;
+    position: relative;
+  }
+  
+  .menu-logout .text-wrapper-2 {
+    position: relative;
+    width: 157px;
+    margin-top: -1.00px;
+    margin-right: -11.00px;
+    font-family: var(--ubuntu-14-regular-font-family);
+    font-weight: var(--ubuntu-14-regular-font-weight);
+    color: var(--variable-collection-nav-text);
+    font-size: var(--ubuntu-14-regular-font-size);
+    letter-spacing: var(--ubuntu-14-regular-letter-spacing);
+    line-height: var(--ubuntu-14-regular-line-height);
+    font-style: var(--ubuntu-14-regular-font-style);
+  }
+  
+  .menu-logout .frame-5 {
+    position: relative;
+    flex: 0 0 auto;
+    margin-right: -25.00px;
+  }
+  
+  .menu-logout .frame-wrapper {
+    display: flex;
+    width: 115px;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 12px;
+    position: absolute;
+    top: 790px;
+    left: 45px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-color: var(--stroke);
+  }
+  
+  .menu-logout .frame-6 {
+    display: inline-flex;
+    gap: 8px;
+    flex: 0 0 auto;
+    margin-right: -65.00px;
+  }
+  .frame1 {
+    position: absolute;  /* Position absolutely inside the parent container */
+  bottom: 1px;        /* Distance from the bottom */
+  left: 50%;           /* Center it horizontally */
+  transform: translateX(-50%); /* Offset by half of its width to truly center it */
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  background-color: white;
+  /* Optional: Add some padding */
+  z-index: 999; }
+  
+  .frame1 .div {
+    
+    
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+  
+  .frame1 .vuesax-linear-logout {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: flex;               /* Apply Flexbox layout */
+    justify-content: center;     /* Center content horizontally */
+    align-items: center;
+  }
+  
+  .frame1 .text-wrapper {
+    
+    position: relative;
+    width: 128px;
+    margin-top: -1.00px;
+    font-family: var(--ubuntu-14-regular-font-family);
+    font-weight: var(--ubuntu-14-regular-font-weight);
+    color: #05685e;
+    font-size: var(--ubuntu-14-regular-font-size);
+    letter-spacing: var(--ubuntu-14-regular-letter-spacing);
+    line-height: var(--ubuntu-14-regular-line-height);
+    font-style: var(--ubuntu-14-regular-font-style);
+  }

@@ -1,0 +1,185 @@
+.MainContainer {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    gap: 50px;
+    flex-direction: row-reverse;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+}
+
+.UserInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    width: 550px;
+    height: 660px;
+    background: rgba(5, 105, 107, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    backdrop-filter: blur(6.8px);
+    border-radius: 46px;
+}
+
+.MedIcone {
+    margin-top: 200px;
+    width: 220px;
+    height: 156px;
+}
+
+.LogInTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 49px;
+    color: #525252;
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+
+}
+
+.ContinueGoogle {
+    cursor: pointer;
+    background-color: transparent;
+    color: #828282;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 420px;
+    height: 45px;
+    border: 1px solid #828282;
+    border-radius: 5px;
+    margin-bottom: 40px;
+}
+
+.signIn {
+    margin-bottom: 35px;
+    text-decoration: none;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #828282;
+}
+
+.InputField {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 13px 10px;
+    width: 420px;
+    height: 45px;
+    border: 1px solid #DED2D9;
+    border-radius: 5px;
+    background-color: transparent;
+    margin-top: 0;
+    margin-bottom: 1px;
+}
+
+.InputTitle {
+    margin-top: 0;
+    margin-bottom: 1px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #828282;
+}
+
+#password {
+    margin-top: 20px;
+}
+
+.ForgotPassword a {
+    color: #05696B;
+    text-decoration: none;
+}
+
+.ForgotPassword {
+    display: flex;
+    justify-content: flex-end;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+
+}
+
+.LoginNowButton {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 13px 10px 12px;
+    width: 420px;
+    height: 50px;
+    background: #05696B;
+    border-radius: 6px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFFFFF;
+    margin-top: 30px;
+}
+
+.NotRegistered {
+    display: flex;
+    gap: 10px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+#register {
+    color: #828282;
+}
+
+#createAccount {
+    color: #05696B;
+    text-decoration: none;
+}
+
+.container2 {
+    margin: 0px;
+    padding: 0px;
+    height: 130vh;
+    width: 55%;
+    background-color: #05696B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('/assets/images/background.png');
+    background-size: cover;
+    /* To make the background image cover the entire container */
+    background-position: center;
+    /* To center the background image */
+    background-repeat: no-repeat;
+    /* Prevents the image from repeating */
+}
