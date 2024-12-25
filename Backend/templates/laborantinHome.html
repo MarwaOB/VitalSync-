@@ -62,21 +62,7 @@
     </style>
 </head>
 <body>
-    {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <!-- Barre de recherche -->
-    <form action="{% url 'DPIList' %}" method="GET" class="search-bar">
-        <input type="number" name="nss" placeholder="Rechercher par NSS..." required>
-        <button type="submit">Rechercher</button>
-    </form>
-
+  <h1>Bilan a realiser <h1>
     {% if message %}
     <p>{{ message }}</p>
 {% endif %}
@@ -87,14 +73,15 @@
                 <h2>Détails du DPI (ID: {{ dpi.id }}):</h2>
                 <p><strong>Patient:</strong> {{ dpi.patient.user.first_name }} {{ dpi.patient.user.last_name }}</p>
                 <!-- Submit form with DPI ID -->
-                <form action="{% url 'Consultation_dpi' %}" method="GET">
+                <form action="{% url 'Consultation_dpi_Bilan' %}" method="GET">
                     <input type="hidden" name="dpi_id" value="{{ dpi.id }}">
                     <button type="submit" class="btn-consulter">Consulter</button>
                 </form>
             </div>
         {% endfor %}
     {% else %}
-        <p>Aucun DPI trouvé pour ce médecin.</p>
+        <p>Aucun Test a realiser pour l'instant.</p>
     {% endif %}
+    
 </body>
 </html>

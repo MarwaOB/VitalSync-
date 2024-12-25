@@ -6,6 +6,8 @@ from django. shortcuts import render
 from django.http import HttpResponse
 from django. template. loader import get_template 
 from xhtml2pdf import pisa
+from rest_framework import serializers
+
 
 # Définition globale des choix de mode d'administration
 MODE_ADMINISTRATION_CHOICES = [
@@ -118,4 +120,15 @@ class OrdonnanceForm(forms.ModelForm):
 MedicamentFormSet = modelformset_factory(Medicament, form=MedicamentForm, extra=1)
 
 
+class OrdonnanceValidationForm(forms.Form):
+    # Récupère toutes les ordonnances non validées
+    ordonnances = forms.ModelMultipleChoiceField(
+        queryset=Ordonnance.objects.filter(is_valid=False),  # Filtre pour obtenir les ordonnances non validées
+        widget=forms.CheckboxSelectMultiple,  # Utilise des cases à cocher pour la sélection multiple
+        required=False  # Les cases à cocher ne sont pas obligatoires, le pharmacien peut choisir lesquelles valider
+    )
 
+class OrdonnanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ordonnance
+        fields = ['id', 'duree', 'is_valid', 'observation']

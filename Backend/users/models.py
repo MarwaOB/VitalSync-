@@ -2,6 +2,8 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractUser
 from hospitals.models import Hospital  # Adjust the import path based on your project structure
 from django.db import models
+from datetime import datetime
+
 
 class CustomUser(AbstractUser):
     ROLE_CHOICES = [
@@ -105,13 +107,23 @@ class Laborantin(CustomUser):
 
 # Patient Model
 class Patient(models.Model):
-    # Assuming a ForeignKey to CustomUser to associate a patient with their user account
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    person_a_contacter_telephone = models.JSONField(default=list, blank=True)  # Contact person phone numbers
-    date_debut_hospitalisation = models.JSONField(default=list, blank=True)  # Start dates of hospitalization
-    date_fin_hospitalisation = models.JSONField(default=list, blank=True)  # End dates of hospitalization
-    dpi_null = models.BooleanField(default =True)
+    person_a_contacter_telephone = models.JSONField(default=list, blank=True)
+    date_debut_hospitalisation = models.JSONField(default=list, blank=True)
+    date_fin_hospitalisation = models.JSONField(default=list, blank=True)
+    dpi_null = models.BooleanField(default=True)
 
-    def __str__(self):
-        # Display patient name and hospitalization periods
-        return f"Patient: {self.user.first_name} {self.user.last_name}, Hospitalization Periods: {', '.join([f'{start} - {end}' for start, end in zip(self.date_debut_hospitalisation, self.date_fin_hospitalisation)])}"
+    def clean(self):
+        """
+        Validation for hospitalisation dates.
+        """
+        if len(self.date_debut_hospitalisation) != len(self.date_fin_hospitalisation):
+            raise ValidationError("Start and end dates of hospitalization must have the same length.")
+        
+        for start, end in zip(self.date_debut_hospitalisation, self.date_fin_hospitalisation):
+            if datetime.fromisoformat(start) > datetime.fromisoformat(end):
+                raise ValidationError(f"Start date {start} cannot be after end date {end}.")
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)

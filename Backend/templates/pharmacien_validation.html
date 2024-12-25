@@ -1,0 +1,17 @@
+<!-- valider_ordonnances.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation des Ordonnances</title>
+</head>
+<body>
+    <h1>Valider les Ordonnances Non Validées</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Affiche le formulaire sous forme de paragraphes -->
+        <button type="submit">Valider</button>
+    </form>
+</body>
+</html>

@@ -45,15 +45,6 @@
     </style>
 </head>
 <body>
-    {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
     <h1>Dossier Médical (DPI) de {{ patient.user.first_name }} {{ patient.user.last_name }}</h1>
 
     {% if dpi %}
@@ -90,25 +81,19 @@
         </div>
 
         <div class="section">
-            <h2>Consultations :</h2>
-            {% if dpi.consultations.all %}
-                {% for consultation in dpi.consultations.all %}
-                    <div class="section">
-                        <h3>Consultation du {{ consultation.date }}</h3>
-                        <p><strong>Résumé :</strong> {{ consultation.resume }}</p>
-                        <form action="{% url 'consultation_detail' consultation.id %}" method="GET">
-                            <button type="submit" class="btn-consulter">Voir</button>
-                        </form>
-                    </div>
-                {% endfor %}
+            <h2>Dernière Consultation :</h2>
+            {% if latest_consultation %}
+                <div class="section">
+                    <h3>Consultation du {{ latest_consultation.date }}</h3>
+                    <p><strong>Résumé :</strong> {{ latest_consultation.resume }}</p>
+                    <form action="{% url 'consultation_detail' latest_consultation.id %}" method="GET">
+                        <button type="submit" class="btn-consulter">Voir</button>
+                    </form>
+                </div>
             {% else %}
                 <p>Aucune consultation trouvée.</p>
             {% endif %}
         </div>
-
-        {% if user.role == 'medecin' %}
-            <a href="{% url 'ajouter_consultation' dpi.id %}" class="button">Ajouter Consultation</a>
-        {% endif %}
 
     {% else %}
         <p>Aucun DPI trouvé pour ce patient.</p>

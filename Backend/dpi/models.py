@@ -115,7 +115,7 @@ class Bilan(models.Model):
 
 
     def __str__(self):
-        return f"Bilan {self.bilan_type} for Consultation on {self.consultation.date}"
+        return f"Bilan {self.bilan_type} for Consultation "
 
     class Meta:
         abstract = True  # This class won't create its own table
@@ -133,7 +133,8 @@ class Biologique(Bilan):
     )
     description = models.TextField()
     tauxGlycemie = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True) 
-    tauxPressionArterielle = models.CharField(max_length=20, null=True, blank=True)  # Blood pressure (e.g., "120/80")
+    #tauxPressionArterielle = models.CharField(max_length=20, null=True, blank=True)  # Blood pressure (e.g., "120/80")
+    tauxPressionArterielle = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)  
     tauxCholesterol = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)  
 
     def __str__(self):
@@ -197,8 +198,6 @@ class Medicament(models.Model):
     frequence = models.IntegerField(null=True, blank=True)  # Autorise les valeurs nulles
     # Dose par prise
     dose = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
-    # Dose totale prescrite
-    dose_prescrite = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True)
     # Unité de mesure (mg, ml, etc.)
     unite = models.CharField(max_length=20,null=True, blank=True)
     # Mode d'administration
@@ -250,6 +249,9 @@ class Consultation(models.Model):
         blank=True
     )  # One bilanBiologique, but it can be null
 
+    is_bilanBiologique_fait = models.BooleanField(default=False)  # False = not fait, True = fait
+    is_bilanRadiologique_fait = models.BooleanField(default=False)  # False = not fait, True = fait
+
     bilanRadiologique = models.OneToOneField(
         'Radiologique', 
         on_delete=models.SET_NULL, 
@@ -257,6 +259,8 @@ class Consultation(models.Model):
         null=True, 
         blank=True
     )  # One bilanRadiologique, but it can be null
+    grapheBiologique = models.ImageField(upload_to='graphesBiologiques/', blank=True)
+
 
     def clean(self):
         """
