@@ -175,7 +175,7 @@ def sign_in(request):
                 elif role == 'laborantin':
                     return redirect("laborantinHome")
                 elif role == 'pharmacien':
-                    return HttpResponse("pharmacien")
+                    return redirect("pharmacien_home")
                 else:
                     return HttpResponse("Role non défini")
             else:
@@ -636,3 +636,19 @@ def dpi_list(request):
 
     return render(request, 'medecinShow.html', {'dpis': dpis, 'message': message})
 
+@csrf_exempt
+@login_required
+def pharmacien_home(request):
+    if request.method == "POST":
+        action = request.POST.get("action")  
+
+        if action == "afficher_ordonnances_non_valide":
+            # Redirection vers la page des ordonnances non validées
+            return redirect('afficher_ordonnances_non_valide')
+            
+        elif action == "afficher_ordonnances_valide":
+            # Redirection vers la page des ordonnances validées
+            return redirect('afficher_ordonnances_valide')
+
+    # Si ce n'est pas une requête POST, vous pouvez retourner la page d'accueil du pharmacien
+    return render(request, 'pharmacien_home.html')

@@ -31,7 +31,6 @@ from .serializers import OrdonnanceSerializer
 @csrf_exempt
 @login_required
 
-
 def ajouter_diagnostic(request, consultation_id):
     # Récupérer la consultation associée ou retourner une 404 si elle n'existe pas
     consultation = get_object_or_404(Consultation, id=consultation_id)
@@ -48,9 +47,13 @@ def ajouter_diagnostic(request, consultation_id):
 
     if request.method == 'POST':
         form = OrdonnanceForm(request.POST)
+
         if form.is_valid():
             # Créer une nouvelle ordonnance à partir du formulaire
             ordonnance = form.save()
+            if not ordonnance.meds.exists():  # Si l'ordonnance n'a pas de médicaments associés
+                messages.error(request, "Veuillez ajouter au moins un médicament à l'ordonnance.")
+                return redirect('ajouter_ordonnance', consultation_id=consultation.id)
 
             # Créer le diagnostic et l'associer à l'ordonnance
             diagnostic = Diagnostic.objects.create(ordonnance=ordonnance)
@@ -328,45 +331,71 @@ def ajouter_resume(request, consultation_id):
 
         # Redirection vers la page des détails de la consultation (ou du DPI)
         return redirect('consultation_detail', consultation_id=consultation.id)
-        
-
-class IsPharmacist(permissions.BasePermission):
-    """
-    Custom permission to only allow pharmacists to validate ordonnance.
-    """
-    def has_permission(self, request, view):
-        return request.user.groups.filter(name='Pharmaciens').exists()
 
 
-@api_view(['POST'])  # Cette API accepte uniquement les requêtes POST
-def validate_ordonnance(request):
-    # Vérifier si l'utilisateur est authentifié
-    if not request.user.is_authenticated:
-        return Response({'error': 'Vous devez être authentifié pour valider l\'ordonnance.'},
-                        status=status.HTTP_401_UNAUTHORIZED)
+def afficher_ordonnances_non_valide(request):
+    if request.user.role == 'pharmacien':
+      
+        # Filtrer les diagnostics dont l'ordonnance est non validée
+        diagnostics_non_valides = Diagnostic.objects.filter(ordonnance__is_valid=False)
+
+        # Contexte passé au template
+        context = {
+
+            'ordonnances': diagnostics_non_valides,
+        }
+
+        return render(request, 'ordonnances_non_valide.html', context)
+    else:
+        # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
+        raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
+
+def supprimer_toutes_ordonnances_non_valide(request):
+
+    Medicament.objects.all().delete()
+
+    # Supprimer toutes les ordonnances
+    Ordonnance.objects.all().delete()
+    Consultation.objects.all().delete()
+
+
+    messages.success(request, "Toutes les ordonnances non validées ont été supprimées avec succès.")
+    return redirect('afficher_ordonnances_non_valide')
     
-    # Récupérer l'ID de l'ordonnance depuis la requête
-    ordonnance_id = request.data.get('ordonnance_id')  # Assurez-vous que 'ordonnance_id' est envoyé dans le corps de la requête
 
-    if not ordonnance_id:
-        return Response({'error': 'L\'ID de l\'ordonnance est requis.'}, status=status.HTTP_400_BAD_REQUEST)
+def valider_ordonnance(request, ordonnance_id):
+    if request.user.role == 'pharmacien':
+    
+        # Récupérer l'ordonnance avec l'ID fourni
+        ordonnance = get_object_or_404(Ordonnance, id=ordonnance_id)
 
-    try:
-        # Tenter de récupérer l'ordonnance avec l'ID fourni
-        ordonnance = Ordonnance.objects.get(id=ordonnance_id)
-    except Ordonnance.DoesNotExist:
-        return Response({'error': 'Ordonnance non trouvée.'}, status=status.HTTP_404_NOT_FOUND)
+        # Valider l'ordonnance en mettant is_valid à True
+        ordonnance.is_valid = True
+        ordonnance.save()  # Sauvegarder les modifications dans la base de données
 
-    # Si l'ordonnance est déjà validée, ne pas la valider à nouveau
-    if ordonnance.is_valid:
-        return Response({'error': 'Cette ordonnance est déjà validée.'}, status=status.HTTP_400_BAD_REQUEST)
+        # Message de succès
+        messages.success(request, "L'ordonnance a été validée avec succès.")
 
-    # Sinon, on valide l'ordonnance
-    ordonnance.is_valid = True
-    ordonnance.save()
+        # Rediriger vers la page des ordonnances ou une autre vue appropriée
+        return redirect('afficher_ordonnances_non_valide')  
+    else:
+        # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
+        raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
 
-    # Sérialiser l'ordonnance validée pour la réponse
-    serializer = OrdonnanceSerializer(ordonnance)
+def afficher_ordonnances_valide(request):
 
-    # Retourner la réponse avec les données sérialisées de l'ordonnance
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.user.role == 'pharmacien':
+      
+        # Filtrer les diagnostics dont l'ordonnance est non validée
+        diagnostics_valides = Diagnostic.objects.filter(ordonnance__is_valid=True)
+
+        # Contexte passé au template
+        context = {
+
+            'ordonnances': diagnostics_valides,
+        }
+
+        return render(request, 'ordonnance_valide.html', context)
+    else:
+        # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
+        raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")

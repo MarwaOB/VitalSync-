@@ -11462,3 +11462,687 @@ Traceback (most recent call last):
 socket.gaierror: [Errno 11001] getaddrinfo failed
 "POST /creerDPI/ HTTP/1.1" 500 118344
 >>>>>>> origin/maroua
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 198, in render
+    values = list(values)
+TypeError: 'RelatedManager' object is not iterable
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 167191
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ord-view' with arguments '('', '')' not found. 1 pattern(s) tried: ['consultation/(?P<consultation_id>[0-9]+)/(?P<diagnostic_id>[0-9]+)/ordonnance\\-view\\Z']
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 162899
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_consultation' with arguments '('',)' not found. 1 pattern(s) tried: ['dpi/(?P<dpi_id>[0-9]+)/consultation/ajouter/\\Z']
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 166658
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 198, in render
+    values = list(values)
+TypeError: 'RelatedManager' object is not iterable
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 167091
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 861, in do_for
+    sequence = parser.compile_filter(bits[in_index + 1])
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '()' from 'ordonnance.meds.all()'
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 223393
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ord-view' with arguments '('', '')' not found. 1 pattern(s) tried: ['consultation/(?P<consultation_id>[0-9]+)/(?P<diagnostic_id>[0-9]+)/ordonnance\\-view\\Z']
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 162125
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'valider_ord' not found. 'valider_ord' is not a valid view function or pattern name.
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 157804
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 343, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'valider_ord' not found. 'valider_ord' is not a valid view function or pattern name.
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 157718
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 339, in afficher_ordonnances_non_valide
+    'ordonnances': ordonnances,
+NameError: name 'ordonnances' is not defined
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 62139
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 346, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '{% if ordonnance.ordonnance.observation  %' from '{% if ordonnance.ordonnance.observation  %'
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 212237
+Internal Server Error: /supprimer/toutes/ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 364, in supprimer_toutes_ordonnances_non_valide
+    return redirect('ordonnances_non_valide')
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ordonnances_non_valide' not found. 'ordonnances_non_valide' is not a valid view function or pattern name.
+"GET /supprimer/toutes/ordonnances/non-valide/ HTTP/1.1" 500 80227
+Internal Server Error: /supprimer/toutes/ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 357, in supprimer_toutes_ordonnances_non_valide
+    Medicament.objects.filter(ordonnance=ordonnances_non_valide).delete()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/fields/related_lookups.py", line 158, in get_prep_lookup
+    return super().get_prep_lookup()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/db/models/lookups.py", line 365, in get_prep_lookup
+    raise ValueError(
+ValueError: The QuerySet value for an exact lookup must be limited to one result using slicing.
+"GET /supprimer/toutes/ordonnances/non-valide/ HTTP/1.1" 500 115400
+Internal Server Error: /supprimer/toutes/ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 357, in supprimer_toutes_ordonnances_non_valide
+    Medicament.objects.delete()
+AttributeError: 'Manager' object has no attribute 'delete'
+"GET /supprimer/toutes/ordonnances/non-valide/ HTTP/1.1" 500 63500
+Internal Server Error: /supprimer/toutes/ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 356, in supprimer_toutes_ordonnances_non_valide
+    Medicament.objects.delete()
+AttributeError: 'Manager' object has no attribute 'delete'
+"GET /supprimer/toutes/ordonnances/non-valide/ HTTP/1.1" 500 63330
+Internal Server Error: /supprimer/toutes/ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 356, in supprimer_toutes_ordonnances_non_valide
+    Medicament.objects.delete()
+AttributeError: 'Manager' object has no attribute 'delete'
+"GET /supprimer/toutes/ordonnances/non-valide/ HTTP/1.1" 500 63330
+Internal Server Error: /supprimer/toutes/ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 363, in supprimer_toutes_ordonnances_non_valide
+    return redirect('ordonnances_non_valide')
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ordonnances_non_valide' not found. 'ordonnances_non_valide' is not a valid view function or pattern name.
+"GET /supprimer/toutes/ordonnances/non-valide/ HTTP/1.1" 500 80441
+Internal Server Error: /supprimer/toutes/ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 363, in supprimer_toutes_ordonnances_non_valide
+    return redirect('home')
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+"GET /supprimer/toutes/ordonnances/non-valide/ HTTP/1.1" 500 80122
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 349, in afficher_ordonnances_non_valide
+    return render(request, 'ordonnances_non_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 701, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/base.py", line 611, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'format_dose'
+"GET /ordonnances/non-valide/ HTTP/1.1" 500 250696
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view dpi.views.afficher_ordonnances_non_valide didn't return an HttpResponse object. It returned None instead.
+"POST /ordonnances/non-valide/ HTTP/1.1" 500 63506
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view dpi.views.afficher_ordonnances_non_valide didn't return an HttpResponse object. It returned None instead.
+"POST /ordonnances/non-valide/ HTTP/1.1" 500 63506
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view dpi.views.afficher_ordonnances_non_valide didn't return an HttpResponse object. It returned None instead.
+"POST /ordonnances/non-valide/ HTTP/1.1" 500 63506
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view dpi.views.afficher_ordonnances_non_valide didn't return an HttpResponse object. It returned None instead.
+"POST /ordonnances/non-valide/ HTTP/1.1" 500 63506
+Internal Server Error: /ordonnances/non-valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view dpi.views.afficher_ordonnances_non_valide didn't return an HttpResponse object. It returned None instead.
+"POST /ordonnances/non-valide/ HTTP/1.1" 500 63506
+Internal Server Error: /ordonnances/valide/
+Traceback (most recent call last):
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/arwa.jasmine04/env/VitalSync-/Backend/dpi/views.py", line 398, in afficher_ordonnances_valide
+    return render(request, 'ordonnances_valide.html', context)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/arwa.jasmine04/env/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ordonnances_valide.html
+"POST /ordonnances/valide/ HTTP/1.1" 500 77320

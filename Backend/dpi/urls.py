@@ -13,6 +13,11 @@ urlpatterns = [
     path("ajouter_radiologique_bilan/<int:consultation_id>/", views.ajouter_radiologique_bilan, name="ajouter_radiologique_bilan"),
     path("ajouter_resume/<int:consultation_id>/", views.ajouter_resume, name="ajouter_resume"),
     path("ajouter_examen/<int:consultation_id>/", views.ajouter_examen, name="ajouter_examen"),
-    path('api/validate-ordonnance/', views.validate_ordonnance, name='validate-ordonnance'),
+    path('ordonnances/non-valide/', views.afficher_ordonnances_non_valide, name='afficher_ordonnances_non_valide'),
+    path('ordonnances/valide/', views.afficher_ordonnances_valide, name='afficher_ordonnances_valide'),
+
+    #path('supprimer/toutes/ordonnances/non-valide/', views.supprimer_toutes_ordonnances_non_valide, name='supprimer_toutes_ordonnances_non_valide'),
+    path("validee_ord/<int:ordonnance_id>/", views.valider_ordonnance, name="validee_ord"),
+
 ]
     
