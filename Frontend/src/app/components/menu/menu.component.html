@@ -1,88 +1,137 @@
-
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="menu.component.css" />
-  </head>
-  <body>
+</head>
+<body>
     <div class="box">
         <div class="rectangle">
             <div class="menu-logout">
                 <div class="menu">
+                    <!-- Profile, Dashboard, and other top-level items -->
                     <div class="frame">
-                        <div class="frame">
-                            <div class="div">
-                                <img class="img" src="assets/images/menu/profile.svg" />
-                                <div class="frame-2">
-                                    <div class="text-wrapper">Profile</div>
-                                </div>
+                        <div class="div"
+                            
+                            routerLink="/profileadmin" 
+                            routerLinkActive="active" 
+                            [routerLinkActiveOptions]="{ exact: true }">
+              
+                            <img class="img" src="assets/images/menu/profile.svg" />
+                            <div class="frame-2">
+                                <div class="text-wrapper">Profile</div>
                             </div>
+                          
                         </div>
                     </div>
                     <div class="frame">
-                        <div class="div">
+                        <div class="div"
+                        routerLink="/Dashboard" 
+                        routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{ exact: true }">
+                            <img class="img" src="assets/images/menu/dash.svg" />
                             <div class="frame-3">
-                                <img class="frame-4" src="assets/images/menu/dash.svg" />
+                                
                                 <div class="text-wrapper">Dashboard</div>
                             </div>
                         </div>
                     </div>
                     <div class="frame">
-                        <div class="div">
-                            <img class="img" src="assets/images/menu/patients.svg" />
+                        <div class="div"
+                        routerLink="/listpatient" 
+                        routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <img class="img" src="assets/images/menu/patients.svg" />
                             <div class="frame-3">
                                 <div class="text-wrapper">Patients</div>
                             </div>
                         </div>
                     </div>
-                    <div class="frame">
-                        <div class="div">
+
+                    <!-- Parent menu item with submenu -->
+                    <div class="frame menu-item-with-submenu">
+                        <div class="div" (click)="toggleSubmenu($event)">
                             <img class="img" src="assets/images/menu/mdc.svg" />
-                            <div class="div-wrapper">
-                                <div class="text-wrapper-2">Medecins</div>
+                            <div class="text-wrapper">Médecins</div>
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>                       </div>
+                        <div class="submenu" *ngIf="submenuVisible">
+                            <div class="frame">
+                                
+                                <div class="div-wrapper"
+                                routerLink="/listmedecin" 
+                                routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                    <div class="text-wrapper-2">General</div>
+                                </div>
                             </div>
-                            <div class="frame-5"></div>
-                        </div>
-                    </div>
-                    <div class="frame">
-                        <div class="div">
-                            <img class="img" src="assets/images/menu/inf.svg" />
-                            <div class="div-wrapper">
-                                <div class="text-wrapper-2">Infermiers</div>
+                            <div class="frame">
+                                <div class="div-wrapper"
+                                routerLink="/listradiologue" 
+                                routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                    <div class="text-wrapper-2">Radiologues</div>
+                                </div>
                             </div>
-                            <div class="frame-5"></div>
+                            <div class="frame">
+                                <div class="div-wrapper"
+                                routerLink="/listlaborantin" 
+                                routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                    <div class="text-wrapper-2">Laborantins</div>
+                                </div>
+                            </div>
+                            <div class="frame">
+                                <div class="div-wrapper"
+                                routerLink="/listbiologiste" 
+                                routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                    <div class="text-wrapper-2">Biologistes</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="frame">
-                        <div class="div">
-                            <img class="img" src="assets/images/menu/demande.svg" />
-                            <div class="div-wrapper">
-                                <div class="text-wrapper-2">Demandes certeficats</div>
+                        <div class="div"
+                        routerLink="/listinfermier" 
+                        routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <img class="img" src="assets/images/menu/patients.svg" />
+                            <div class="frame-3">
+                                <div class="text-wrapper">Infermiers</div>
                             </div>
-                            <div class="frame-5"></div>
                         </div>
                     </div>
-                      <div class="frame1">
-                        <div class="div">
-                          <img class="vuesax-linear-logout" src="assets/images/menu/logout.svg" />
-                          <div class="text-wrapper">Log out</div>
+                    
+                    <div class="frame">
+                        <div class="div"
+                        routerLink="/listpharma" 
+                        routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <img class="img" src="assets/images/menu/patients.svg" />
+                            <div class="frame-3">
+                                <div class="text-wrapper">Pharmaciens</div>
+                            </div>
                         </div>
-                      </div>
+                    </div>
+
+                    <div class="frame">
+                        <div class="div"
+                        routerLink="/Demandecerteficat" 
+                        routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <img class="img" src="assets/images/menu/patients.svg" />
+                            <div class="frame-3">
+                                <div class="text-wrapper">Demande certficat</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logout -->
+                    
                 </div>
                 
-               
             </div>
-
-
-
-
         </div>
-
-
-
-
-   </div>
-    
-  </body>
+    </div>
+</body>
 </html>

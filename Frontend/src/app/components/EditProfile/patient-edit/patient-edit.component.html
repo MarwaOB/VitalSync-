@@ -1,0 +1,10 @@
+<p>patient-edit works!</p>
+<h2>Détails Patient {{ patientId }}</h2>
+
+<div *ngIf="patientData; else notFound">
+    <app-profile-patient [patientData]="patientData"></app-profile-patient>
+</div>
+
+<ng-template #notFound>
+    <p>Patient non trouvé.</p>
+</ng-template>

@@ -1,0 +1,143 @@
+<div class="wrapper">
+    <div class="button-container">
+        <i class="fas fa-edit" (click)="editMode = !editMode"></i>
+    </div>
+    <div class="nom-prenom">
+        <div class="field">
+            <label>Nom</label>
+            <input type="text" [value]="patientData.nom" readonly />
+        </div>
+        <div class="field">
+            <label>Prénom</label>
+            <input type="text" [value]="patientData.prenom" readonly />
+        </div>
+    </div>
+
+    <div class="tel-email">
+        <div class="field">
+            <label>Téléphone</label>
+            <input type="text" [value]="patientData.telephone" readonly />
+        </div>
+        <div class="field">
+            <label>Email</label>
+            <input type="email" [value]="patientData.email" readonly />
+        </div>
+    </div>
+
+    <div class="date-naissance-adresse">
+        <div class="field">
+            <label>Date de naissance</label>
+            <input type="text" [value]="patientData.dateDeNaissance" readonly />
+        </div>
+        <div class="field">
+            <label>Adresse</label>
+            <input type="text" [value]="patientData.adresse" readonly />
+        </div>
+    </div>
+
+    <div class="mutuelle-hospital" *ngIf="patientData.role === 'patient'">
+        <div class="field">
+            <label>Mutuelle</label>
+            <input type="text" [value]="patientData.mutuelle" readonly />
+        </div>
+        <div class="field">
+            <label>NSS</label>
+            <input type="text" [value]="patientData.nss" readonly />
+        </div>
+    </div>
+    <div class="datedebutfin">
+        <div class="field">
+            <label>Date début hospitalisation</label>
+            <input type="text" [value]="patientData.dateDebutHospitalisation | date" readonly />
+        </div>
+        <div class="field">
+            <label>Date fin hospitalisation</label>
+            <input type="text" [value]="patientData.dateFinHospitalisation | date" readonly />
+        </div>
+    </div>
+    <div class="personnesDpi">
+        <div class="field">
+            <label>Personnes à contacter</label>
+            <ul class="personnesListe">
+                <li class="personneItem" *ngFor="let contact of patientData.personAContacterTelephone || []">
+                    {{ contact }}
+                </li>
+            </ul>
+        </div>
+        <div class="field">
+            <label>Dossier patient </label>
+            <input type="text" [value]="patientData.dpiNull ? 'Oui' : 'Non'" readonly />
+        </div>
+    </div>
+</div>
+
+<div class="overlay" *ngIf="editMode">
+    <div class="form-container">
+        <div class="nom-prenom">
+            <div class="field">
+                <label>Nom</label>
+                <input type="text" [(ngModel)]="tempProfileData.nom" />
+            </div>
+            <div class="field">
+                <label>Prénom</label>
+                <input type="text" [(ngModel)]="tempProfileData.prenom" />
+            </div>
+        </div>
+
+        <div class="tel-email">
+            <div class="field">
+                <label>Téléphone</label>
+                <input type="text" [(ngModel)]="tempProfileData.telephone" />
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="tempProfileData.email" />
+            </div>
+        </div>
+
+        <div class="date-naissance-adresse">
+            <div class="field">
+                <label>Date de naissance</label>
+                <input type="text" [(ngModel)]="tempProfileData.dateDeNaissance" />
+            </div>
+            <div class="field">
+                <label>Adresse</label>
+                <input type="text" [(ngModel)]="tempProfileData.adresse" />
+            </div>
+        </div>
+
+        <div class="mutuelle-hospital" *ngIf="tempProfileData instanceof Medecin">
+            <div class="field">
+                <label>Mutuelle</label>
+                <input type="text" [(ngModel)]="tempProfileData.mutuelle" />
+            </div>
+            <div class="field">
+                <label>NSS</label>
+                <input type="text" [(ngModel)]="tempProfileData.nss" />
+            </div>
+        </div>
+        <div class="personnesDpi">
+            <div class="field">
+                <div class="addContact">
+                    <label>Modifier les personnes à contacter</label>
+
+                    <i class="fas fa-plus-circle icon-add" (click)="addContact()"></i>
+                </div>
+                <ul class="personnesListe">
+                    <li id="contactinput" class="field"
+                        *ngFor="let contact of tempProfileData.personAContacterTelephone || []; let i = index; trackBy: trackByIndex">
+                        <input type="text" [(ngModel)]="tempProfileData.personAContacterTelephone[i]"
+                            placeholder="Numéro ou nom du contact" />
+                        <i class="fas fa-trash-alt icon-remove" (click)="removeContact(i)"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelEdit()">Cancel</button>
+
+            <button (click)="saveChanges()">Save</button>
+        </div>
+    </div>
+</div>

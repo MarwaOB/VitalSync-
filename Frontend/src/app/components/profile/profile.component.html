@@ -1,0 +1,101 @@
+<div class="wrapper">
+    <div class="button-container">
+        <i class="fas fa-edit" (click)="editMode = !editMode"></i>
+    </div>
+    <div class="nom-prenom">
+        <div class="field">
+            <label>Nom</label>
+            <input type="text" [value]="profileData.nom" readonly />
+        </div>
+        <div class="field">
+            <label>Prénom</label>
+            <input type="text" [value]="profileData.prenom" readonly />
+        </div>
+    </div>
+
+    <div class="tel-email">
+        <div class="field">
+            <label>Téléphone</label>
+            <input type="text" [value]="profileData.telephone" readonly />
+        </div>
+        <div class="field">
+            <label>Email</label>
+            <input type="email" [value]="profileData.email" readonly />
+        </div>
+    </div>
+
+    <div class="date-naissance-adresse">
+        <div class="field">
+            <label>Date de naissance</label>
+            <input type="text" [value]="profileData.dateDeNaissance" readonly />
+        </div>
+        <div class="field">
+            <label>Adresse</label>
+            <input type="text" [value]="profileData.adresse" readonly />
+        </div>
+    </div>
+
+    <div class="mutuelle-hospital">
+        <div class="field">
+            <label>Mutuelle</label>
+            <input type="text" [value]="profileData.mutuelle" readonly />
+        </div>
+        <div class="field">
+            <label>NSS</label>
+            <input type="text" [value]="profileData.nss" readonly />
+        </div>
+    </div>
+</div>
+
+<div class="overlay" *ngIf="editMode">
+    <div class="form-container">
+        <div class="nom-prenom">
+            <div class="field">
+                <label>Nom</label>
+                <input type="text" [(ngModel)]="tempProfileData.nom" />
+            </div>
+            <div class="field">
+                <label>Prénom</label>
+                <input type="text" [(ngModel)]="tempProfileData.prenom" />
+            </div>
+        </div>
+
+        <div class="tel-email">
+            <div class="field">
+                <label>Téléphone</label>
+                <input type="text" [(ngModel)]="tempProfileData.telephone" />
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="tempProfileData.email" />
+            </div>
+        </div>
+
+        <div class="date-naissance-adresse">
+            <div class="field">
+                <label>Date de naissance</label>
+                <input type="text" [(ngModel)]="tempProfileData.dateDeNaissance" />
+            </div>
+            <div class="field">
+                <label>Adresse</label>
+                <input type="text" [(ngModel)]="tempProfileData.adresse" />
+            </div>
+        </div>
+
+        <div class="mutuelle-hospital" *ngIf="tempProfileData instanceof Medecin">
+            <div class="field">
+                <label>Mutuelle</label>
+                <input type="text" [(ngModel)]="tempProfileData.mutuelle" />
+            </div>
+            <div class="field">
+                <label>NSS</label>
+                <input type="text" [(ngModel)]="tempProfileData.nss" />
+            </div>
+        </div>
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelEdit()">Cancel</button>
+
+            <button (click)="saveChanges()">Save</button>
+        </div>
+    </div>
+</div>

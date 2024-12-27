@@ -1,0 +1,10 @@
+<p>laborantin-edit works!</p>
+<h2>Détails Laborantin {{ laborantinId }}</h2>
+
+<div *ngIf="laborantinData; else notFound">
+    <app-profile [profileData]="laborantinData"></app-profile>
+</div>
+
+<ng-template #notFound>
+    <p>Laborantin non trouvé.</p>
+</ng-template>

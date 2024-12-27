@@ -1,0 +1,33 @@
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Numéro de Sécurité Sociale</th>
+                <th>Date de Naissance</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Mutuelle</th>
+                <th>Hôpital</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let infirmier of infirmiers">
+                <td>{{ infirmier.id }}</td>
+                <td>{{ infirmier.role }}</td>
+                <td>{{ infirmier.nss }}</td>
+                <td>{{ infirmier.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
+                <td>{{ infirmier.adresse }}</td>
+                <td>{{ infirmier.telephone }}</td>
+                <td>{{ infirmier.mutuelle }}</td>
+                <td>{{ infirmier.hopital }}</td>
+                <td class="actions-cell">
+                    <i class="fas fa-edit" (click)="editinfirmier(infirmier.id)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deleteinfirmier(infirmier.id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

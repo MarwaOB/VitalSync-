@@ -1,0 +1,81 @@
+<div class="wrapper">
+    <div class="button-container">
+        <div class="titreOrdoannace">
+            Bilan Biologique
+        </div>
+        <i id="edit" class="fas fa-edit" (click)="toggleEditMode()"></i>
+    </div>
+    <div class="content">
+        <div class="left-block">
+            <div class="field">
+                <label>Laborantin :</label>
+                <input type="text" [value]="bilanBiologique?.laborantinId" readonly />
+            </div>
+            <div class="field">
+                <label>Date :</label>
+                <input type="text" [value]="bilanBiologique?.date | date" readonly />
+            </div>
+            <div class="field">
+                <label>Taux Glycémie :</label>
+                <input type="text" [value]="bilanBiologique?.tauxGlycemie" readonly />
+            </div>
+            <div class="field">
+                <label>Taux Pression Artérielle:</label>
+                <input type="text" [value]="bilanBiologique?.tauxPressionArterielle" readonly />
+            </div>
+            <div class="field">
+                <label>Taux Cholestérol :</label>
+                <div class="description"></div>
+                <input type="text" [value]="bilanBiologique?.tauxCholesterol" readonly />
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="field">
+                <label>Description :</label>
+                <div id="description">
+                    {{bilanBiologique?.description}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" *ngIf="editMode">
+    <div class="form-container">
+        <div class="content">
+            <div class="left-block">
+                <div class="field">
+                    <label>Laborantin :</label>
+                    <input type="text" [(ngModel)]="temp.laborantinId" />
+                </div>
+                <div class="field">
+                    <label>Date :</label>
+                    <input type="text" [(ngModel)]="temp.date" />
+                </div>
+                <div class="field">
+                    <label>Taux Glycémie :</label>
+                    <input type="text" [(ngModel)]="temp.tauxGlycemie" />
+                </div>
+                <div class="field">
+                    <label>Taux Pression Artérielle :</label>
+                    <input type="text" [(ngModel)]="temp.tauxPressionArterielle" />
+                </div>
+                <div class="field">
+                    <label>Taux Cholestérol :</label>
+                    <input type="text" [(ngModel)]="temp.tauxCholesterol" />
+                </div>
+            </div>
+            <div class="right-block">
+                <div class="field">
+                    <label>Description :</label>
+                    <textarea id="descriptionInput" [(ngModel)]="temp.description"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelEdit()">Cancel</button>
+            <button (click)="saveChanges()">Save</button>
+        </div>
+    </div>
+</div>

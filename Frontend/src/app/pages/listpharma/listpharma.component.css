@@ -1,0 +1,69 @@
+.frame {
+    position: relative;
+    width: 1115px;
+    height: 61px;
+  }
+  
+  .frame .div-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 769px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .frame .text-wrapper {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Ubuntu-Medium", Helvetica;
+    font-weight: 500;
+    color: rgba(6, 11, 30, 1);
+    font-size: 21px;
+    letter-spacing: 0;
+    line-height: 25.2px;
+    white-space: nowrap;
+  }
+  
+  .frame .frame-wrapper {
+    position: absolute;
+    width: 176px;
+    height: 46px;
+    top: 15px;
+    left: 939px;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 8%;
+    border-color: rgba(5, 104, 94, 1);
+  }
+  
+  .frame .div {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+    top: 7px;
+    left: 11px;
+  }
+  
+  .frame .img {
+    position: relative;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .frame .text-wrapper-2 {
+    position: relative;
+    width: 122px;
+    margin-top: -1.00px;
+    margin-left: -4.00px;
+
+    font-family: "Ubuntu-Regular", Helvetica;
+    font-weight: 400;
+    color: rgba(5, 104, 94, 1);
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 28.8px;
+  }
+  

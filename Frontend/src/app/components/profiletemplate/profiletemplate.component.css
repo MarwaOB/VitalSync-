@@ -1,0 +1,160 @@
+
+:root {
+    --paragraph: rgba(70, 71, 72, 1);
+    --white: rgba(255, 255, 255, 1);
+    --stroke: rgba(239, 240, 242, 1);
+    --ubuntu-14-regular-font-family: "Ubuntu", Helvetica;
+    --ubuntu-14-regular-font-weight: 400;
+    --ubuntu-14-regular-font-size: 14px;
+    --ubuntu-14-regular-letter-spacing: 0px;
+    --ubuntu-14-regular-line-height: 160%;
+    --ubuntu-14-regular-font-style: normal;
+    --variable-collection-color1: rgba(5, 104, 94, 1);
+    --variable-collection-color2: rgba(106, 114, 122, 1);
+    --variable-collection-color3: rgba(198, 218, 217, 1);
+    --variable-collection-color4: rgba(34, 121, 123, 1);
+    --variable-collection-soft-color: rgba(134, 146, 158, 1);
+  }
+
+ 
+  .frame {
+    width: 1184px;
+    height: 268px;
+  }
+  
+  .frame .overlap {
+    position: relative;
+    height: 268px;
+  }
+  
+  .frame .overlap-group {
+    position: absolute;
+    width: 1184px;
+    height: 251px;
+    top: 0;
+    left: 0;
+  }
+  
+  .frame .rectangle {
+    position: absolute;
+    width: 1184px;
+    height: 113px;
+    top: 0;
+    left: 0;
+    background-color: #05685e33;
+    box-shadow: 0px 4px 20px #00000040;
+  }
+  
+  .frame .img {
+    position: absolute;
+    width: 157px;
+    height: 158px;
+    top: 41px;
+    left: 474px;
+  }
+  
+  .frame .group {
+    position: absolute;
+    width: 262px;
+    height: 56px;
+    top: 195px;
+    left: 454px;
+  }
+  
+  .frame .aya-lakache {
+    position: absolute;
+    width: 172px;
+    top: 0;
+    left: 0;
+    font-family: "Montserrat-Bold", Helvetica;
+    font-weight: 700;
+    color: #05685e;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .frame .text-wrapper {
+    position: absolute;
+    width: 258px;
+    top: 32px;
+    left: 0;
+    font-family: "Montserrat-Regular", Helvetica;
+    font-weight: 400;
+    color: #05685e;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .frame .upload-photo {
+    display: flex;
+    flex-direction: column;
+    width: 106px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 2px;
+    position: absolute;
+    top: 212px;
+    left: 976px;
+    background-color: #05685e;
+    border-radius: 8px;
+    border-color: #05685e;
+    overflow: hidden;
+    border: 1px solid;
+    transform: rotate(-0.23deg);
+  }
+  
+  .frame .div {
+    position: relative;
+    width: fit-content;
+    font-family: "Montserrat-Bold", Helvetica;
+    font-weight: 700;
+    color:  rgba(255, 255, 255, 1);
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 30px;
+    white-space: nowrap;
+  }
+  .form-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #eff0f2;
+    padding: 20px;
+    width: 1120px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #eff0f2;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #85929e;
+}
+
+input[disabled] {
+    background-color: #f5f5f5;
+    color: #454748;
+}

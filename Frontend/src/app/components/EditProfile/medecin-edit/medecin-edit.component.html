@@ -1,0 +1,10 @@
+<p>medecin-edit works!</p>
+<h2>Détails Medecin{{ medecinId}}</h2>
+
+<div *ngIf="medecinData; else notFound">
+    <app-profile [profileData]="medecinData"></app-profile>
+</div>
+
+<ng-template #notFound>
+    <p>Médecin non trouvé.</p>
+</ng-template>

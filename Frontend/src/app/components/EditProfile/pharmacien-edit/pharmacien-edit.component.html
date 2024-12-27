@@ -1,0 +1,10 @@
+<p>pharmacien-edit works!</p>
+<h2>Détails Pharmacien {{ pharmacienId }}</h2>
+
+<div *ngIf="pharmacienData; else notFound">
+    <app-profile [profileData]="pharmacienData"></app-profile>
+</div>
+
+<ng-template #notFound>
+    <p>Pharmacien non trouvé.</p>
+</ng-template>

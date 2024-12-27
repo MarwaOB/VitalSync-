@@ -1,0 +1,41 @@
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Numéro de Sécurité Sociale</th>
+                <th>Date de Naissance</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Mutuelle</th>
+                <th>Hôpital</th>
+                <th>Date Début Hospitalisation</th>
+                <th>Date Fin Hospitalisation</th>
+                <th>DPI</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let patient of patients">
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.role }}</td>
+                <td>{{ patient.nss }}</td>
+                <td>{{ patient.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
+                <td>{{ patient.adresse }}</td>
+                <td>{{ patient.telephone }}</td>
+                <td>{{ patient.mutuelle }}</td>
+                <td>{{ patient.hopital }}</td>
+                <td>{{ patient.dateDebutHospitalisation | date:'dd/MM/yyyy' }}</td>
+                <td>{{ patient.dateFinHospitalisation | date:'dd/MM/yyyy' }}</td>
+                <td class="eye-cell">
+                    <i *ngIf="!patient.dpiNull" class="fas fa-eye" (click)="voirDpi(patient.id)"></i>
+                </td>
+                <td class="actions-cell">
+                    <i class="fas fa-edit" (click)="editPatient(patient.id)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deletePatient(patient.id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

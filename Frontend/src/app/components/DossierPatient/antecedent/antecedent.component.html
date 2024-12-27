@@ -1,0 +1,85 @@
+
+<div class="table-container">
+    <h2>Antécédents Médicaux du patient : </h2>
+    <div class="btn-container">
+        <button class="ajouter-btn" (click)="ajouterAntecedent()">
+            Ajouter un antécédent</button>
+    </div>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Chirurgical</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let antecedent of antecedents">
+                <td>{{ antecedent.id }}</td>
+                <td>{{ antecedent.titre }}</td>
+                <td>
+                    <span>{{ getShortDescription(antecedent.description) }}</span>
+                    <button *ngIf="antecedent.description.length > 100" class="voir-plus"
+                        (click)="voirPlus(antecedent)">Voir
+                        plus</button>
+                </td>
+                <td>{{ antecedent.isChirurgical ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <div class="eye">
+                        <i class="fas fa-edit" (click)="modifier(antecedent.id)" title="Modifier"></i>
+                        <i id="delete" class="fas fa-trash-alt" (click)="supprimer(antecedent.id)"
+                            title="Supprimer"></i>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="overlay" *ngIf="editMode">
+    <div class="form-container">
+        <div class="titre-estchirugical">
+            <div class="field">
+                <label>Titre</label>
+                <input type="text" [(ngModel)]="tempAntecedant.titre" />
+            </div>
+            <br>
+            <div class="field">
+                <label>Est chi</label>
+                <select id="isChirurgical" [(ngModel)]="tempAntecedant.isChirurgical">
+                    <option [value]="true">Oui</option>
+                    <option [value]="false">Non</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="description">
+            <div class="field">
+                <label>Description de l'antécédent</label>
+                <input type="text" [(ngModel)]="tempAntecedant.description" />
+            </div>
+        </div>
+
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelEdit()">Cancel</button>
+            <button (click)="saveChanges()">Save</button>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" *ngIf="showDetails">
+    <div class="form-container">
+        <div *ngIf="selectedAntecedent" class="field">
+            <label>Description de l'antécédent</label>
+            <div class="textarea"> {{ selectedAntecedent.description }}</div>
+        </div>
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelShowDetails()">Cancel</button>
+        </div>
+    </div>
+</div>

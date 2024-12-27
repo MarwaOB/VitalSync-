@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="btn-container">
+        <button class="ajouter-btn" (click)="ajouterMedicament()">Ajouter un medicament</button>
+    </div>
+
+    <div class="table-container">
+        <div class="wrapper">
+            <div class="button-container">
+                <div class="titreOrdoannace">
+                    Details de l'ordonnance
+                </div>
+                <i id="edit" class="fas fa-edit" (click)="toggleEditMode()"></i>
+            </div>
+            <div class="duree-validite" *ngIf="ordonnance">
+                <div class="field">
+                    <label>Durée :</label>
+                    <input type="text" [value]="ordonnance.duree" readonly />
+                </div>
+                <div class="field">
+                    <label>Validité :</label>
+                    <input type="text" [value]="ordonnance.isValid ? 'Valide' : 'Non valide'" readonly />
+                </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Médicament</th>
+                    <th>Nom</th>
+                    <th>Durée</th>
+                    <th>Dosage</th>
+                    <th>Prise</th>
+                    <th>Prévues</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let medicament of medicaments">
+                    <td>{{ medicament.id }}</td>
+                    <td>{{ medicament.nom }}</td>
+                    <td>{{ medicament.duree }}</td>
+                    <td>{{ medicament.dose }}</td>
+                    <td>{{ medicament.dosePrise }}</td>
+                    <td>{{ medicament.dosePrevues }}</td>
+                    <td>
+                        <div class="eye">
+                            <i class="fas fa-edit" (click)="modifierMedicament(medicament)" title="Modifier"></i>
+                            <i id="delete" class="fas fa-trash-alt" (click)="supprimer(medicament.id)"
+                                title="Supprimer"></i>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="overlay" *ngIf="editMode">
+    <div class="form-container">
+        <div class="duree-validite">
+            <div class="field">
+                <label>Durée de l'ordonnance :</label>
+                <input type="text" [(ngModel)]="temp.duree" />
+            </div>
+            <div class="field">
+                <label>Validité de l'ordonnance :</label>
+                <input type="text" [(ngModel)]="temp.isValid" />
+            </div>
+        </div>
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelEdit()">Cancel</button>
+            <button (click)="saveChanges()">Save</button>
+        </div>
+    </div>
+</div>
+<div class="overlay" *ngIf="editMedicamentMode">
+    <div class="form-container">
+        <h3>Modifier le médicament</h3>
+        <div class="duree-validite">
+            <div class="field">
+                <label>Nom :</label>
+                <input type="text" [(ngModel)]="selectedMedicament.nom" />
+            </div>
+            <div class="field">
+                <label>Durée :</label>
+                <input type="text" [(ngModel)]="selectedMedicament.duree" />
+            </div>
+        </div>
+        <div class="duree-validite">
+            <div class="field">
+                <label>Dosage :</label>
+                <input type="text" [(ngModel)]="selectedMedicament.dose" />
+            </div>
+            <div class="field">
+                <label>Prise :</label>
+                <input type="text" [(ngModel)]="selectedMedicament.dosePrise" />
+            </div>
+        </div>
+        <div class="field">
+            <label>Prévues :</label>
+            <input type="text" [(ngModel)]="selectedMedicament.dosePrevues" />
+        </div>
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelMedicamentEdit()">Annuler</button>
+            <button (click)="saveMedicamentChanges()">Enregistrer</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<p>biologiste-edit works!</p>
+<h2>Détails Biologiste {{ biologisteId }}</h2>
+
+<div *ngIf="biologisteData; else notFound">
+    <app-profile [profileData]="biologisteData"></app-profile>
+</div>
+
+<ng-template #notFound>
+    <p>Biologiste non trouvé.</p>
+</ng-template>

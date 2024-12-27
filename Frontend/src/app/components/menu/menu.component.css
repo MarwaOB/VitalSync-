@@ -4,12 +4,14 @@
   box-sizing: border-box;
 }
 html,
-body {
+body
+ {
   margin: 0px;
   height: 100%;
-}
+ }
 /* a blue color as a generic focus style */
-button:focus-visible {
+button:focus-visible 
+{
   outline: 2px solid #4a90e2 !important;
   outline: -webkit-focus-ring-color auto 5px !important;
 }
@@ -38,8 +40,8 @@ a {
   }
   
   .box .rectangle {
-    position: fixed;
-    width: 256px;
+    position: absolute;
+    width: 200px;
     height: 936px;
     top: 0;
     left: 0;
@@ -51,28 +53,93 @@ a {
     justify-content: center;     /* Center content horizontally */
     align-items: center;
   }
+  .menu[_ngcontent-ng-c3034304924] 
+  {
+    max-height: 600px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
   .menu {
     position: fixed;
     top: 88px; /* Start right below the header */
     left: 0;
-    width: 250px;
-    height: calc(100vh - 88px); /* Adjust to the remaining height after the header */
+    width: 200px;
+    height: calc(200vh - 88px); /* Adjust to the remaining height after the header */
     background-color: #ffffff;
     padding-top: 20px;
     z-index: 999; /* Ensure it's under the header */
+    max-height: 700px; /* Adjust this height as needed */
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+ 
   }
-  
-  /* Menu content style */
-  .menu ul {
-    list-style-type: none;
-    padding: 0;
+  .menu[_ngcontent-ng-c2013817335]
+   {
+    max-height: 564px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  
-  .menu ul li {
-    margin: 10px 0;
-  }
-  
-  .menu ul li a {
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.menu::-webkit-scrollbar {
+    display: none;
+}
+
+/* Styling for the frames and submenu */
+.menu .frame {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 5px 5px;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+.menu .frame div.active {
+  background-color: #c6dad9; /* Keep the hover background color */
+  color: #333; /* Change text color to ensure it's readable */
+}
+
+/* Styling for the arrow icon */
+.menu .arrow {
+    margin-left: auto;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+/* Submenu hidden by default */
+.menu .submenu {
+    background-color: #f1f1f1;
+    padding: 0; /* Remove padding for submenu */
+}
+
+/* Styling for submenu items */
+.menu .submenu .frame {
+    padding: 10px;
+    background-color: #ffffff; /* Background color for submenu items */
+    border-bottom: 1px solid #ddd; /* Separator for submenu items */
+}
+
+.menu .submenu .text-wrapper-2 {
+    color: #6a727a;
+    transition: color 0.3s ease;
+}
+
+/* Change text color on hover in submenu */
+.menu .submenu .frame:hover .text-wrapper-2 {
+    color: #333;
+}
+
+/* Styling for hover effects */
+.menu .frame   div:hover 
+{
+    background-color: #c6dad9;
+}
+
+  .menu ul li a 
+  {
     color: white;
     text-decoration: none;
     padding: 10px;
@@ -81,25 +148,27 @@ a {
   .menu-logout {
     position: relative;
     width: 205px;
-    height: 876px;
+height: 981px;
   }
   
-  .menu-logout .menu {
+  .menu-logout .menu 
+  {
     display: flex;
     flex-direction: column;
     width: 205px;
     align-items: flex-end;
-    gap: 15px;
+    gap: 5px;
     position: absolute;
     top: 0;
     left: 0;
   }
   
-  .menu-logout .frame {
+  .menu-logout .frame 
+  {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 3px;
     position: relative;
     align-self: stretch;
     width: 100%;
@@ -158,7 +227,8 @@ a {
     flex: 0 0 auto;
   }
   
-  .menu-logout .div-wrapper {
+  .menu-logout .div-wrapper 
+  {
     display: flex;
     width: 146px;
     gap: 10px;
@@ -167,7 +237,8 @@ a {
     position: relative;
   }
   
-  .menu-logout .text-wrapper-2 {
+  .menu-logout .text-wrapper-2 
+  {
     position: relative;
     width: 157px;
     margin-top: -1.00px;
@@ -207,7 +278,8 @@ a {
     flex: 0 0 auto;
     margin-right: -65.00px;
   }
-  .frame1 {
+  .frame1 
+  {
     position: absolute;  /* Position absolutely inside the parent container */
   bottom: 1px;        /* Distance from the bottom */
   left: 50%;           /* Center it horizontally */
@@ -227,7 +299,8 @@ a {
     position: relative;
   }
   
-  .frame1 .vuesax-linear-logout {
+  .frame1 .vuesax-linear-logout 
+  {
     position: relative;
     width: 20px;
     height: 20px;
@@ -236,16 +309,32 @@ a {
     align-items: center;
   }
   
-  .frame1 .text-wrapper {
+  .frame1 .text-wrapper 
+  {
     
     position: relative;
     width: 128px;
     margin-top: -1.00px;
     font-family: var(--ubuntu-14-regular-font-family);
     font-weight: var(--ubuntu-14-regular-font-weight);
-    color: #05685e;
+    color: #c6dad9;
     font-size: var(--ubuntu-14-regular-font-size);
     letter-spacing: var(--ubuntu-14-regular-letter-spacing);
     line-height: var(--ubuntu-14-regular-line-height);
     font-style: var(--ubuntu-14-regular-font-style);
   }
+  .menu ul li a 
+  {
+    color: #6a727a; /* Default color */
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Change color on hover */
+.menu ul li a:hover 
+{
+    background-color: #c6dad9; /* The color when hovering */
+    color: #333; /* Optional: Change text color to ensure it's readable on the hover background */
+}

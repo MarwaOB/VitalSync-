@@ -1,0 +1,645 @@
+/*page dacceuil*/
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Tera&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+.cadre{
+  /* Accueil */
+
+position: relative;
+width: 1000px;
+height: 304px;
+
+background: #FFFFFF;
+
+}
+.cadrelogo{
+  /* Frame 1000000813 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 3px;
+
+position: absolute;
+width: 283px;
+height: 57px;
+left: 23px;
+top: 23px;
+
+
+}
+.logo{
+  /* WellMed (5) 1 */
+/* WellMed (5) 1 */
+
+width: 53px;
+height: 51px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+}
+.menu1{
+/* Frame 2 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 438px;
+height: 25px;
+left: 454px;
+top: 39px;
+
+
+
+}
+.insidemenu1
+{
+  /* home */
+
+width: 74px;
+height: 25px;
+
+font-family: 'Lexend Tera';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 25px;
+/* identical to box height */
+text-align: center;
+letter-spacing: -0.14em;
+text-transform: capitalize;
+
+color: #05685E;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+}
+.insidemenu11{
+ /* contact us */
+
+width: 135px;
+height: 25px;
+
+font-family: 'Lexend Tera';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 25px;
+/* identical to box height */
+text-align: center;
+letter-spacing: -0.14em;
+text-transform: capitalize;
+
+color: #000000;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+}
+.khat{/* Rectangle 4 */
+
+  position: 1000;
+  width: 58px;
+  height: 3px;
+  left: 459px;
+  top: 66px;
+
+  background: #05685E;
+  border-radius: 7px;
+  }
+.signup
+{
+/* sign up */
+
+position: absolute;
+width: 97px;
+height: 25px;
+left: 1048px;
+top: 39px;
+
+font-family: 'Lexend Tera';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 25px;
+/* identical to box height */
+text-align: center;
+letter-spacing: -0.14em;
+text-transform: capitalize;
+
+color: #05685E;
+}
+.login {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  align-items: center;     /* Centre verticalement */
+  padding: 10px 20px;      /* Padding autour du contenu */
+  position: absolute;
+  left: 1200px;            /* Déplacement de l'élément */
+  top: 26px;
+  background: #05685E;
+  border-radius: 8px;
+  width: auto;             /* Largeur automatique pour ajuster au contenu */
+  height: 50px;            /* Hauteur pour ajuster l'élément */
+}
+
+.loginn {
+  font-family: 'Lexend Tera';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.14em;
+  text-transform: capitalize;
+  color: #FFFFFF;
+  padding: 0 10px; /* Un peu d'espace autour du texte */
+}
+.i{
+  /* unsplash:msyQNw7AfJ0 */
+
+position: absolute;
+width: 1440px;
+height: 723px;
+left: 0px;
+top: 128px;
+
+
+}
+.c1
+{
+  /* Frame 1000000811 */
+
+position: absolute;
+width: 1460px;
+height: 1441px;
+left: -10px;
+top: 851px;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+gap: 21.33px;
+
+
+}
+.c1c{
+  /* Section Title */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+gap: 21.33px;
+
+position: absolute;
+width: 1024px;
+height: 198.33px;
+left: 208px;
+top: 149.33px;
+
+
+}
+.c1cc{
+  /* Get In Touch */
+
+width: 200px;
+height: 32px;
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 21.3333px;
+line-height: 150%;
+/* identical to box height, or 32px */
+text-align: center;
+
+/* Heading color */
+color: #282938;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+}
+.c1cc1{
+  /* Contact Us */
+
+width: 1024px;
+height: 77px;
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 64px;
+line-height: 120%;
+/* identical to box height, or 77px */
+text-align: center;
+
+color: #333333;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+}
+.c1cc2{
+  /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. */
+
+width: 1024px;
+height: 36px;
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 150%;
+/* identical to box height, or 36px */
+text-align: center;
+
+color: #555555;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+}
+
+.c2{
+/* Form */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+gap: 90px;
+
+position: absolute;
+width: 1004px;
+height: 860px;
+left: 208px;
+top: 1400.67px;
+
+
+}
+.c2i{
+  /* Inputs */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 100px;
+
+width: 1024px;
+height: 106.67px;
+
+
+
+}
+.c2ii{
+  /* Input */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10.67px;
+
+width: 496px;
+height: 106.67px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+}
+.t1{
+  /* First name */
+
+width: 496px;
+height: 32px;
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 21.3333px;
+line-height: 150%;
+/* identical to box height, or 32px */
+
+/* Heading color */
+color: #282938;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+}
+.box2{
+  /* Input */
+
+box-sizing: border-box;
+
+width: 496px;
+height: 64px;
+
+border: 1.33333px solid #05685E;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+}
+.underbox2{
+  /* Enter your first name */
+
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 21.3333px;
+line-height: 150%;
+/* identical to box height, or 32px */
+
+/* Heading color */
+color: #282938;
+
+
+}
+.col{
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+
+padding: 0px;
+gap: 10.67px;
+
+width: 1200px;
+height: 106.67px;
+
+
+}
+.colc{
+  /* Choose a topic */
+
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 21.3333px;
+line-height: 150%;
+/* identical to box height, or 32px */
+
+/* Heading color */
+color: #282938;
+
+
+}
+.box3{
+  /* Input */
+
+box-sizing: border-box;
+
+width: 1196px;
+height: 64px;
+
+
+border: 1.33333px solid #05685E;
+border-radius: 8px;
+
+
+}
+.col4{
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+
+padding: 0px;
+gap: 10.67px;
+
+width: 1200px;
+height: 450.67px;
+
+
+
+}
+.box4
+{
+ /* Input */
+
+box-sizing: border-box;
+
+width: 1196px;
+height: 240px;
+
+border: 1.33333px solid #05685E;
+border-radius: 8px;
+
+}
+.boxf
+{
+  /* Checkbox Button */
+
+  display: flex;
+flex-direction: row;
+align-items: flex-start;
+
+padding: 0px;
+gap: 10.67px;
+
+width: 1024px;
+height: 28px;
+
+
+
+}
+.fboxc{
+  /* Checkbox */
+
+box-sizing: border-box;
+
+width: 21.33px;
+height: 21.33px;
+
+/* White */
+background: #FFFFFF;
+/* Heading color */
+border: 1.33333px solid #282938;
+border-radius: 5.33333px;
+
+}
+.button{
+  flex-direction: column;
+
+
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;     /* Centre verticalement */
+    padding: 40px 190px;      /* Padding autour du contenu */
+    background: #05685E;
+    border-radius: 20px;
+    width: auto;             /* Largeur automatique pour ajuster au contenu */
+    height: 50px;            /* Hauteur pour ajuster l'élément */
+  }
+
+  .loginn {
+    font-family: 'Lexend Tera';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 25px;
+    text-align: center;
+    letter-spacing: -0.14em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    padding: 0 0px; /* Un peu d'espace autour du texte */
+  }
+.footer{
+  /* Container */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center; /* Centre horizontalement */
+
+  padding: 0px;
+  gap: 10.67px;
+
+position: absolute;
+width: 1440px;
+height: 454px;
+left: 0px;
+top: 2800px;
+
+background: #05685E;
+
+}
+.logo{
+  /* Logo */
+
+/* Logo */
+
+position: absolute;
+width: 407px;
+height: 368px;
+left: 44px;
+top: 32px;
+
+
+}
+.footerc{
+  /* Footer Content */
+
+width: 756.85px;
+height: 50px;
+display: flex;
+flex-direction: row;
+align-items: flex-start ;
+
+padding: 0px;
+gap: 0.67px;
+
+
+}
+.footerbox{
+  /* Footer Section */
+
+width: 100px;
+height: 100px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+
+padding: 50px;
+gap: 20.67px;
+
+
+}
+.mainbox{
+  /* Footer Title */
+
+/* Text single/300/Bold */
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 20px;
+/* identical to box height, or 100% */
+
+color: #FFFFFF;
+
+
+}
+.footerm{
+
+ /* Footer Content */
+
+width: 506.85px;
+height: 254px;
+display: flex;
+flex-direction: row;
+align-items: center;
+
+padding: 0px;
+gap: 10.67px;
+
+
+}
+.otherbox{
+  /* Link */
+
+/* Text single/300/Bold */
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 20px;
+/* identical to box height, or 100% */
+
+color: #FFFFFF;
+
+
+
+}

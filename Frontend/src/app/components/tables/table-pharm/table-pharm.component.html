@@ -1,0 +1,33 @@
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Numéro de Sécurité Sociale</th>
+                <th>Date de Naissance</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Mutuelle</th>
+                <th>Hôpital</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pharmacien of pharmaciens">
+                <td>{{ pharmacien.id }}</td>
+                <td>{{ pharmacien.role }}</td>
+                <td>{{ pharmacien.nss }}</td>
+                <td>{{ pharmacien.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
+                <td>{{ pharmacien.adresse }}</td>
+                <td>{{ pharmacien.telephone }}</td>
+                <td>{{ pharmacien.mutuelle }}</td>
+                <td>{{ pharmacien.hopital }}</td>
+                <td class="actions-cell">
+                    <i class="fas fa-edit" (click)="editpharmacien(pharmacien.id)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deletepharmacien(pharmacien.id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

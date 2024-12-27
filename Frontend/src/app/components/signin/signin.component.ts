@@ -5,6 +5,7 @@ import { HospitalService } from '../../services/hospital/hospital.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-signin',
@@ -26,7 +27,8 @@ export class SigninComponent implements OnInit {
 
   constructor(private renderer: Renderer2,
     private hospitalService: HospitalService,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.container = document.getElementById('container');
@@ -69,7 +71,8 @@ export class SigninComponent implements OnInit {
 
   onSubmitSignIn(): void {
     if (this.email && this.password) {
-      if (this.email === 'ma_lakache@esi.dz' && this.password === 'aya') {
+      const authenticatedUser = this.userService.authenticate(this.email, this.password);
+      if (authenticatedUser) {
         this.acces = true;
         console.log('Connexion réussie ! Vous pouvez maintenant choisir un hôpital.');
         this.onSuivantClick();
@@ -81,7 +84,6 @@ export class SigninComponent implements OnInit {
       console.log('Vous devez entrer un email et un mot de passe.');
     }
   }
-
   onSuivantClick(): void {
     this.toggleRightPanel()
   };

@@ -1,0 +1,90 @@
+<div class="table-container" *ngIf="!currentComponent">
+    <h2>Consultation du patient :</h2>
+    <div class="btn-container">
+        <button class="ajouter-btn" (click)="ajouterConsultation()">
+            Ajouter une consultation
+        </button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Résumé</th>
+                <th>Diag</th>
+                <th>Bilan Radio</th>
+                <th>Bilan Bio</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let consultation of consultations">
+                <td>{{ consultation.id }}</td>
+                <td>
+                    <span>{{ getShortDescription(consultation.resume) }}</span>
+                    <button *ngIf="consultation.resume.length > 100" class="voir-plus"
+                        (click)="voirDetails(consultation, 'resume')">Voir
+                        plus</button>
+                </td>
+                <td>
+                    <div class="eye">
+                        <i *ngIf="consultation.diagnosticId" class="fas fa-eye"
+                            (click)="voirComposantDetail(consultation, 'diag')"></i>
+                        <i *ngIf="!consultation.diagnosticId" class="fas fa-plus"
+                            (click)="creerDiagnostic(consultation)"></i>
+                    </div>
+                </td>
+                <td>
+                    <div class="eye">
+                        <i *ngIf="consultation.bilanRadiologiqueId" class="fas fa-eye"
+                            (click)="voirComposantDetail(consultation, 'bilanRadio')"></i>
+                        <i *ngIf="!consultation.bilanRadiologiqueId" class="fas fa-plus"
+                            (click)="creerBilanRadio(consultation)"></i>
+                    </div>
+                </td>
+                <td>
+                    <div class="eye">
+                        <i *ngIf="consultation.bilanBiologiqueId" class="fas fa-eye"
+                            (click)="voirComposantDetail(consultation, 'bilanBio')"></i>
+                        <i *ngIf="!consultation.bilanBiologiqueId" class="fas fa-plus"
+                            (click)="creerBilanBio(consultation)"></i>
+                    </div>
+                </td>
+                <td>
+                    <div class="eye">
+                        <i id="delete" class="fas fa-trash-alt" (click)="supprimer(consultation.id)"
+                            title="Supprimer"></i>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="overlay" *ngIf="showDetails && detailType === 'resume'">
+    <div class="form-container">
+        <div *ngIf="selectedConsultation">
+            <div class="field">
+                <label>Détails du résumé</label>
+                <div class="textarea">{{ selectedConsultation.resume }}</div>
+            </div>
+        </div>
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelShowDetails()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="currentComponent === 'diag'">
+    <app-diagnostic [consultation]="selectedConsultation" [diagnostic]="selectedDiagnostic"></app-diagnostic>
+</div>
+
+<div *ngIf="currentComponent === 'bilanRadio'">
+    <app-bilan-radiologique [consultation]="selectedConsultation"
+        [bilanRadiologique]="selectedBilanRadiologique"></app-bilan-radiologique>
+</div>
+
+<div *ngIf="currentComponent === 'bilanBio'">
+    <app-bilan-biologique [consultation]="selectedConsultation"
+        [bilanBiologique]="selectedBilanBiologique"></app-bilan-biologique>
+</div>

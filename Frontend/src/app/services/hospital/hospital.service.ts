@@ -12,11 +12,12 @@ export class HospitalService {
     { id: '2', nom: 'Clinique de Lyon', lieu: 'Lyon', dateCreation: new Date('2010-05-20'), nombrePatients: 120, nombrePersonnels: 30, is_clinique: true },
     { id: '3', nom: 'Hôpital de Marseille', lieu: 'Marseille', dateCreation: new Date('1998-07-15'), nombrePatients: 250, nombrePersonnels: 60, is_clinique: false },
   ];
+  private hopital: Hospital | null = null;
 
   constructor() { }
 
   getAll(): Observable<Hospital[]> {
-    return of(this.hospitals);  // Retourne un Observable avec les données statiques
+    return of(this.hospitals);
   }
 
 }

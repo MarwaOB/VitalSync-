@@ -18,7 +18,7 @@ app-header {
   
   /* The menu should start below the header */
   app-menu {
-    width: 250px;
+    width: 200px;
     height: calc(100vh - 88px); /* Subtract header height */
     position: fixed;
     top: 88px; /* Start just below the header */
@@ -27,11 +27,26 @@ app-header {
     z-index: 999; /* Ensure it's under the header */
   }
   
+  .layout {
+    display: flex;
+    flex-direction: column;  /* Makes the layout flexible */
+    height: 100vh;           /* Full viewport height */
+    overflow: hidden;        /* Prevent scrolling on the layout itself */
+}
+
+.layout .content {
+    flex-grow: 1;            /* Allow the content to take up remaining space */
+    overflow-y: auto;        /* Enable scrolling for the content if needed */
+}
+
   /* Content area will take the remaining width */
   .content {
-    margin-left: 250px; /* Adjust this to the width of the menu */
-    padding: 20px;
-    flex: 1;
+    margin-left: 206px;
+        flex: 1;
     overflow-y: auto; /* To allow scrolling if content exceeds screen size */
+    padding: 20px;
+    max-height: calc(100vh - 60px); /* Adjust this based on your header or footer height */
+
+  
   }
   
