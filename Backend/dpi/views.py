@@ -28,10 +28,8 @@ from .serializers import OrdonnanceSerializer
 
 
 
-
 @csrf_exempt
 @login_required
-
 def ajouter_diagnostic(request, consultation_id):
     # Récupérer la consultation associée ou retourner une 404 si elle n'existe pas
     consultation = get_object_or_404(Consultation, id=consultation_id)
@@ -59,22 +57,23 @@ def ajouter_diagnostic(request, consultation_id):
             # Créer le diagnostic et l'associer à l'ordonnance
             diagnostic = Diagnostic.objects.create(ordonnance=ordonnance)
 
-            # Associer ce diagnostic à la consultation
+            # Associer ce diagnostic et soin à la consultation
             consultation.diagnostic = diagnostic
             consultation.save()  # Sauvegarder les changements dans la base de données
 
-            messages.success(request, "Diagnostic ajouté avec succès à la consultation.")
-             # Redirection après l'ajout du diagnostic
-            return redirect('ord-view', consultation_id=consultation.id, diagnostic_id=diagnostic.id)
+            messages.success(request, "Diagnostic et soin ajoutés avec succès à la consultation.")
 
+            # Redirection après l'ajout du diagnostic et du soin
+            return redirect('ord-view', consultation_id=consultation.id, diagnostic_id=diagnostic.id)
 
     else:
         form = OrdonnanceForm()
 
     return render(request, 'creer_ord.html', {
         'form': form,
-        'consultation': consultation.id # Passer l'objet consultation au template
+        'consultation': consultation.id  # Passer l'objet consultation au template
     })
+
 
 @csrf_exempt
 @login_required
@@ -165,7 +164,7 @@ def ajouter_consultation(request, dpi_id):
     message = None  # Default message is None
 
     try:
-        current_date = timezone.now().date() + timedelta(days=2)
+        current_date = timezone.now().date() + timedelta(days=3)
         # Check for duplicate consultation
         if Consultation.objects.filter(date=current_date, dpi=dpi).exists():
             message = "Une consultation à la même date pour ce patient existe déjà."
@@ -277,20 +276,26 @@ def ajouter_radiologique_bilan(request, consultation_id):
 def consultation_detail(request, consultation_id):
     # Fetch the consultation or return a 404 error if it doesn't exist
     consultation = get_object_or_404(Consultation, id=consultation_id)
-    dpi =  consultation.dpi
-    soinsIn = None
-    if (request.user.role == 'infermier'):
-        soin=Soin.objects.filter(dpi=dpi ,diagnostic = consultation.diagnostic ).last()
-        soinsIn = SoinInfermierObservation.objects.filter(soin = soin )
-  
+    dpi = consultation.dpi
+    diagnostic = consultation.diagnostic
+    soins= None
+    soins_infermier_observations = None
+    if diagnostic:  
+        soins = diagnostic.soin
+        if soins: 
+            # Fetch related SoinInfermierObservations for each Soin instance
+            soins_infermier_observations = SoinInfermierObservation.objects.filter(soin=soins)
+
+    # Prepare the context data to pass to the template
     context = {
         "consultation": consultation,
         "bilan_biologique": consultation.bilanBiologique,
         "bilan_radiologique": consultation.bilanRadiologique,
-        "SoinInfermierObservation":soinsIn
+        "SoinInfermierObservation": soins_infermier_observations,  # Corrected to match the observations
     }
 
-    return render(request, "consultation_detail.html", context)
+    # Render the template with the context
+    return render(request, 'consultation_detail.html', context)
 
 @csrf_exempt
 @login_required
@@ -407,8 +412,6 @@ def afficher_ordonnances_valide(request):
         # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
         raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
 
-
-
 @csrf_exempt
 @login_required
 def ajouter_soin(request, consultation_id):
@@ -420,18 +423,21 @@ def ajouter_soin(request, consultation_id):
         # Récupérer l'objet Consultation correspondant
         consultation = get_object_or_404(Consultation, id=consultation_id)
         dpi = consultation.dpi
-        soin=Soin.objects.filter(dpi=dpi , diagnostic = consultation.diagnostic ).last()
-        if soin is None:
-            soin = Soin.objects.create(
-              dpi = dpi,
-              diagnostic = consultation.diagnostic
-            ) 
+        diagnostic = consultation.diagnostic
+
+        # Vérifier si soins existe, sinon créer un nouveau soin
+        soins = diagnostic.soin
+        if soins is None: 
+            soins = Soin.objects.create(dpi=dpi)
+            diagnostic.soin = soins
+            diagnostic.save()
+       
         # Créer une nouvelle observation de soin infirmier
         SoinInfermierObservation.objects.create(
             observation=observation,
             soins_infermier=soins_infermier,
             infermier=request.user,
-            soin=soin  # Récupérer le premier soin associé au DPI
+            soin=soins  # Assignation correcte du soin
         )
 
         # Redirection vers la page des détails de la consultation

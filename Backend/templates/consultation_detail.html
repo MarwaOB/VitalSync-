@@ -247,13 +247,11 @@
     {% if consultation.diagnostic %}
     {% if user.role == 'infermier' %}
     <h1> Soins infermiers</h1>
+
+   
+    
     <form action="{% url 'ajouter_soin' consultation.id %}" method="POST">
-
-
-
-
-
-
+        <h2>Administration des medicaments </h2> 
 
         <h2>Les soins infermiers</h2>
         <div id="soins-container">

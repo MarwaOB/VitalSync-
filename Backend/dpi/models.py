@@ -173,16 +173,26 @@ class Examen(models.Model):
     def __str__(self):
         return f"Examen {self.type} for Bilan {self.bilan_radiologique}"
 
-
 class Diagnostic(models.Model):
+    ordonnance = models.OneToOneField(
+        'Ordonnance', 
+        on_delete=models.CASCADE, 
+        related_name='ordonnance'
+    )
    
-   ordonnance = models.OneToOneField('Ordonnance', on_delete=models.CASCADE, related_name='ordonnance' )
+    soin = models.OneToOneField(
+        'Soin',
+        on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
+        related_name='soin_in',
+        null=True,  # Allow setting to NULL
+    )
+
+
 
 def __str__(self):
         return f"Diagnostic for consultation "   
 
 class Ordonnance(models.Model):
-    
     duree = models.IntegerField( null=True, blank=True,help_text="Duration of the prescription in days")
     is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
     observation = models.TextField(null=True, blank=True)
@@ -211,7 +221,8 @@ class Medicament(models.Model):
     # Dose totale prévue pour le traitement
     dosePrevues = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
      # la quantité de med
-    qte = models.IntegerField(default = 1)
+    cycle = models.IntegerField(default = 1)
+    lastPrise = models.DateField(null=True, blank=True)
 
     # Référence vers l'ordonnance
     ordonnance = models.ForeignKey(
@@ -285,13 +296,6 @@ class Soin(models.Model):
         'AdministrationMeds',
         on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
         related_name='administration_meds',
-        null=True,  # Allow setting to NULL
-    )
-
-    diagnostic = models.OneToOneField(
-        'Diagnostic',
-        on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
-        related_name='diagnostic_soin',
         null=True,  # Allow setting to NULL
     )
 

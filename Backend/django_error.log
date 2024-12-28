@@ -13022,3 +13022,478 @@ Traceback (most recent call last):
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'Consultation' object has no attribute 'last'
 "POST /ajouter_soin/18/ HTTP/1.1" 500 81155
+Internal Server Error: /consultation/18/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 283, in consultation_detail
+    soins = Soin.objects.filter(diagnostic=diagnostic)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'diagnostic' into field. Choices are: aministration, aministration_id, dpi, dpi_id, id, observations, soin_in
+"GET /consultation/18/? HTTP/1.1" 500 120660
+Internal Server Error: /consultation/18/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 286, in consultation_detail
+    soins_infermier_observations = SoinInfermierObservation.objects.filter(soin__in=soins)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\fields\related_lookups.py", line 70, in get_prep_lookup
+    self.rhs = [get_normalized_value(val, self.lhs)[0] for val in self.rhs]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable
+"GET /consultation/18/? HTTP/1.1" 500 127039
+Internal Server Error: /consultation/19/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 283, in consultation_detail
+    soins = diagnostic.soin
+            ^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'soin'
+"GET /consultation/19/? HTTP/1.1" 500 75304
+Internal Server Error: /consultation/19/diagnostic/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 61, in ajouter_diagnostic
+    soin = Soin.objects.create(diagnostic=diagnostic, ordonnance=ordonnance)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 677, in create
+    obj = self.model(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+TypeError: Soin() got unexpected keyword arguments: 'diagnostic', 'ordonnance'
+"POST /consultation/19/diagnostic/ HTTP/1.1" 500 99922
+Internal Server Error: /ajouter_soin/19/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1048, "Column 'soin_id' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 437, in ajouter_soin
+    SoinInfermierObservation.objects.create(
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1048, "Column 'soin_id' cannot be null")
+"POST /ajouter_soin/19/ HTTP/1.1" 500 198301
+Internal Server Error: /consultation/21/diagnostic/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 55, in ajouter_diagnostic
+    return redirect('ajouter_ordonnance', consultation_id=consultation.id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_ordonnance' not found. 'ajouter_ordonnance' is not a valid view function or pattern name.
+"POST /consultation/21/diagnostic/ HTTP/1.1" 500 102075
+Internal Server Error: /consultation/21/diagnostic/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 55, in ajouter_diagnostic
+    return redirect('ajouter_ordonnance', consultation_id=consultation.id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\shortcuts.py", line 49, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\shortcuts.py", line 180, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'ajouter_ordonnance' not found. 'ajouter_ordonnance' is not a valid view function or pattern name.
+"POST /consultation/21/diagnostic/ HTTP/1.1" 500 102381
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 286, in consultation_detail
+    traitements = diagnostic.ordonnance.all()  # Récupérer les traitements associés au diagnostic
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Ordonnance' object has no attribute 'all'
+"GET /consultation/21/? HTTP/1.1" 500 75863
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 288, in consultation_detail
+    checklist[traitement.nom] = traitement.status  # Ajouter chaque médicament et son statut
+                                ^^^^^^^^^^^^^^^^^
+AttributeError: 'Medicament' object has no attribute 'status'
+"GET /consultation/21/? HTTP/1.1" 500 76551
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 288, in consultation_detail
+    checklist[traitement.nom] = traitement.status  # Ajouter chaque médicament et son statut
+                                ^^^^^^^^^^^^^^^^^
+AttributeError: 'Medicament' object has no attribute 'status'
+"GET /consultation/21/? HTTP/1.1" 500 76551
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 284, in consultation_detail
+    meds = ordonnance.meds.all() if ordonnance else None
+                                    ^^^^^^^^^^
+NameError: name 'ordonnance' is not defined
+"GET /consultation/21/? HTTP/1.1" 500 75529
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 287, in consultation_detail
+    if ordonnance and ordonnance.administration_meds:
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+dpi.models.Ordonnance.administration_meds.RelatedObjectDoesNotExist: Ordonnance has no administration_meds.
+"GET /consultation/21/? HTTP/1.1" 500 81082
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 287, in consultation_detail
+    if ordonnance and ordonnance.administration_meds:
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+dpi.models.Ordonnance.administration_meds.RelatedObjectDoesNotExist: Ordonnance has no administration_meds.
+"GET /consultation/21/? HTTP/1.1" 500 81082
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 287, in consultation_detail
+    if ordonnance and ordonnance.administration_meds:
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 531, in __get__
+    raise self.RelatedObjectDoesNotExist(
+dpi.models.Ordonnance.administration_meds.RelatedObjectDoesNotExist: Ordonnance has no administration_meds.
+"GET /consultation/21/? HTTP/1.1" 500 81082
+Internal Server Error: /consultation/21/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1062, "Duplicate entry '20' for key 'dpi_administrationmeds.ordonnance_id'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\dpi\views.py", line 287, in consultation_detail
+    admin_meds = AdministrationMeds.objects.create(ordonnance=ordonnance)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\MySQLdb\connections.py", line 265, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1062, "Duplicate entry '20' for key 'dpi_administrationmeds.ordonnance_id'")
+"POST /consultation/21/? HTTP/1.1" 500 189428

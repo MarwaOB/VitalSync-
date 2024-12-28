@@ -19,8 +19,8 @@
 {% endif %}
 
 <h1>Créer une nouvelle ordonnance</h1>
-
 <form method="POST" action="{% url 'ajouter_diagnostic' consultation %}">
+
     {% csrf_token %}
 
     <div>
@@ -33,9 +33,9 @@
         <div class="medicament_row" id="medicament_0">
 
             <input type="text" name="medicaments_0_nom" placeholder="Nom du médicament">
-            <input type="number" name="medicaments_0_qte" placeholder="quantité">
             <input type="number" name="medicaments_0_duree" placeholder="Durée (jours)">
             <input type="number" name="medicaments_0_frequence" placeholder="frequence de prise par jour">
+            <input type="number" name="medicaments_0_cycle" placeholder="par n jours">
             <input type="number" step="0.01" name="medicaments_0_dose" placeholder="Dose par prise">
             
             <select name="medicaments_0_unite">
@@ -72,44 +72,41 @@
     let medicamentIndex = 1;
 
     function addMedicament() {
+    let container = document.getElementById('medicaments_container');
+    let newMedicament = document.createElement('div');
+    newMedicament.classList.add('medicament_row');
+    newMedicament.id = 'medicament_' + medicamentIndex;
 
-        let container = document.getElementById('medicaments_container');
-        let newMedicament = document.createElement('div');
-        newMedicament.classList.add('medicament_row');
-        newMedicament.id = 'medicament_' + medicamentIndex;
+    newMedicament.innerHTML = `
+        <input type="text" name="medicaments_${medicamentIndex}_nom" placeholder="Nom du médicament" required>
+        <input type="number" name="medicaments_${medicamentIndex}_duree" placeholder="Durée (jours)" required>
+        <input type="number" name="medicaments_${medicamentIndex}_frequence" placeholder="Fréquence par jour" required>
+        <input type="number" step="0.01" name="medicaments_${medicamentIndex}_dose" placeholder="Dose par prise" required>
+        <input type="number" name="medicaments_${medicamentIndex}_cycle" placeholder="Cycle (jours)" required>
 
-        newMedicament.innerHTML = `
-            <input type="text" name="medicaments_${medicamentIndex}_nom" placeholder="Nom du médicament">
-            <input type="number" name="medicaments_${medicamentIndex}_duree" placeholder="Durée (jours)">
-             <input type="number" name="medicaments_${medicamentIndex}_qte" placeholder="quantité">
-            <input type="number" name="medicaments_0_frequence" placeholder="frequence de prise par jour">
-            <input type="number" step="0.01" name="medicaments_${medicamentIndex}_dose" placeholder="Dose par prise">
-            
-            <select name="medicaments_${medicamentIndex}_unite">
-                {% for value, label in form.unite.field.choices %}
-                <option value="{{value}}">{{value}}</option>
+        <select name="medicaments_${medicamentIndex}_unite" required>
+            {% for value, label in form.unite.field.choices %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <div id="medicaments_${medicamentIndex}_mode_administration_container">
+            <select name="medicaments_${medicamentIndex}_mode_administration" required>
+                {% for value, label in form.mode_administration.field.choices %}
+                <option value="{{ value }}">{{ label }}</option>
                 {% endfor %}
             </select>
+        </div>
 
+        <textarea name="medicaments_${medicamentIndex}_observation" placeholder="Observation sur le médicament"></textarea>
 
-            <div id="medicaments_${medicamentIndex}_mode_administration_container">
-                <select name="medicaments_${medicamentIndex}_mode_administration">
-                  {% for value, label in form.mode_administration.field.choices %}
-                    <option value="{{value}}">{{label}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <textarea name="medicaments_${medicamentIndex}_observation" placeholder="Observation sur le médicament"></textarea>
+        <button type="button" onclick="removeMedicament(${medicamentIndex})">-</button>
+    `;
 
-            <button type="button" onclick="removeMedicament(${medicamentIndex})">-</button>
-        `;
-
-        container.appendChild(newMedicament);
-        medicamentIndex++;
-        updateHiddenField();
-    }
-
+    container.appendChild(newMedicament);
+    medicamentIndex++;
+    updateHiddenField();
+}
     function removeMedicament(index) {
         let medicamentRow = document.getElementById('medicament_' + index);
         medicamentRow.remove();
@@ -117,25 +114,24 @@
     }
 
     function updateHiddenField() {
-        let medicaments = [];
-        document.querySelectorAll('.medicament_row').forEach(function(row, index) {
-            let nom = row.querySelector('input[name^="medicaments_"][name$="_nom"]').value;
-            let duree = row.querySelector('input[name^="medicaments_"][name$="_duree"]').value;
-            let dose = row.querySelector('input[name^="medicaments_"][name$="_dose"]').value;
-            let frequence = row.querySelector('input[name^="medicaments_"][name$="_frequence"]').value;
-            let unite = row.querySelector('select[name^="medicaments_"][name$="_unite"]').value;
-            let observation = row.querySelector('textarea[name^="medicaments_"][name$="_observation"]').value;
-            let mode_administration = row.querySelector('select[name^="medicaments_"][name$="_mode_administration"]').value;
-            let qte = row.querySelector('input[name^="medicaments_"][name$="_qte"]').value;
+    let medicaments = [];
+    document.querySelectorAll('.medicament_row').forEach(function(row) {
+        let nom = row.querySelector('input[name^="medicaments_"][name$="_nom"]').value;
+        let duree = row.querySelector('input[name^="medicaments_"][name$="_duree"]').value;
+        let dose = row.querySelector('input[name^="medicaments_"][name$="_dose"]').value;
+        let frequence = row.querySelector('input[name^="medicaments_"][name$="_frequence"]').value;
+        let cycle = row.querySelector('input[name^="medicaments_"][name$="_cycle"]').value;
+        let unite = row.querySelector('select[name^="medicaments_"][name$="_unite"]').value;
+        let observation = row.querySelector('textarea[name^="medicaments_"][name$="_observation"]').value || '';
+        let mode_administration = row.querySelector('select[name^="medicaments_"][name$="_mode_administration"]').value;
 
-            if (nom && duree && dose && frequence && qte) {
-                medicaments.push(`${nom},${duree},${frequence},${dose},${unite},${qte},${mode_administration},${observation}`);
-            }
-        });
-        
-        console.log(medicaments); 
-        document.getElementById('medicaments').value = medicaments.join(';');
-    }
+        if (nom && duree && dose && frequence && cycle) {
+            medicaments.push(`${nom},${duree},${frequence},${dose},${unite},${cycle},${mode_administration},${observation}`);
+        }
+    });
+
+    document.getElementById('medicaments').value = medicaments.join(';');
+}
 
 
 </script>
