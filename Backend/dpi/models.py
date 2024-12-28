@@ -275,19 +275,12 @@ class Consultation(models.Model):
         return f"Consultation on {self.date} for {self.dpi.patient.user.get_full_name()}"
 
 class Soin(models.Model):
-    observation = models.TextField()
     dpi = models.ForeignKey(
         'Dpi', 
         on_delete=models.CASCADE, 
         related_name='soins'
     )  # One-to-Many relationship with Dpi
 
-    infermiers = models.ManyToManyField(
-        'users.CustomUser',
-        related_name='assigned_soins',
-        limit_choices_to={'role': 'infermier'},
-        blank=False,
-    )  # Many-to-Many relationship with Infermiers (nurses)
 
     soins_infermier = models.JSONField(default=list, blank=True)  # Stores a list of strings for each nurse's notes
     aministration = models.OneToOneField(
@@ -348,3 +341,28 @@ class AdministrationMeds(models.Model):
 
     def __str__(self):
         return f"Administration Checklist for Ordonnance {self.ordonnance}"
+
+class SoinInfermierObservation(models.Model):
+    """
+    Represents an observation related to a nurse's care (Soin).
+    """
+    date_time = models.DateTimeField(auto_now_add=True)  # Automatically set the date and time when the record is created
+    observation = models.TextField()  
+    soins_infermier = models.TextField() 
+    infermier = models.ForeignKey(
+        'users.CustomUser',
+        on_delete=models.CASCADE,
+        related_name='assigned_soins_infermiers',
+        limit_choices_to={'role': 'infermier'},
+        null=True,
+        blank=True
+    )
+
+    soin = models.ForeignKey(
+        'Soin', 
+        on_delete=models.CASCADE, 
+        related_name='observations'
+    )  # Links each observation to a specific Soin (care)
+
+    def __str__(self):
+        return f"Observation for Soin ID {self.soin.id} at {self.date_time.strftime('%Y-%m-%d %H:%M:%S')}"
