@@ -8,7 +8,7 @@ from reportlab.lib.pagesizes import A5
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -24,6 +24,8 @@ from rest_framework.response import Response
 from rest_framework import status, permissions, serializers
 from rest_framework.decorators import api_view
 from .serializers import OrdonnanceSerializer
+from decimal import Decimal
+
 
 
 
@@ -272,30 +274,56 @@ def ajouter_radiologique_bilan(request, consultation_id):
 
     return render(request, "consultation_detail.html", {"consultation": consultation})
 
-@csrf_exempt
+
+
+
+def mark_as_administered(request, ordonnance_id, medication_name):
+    ordonnance = get_object_or_404(Ordonnance, id=ordonnance_id)
+    admin_meds = get_object_or_404(AdministrationMeds, ordonnance=ordonnance)
+
+    # Check if it's a POST request
+    if request.method == 'POST':
+        dose_administered = request.POST.get('dose_administered')
+        if dose_administered:
+            try:
+                dose_administered = Decimal(dose_administered)
+                admin_meds.mark_as_administered(medication_name, dose_administered)
+                return redirect('consultation_detail', consultation_id=ordonnance.consultation.id)
+            except ValueError as e:
+                return HttpResponseBadRequest(f"Error: {e}")
+    return redirect('consultation_detail', consultation_id=ordonnance.consultation.id)
+
+
 def consultation_detail(request, consultation_id):
-    # Fetch the consultation or return a 404 error if it doesn't exist
     consultation = get_object_or_404(Consultation, id=consultation_id)
     dpi = consultation.dpi
     diagnostic = consultation.diagnostic
-    soins= None
+    soins = None
     soins_infermier_observations = None
+    admin_meds = None
+    checklist = None
     if diagnostic:  
         soins = diagnostic.soin
         if soins: 
-            # Fetch related SoinInfermierObservations for each Soin instance
             soins_infermier_observations = SoinInfermierObservation.objects.filter(soin=soins)
+            admin_meds = soins.administration
+            admin_meds.update_checklist()
+            checklist = admin_meds.checklist
 
-    # Prepare the context data to pass to the template
+
+
+    # Get the ordonnance and update checklist
+
     context = {
         "consultation": consultation,
         "bilan_biologique": consultation.bilanBiologique,
         "bilan_radiologique": consultation.bilanRadiologique,
-        "SoinInfermierObservation": soins_infermier_observations,  # Corrected to match the observations
+        "SoinInfermierObservation": soins_infermier_observations,
+        "checklist": checklist,
     }
 
-    # Render the template with the context
     return render(request, 'consultation_detail.html', context)
+
 
 @csrf_exempt
 @login_required
@@ -444,4 +472,4 @@ def ajouter_soin(request, consultation_id):
         return redirect('consultation_detail', consultation_id=consultation.id)
 
     # Rendre la page avec le formulaire et les soins existants
-    return render(request, 'ajouter_soin.html', context)
+    return render(request, 'ajouter_soin.html')

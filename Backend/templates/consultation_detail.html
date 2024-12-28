@@ -247,7 +247,34 @@
     {% if consultation.diagnostic %}
     {% if user.role == 'infermier' %}
     <h1> Soins infermiers</h1>
+    <h1>Medications Checklist</h1>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Medication Name</th>
+                <th>Remaining Dose</th>
+                <th>Status (LED)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for med, status in checklist.items %}
+                <tr>
+                    <td>{{ med }}</td>
+                    <td>{{ status.remaining_dose }}</td>
+                    <td>{% if status.LED %} ON {% else %} OFF {% endif %}</td>
+                    <td>
+                        <form method="POST" action="{% url 'mark_as_administered' ordonnance.id med %}">
+                            {% csrf_token %}
+                            <input type="number" name="dose_administered" required placeholder="Dose to administer">
+                            <button type="submit">Administer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
    
     
     <form action="{% url 'ajouter_soin' consultation.id %}" method="POST">

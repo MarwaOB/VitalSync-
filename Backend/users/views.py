@@ -16,7 +16,7 @@ from django.utils.timezone import now
 from datetime import date
 from django.contrib.auth.decorators import login_required  # Import the login_required decorator
 from .forms import AntecedentFormSet, DpiForm  # Import the formset
-from dpi.models import  Dpi, Antecedent, Consultation
+from dpi.models import  Dpi, Antecedent, Consultation, Medicament
 from .forms import AntecedentFormSet, DpiForm , BilanForm # Import the formset
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required

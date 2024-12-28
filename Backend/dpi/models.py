@@ -9,6 +9,9 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django. template. loader import get_template 
 from xhtml2pdf import pisa
+from datetime import timedelta, datetime
+from django.utils import timezone
+
 
 
 
@@ -217,7 +220,7 @@ class Medicament(models.Model):
     #ajouter une observation , indication, retriction 
     observation = models.TextField(null=True, blank=True)
     # Dose prise à chaque prise
-    dosePrise = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    dosePrise = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True, default=0)
     # Dose totale prévue pour le traitement
     dosePrevues = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
      # la quantité de med
@@ -323,34 +326,51 @@ class AdministrationMeds(models.Model):
 
     def update_checklist(self):
         """
-        Updates the checklist based on the ordonnance's medications.
-        Each medication in the ordonnance is represented in the checklist with its administration status.
+        Updates the checklist based on the ordonnance's medications and their doses.
+        Each medication in the ordonnance is represented in the checklist with its status (LED on/off).
         """
         if self.ordonnance:
-            self.checklist = {
-                med.nom: False for med in self.ordonnance.meds.all()
-            }
+            self.checklist = {}
+            for med in self.ordonnance.meds.all():
+                remaining_dose = med.dose - (med.dosePrise or 0)
+                # LED is ON if remaining_dose > 0
+                diagnostic = Diagnostic.objects.filter(Ordonnance = self.ordonnance)
+                consultation = Consultation.objects.filter(diagnostic = diagnostic)
+                critique = min( timedelta(days=med.duree)  + consultation.date, med.lastPrise + timedelta(days=2*med.cycle)  )
+                is_in_cycle = timezone.now() >= med.lastPrise and timezone.now() <= med.lastPrise+timedelta(days=med.cycle)
+                appear = not is_in_cycle and remaining_dose > 0
+                self.checklist[med.nom] = {'LED': appear, 'remaining_dose': remaining_dose}
             self.save()
 
-    def mark_as_administered(self, medication_name):
+    def mark_as_administered(self, medication_name, dose_administered):
         """
-        Marks a medication as administered in the checklist.
+        Updates the checklist to mark a medication as administered with a given dose.
         """
         if medication_name in self.checklist:
-            self.checklist[medication_name] = True
-            self.save()
+            med = self.ordonnance.meds.filter(nom=medication_name).first()
+            if med:
+                # Update the medication's dosePrise
+                med.dosePrise = med.dosePrise  + dose_administered
+                med.save()
+                # Update the checklist
+                remaining_dose = med.dosePrevues - med.dosePrise
+                is_in_cycle = timezone.now() >= med.lastPrise and timezone.now() <= med.lastPrise+timedelta(days=med.cycle)
+                appear = not is_in_cycle and remaining_dose > 0
+                self.checklist[med.nom] = {'LED': appear, 'remaining_dose': remaining_dose}
+                self.save()
+            else:
+                raise ValueError(f"Medication '{medication_name}' not found in the ordonnance.")
         else:
             raise ValueError(f"Medication '{medication_name}' not found in the checklist.")
 
     def all_administered(self):
         """
-        Checks if all medications in the checklist are administered.
+        Checks if all medications in the checklist have their LED turned off (i.e., no remaining doses).
         """
-        return all(self.checklist.values())
+        return all(not status['LED'] for status in self.checklist.values())
 
     def __str__(self):
         return f"Administration Checklist for Ordonnance {self.ordonnance}"
-
 class SoinInfermierObservation(models.Model):
     """
     Represents an observation related to a nurse's care (Soin).
