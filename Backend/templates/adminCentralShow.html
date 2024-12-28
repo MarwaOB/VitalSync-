@@ -62,13 +62,20 @@
                         <td>{{ hospital.nom }}</td>
                         <td>{{ hospital.lieu }}</td>
                         <td>{{ hospital.dateCreation }}</td>
+                        <td>
+                            <form action="/choose-hospital/" method="POST">
+                                <input type="hidden" name="hospital_id" value="{{ hospital.id }}">
+                                <button type="submit" class="button">Choisir</button>
+                            </form>
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="3">No hospitals found.</td>
+                        <td colspan="4">No hospitals found.</td>
                     </tr>
                 {% endfor %}
             </tbody>
+            
         </table>
 
     </div>

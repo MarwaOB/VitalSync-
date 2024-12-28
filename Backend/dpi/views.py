@@ -1,4 +1,5 @@
 import logging
+from datetime import timedelta
 from datetime import datetime
 import os
 import qrcode
@@ -15,7 +16,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.utils import timezone
 from django.template.loader import get_template
 from users.models import CustomUser, Patient
-from .models import Dpi, Antecedent, Consultation, Ordonnance, Diagnostic, Medicament, Biologique, Radiologique, Examen
+from .models import Dpi, Antecedent, Consultation, Ordonnance, Diagnostic, Medicament, Biologique, Radiologique, Examen , Soin , SoinInfermierObservation , AdministrationMeds 
 from .forms import OrdonnanceForm
 from users.forms import AntecedentFormSet, DpiForm
 from rest_framework.views import APIView
@@ -164,7 +165,7 @@ def ajouter_consultation(request, dpi_id):
     message = None  # Default message is None
 
     try:
-        current_date = timezone.now().date()
+        current_date = timezone.now().date() + timedelta(days=2)
         # Check for duplicate consultation
         if Consultation.objects.filter(date=current_date, dpi=dpi).exists():
             message = "Une consultation à la même date pour ce patient existe déjà."
@@ -276,11 +277,17 @@ def ajouter_radiologique_bilan(request, consultation_id):
 def consultation_detail(request, consultation_id):
     # Fetch the consultation or return a 404 error if it doesn't exist
     consultation = get_object_or_404(Consultation, id=consultation_id)
-
+    dpi =  consultation.dpi
+    soinsIn = None
+    if (request.user.role == 'infermier'):
+        soin=Soin.objects.filter(dpi=dpi ,diagnostic = consultation.diagnostic ).last()
+        soinsIn = SoinInfermierObservation.objects.filter(soin = soin )
+  
     context = {
         "consultation": consultation,
         "bilan_biologique": consultation.bilanBiologique,
         "bilan_radiologique": consultation.bilanRadiologique,
+        "SoinInfermierObservation":soinsIn
     }
 
     return render(request, "consultation_detail.html", context)
@@ -399,3 +406,36 @@ def afficher_ordonnances_valide(request):
     else:
         # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
         raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
+
+
+
+@csrf_exempt
+@login_required
+def ajouter_soin(request, consultation_id):
+    if request.method == 'POST':
+        # Récupérer les données envoyées via le formulaire
+        observation = request.POST.get('observation')  # Texte pour l'observation
+        soins_infermier = request.POST.get('soin')  # Texte pour les soins infirmiers
+
+        # Récupérer l'objet Consultation correspondant
+        consultation = get_object_or_404(Consultation, id=consultation_id)
+        dpi = consultation.dpi
+        soin=Soin.objects.filter(dpi=dpi , diagnostic = consultation.diagnostic ).last()
+        if soin is None:
+            soin = Soin.objects.create(
+              dpi = dpi,
+              diagnostic = consultation.diagnostic
+            ) 
+        # Créer une nouvelle observation de soin infirmier
+        SoinInfermierObservation.objects.create(
+            observation=observation,
+            soins_infermier=soins_infermier,
+            infermier=request.user,
+            soin=soin  # Récupérer le premier soin associé au DPI
+        )
+
+        # Redirection vers la page des détails de la consultation
+        return redirect('consultation_detail', consultation_id=consultation.id)
+
+    # Rendre la page avec le formulaire et les soins existants
+    return render(request, 'ajouter_soin.html', context)

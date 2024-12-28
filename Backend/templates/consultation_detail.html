@@ -215,23 +215,77 @@
     {% if consultation.bilanBiologique == null %}
     {% if consultation.bilanRadiologique ==  null %}
 
-
     {% if user.role == 'medecin' %}
-    {% if consultation.diagnostic != null %}
-    
+    {% if consultation.diagnostic %}
     <form action="{% url 'ord-view' consultation.id consultation.diagnostic.id %}" method="POST">
         <button type="submit" class="button">Afficher l'ordonnence de diagnostic </button>
     </form>
+    <h2>Les soins infermiers</h2>
+        <div id="soins-container">
+            {% for soin in SoinInfermierObservation %}
+            <div class="soins">
+                <strong>Date:</strong> {{ soin.date_time }} <br>
+                <strong>infermier:</strong> {{ soin.infermier.get_full_name }} <br>
+                <strong>Soin infermier:</strong> {{ soin.soins_infermier }} <br>
+                <strong>Observation:</strong> {{ soin.observation }} <br>
+                <hr>
+            </div>
+            {% empty %}
+            <p>Aucun soin n a ete trouvé.</p>
+            {% endfor %}
+        </div>
+
+
     {% else %}
     <p>No Diagnostic created yet.</p>
     <form action="{% url 'creer_ord' consultation.id %}" method="POST">
         <button type="submit" class="button"> Ajouter un diagnostic </button>
     </form>
+    {% endif %}
+    {% endif %}
+
+    {% if consultation.diagnostic %}
+    {% if user.role == 'infermier' %}
+    <h1> Soins infermiers</h1>
+    <form action="{% url 'ajouter_soin' consultation.id %}" method="POST">
+
+
+
+
+
+
+
+        <h2>Les soins infermiers</h2>
+        <div id="soins-container">
+            {% for soin in SoinInfermierObservation %}
+            <div class="soins">
+                <strong>Date:</strong> {{ soin.date_time }} <br>
+                <strong>infermier:</strong> {{ soin.infermier.get_full_name }} <br>
+                <strong>Soin infermier:</strong> {{ soin.soins_infermier }} <br>
+                <strong>Observation:</strong> {{ soin.observation }} <br>
+                <hr>
+            </div>
+            {% empty %}
+            <p>Aucun soin n a ete trouvé.</p>
+            {% endfor %}
+        </div>
+        <h3>Saisir votre soin infermier</h3>
+        <textarea name="soin"  rows="5"></textarea>
+        <h3>Saisir votre observation</h3>
+        <textarea name="observation"  rows="5"></textarea>
+        <button type="submit" class="button"> Sauvegarder </button>
+    </form>
 
     {% endif %}
     {% endif %}
+
+
     {% endif %}
     {% endif %}
+  
+
+
+  
 
 </body>
 </html>

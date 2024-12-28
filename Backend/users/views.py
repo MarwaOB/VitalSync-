@@ -148,7 +148,7 @@ def add_user(request):
 @csrf_exempt
 def sign_in(request):
     if request.method == "POST":
-        identifier = request.POST['username']  # This field will accept either username or email
+        identifier = request.POST['identifier']  # This field will accept either username or email
         password = request.POST['password']
 
         try:
@@ -173,7 +173,7 @@ def sign_in(request):
                     elif role == 'patient':
                         return redirect("show_dpi_by_patient")
                     elif role == 'infermier':
-                        return HttpResponse("infermier")
+                          return redirect("infermier_Home")
                     elif role == 'radioloque':
                         return redirect("radiologueHome")
                     elif role == 'laborantin':
@@ -190,6 +190,12 @@ def sign_in(request):
             return HttpResponse(f"Erreur: {str(e)}")
     
     return render(request, 'signin.html')
+
+
+
+
+
+
 
 @login_required
 def admincentral(request):
@@ -421,6 +427,8 @@ def radiologueHome(request):
     
     # Rendre la page avec les données filtrées
     return render(request, 'radiologueHome.html', context)
+
+
 @csrf_exempt
 @login_required
 def laborantinHome(request):
@@ -657,3 +665,68 @@ def pharmacien_home(request):
 
     # Si ce n'est pas une requête POST, vous pouvez retourner la page d'accueil du pharmacien
     return render(request, 'pharmacien_home.html')
+
+@csrf_exempt
+@login_required
+def choose_hospital(request):
+    if request.method == "POST":
+        hospital_id = request.POST.get('hospital_id')
+        
+        if not hospital_id:
+            return JsonResponse({'error': 'Hospital ID is required.'}, status=400)
+
+        hospital = get_object_or_404(Hospital, id=hospital_id)
+
+        # Associez l'hôpital à l'utilisateur
+        user = request.user
+        user.hospital = hospital  # Supposez que votre modèle utilisateur a un champ `hospital`
+        user.save()
+
+        # Renvoyez la réponse ou affichez un template
+        return render(request, 'adminCentralHome.html', {'hospital': hospital})
+    
+    return JsonResponse({'error': 'Invalid request method.'}, status=405)
+
+
+from django.utils.timezone import now  # Utilisez `now` pour obtenir la date actuelle
+
+@csrf_exempt
+@login_required
+def infermier_Home(request):
+    user_hospital = request.user.hospital  # L'hôpital associé à l'utilisateur
+    dpis = Dpi.objects.filter(medecin__hospital=user_hospital)
+    dpis_with_pending_diagnostic = []
+
+    for dpi in dpis:
+        last_consultation_with_diagnostic = dpi.consultations.filter(diagnostic__isnull=False).last()
+        if last_consultation_with_diagnostic:
+            ordonnance = last_consultation_with_diagnostic.diagnostic.ordonnance
+
+            if ordonnance:
+                if ordonnance.duree is None or ordonnance.duree == 0:
+                    ordonnance_duree = 0
+                    meds = Medicament.objects.filter(ordonnance=ordonnance)
+                    for med in meds:
+                        if ordonnance_duree < med.duree:
+                            ordonnance_duree = med.duree
+                    # Mettre à jour la durée de l'ordonnance
+                    ordonnance.duree = ordonnance_duree
+                    ordonnance.save()
+                else:
+                    ordonnance_duree = ordonnance.duree
+
+                # Calculer la date limite de validité de l'ordonnance
+                diagnostic_date = last_consultation_with_diagnostic.date
+                expiration_date = diagnostic_date + timedelta(days=ordonnance_duree)
+
+                # Vérifier si la date est dépassée
+                if now().date() <= expiration_date  :
+                    dpis_with_pending_diagnostic.append(dpi)
+
+    context = {
+        'dpis': dpis_with_pending_diagnostic,
+    }
+
+    # Rendre la page avec les données filtrées
+    return render(request, 'infermierHome.html', context)
+

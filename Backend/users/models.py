@@ -34,7 +34,7 @@ class CustomUser(AbstractUser):
         """
         Custom validation logic to ensure adminCentral users do not have a hospital.
         """
-        if (self.role == 'adminCentral' or self.role == 'pharmacien') and self.hospital is not None:
+        if (self.role == 'pharmacien') and self.hospital is not None:
             raise ValidationError("AdminCentral users cannot be associated with a hospital.")
 
     def save(self, *args, **kwargs):

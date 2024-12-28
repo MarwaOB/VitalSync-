@@ -35,20 +35,7 @@
     <div class="container">
         <h1>Admin System Management</h1>
         <p>Click on one of the buttons below to either add a new user or view existing users.</p>
-        
-        <!-- Form to add a new user -->
-        <form method="POST" action="{% url 'admin_Sys_Home' %}">
-            {% csrf_token %}
-            <input type="hidden" name="action" value="add_user">
-            <button type="submit" class="button">Add New User</button>
-        </form>
-
-        <!-- Form to show users -->
-        <form method="POST" action="{% url 'admin_Sys_Home' %}">
-            {% csrf_token %}
-            <input type="hidden" name="action" value="show_users">
-            <button type="submit" class="button">Show Users</button>
-        </form>
+       
 
         
         <form method="POST" action="{% url 'medecin_Home' %}">

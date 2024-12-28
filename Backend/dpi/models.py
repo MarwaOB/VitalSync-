@@ -280,13 +280,18 @@ class Soin(models.Model):
         on_delete=models.CASCADE, 
         related_name='soins'
     )  # One-to-Many relationship with Dpi
-
-
-    soins_infermier = models.JSONField(default=list, blank=True)  # Stores a list of strings for each nurse's notes
+    
     aministration = models.OneToOneField(
         'AdministrationMeds',
         on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
         related_name='administration_meds',
+        null=True,  # Allow setting to NULL
+    )
+
+    diagnostic = models.OneToOneField(
+        'Diagnostic',
+        on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
+        related_name='diagnostic_soin',
         null=True,  # Allow setting to NULL
     )
 

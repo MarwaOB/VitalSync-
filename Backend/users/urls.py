@@ -24,6 +24,8 @@ urlpatterns = [
     path('Consultation_dpi_Bilan/', views.Consultation_dpi_Bilan, name='Consultation_dpi_Bilan'),
     path('generate_graph/<int:consultation_id>/', views.generate_graph_view, name='generate_graph'),
     path('pharmacien_home/', views.pharmacien_home, name='pharmacien_home'),
+    path('choose-hospital/', views.choose_hospital, name='choose_hospital'),
+    path('infermier_Home/', views.infermier_Home, name='infermier_Home'),
 
 
 
