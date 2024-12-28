@@ -26,6 +26,7 @@ from PIL import Image
 from django.db.models import Max
 import io
 import matplotlib.pyplot as plt
+from django.db.models import Q
 import base64
 from django.core.files.base import ContentFile
 
@@ -147,42 +148,46 @@ def add_user(request):
 @csrf_exempt
 def sign_in(request):
     if request.method == "POST":
-        username = request.POST['username']
+        identifier = request.POST['username']  # This field will accept either username or email
         password = request.POST['password']
-        
+
         try:
-            # Get the user using the custom user model
-            user = authenticate(request, username=username, password=password)
-            
-            # Check the password
-            if user is not None:   
-                role = user.role  
-                login(request, user)
-                
-                # Redirect based on role
-                if role == 'adminCentral':
-                    return redirect('admin_Central_Home')
-                elif role == 'adminSys':
-                    return redirect("admin_Sys_Home")
-                elif role == 'medecin':
-                    return redirect("medecin_Home")
-                elif role == 'patient':
-                    return redirect("show_dpi_by_patient")
-                elif role == 'infermier':
-                    return HttpResponse("infermier")
-                elif role == 'radioloque':
-                    return redirect("radiologueHome")
-                elif role == 'laborantin':
-                    return redirect("laborantinHome")
-                elif role == 'pharmacien':
-                    return redirect("pharmacien_home")
+            # Retrieve the user by username or email
+            User = get_user_model()
+            user = User.objects.filter(Q(username=identifier) | Q(email=identifier)).first()
+
+            if user:
+                # Authenticate the user
+                user = authenticate(request, username=user.username, password=password)
+                if user is not None:
+                    role = user.role
+                    login(request, user)
+
+                    # Redirect based on role
+                    if role == 'adminCentral':
+                        return redirect('admin_Central_Home')
+                    elif role == 'adminSys':
+                        return redirect("admin_Sys_Home")
+                    elif role == 'medecin':
+                        return redirect("medecin_Home")
+                    elif role == 'patient':
+                        return redirect("show_dpi_by_patient")
+                    elif role == 'infermier':
+                        return HttpResponse("infermier")
+                    elif role == 'radioloque':
+                        return redirect("radiologueHome")
+                    elif role == 'laborantin':
+                        return redirect("laborantinHome")
+                    elif role == 'pharmacien':
+                        return HttpResponse("pharmacien")
+                    else:
+                        return HttpResponse("Role non défini")
                 else:
-                    return HttpResponse("Role non défini")
+                    return HttpResponse("Nom d'utilisateur ou mot de passe incorrect.")
             else:
                 return HttpResponse("Nom d'utilisateur ou mot de passe incorrect.")
-        
-        except get_user_model().DoesNotExist:
-            return HttpResponse("Nom d'utilisateur ou mot de passe incorrect.")
+        except Exception as e:
+            return HttpResponse(f"Erreur: {str(e)}")
     
     return render(request, 'signin.html')
 

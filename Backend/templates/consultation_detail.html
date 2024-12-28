@@ -137,6 +137,7 @@
     </form>
     {% endif %}
 
+    {% if consultation.diagnostic == null %}
     <h3>Bilans</h3>
     {% if user.role == 'medecin' %}
     {% if bilan_biologique %}
@@ -209,6 +210,11 @@
     </form>
     {% endif %}
     {% endif %}
+    {% endif %}
+
+    {% if consultation.bilanBiologique == null %}
+    {% if consultation.bilanRadiologique ==  null %}
+
 
     {% if user.role == 'medecin' %}
     {% if consultation.diagnostic != null %}
@@ -222,6 +228,8 @@
         <button type="submit" class="button"> Ajouter un diagnostic </button>
     </form>
 
+    {% endif %}
+    {% endif %}
     {% endif %}
     {% endif %}
 

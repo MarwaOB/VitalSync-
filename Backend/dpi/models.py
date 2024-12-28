@@ -273,3 +273,78 @@ class Consultation(models.Model):
         
     def __str__(self):
         return f"Consultation on {self.date} for {self.dpi.patient.user.get_full_name()}"
+
+class Soin(models.Model):
+    observation = models.TextField()
+    dpi = models.ForeignKey(
+        'Dpi', 
+        on_delete=models.CASCADE, 
+        related_name='soins'
+    )  # One-to-Many relationship with Dpi
+
+    infermiers = models.ManyToManyField(
+        'users.CustomUser',
+        related_name='assigned_soins',
+        limit_choices_to={'role': 'infermier'},
+        blank=False,
+    )  # Many-to-Many relationship with Infermiers (nurses)
+
+    soins_infermier = models.JSONField(default=list, blank=True)  # Stores a list of strings for each nurse's notes
+    aministration = models.OneToOneField(
+        'AdministrationMeds',
+        on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
+        related_name='administration_meds',
+        null=True,  # Allow setting to NULL
+    )
+
+
+
+    def clean(self):
+        """
+        Ensure that at least one nurse is assigned to the Soin.
+        """
+        super().clean()
+        if not self.infermiers.exists():
+            raise ValidationError("A Soin must have at least one Infermier assigned.")
+
+    def __str__(self):
+        return f"Soin for {self.dpi.patient.user.get_full_name()} - Observation: {self.observation[:30]}..."
+
+
+class AdministrationMeds(models.Model):
+    checklist = models.JSONField(default=dict, blank=True)  # Stores the checklist as a dictionary
+    ordonnance = models.OneToOneField(
+        'Ordonnance',
+        on_delete=models.CASCADE,
+        related_name='administration_meds'
+    )
+
+    def update_checklist(self):
+        """
+        Updates the checklist based on the ordonnance's medications.
+        Each medication in the ordonnance is represented in the checklist with its administration status.
+        """
+        if self.ordonnance:
+            self.checklist = {
+                med.nom: False for med in self.ordonnance.meds.all()
+            }
+            self.save()
+
+    def mark_as_administered(self, medication_name):
+        """
+        Marks a medication as administered in the checklist.
+        """
+        if medication_name in self.checklist:
+            self.checklist[medication_name] = True
+            self.save()
+        else:
+            raise ValueError(f"Medication '{medication_name}' not found in the checklist.")
+
+    def all_administered(self):
+        """
+        Checks if all medications in the checklist are administered.
+        """
+        return all(self.checklist.values())
+
+    def __str__(self):
+        return f"Administration Checklist for Ordonnance {self.ordonnance}"
