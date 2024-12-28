@@ -7,6 +7,9 @@ import qrcode
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django. template. loader import get_template 
+from xhtml2pdf import pisa
+
 
 
 class Antecedent(models.Model):
@@ -43,57 +46,59 @@ class Dpi(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        # Save the DPI instance first
+    # Save the DPI instance first
+     super().save(*args, **kwargs)
+
+    # Generate QR Code based on the patient's NSS
+     if self.patient and self.patient.user.NSS:
+        qr_data = self.patient.user.NSS
+        qr_img = qrcode.make(qr_data)
+
+        # Convert qr_img to RGBA to avoid mode compatibility issues
+        qr_img = qr_img.convert('RGBA')
+
+        canvas = Image.new('RGBA', (290, 290), (255, 255, 255, 255))  # White background with transparency
+
+        # Calculate the position to center the QR code
+        qr_width, qr_height = qr_img.size
+        canvas_width, canvas_height = canvas.size
+
+        left = (canvas_width - qr_width) // 2  # Center horizontally
+        upper = (canvas_height - qr_height) // 2  # Center vertically
+        box = (left, upper, left + qr_width, upper + qr_height)
+
+        # Paste the QR code onto the canvas
+        canvas.paste(qr_img, box, qr_img)  # Using the mask to ensure transparency is preserved
+
+        # Create a filename
+        filename = f'qr_code_{self.patient.user.NSS}.png'
+
+        # Save to the QR_Code field
+        buffer = BytesIO()
+        canvas.save(buffer, format='PNG')
+        file_obj = File(buffer)
+
+        self.QR_Code.save(filename, file_obj, save=False)  # Save the QR code file
+
+        # Save the DPI instance again to persist the QR_Code field
         super().save(*args, **kwargs)
 
-        # Generate QR Code based on the patient's NSS
-        if self.patient and self.patient.user.NSS:
-            qr_data = self.patient.user.NSS
-            qr_img = qrcode.make(qr_data)
+        # Send the email with the QR code attached
+        if self.patient and self.patient.user.email:
+            subject = 'Your QR Code'
+            message = 'Dear Patient, \n\nPlease find your QR code attached to this email.'
+            email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [self.patient.user.email])
 
-            # Convert qr_img to RGBA to avoid mode compatibility issues (use RGBA for transparency)
-            qr_img = qr_img.convert('RGBA')
+            # Attach the QR code image
+            file_obj.seek(0)  # Reset the file pointer to the beginning
+            email.attach(filename, file_obj.read(), 'image/png')
 
-            canvas = Image.new('RGBA', (290, 290), (255, 255, 255, 255))  # White background with transparency
+            # Send the email
+            email.send()
 
-            # Calculate the position to center the QR code
-            qr_width, qr_height = qr_img.size
-            canvas_width, canvas_height = canvas.size
-
-            left = (canvas_width - qr_width) // 2  # Center horizontally
-            upper = (canvas_height - qr_height) // 2  # Center vertically
-            box = (left, upper, left + qr_width, upper + qr_height)
-
-            # Paste the QR code onto the canvas
-            canvas.paste(qr_img, box, qr_img)  # Using the mask to ensure transparency is preserved
-
-            # Create a filename
-            filename = f'qr_code_{self.patient.user.NSS}.png'
-
-            # Save to the QR_Code field
-            buffer = BytesIO()
-            canvas.save(buffer, format='PNG')
-            file_obj = File(buffer)
-
-            self.QR_Code.save(filename, file_obj, save=False)
-
-            file_obj.seek(0)  # Go back to the start of the file
-
-            # Send the email with the QR code attached
-            if self.patient and self.patient.user.email:
-                subject = 'Your QR Code'
-                message = 'Dear Patient, \n\nPlease find your QR code attached to this email.'
-                email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [self.patient.user.email])
-
-                # Attach the QR code image
-                email.attach(filename, file_obj.read(), 'image/png')
-
-                # Send the email
-                email.send()
-
-            # Close resources
-            buffer.close()
-            canvas.close()
+        # Close resources
+        buffer.close()
+        canvas.close()
 
 
 
@@ -177,24 +182,50 @@ def __str__(self):
         return f"Diagnostic for consultation "   
 
 class Ordonnance(models.Model):
-    diagnostic = models.OneToOneField('Diagnostic', on_delete=models.CASCADE, related_name='diagnostic' )
-    duree = models.IntegerField(help_text="Duration of the prescription in days")
+    
+    duree = models.IntegerField( null=True, blank=True,help_text="Duration of the prescription in days")
     is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
+    observation = models.TextField(null=True, blank=True)
 
 def __str__(self):
         return f"Ordonnance for Diagnostic " 
 
 class Medicament(models.Model):
+    
+    # Nom du médicament
     nom = models.CharField(max_length=150)
-    duree = models.IntegerField(help_text="Duration of the prescription in days")
-    dose = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
-    dosePrise = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
-    dosePrevues = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True) 
+    # Durée du traitement en jours
+    duree = models.IntegerField()
+    # Fréquence de prise (ex : 3 fois/jour)
+    frequence = models.IntegerField(null=True, blank=True)  # Autorise les valeurs nulles
+    # Dose par prise
+    dose = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    # Unité de mesure (mg, ml, etc.)
+    unite = models.CharField(max_length=20,null=True, blank=True)
+    # Mode d'administration
+    mode_administration = models.CharField(max_length=50, null=True, blank=True)
+    #ajouter une observation , indication, retriction 
+    observation = models.TextField(null=True, blank=True)
+    # Dose prise à chaque prise
+    dosePrise = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    # Dose totale prévue pour le traitement
+    dosePrevues = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+     # la quantité de med
+    qte = models.IntegerField(default = 1)
+
+    # Référence vers l'ordonnance
     ordonnance = models.ForeignKey(
         'Ordonnance',
         on_delete=models.CASCADE,
-        related_name='meds'  # Unique related_name
-    ) 
+        related_name='meds'  # Nom unique pour la relation inverse
+    )
+
+    def clean(self):
+        if self.duree < 0:
+            raise ValidationError("La durée doit être positive.")
+        if self.dose and self.dose < 0:
+            raise ValidationError("La dose doit être positive.")
+
 
 class Consultation(models.Model):
     date = models.DateField(null=True, blank=True)  # Allow null and blank values

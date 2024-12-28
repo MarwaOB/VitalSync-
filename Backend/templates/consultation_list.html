@@ -6,6 +6,13 @@
     <title>Consultation List</title>
 </head>
 <body>
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="error-message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <h1>Consultation List</h1>
     <ul>
         {% for consultation in consultations %}

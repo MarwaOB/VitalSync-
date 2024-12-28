@@ -14,6 +14,7 @@ urlpatterns = [
     path('medecin_Home/', views.medecin_Home, name='medecin_Home'),
     path('radiologue_Home/', views.radiologueHome, name='radiologueHome'),
     path('show_users_by_hospital/', views.show_users_by_hospital, name='show_users_by_hospital'),
+    path('adminn/', views.add_admin, name='add_admin'),
     path('show_dpi_by_patient/', views.show_dpi_by_patient, name='show_dpi_by_patient'),
     path('Consultation_dpi/', views.Consultation_dpi, name='Consultation_dpi'),
     path('DPIList/', views.dpi_list, name='DPIList'),
@@ -22,6 +23,7 @@ urlpatterns = [
     path('faire_bilan/<int:consultation_id>/', views.faire_bilan, name='faire_bilan'),
     path('Consultation_dpi_Bilan/', views.Consultation_dpi_Bilan, name='Consultation_dpi_Bilan'),
     path('generate_graph/<int:consultation_id>/', views.generate_graph_view, name='generate_graph'),
+    path('pharmacien_home/', views.pharmacien_home, name='pharmacien_home'),
 
 
 

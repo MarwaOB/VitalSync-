@@ -90,7 +90,7 @@ class MedicamentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Medicament
-        fields = ['id', 'nom', 'duree', 'dose', 'dosePrise', 'dosePrevues', 'ordonnance']
+        fields = '__all__'
 
 
 # Consultation Serializer

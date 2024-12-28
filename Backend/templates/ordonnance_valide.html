@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ordonnances validées </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .section strong {
+            display: block;
+            margin-top: 10px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <h1>Les ordonnences non validées </h1>
+
+    {% if ordonnances %}
+    {% for ordonnance in ordonnances %}
+        <div class="section">
+            <h2>Ordonnance ID {{ ordonnance.ordonnance.id }}</h2>
+            {% if ordonnance.ordonnance.observation  %}
+            <p><strong>Observation :</strong> {{ ordonnance.ordonnance.observation }}</p>
+            {% endif %}
+            {% if ordonnance.consultation.dpi.patient %}
+            <h3>Informations du patient</h3>
+            <p><strong>Prénom :</strong> {{ ordonnance.consultation.dpi.patient.user.first_name }}</p>
+            <p><strong>Nom :</strong> {{ ordonnance.consultation.dpi.patient.user.last_name }}</p>
+            {% else %}
+            <p>Informations du patient indisponibles.</p>
+            {% endif %}
+
+            <h3>Médicaments</h3>
+            {% if ordonnance.ordonnance.meds %}
+            <table class="medicament-table">
+                <thead>
+                    {% load custom_filters %}
+
+                </thead>
+                <tbody>
+                    {% for medicament in ordonnance.ordonnance.meds.all %}
+                    <td style="width: 90%;"> <strong>{{ medicament.nom }}</strong>  
+                        {{ medicament.dose | format_dose }} 
+                        {{ medicament.unite }} 
+                        {{ medicament.frequence }} fois par jours pendant 
+                        {{ medicament.duree }} jours 
+                        {% if  medicament.mode_administration == 'PO' %}
+                         per os
+                        {% else %}
+                        par voie {{ medicament.mode_administration }}  
+                        {% endif %}
+                        {% if medicament.observation %} 
+                            ({{ medicament.observation }})
+                        {% endif %}
+                    </td>
+                    <td style="text-align: right;"><strong>Qte:</strong>{{ medicament.qte }}</td>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+        {% else %}
+            <p>Aucun médicament associé à cette ordonnance.</p>
+        {% endif %}
+
+    
+            <div class="section">
+                {% if ordonnance.ordonnance and ordonnance.consultation %}
+
+                    <form action="{% url 'ord-view' ordonnance.consultation.id ordonnance.id %}" method="GET">
+                        <button type="submit" class="btn-consulter">Visualiser</button>
+                    </form>
+
+                {% else %}
+                            <p>Pas de consultation ou de diagnostic associé.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    
+{% else %}
+    <p>Aucune ordonnance trouvée </p>
+{% endif %}
+
+</body>
+</html>
+

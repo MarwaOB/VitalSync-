@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient HomePage</title>
+    <title>Pharmacien homepage</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,27 +42,20 @@
     </div>
     {% endif %}
     <div class="container">
-        <h1>Medecin Management</h1>
-        <p>Click on one of the buttons below to either add a show all dpis or search.</p>
+    
         
-        <form method="POST" action="{% url 'medecin_Home' %}">
+        <form method="POST" action="{% url 'afficher_ordonnances_non_valide' %}">
             {% csrf_token %}
-            <input type="hidden" name="action" value="recherche_dpi_qrCode">
-            <button type="submit" class="button">Rechercher DPI par QR Code</button>
-        </form>
-
-        <form method="POST" action="{% url 'medecin_Home' %}">
-            {% csrf_token %}
-            <input type="hidden" name="action" value="show_dpis">
-            <button type="submit" class="button">Show DPIs</button>
+            <input type="hidden" name="action" value="afficher_ordonnances_non_valide">
+            <button type="submit" class="button">Afficher ordonnance non valides</button>
         </form>
 
        
 
-        <form method="POST" action="{% url 'medecin_Home' %}">
+        <form method="POST" action="{% url 'afficher_ordonnances_valide' %}">
             {% csrf_token %}
-            <input type="hidden" name="action" value="creer-dpi">
-            <button type="submit" class="button">Creer DPIs</button>
+            <input type="hidden" name="action" value="afficher_ordonnances_valide">
+            <button type="submit" class="button">Ordonnence validées</button>
         </form>
        
     </div>

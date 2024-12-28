@@ -1,17 +1,160 @@
-import logging, qrcode
+import logging
+from datetime import datetime
+import os
+import qrcode
+from xhtml2pdf import pisa
+from reportlab.lib.pagesizes import A5
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
-from users.models import CustomUser, Patient
-from .models import  Dpi, Antecedent, Consultation, Biologique, Radiologique, Examen
-from users.forms import AntecedentFormSet, DpiForm  # Import the formset
 from django.contrib import messages
-from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.decorators import login_required
+from django.utils.datastructures import MultiValueDictKeyError
 from django.utils import timezone
+from django.template.loader import get_template
+from users.models import CustomUser, Patient
+from .models import Dpi, Antecedent, Consultation, Ordonnance, Diagnostic, Medicament, Biologique, Radiologique, Examen
+from .forms import OrdonnanceForm
+from users.forms import AntecedentFormSet, DpiForm
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status, permissions, serializers
+from rest_framework.decorators import api_view
+from .serializers import OrdonnanceSerializer
+
+
+
+
+
+@csrf_exempt
+@login_required
+
+def ajouter_diagnostic(request, consultation_id):
+    # Récupérer la consultation associée ou retourner une 404 si elle n'existe pas
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+
+    # Vérifier si l'utilisateur est connecté
+    if not request.user.is_authenticated:
+        messages.error(request, "Vous devez être connecté pour ajouter un diagnostic.")
+        return redirect('sign_in')  # Redirection vers la page de connexion
+
+    # Vérifier si l'utilisateur est médecin
+    if request.user.role != 'medecin':
+        messages.error(request, "Vous devez être médecin pour ajouter un diagnostic.")
+        return redirect('home')  # Redirection si l'utilisateur n'est pas médecin
+
+    if request.method == 'POST':
+        form = OrdonnanceForm(request.POST)
+
+        if form.is_valid():
+            # Créer une nouvelle ordonnance à partir du formulaire
+            ordonnance = form.save()
+            if not ordonnance.meds.exists():  # Si l'ordonnance n'a pas de médicaments associés
+                messages.error(request, "Veuillez ajouter au moins un médicament à l'ordonnance.")
+                return redirect('ajouter_ordonnance', consultation_id=consultation.id)
+
+            # Créer le diagnostic et l'associer à l'ordonnance
+            diagnostic = Diagnostic.objects.create(ordonnance=ordonnance)
+
+            # Associer ce diagnostic à la consultation
+            consultation.diagnostic = diagnostic
+            consultation.save()  # Sauvegarder les changements dans la base de données
+
+            messages.success(request, "Diagnostic ajouté avec succès à la consultation.")
+             # Redirection après l'ajout du diagnostic
+            return redirect('ord-view', consultation_id=consultation.id, diagnostic_id=diagnostic.id)
+
+
+    else:
+        form = OrdonnanceForm()
+
+    return render(request, 'creer_ord.html', {
+        'form': form,
+        'consultation': consultation.id # Passer l'objet consultation au template
+    })
+
+@csrf_exempt
+@login_required
+def creer_ord(request,consultation_id):
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+    form = OrdonnanceForm()
+
+    return render(request, 'creer_ord.html', {
+            'consultation': consultation.id, 
+            'form': form,
+            # Passer l'objet consultation au template
+        })
+    
+
+
+@csrf_exempt
+@login_required
+def render_pdf_view(request, consultation_id,diagnostic_id):
+
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+
+    # Get the Diagnostic object or return 404 if not found
+    diagnostic = get_object_or_404(Diagnostic, id=diagnostic_id)
+
+    # Get the Dpi object related to this consultation
+    dpi = get_object_or_404(Dpi, id=consultation.dpi.id)  # Get the actual Dpi object
+
+    # Get the Patient object related to this Dpi
+    patient = get_object_or_404(Patient, id=dpi.patient.id)  # Ensure you're getting the right Patient
+
+    # Get all Ordonnances related to the diagnostic
+    ordonnance = diagnostic.ordonnance  # Directly access the ordonnance from the diagnostic
+
+    # If no ordonnance is found, return an error response
+    if not ordonnance:
+        return HttpResponse("No ordonnance found for this diagnostic.", status=404)
+
+    aujourdhui = datetime.now()
+    
+    # Calculer l'âge en fonction de la date de naissance
+    age = aujourdhui.year - patient.user.date_de_naissance.year
+    medicaments = Medicament.objects.filter(ordonnance = ordonnance.id)
+    context = {
+
+        'consultation': consultation,
+        'diagnostic': diagnostic,
+        'dpi': dpi,
+        'patient': patient,
+        'ordonnance': ordonnance,
+        'medicaments': medicaments,
+        'age': age,
+    }
+    template_path = 'ordonnence-view.html'
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')  # Corrected content type to 'application/pdf'
+    response['Content-Disposition'] = filename="ordonnence_{patient.user.NSS}_{consultation_id}.pdf"
+
+    template = get_template(template_path)
+    html = template.render(context)
+    # Create a PDF
+    pisa_status = pisa.CreatePDF(html, dest=response, default_page_size=A5)
+    # If error, then show a fallback view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+    if consultation.bilanRadiologique is not None:
+        messages.error(request, "Un bilan radiologique existe déjà pour cette consultation.")
+        return redirect("consultation_detail", consultation_id=consultation.id)
+
+    if request.method == "POST":
+        # Create the Radiologique bilan and associate it with the consultation
+        bilan_radiologique = Radiologique.objects.create()
+        consultation.bilanRadiologique = bilan_radiologique
+        consultation.save()
+
+        messages.success(request, "Bilan radiologique créé avec succès.")
+        return redirect("consultation_detail", consultation_id=consultation.id)
+
+    return render(request, "consultation_detail.html", {"consultation": consultation})
+
+
 
 
 @login_required
@@ -30,6 +173,7 @@ def ajouter_consultation(request, dpi_id):
         # Create the consultation
         consultation = Consultation.objects.create(date=current_date, dpi=dpi)
 
+
     except MultiValueDictKeyError as e:
         missing_field = str(e)
         message = f"Le champ '{missing_field}' est obligatoire."
@@ -40,8 +184,11 @@ def ajouter_consultation(request, dpi_id):
 logger = logging.getLogger(__name__)
 
 
+
+
 @csrf_exempt
 @login_required
+
 def ajouter_biologique_bilan(request, consultation_id):
     logger.debug(f"Entering ajouter_biologique_bilan with consultation_id={consultation_id}")
     
@@ -137,16 +284,6 @@ def consultation_detail(request, consultation_id):
     }
 
     return render(request, "consultation_detail.html", context)
-@csrf_exempt
-@login_required
-def ajouter_diagnostic(request, consultation_id):
-    # Retrieve consultation by ID or handle missing consultation
-    consultation = get_object_or_404(Consultation, id=consultation_id)
-
-    return render(request, 'ajouter_diagnostic.html', {
-        'consultation_id': consultation.id,  # Pass the consultation ID to the template
-    })
-
 
 @csrf_exempt
 @login_required
@@ -194,3 +331,71 @@ def ajouter_resume(request, consultation_id):
 
         # Redirection vers la page des détails de la consultation (ou du DPI)
         return redirect('consultation_detail', consultation_id=consultation.id)
+
+
+def afficher_ordonnances_non_valide(request):
+    if request.user.role == 'pharmacien':
+      
+        # Filtrer les diagnostics dont l'ordonnance est non validée
+        diagnostics_non_valides = Diagnostic.objects.filter(ordonnance__is_valid=False)
+
+        # Contexte passé au template
+        context = {
+
+            'ordonnances': diagnostics_non_valides,
+        }
+
+        return render(request, 'ordonnances_non_valide.html', context)
+    else:
+        # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
+        raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
+
+def supprimer_toutes_ordonnances_non_valide(request):
+
+    Medicament.objects.all().delete()
+
+    # Supprimer toutes les ordonnances
+    Ordonnance.objects.all().delete()
+    Consultation.objects.all().delete()
+
+
+    messages.success(request, "Toutes les ordonnances non validées ont été supprimées avec succès.")
+    return redirect('afficher_ordonnances_non_valide')
+    
+
+def valider_ordonnance(request, ordonnance_id):
+    if request.user.role == 'pharmacien':
+    
+        # Récupérer l'ordonnance avec l'ID fourni
+        ordonnance = get_object_or_404(Ordonnance, id=ordonnance_id)
+
+        # Valider l'ordonnance en mettant is_valid à True
+        ordonnance.is_valid = True
+        ordonnance.save()  # Sauvegarder les modifications dans la base de données
+
+        # Message de succès
+        messages.success(request, "L'ordonnance a été validée avec succès.")
+
+        # Rediriger vers la page des ordonnances ou une autre vue appropriée
+        return redirect('afficher_ordonnances_non_valide')  
+    else:
+        # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
+        raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
+
+def afficher_ordonnances_valide(request):
+
+    if request.user.role == 'pharmacien':
+      
+        # Filtrer les diagnostics dont l'ordonnance est non validée
+        diagnostics_valides = Diagnostic.objects.filter(ordonnance__is_valid=True)
+
+        # Contexte passé au template
+        context = {
+
+            'ordonnances': diagnostics_valides,
+        }
+
+        return render(request, 'ordonnance_valide.html', context)
+    else:
+        # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
+        raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")

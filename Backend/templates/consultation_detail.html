@@ -87,6 +87,14 @@
     </style>
 </head>
 <body>
+    {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+ {% endif %}
+
     <h1>Consultation Details</h1>
 
     <h2>Consultation on {{ consultation.date }}</h2>
@@ -199,6 +207,21 @@
     <form action="{% url 'ajouter_radiologique_bilan' consultation.id %}" method="POST">
         <button type="submit" class="button">Demander un Bilan Radiologique</button>
     </form>
+    {% endif %}
+    {% endif %}
+
+    {% if user.role == 'medecin' %}
+    {% if consultation.diagnostic != null %}
+    
+    <form action="{% url 'ord-view' consultation.id consultation.diagnostic.id %}" method="POST">
+        <button type="submit" class="button">Afficher l'ordonnence de diagnostic </button>
+    </form>
+    {% else %}
+    <p>No Diagnostic created yet.</p>
+    <form action="{% url 'creer_ord' consultation.id %}" method="POST">
+        <button type="submit" class="button"> Ajouter un diagnostic </button>
+    </form>
+
     {% endif %}
     {% endif %}
 

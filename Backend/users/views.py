@@ -6,6 +6,16 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from .models import CustomUser, Hospital, Patient
+from dpi.models import  Dpi, Antecedent
+from .forms import AntecedentFormSet  # Import the formset
+import random
+import string
+from datetime import datetime, timedelta
+from django.http import JsonResponse
+from django.utils.timezone import now
+from datetime import date
+from django.contrib.auth.decorators import login_required  # Import the login_required decorator
+from .forms import AntecedentFormSet, DpiForm  # Import the formset
 from dpi.models import  Dpi, Antecedent, Consultation
 from .forms import AntecedentFormSet, DpiForm , BilanForm # Import the formset
 from django.contrib import messages
@@ -165,7 +175,7 @@ def sign_in(request):
                 elif role == 'laborantin':
                     return redirect("laborantinHome")
                 elif role == 'pharmacien':
-                    return HttpResponse("pharmacien")
+                    return redirect("pharmacien_home")
                 else:
                     return HttpResponse("Role non défini")
             else:
@@ -353,6 +363,40 @@ def adminSysHome(request):
 def adminSysShow(request):
     return render(request, 'adminSysShow.html')  
 
+def add_admin(request):
+    # Define the admin details
+    username = "Meriem"
+    password = "meriem"  # Ideally hashed, but for simplicity, leaving plain
+    email = "admin@example.com"
+
+    # Check if the user already exists
+    if CustomUser.objects.filter(username=username).exists():
+        return JsonResponse({"message": "Admin user already exists!"}, status=400)
+
+    # Create the admin user
+    admin_user = CustomUser.objects.create_superuser(
+        NSS=1234,
+        username=username,
+        password=password,
+        email=email,
+        first_name="meriem",
+        last_name="Admin",
+        is_staff=True,
+        is_active=True,
+        date_de_naissance=date(1990, 1, 1),
+        date_joined=now()
+    )
+
+    # Optionally add extra fields if your model has them
+    admin_user.role = "adminCentral"
+    admin_user.save()
+
+    return JsonResponse({
+        "message": "Admin user created successfully!",
+        "username": admin_user.username,
+        "email": admin_user.email,
+        "role": admin_user.role,
+    })
     
 @login_required
 def radiologueHome(request):
@@ -592,3 +636,19 @@ def dpi_list(request):
 
     return render(request, 'medecinShow.html', {'dpis': dpis, 'message': message})
 
+@csrf_exempt
+@login_required
+def pharmacien_home(request):
+    if request.method == "POST":
+        action = request.POST.get("action")  
+
+        if action == "afficher_ordonnances_non_valide":
+            # Redirection vers la page des ordonnances non validées
+            return redirect('afficher_ordonnances_non_valide')
+            
+        elif action == "afficher_ordonnances_valide":
+            # Redirection vers la page des ordonnances validées
+            return redirect('afficher_ordonnances_valide')
+
+    # Si ce n'est pas une requête POST, vous pouvez retourner la page d'accueil du pharmacien
+    return render(request, 'pharmacien_home.html')
