@@ -18,6 +18,8 @@ import io
 import matplotlib.pyplot as plt
 import base64
 from django.core.files.base import ContentFile
+from django.http import JsonResponse
+from django.contrib.auth import logout
 
 
 @csrf_exempt
@@ -135,46 +137,46 @@ def add_user(request):
     return render(request, 'adminSys.html')
 
 @csrf_exempt
+
 def sign_in(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        
         try:
-            # Get the user using the custom user model
+            # Parse JSON request body
+            import json
+            body = json.loads(request.body.decode('utf-8'))
+            username = body.get('username')
+            password = body.get('password')
+            
+            # Authenticate user
             user = authenticate(request, username=username, password=password)
             
-            # Check the password
-            if user is not None:   
-                role = user.role  
+            if user is not None:
+                role = user.role
                 login(request, user)
                 
-                # Redirect based on role
-                if role == 'adminCentral':
-                    return redirect('admin_Central_Home')
-                elif role == 'adminSys':
-                    return redirect("admin_Sys_Home")
-                elif role == 'medecin':
-                    return redirect("medecin_Home")
-                elif role == 'patient':
-                    return redirect("show_dpi_by_patient")
-                elif role == 'infermier':
-                    return HttpResponse("infermier")
-                elif role == 'radioloque':
-                    return redirect("radiologueHome")
-                elif role == 'laborantin':
-                    return redirect("laborantinHome")
-                elif role == 'pharmacien':
-                    return HttpResponse("pharmacien")
+                # Return JSON response based on role
+                role_redirects = {
+                    'adminCentral': 'admin_Central_Home',
+                    'adminSys': 'admin_Sys_Home',
+                    'medecin': 'medecin_Home',
+                    'patient': 'show_dpi_by_patient',
+                    'infermier': 'infermier',
+                    'radioloque': 'radiologueHome',
+                    'laborantin': 'laborantinHome',
+                    'pharmacien': 'pharmacien',
+                }
+                
+                if role in role_redirects:
+                    return JsonResponse({'status': 'success', 'redirect_url': role_redirects[role]}, status=200)
                 else:
-                    return HttpResponse("Role non défini")
+                    return JsonResponse({'status': 'error', 'message': 'Role non défini'}, status=400)
             else:
-                return HttpResponse("Nom d'utilisateur ou mot de passe incorrect.")
+                return JsonResponse({'status': 'error', 'message': "Nom d'utilisateur ou mot de passe incorrect."}, status=400)
         
-        except get_user_model().DoesNotExist:
-            return HttpResponse("Nom d'utilisateur ou mot de passe incorrect.")
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     
-    return render(request, 'signin.html')
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 @login_required
 def admincentral(request):
@@ -592,3 +594,16 @@ def dpi_list(request):
 
     return render(request, 'medecinShow.html', {'dpis': dpis, 'message': message})
 
+@csrf_exempt # You can remove this if you are using session-based authentication or have CSRF tokens in place 
+
+def log_out(request):
+    if request.method == "POST":
+        try:
+            logout(request)  # Logs out the user
+            return JsonResponse({'status': 'success', 'message': 'Logged out successfully'}, status=200)
+        except Exception as e:
+            # Log the exception message for debugging
+            print(f"Logout failed: {e}")
+            return JsonResponse({'status': 'error', 'message': 'Internal server error'}, status=500)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

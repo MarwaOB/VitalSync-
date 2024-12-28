@@ -1,8 +1,10 @@
 from django.urls import path
+from django.contrib.auth import logout
 from . import views
 
 urlpatterns = [
-    path('', views.sign_in, name='sign_in'),  # Corrected name
+    path('user/signin', views.sign_in, name='sign_in'),  # Corrected name
+    path('log_out/', views.log_out, name='log_out'),   
     path('admincentral/', views.admincentral, name='adminCentral'),  # Corrected path and name
     path('adminsys/', views.adminsys, name='adminSys'),  # Corrected path and name
     path('add-user/', views.add_user, name='add_user'),

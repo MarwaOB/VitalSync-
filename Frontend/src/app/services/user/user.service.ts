@@ -1,12 +1,27 @@
 import { Injectable } from '@angular/core';
 import { User } from './../../shared/models/Users/User';  // Assurez-vous d'importer la classe User
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
+  
 })
 export class UserService {
 
-  private users: User[] = [
+   private apiUrl = 'http://127.0.0.1:8000/user/signin'; // Ensure this matches your backend endpoint
+  
+    constructor(private http: HttpClient) { }
+  
+    signIn(username: string, password: string): Observable<any> {
+      const body = { username, password };
+      return this.http.post(this.apiUrl, body);
+    }
+
+
+
+
+  /*private users: User[] = [
     // Admin Centrals
     {
       id: '1',
@@ -362,7 +377,6 @@ export class UserService {
   ];;
   private currentUser: User | null = null;
 
-  constructor() { }
 
   setUsers(): void { }
 
@@ -380,6 +394,6 @@ export class UserService {
       return user;
     }
     return null;
-  }
+  }*/
 
 }
