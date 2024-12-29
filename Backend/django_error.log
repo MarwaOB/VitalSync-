@@ -4637,3 +4637,546 @@ Traceback (most recent call last):
                              ~~~~~~~~~^~~~~~~~~~~~~~
 TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
 "POST /generate_graph/43/ HTTP/1.1" 500 102986
+Internal Server Error: /creerDPI/
+Traceback (most recent call last):
+  File "C:\Users\mrwy7\Tpppp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\Tpppp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\Tpppp\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\Tpppp\Tp\Backend\users\views.py", line 200, in creerDPI
+    dpi.save()
+  File "C:\Users\mrwy7\Tpppp\Tp\Backend\dpi\models.py", line 92, in save
+    email.send()
+  File "C:\Users\mrwy7\Tpppp\Lib\site-packages\django\core\mail\message.py", line 301, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\Tpppp\Lib\site-packages\django\core\mail\backends\smtp.py", line 128, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "C:\Users\mrwy7\Tpppp\Lib\site-packages\django\core\mail\backends\smtp.py", line 86, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\AppData\Local\Programs\Python\Python311\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\AppData\Local\Programs\Python\Python311\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\AppData\Local\Programs\Python\Python311\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 826, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mrwy7\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 961, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+"POST /creerDPI/ HTTP/1.1" 500 118344
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 177, in sign_in
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+           ^^^^^^^^^^^^
+NameError: name 'JsonResponse' is not defined. Did you mean: 'HttpResponse'?
+"GET /user/signin HTTP/1.1" 500 72442
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /user/logout
+"POST /user/logout HTTP/1.1" 500 62
+Internal Server Error: /log_out/
+"POST /log_out/ HTTP/1.1" 500 55
+Internal Server Error: /log_out/
+"POST /log_out/ HTTP/1.1" 500 55
+Internal Server Error: /log_out/
+"POST /log_out/ HTTP/1.1" 500 55
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 194, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 194, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 72619
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 188, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 658, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78872
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 658, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78872
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 658, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78843
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 658, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78807
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78740
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78740
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78740
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78740
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78740
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78740
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78740
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78338
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 78338
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\Backend\users\views.py", line 657, in show_patients
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\serializers.py", line 768, in is_valid
+    assert hasattr(self, 'initial_data'), (
+AssertionError: Cannot call `.is_valid()` as no `data=` keyword argument was passed when instantiating the serializer instance.
+"GET /patients/ HTTP/1.1" 500 79187
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+AssertionError: .accepted_renderer not set on Response
+"GET /patients/ HTTP/1.1" 500 74837
+Internal Server Error: /patients/
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lenovo\Documents\GitHub\VitalSync-\venv\Lib\site-packages\rest_framework\response.py", line 59, in rendered_content
+    assert renderer, ".accepted_renderer not set on Response"
+AssertionError: .accepted_renderer not set on Response
+"GET /patients/ HTTP/1.1" 500 74837

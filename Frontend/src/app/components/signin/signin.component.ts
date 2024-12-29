@@ -1,11 +1,14 @@
-import { Renderer2 } from '@angular/core';
+/*import { Renderer2 } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Hospital } from '../../shared/models/hospital';
 import { HospitalService } from '../../services/hospital/hospital.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-
+import { UserService } from '../../services/user/user.service';
+import {  HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { NgModel } from '@angular/forms';
 @Component({
   selector: 'app-signin',
   imports: [CommonModule, FormsModule, RouterModule],
@@ -21,12 +24,9 @@ export class SigninComponent implements OnInit {
   email: string = '';
   password: string = '';
   acces: boolean = false;
-  errorMessage: string = '';
-  successMessage: string = '';
-
-  constructor(private renderer: Renderer2,
-    private hospitalService: HospitalService,
-    private router: Router) { }
+  errorMessage: string;
+  
+  constructor(private renderer: Renderer2, private signInService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.container = document.getElementById('container');
@@ -52,39 +52,29 @@ export class SigninComponent implements OnInit {
       });
     }
   }
-  onSubmitHospital(): void {
-    if (this.selectedHospital && this.acces) {
-      console.log('Hôpital sélectionné:', this.selectedHospital);
-      this.router.navigate(['/accueil']);
-    } else {
-      if (!this.selectedHospital) {
-        console.log('Aucun hôpital sélectionné');
+
+  onSubmit(): void {
+    this.signInService.signIn(this.username, this.password).subscribe(
+      response => {
+        if (response.status === 'success') {
+          console.log(response.user_data);
+          this.errorMessage = '';
+          this.router.navigate(['/profileadmin']);
+        } else {
+          this.errorMessage = response.message;
+        }
+      },
+      error => {
+        this.errorMessage = 'An error occurred during sign-in. Please try again later.';
+        console.error(error);
       }
-      else {
-        console.log('Vous devez d\'abord vous connecter à votre compte pour choisir un hôpital');
-      }
-    }
+    );
   }
-
-
-  onSubmitSignIn(): void {
-    if (this.email && this.password) {
-      if (this.email === 'ma_lakache@esi.dz' && this.password === 'aya') {
-        this.acces = true;
-        console.log('Connexion réussie ! Vous pouvez maintenant choisir un hôpital.');
-        this.onSuivantClick();
-      } else {
-        this.acces = false;
-        console.log('Email ou mot de passe incorrect');
-      }
-    } else {
-      console.log('Vous devez entrer un email et un mot de passe.');
-    }
-  }
-
+  
   onSuivantClick(): void {
     this.toggleRightPanel()
   };
 
 
 }
+*/

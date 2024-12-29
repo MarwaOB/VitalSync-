@@ -1,4 +1,5 @@
 import logging, qrcode
+from rest_framework.decorators import api_view
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
@@ -18,7 +19,13 @@ import io
 import matplotlib.pyplot as plt
 import base64
 from django.core.files.base import ContentFile
-
+from django.http import JsonResponse
+from django.contrib.auth import logout
+from rest_framework.permissions import IsAuthenticated
+from .serializers import PatientSerializer ,CustomUserSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 @csrf_exempt
 
@@ -133,46 +140,71 @@ def add_user(request):
             return redirect('adminSys')  # Redirect to appropriate page for non-patient roles
 
     return render(request, 'adminSys.html')
-
 @csrf_exempt
 def sign_in(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        
         try:
-            # Get the user using the custom user model
-            user = authenticate(request, username=username, password=password)
+            # Parse JSON request body
+            import json
+            body = json.loads(request.body.decode('utf-8'))
+            username = body.get('username')
+            password = body.get('password')
+            print(f"Received data: {username}, {password}")
             
-            # Check the password
-            if user is not None:   
-                role = user.role  
+            # Authenticate user
+            user = authenticate(request, username=username, password=password)
+            print(f"User after authentication: {user}")
+            
+            if user is not None:
+                print(f"user is not None")
+                role = user.role
+                print(f"Role: {role}")
                 login(request, user)
                 
-                # Redirect based on role
-                if role == 'adminCentral':
-                    return redirect('admin_Central_Home')
-                elif role == 'adminSys':
-                    return redirect("admin_Sys_Home")
-                elif role == 'medecin':
-                    return redirect("medecin_Home")
-                elif role == 'patient':
-                    return redirect("show_dpi_by_patient")
-                elif role == 'infermier':
-                    return HttpResponse("infermier")
-                elif role == 'radioloque':
-                    return redirect("radiologueHome")
-                elif role == 'laborantin':
-                    return redirect("laborantinHome")
-                elif role == 'pharmacien':
-                    return HttpResponse("pharmacien")
+                user_data = {
+                    'nss' : user.NSS ,
+                    'username': user.username,
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'role': user.role,
+                    'date_de_naissance': user.date_de_naissance.isoformat() if user.date_de_naissance else None,
+                    'adresse': user.adresse,
+                    'telephone': user.telephone,
+                    'mutuelle': user.mutuelle.url if user.mutuelle else None,
+                    'hospital': {
+                        'name': user.hospital.nom,
+                        'location': user.hospital.lieu,
+                        'id': user.hospital.id
+                    } if user.hospital else None,
+                }
+                print(f"User data: {user_data}")
+
+                # Return JSON response based on role
+                role_redirects = {
+                    'adminCentral': 'admin_Central_Home',
+                    'adminSys': 'admin_Sys_Home',
+                    'medecin': 'medecin_Home',
+                    'patient': 'show_dpi_by_patient',
+                    'infermier': 'infermier',
+                    'radioloque': 'radiologueHome',
+                    'laborantin': 'laborantinHome',
+                    'pharmacien': 'pharmacien',
+                }
+                
+                if role in role_redirects:
+                    print(f"Redirecting to: {role_redirects[role]}")
+                    return JsonResponse({'status': 'success', 'user_data': user_data, 'redirect_url': role_redirects[role]}, status=200)
                 else:
-                    return HttpResponse("Role non défini")
+                    print("Role not defined in redirects")
+                    return JsonResponse({'status': 'error', 'message': 'Role non défini'}, status=400)
             else:
-                return HttpResponse("Nom d'utilisateur ou mot de passe incorrect.")
+                print("Authentication failed")
+                return JsonResponse({'status': 'error', 'message': "Nom d'utilisateur ou mot de passe incorrect."}, status=400)
         
-        except get_user_model().DoesNotExist:
-            return HttpResponse("Nom d'utilisateur ou mot de passe incorrect.")
+        except Exception as e:
+            print(f"Error occurred: {str(e)}")
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     
     return render(request, 'signin.html')
 
@@ -592,3 +624,54 @@ def dpi_list(request):
 
     return render(request, 'medecinShow.html', {'dpis': dpis, 'message': message})
 
+@csrf_exempt # You can remove this if you are using session-based authentication or have CSRF tokens in place 
+
+def log_out(request):
+    if request.method == "POST":
+        try:
+            logout(request)  # Logs out the user
+            return JsonResponse({'status': 'success', 'message': 'Logged out successfully'}, status=200)
+        except Exception as e:
+            # Log the exception message for debugging
+            print(f"Logout failed: {e}")
+            return JsonResponse({'status': 'error', 'message': 'Internal server error'}, status=500)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+@csrf_exempt 
+@api_view(['GET'])
+def show_patients(request):
+    # Get all patients
+    patients = Patient.objects.all()
+    print(f"patients: {patients}")  # Print the queryset for debugging
+
+    # Serialize the patient data
+    serializer = PatientSerializer(patients, many=True)
+    print(f"serializer: {serializer.data}")  # Print the serialized data for debugging
+
+    # Return the serialized data in the response
+    return Response({"patients": serializer.data}, status=200)
+
+@csrf_exempt 
+@api_view(['GET'])
+def list_users_by_role(request):
+    if request.method == "GET":
+        try:
+            # Get the role from query parameters
+            role = request.GET.get('role')
+            if not role:
+                return Response({'status': 'error', 'message': 'Role parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Fetch users based on the role
+            users = CustomUser.objects.filter(role=role)
+            if not users.exists():
+                return Response({'status': 'error', 'message': f'No users found for role: {role}'}, status=status.HTTP_404_NOT_FOUND)
+            
+            # Serialize the data
+            serializer = CustomUserSerializer(users, many=True)
+            return Response({'status': 'success', 'data': serializer.data}, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({'status': 'error', 'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    return Response({'status': 'error', 'message': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

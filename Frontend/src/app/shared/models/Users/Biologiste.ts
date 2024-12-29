@@ -1,11 +1,11 @@
 import { User } from "./Usert";
 
-export class AdminSys extends User {
+export class Biologiste extends User {
     constructor(
         id: string,
         nom: string,
         prenom: string,
-        role: "adminSys",
+        role: "biologiste",
         nss: number,
         dateDeNaissance: Date,
         adresse: string,

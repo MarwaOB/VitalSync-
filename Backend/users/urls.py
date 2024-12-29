@@ -22,7 +22,8 @@ urlpatterns = [
     path('faire_bilan/<int:consultation_id>/', views.faire_bilan, name='faire_bilan'),
     path('Consultation_dpi_Bilan/', views.Consultation_dpi_Bilan, name='Consultation_dpi_Bilan'),
     path('generate_graph/<int:consultation_id>/', views.generate_graph_view, name='generate_graph'),
-
+    path('patients/', views.show_patients, name='show_patients'),
+    path('users/', views.list_users_by_role, name='list_users_by_role'),
 
 
 
