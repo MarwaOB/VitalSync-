@@ -20,7 +20,11 @@ import base64
 from django.core.files.base import ContentFile
 from django.http import JsonResponse
 from django.contrib.auth import logout
-
+from rest_framework.permissions import IsAuthenticated
+from .serializers import PatientSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 @csrf_exempt
 
@@ -136,8 +140,8 @@ def add_user(request):
 
     return render(request, 'adminSys.html')
 
-@csrf_exempt
 
+@csrf_exempt
 def sign_in(request):
     if request.method == "POST":
         try:
@@ -154,6 +158,25 @@ def sign_in(request):
                 role = user.role
                 login(request, user)
                 
+                user_data = {
+                    'nss' : user.NSS ,
+                    'username': user.username,
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'role': user.role,
+                    'date_de_naissance': user.date_de_naissance.isoformat() if user.date_de_naissance else None,
+                    'adresse': user.adresse,
+                    'telephone': user.telephone,
+                    'mutuelle': user.mutuelle.url if user.mutuelle else None,
+                    'hospital': {
+                        'name': user.hospital.nom,
+                        'location': user.hospital.lieu,
+                        'id': user.hospital.id
+                    } if user.hospital else None,
+                }
+                print(f"User data: {user_data}")
+
                 # Return JSON response based on role
                 role_redirects = {
                     'adminCentral': 'admin_Central_Home',
@@ -167,7 +190,7 @@ def sign_in(request):
                 }
                 
                 if role in role_redirects:
-                    return JsonResponse({'status': 'success', 'redirect_url': role_redirects[role]}, status=200)
+                    return JsonResponse({'status': 'success', 'user_data': user_data, 'redirect_url': 'some_redirect_url'}, status=200)
                 else:
                     return JsonResponse({'status': 'error', 'message': 'Role non défini'}, status=400)
             else:
@@ -177,6 +200,7 @@ def sign_in(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
 
 @login_required
 def admincentral(request):
@@ -607,3 +631,25 @@ def log_out(request):
             return JsonResponse({'status': 'error', 'message': 'Internal server error'}, status=500)
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+def show_patients(request):
+        
+    print("we are here 1  ")
+
+    if request.method == 'GET':
+        # Check if the user is authenticated
+        print("we are here 2  ")
+
+       # if not request.user.is_authenticated:
+        #    return Response({"error": "Authentication required."}, status=401)
+
+        # Get all patients
+        patients = Patient.objects.all()
+        print(f"patients: {patients}")        # Serialize the patient data
+        serializer = PatientSerializer(patients, many=True)
+        print(f"serilaizer:  {serializer.data} ")
+
+        # Return the patient data in the response
+        return Response({"patients": serializer.data}, status=200)
+   
+    return Response({"error": "Invalid request method."}, status=405)

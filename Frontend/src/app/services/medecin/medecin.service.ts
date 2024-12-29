@@ -79,4 +79,10 @@ export class MedecinService {
     const medecin = this.medecins.find((m) => m.id === id);
     return of(medecin);
   }
+  add(Medecin: Medecin): Observable<Medecin> {
+    const newId = (this.medecins.length + 1).toString(); // refaire la generation de id 
+    const newMedecin = { ...Medecin, id: newId };
+    this.medecins.push(newMedecin);
+    return of(newMedecin);
+  }
 }

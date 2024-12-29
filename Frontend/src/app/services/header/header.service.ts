@@ -16,15 +16,6 @@ export class HeaderService {
 
   constructor(private http: HttpClient) { }
 
-  logOut(): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/log_out/', {}).pipe(
-      catchError(error => {
-        console.error('Logout request failed', error);
-        return throwError(error);
-      })
-    );
-  }
-
   private userProfileSubject = new BehaviorSubject<UserProfile>({
     name: 'AYA LAKACHE',
     email: 'ma_lakache@gmail.com',
@@ -36,4 +27,14 @@ export class HeaderService {
   updateUserProfile(profile: UserProfile) {
     this.userProfileSubject.next(profile);
   }
+  logOut(): Observable<any> {
+    return this.http.post('http://127.0.0.1:8000/log_out/', {}).pipe(
+      catchError(error => {
+        console.error('Logout request failed', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  
 }

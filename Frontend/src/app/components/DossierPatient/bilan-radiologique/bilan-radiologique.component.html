@@ -2,49 +2,52 @@
     <div class="btn-container">
         <button class="ajouter-btn" (click)="ajouterExamen()">Ajouter un examen</button>
     </div>
-    <div class="wrapper">
-        <div class="button-container">
-            <div class="titreOrdoannace">
-                Bilan Radiologique
+    <div class="content">
+        <div class="wrapper">
+            <div class="button-container">
+                <div class="titreOrdoannace">
+                    Bilan Radiologique
+                </div>
+                <i id="edit" class="fas fa-edit" (click)="toggleEditMode()"></i>
             </div>
-            <i id="edit" class="fas fa-edit" (click)="toggleEditMode()"></i>
-        </div>
-        <div class="field">
-            <label>Radiologue :</label>
-            <input type="text" [value]="bilanRadiologique?.radiologueId" readonly />
-        </div>
-        <div class="field">
-            <label>Date :</label>
-            <input type="text" [value]="bilanRadiologique?.date | date" readonly />
-        </div>
+            <div class="field">
+                <label>Radiologue :</label>
+                <input type="text" [value]="bilanRadiologique?.radiologueId" readonly />
+            </div>
+            <div class="field">
+                <label>Date :</label>
+                <input type="text" [value]="bilanRadiologique?.date | date" readonly />
+            </div>
 
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Examen</th>
+                    <th>Type</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let exe of examens">
+                    <td>{{exe.id }}</td>
+                    <td>{{ exe.type}}</td>
+                    <td>{{ exe.images }}</td>
+                    <td>{{ exe.description }}</td>
+                    <td>
+                        <div class="eye">
+                            <i class="fas fa-edit" (click)="modifierExamen(exe)" title="Modifier"></i>
+                            <i id="delete" class="fas fa-trash-alt" (click)="supprimerExamen(exe.id)"
+                                title="Supprimer"></i>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID Examen</th>
-                <th>Type</th>
-                <th>Image</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let exe of examens">
-                <td>{{exe.id }}</td>
-                <td>{{ exe.type}}</td>
-                <td>{{ exe.images }}</td>
-                <td>{{ exe.description }}</td>
-                <td>
-                    <div class="eye">
-                        <i class="fas fa-edit" (click)="modifierExamen(exe)" title="Modifier"></i>
-                        <i id="delete" class="fas fa-trash-alt" (click)="supprimerExamen(exe.id)" title="Supprimer"></i>
-                    </div>
-                </td>
-
-            </tr>
-        </tbody>
-    </table>
 
 </div>
 

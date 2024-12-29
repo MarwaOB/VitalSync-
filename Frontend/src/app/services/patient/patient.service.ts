@@ -1,115 +1,28 @@
-import { Patient } from './../../shared/models/Users/Patient';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Patient } from './../../shared/models/Users/Patient';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
-  private patients: Patient[] = [
-    {
-      id: '17',
-      nom: 'nom',
-      prenom: 'prenom',
-      email: "email",
-      role: 'patient',
-      nss: 123456789,
-      dateDeNaissance: new Date('1990-04-25'),
-      adresse: '10 Rue des Lilas, Lyon',
-      telephone: '0123456789',
-      mutuelle: 'mutuelle_patient1.pdf',
-      hopital: '1',
-      password: "171717",
-      image: "",
-      personAContacterTelephone: ['0612345678', '0709876543'],
-      dateDebutHospitalisation: new Date('2024-12-01'),
-      dateFinHospitalisation: new Date('2024-12-10'),
-      dpiNull: false
-    },
-    {
-      id: '18',
-      nom: 'nom',
-      prenom: 'prenom',
-      email: "email",
-      role: 'patient',
-      nss: 987654321,
-      dateDeNaissance: new Date('1985-08-15'),
-      adresse: '15 Avenue des Champs-Élysées, Paris',
-      telephone: '0654321987',
-      mutuelle: 'mutuelle_patient2.pdf',
-      hopital: '2',
-      password: "181818",
-      image: "",
-      personAContacterTelephone: ['0698765432'],
-      dateDebutHospitalisation: new Date('2024-11-20'),
-      dateFinHospitalisation: new Date('2024-11-25'),
-      dpiNull: true
-    },
-    {
-      id: '19',
-      nom: 'nom',
-      prenom: 'prenom',
-      email: "email",
-      role: 'patient',
-      nss: 123456789,
-      dateDeNaissance: new Date('1990-04-25'),
-      adresse: '10 Rue des Lilas, Lyon',
-      telephone: '0123456789',
-      mutuelle: 'mutuelle_patient1.pdf',
-      hopital: '1',
-      password: "191919",
-      image: "",
-      personAContacterTelephone: ['0612345678', '0709876543'],
-      dateDebutHospitalisation: new Date('2024-12-01'),
-      dateFinHospitalisation: new Date('2024-12-10'),
-      dpiNull: false
-    },
-    {
-      id: '20',
-      nom: 'nom',
-      prenom: 'prenom',
-      email: "email",
-      role: 'patient',
-      nss: 987654321,
-      dateDeNaissance: new Date('1985-08-15'),
-      adresse: '15 Avenue des Champs-Élysées, Paris',
-      telephone: '0654321987',
-      mutuelle: 'mutuelle_patient2.pdf',
-      hopital: '2',
-      password: "202020",
-      image: "",
-      personAContacterTelephone: ['0698765432'],
-      dateDebutHospitalisation: new Date('2024-11-20'),
-      dateFinHospitalisation: new Date('2024-11-25'),
-      dpiNull: true
-    }, {
-      id: '21',
-      nom: 'nom',
-      prenom: 'prenom',
-      email: "email",
-      role: 'patient',
-      nss: 123456789,
-      dateDeNaissance: new Date('1990-04-25'),
-      adresse: '10 Rue des Lilas, Lyon',
-      telephone: '0123456789',
-      mutuelle: 'mutuelle_patient1.pdf',
-      hopital: '1',
-      password: "212121",
-      image: "",
-      personAContacterTelephone: ['0612345678', '0709876543'],
-      dateDebutHospitalisation: new Date('2024-12-01'),
-      dateFinHospitalisation: new Date('2024-12-10'),
-      dpiNull: false
-    }
-  ];
+  private apiUrl = 'http://127.0.0.1:8000/admin/patients/';  // API URL from Django
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Patient[]> {
-    return of(this.patients);
+  // Fetch the list of patients from the backend
+  getPatients(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
   }
-  getById(id: string): Observable<Patient | undefined> {
-    const patient = this.patients.find((m) => m.id === id);
-    return of(patient);
+
+  // Fetch a single patient by ID
+  getById(id: string): Observable<Patient> {
+    return this.http.get<Patient>(`${this.apiUrl}${id}/`);
+  }
+
+  // Add a new patient
+  add(patient: Patient): Observable<Patient> {
+    return this.http.post<Patient>(this.apiUrl, patient);
   }
 }

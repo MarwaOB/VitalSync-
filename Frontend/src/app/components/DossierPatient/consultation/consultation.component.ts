@@ -88,5 +88,16 @@ export class ConsultationComponent implements OnInit {
   }
 
   ajouterConsultation(): void {
+    const Consultation: Consultation = {
+      id: '',
+      date: new Date(''),
+      dpiId: '',
+      resume: 'Résumé de la consultation Ajoutee',
+      diagnosticId: '',
+      bilanBiologiqueId: '',
+      bilanRadiologiqueId: '',
+    };
+    this.consultationService.addConsultation(Consultation);
+
   }
 }

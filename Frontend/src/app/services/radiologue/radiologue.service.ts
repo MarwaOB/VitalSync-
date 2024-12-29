@@ -48,4 +48,10 @@ export class RadiologueService {
     const rad = this.radiologues.find((m) => m.id === id);
     return of(rad);
   }
+  add(Radiologue: Radiologue): Observable<Radiologue> {
+    const newId = (this.radiologues.length + 1).toString(); // refaire la generation de id 
+    const newRadiologue = { ...Radiologue, id: newId };
+    this.radiologues.push(newRadiologue);
+    return of(newRadiologue);
+  }
 }

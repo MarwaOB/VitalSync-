@@ -19,5 +19,19 @@ export class HospitalService {
   getAll(): Observable<Hospital[]> {
     return of(this.hospitals);
   }
+  add(Hospital: Hospital): Observable<Hospital> {
+    const newId = (this.hospitals.length + 1).toString(); // refaire la generation de id 
+    const newHospital = { ...Hospital, id: newId };
+    this.hospitals.push(newHospital);
+    return of(newHospital);
+  }
+  edit(updatedHospital: Hospital): Observable<Hospital | null> {
+    const index = this.hospitals.findIndex(h => h.id === updatedHospital.id);
+    if (index !== -1) {
+      this.hospitals[index] = { ...this.hospitals[index], ...updatedHospital };
+      return of(this.hospitals[index]);
+    }
+    return of(null);
+  }
 
 }

@@ -22,6 +22,21 @@ export class AdminSysService {
       password: "222",
       image: ""
     },
+    {
+      id: '2',
+      nom: 'nom',
+      prenom: 'prenom',
+      email: "email",
+      role: 'adminSys',
+      nss: 123456789,
+      dateDeNaissance: new Date('1980-05-20'),
+      adresse: '123 Rue de Paris, Lyon',
+      telephone: '0123456789',
+      mutuelle: 'mutuelle1.pdf',
+      hopital: '1',
+      password: "222",
+      image: ""
+    },
   ];
 
   constructor() { }
@@ -33,4 +48,11 @@ export class AdminSysService {
     const ad = this.adminSyss.find((m) => m.id === id);
     return of(ad);
   }
+  add(AdminSys: AdminSys): Observable<AdminSys> {
+    const newId = (this.adminSyss.length + 1).toString(); // refaire la generation de id 
+    const newAdminSys = { ...AdminSys, id: newId };
+    this.adminSyss.push(newAdminSys);
+    return of(newAdminSys);
+  }
+
 }

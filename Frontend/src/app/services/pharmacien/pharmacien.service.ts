@@ -48,4 +48,10 @@ export class PharmacienService {
     const ph = this.pharmaciens.find((m) => m.id === id);
     return of(ph);
   }
+  add(Pharmacien: Pharmacien): Observable<Pharmacien> {
+    const newId = (this.pharmaciens.length + 1).toString(); // refaire la generation de id 
+    const newPharmacien = { ...Pharmacien, id: newId };
+    this.pharmaciens.push(newPharmacien);
+    return of(newPharmacien);
+  }
 }

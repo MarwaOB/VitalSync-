@@ -9,7 +9,21 @@
             <div class="menu-logout">
                 <div class="menu">
                     <!-- Profile, Dashboard, and other top-level items -->
-                    <div class="frame">
+                    <div class="frame" *ngIf="user?.role === 'adminCentral' ">
+                        <div class="div"
+                            
+                            routerLink="/hopital" 
+                            routerLinkActive="active" 
+                            [routerLinkActiveOptions]="{ exact: true }">
+              
+                            <img class="img" src="assets/images/menu/profile.svg" />
+                            <div class="frame-2">
+                                <div class="text-wrapper">Hopitaux</div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div class="frame" *ngIf="user?.role === 'medecin' || user?.role === 'laborantin'|| user?.role === 'radioloque'|| user?.role === 'infermier'">
                         <div class="div"
                             
                             routerLink="/profileadmin" 
@@ -23,7 +37,21 @@
                           
                         </div>
                     </div>
-                    <div class="frame">
+                    <div class="frame" *ngIf="user?.role === 'patient' ">
+                        <div class="div"
+                            
+                            routerLink="/profileadmin" 
+                            routerLinkActive="active" 
+                            [routerLinkActiveOptions]="{ exact: true }">
+              
+                            <img class="img" src="assets/images/menu/profile.svg" />
+                            <div class="frame-2">
+                                <div class="text-wrapper">Profile</div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div class="frame"*ngIf="user?.role === 'adminCentral' ">
                         <div class="div"
                         routerLink="/Dashboard" 
                         routerLinkActive="active" 
@@ -35,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="frame">
+                    <div class="frame"*ngIf="user?.role === 'adminCentral'   ">
                         <div class="div"
                         routerLink="/listpatient" 
                         routerLinkActive="active" 
@@ -48,7 +76,7 @@
                     </div>
 
                     <!-- Parent menu item with submenu -->
-                    <div class="frame menu-item-with-submenu">
+                    <div class="frame menu-item-with-submenu"*ngIf="user?.role === 'adminCentral' ">
                         <div class="div" (click)="toggleSubmenu($event)">
                             <img class="img" src="assets/images/menu/mdc.svg" />
                             <div class="text-wrapper">Médecins</div>
@@ -79,18 +107,11 @@
                                     <div class="text-wrapper-2">Laborantins</div>
                                 </div>
                             </div>
-                            <div class="frame">
-                                <div class="div-wrapper"
-                                routerLink="/listbiologiste" 
-                                routerLinkActive="active" 
-                                [routerLinkActiveOptions]="{ exact: true }">
-                                    <div class="text-wrapper-2">Biologistes</div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
-                    <div class="frame">
+                    <div class="frame" *ngIf="user?.role === 'adminCentral' ">
                         <div class="div"
                         routerLink="/listinfermier" 
                         routerLinkActive="active" 
@@ -102,17 +123,7 @@
                         </div>
                     </div>
                     
-                    <div class="frame">
-                        <div class="div"
-                        routerLink="/listpharma" 
-                        routerLinkActive="active" 
-                        [routerLinkActiveOptions]="{ exact: true }">
-                        <img class="img" src="assets/images/menu/patients.svg" />
-                            <div class="frame-3">
-                                <div class="text-wrapper">Pharmaciens</div>
-                            </div>
-                        </div>
-                    </div>
+                   
 
                    
 

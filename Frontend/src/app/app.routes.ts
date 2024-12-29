@@ -26,6 +26,9 @@ import { ListradiologueComponent } from './pages/listradiologue/listradiologue.c
 import { ListbiologistesComponent } from './pages/listbiologistes/listbiologistes.component';
 import { ListinfermierComponent } from './pages/listinfermier/listinfermier.component';
 import { AntecedentComponent } from './components/DossierPatient/antecedent/antecedent.component';
+import { AdminSysEditComponent } from './components/EditProfile/admin-sys-edit/admin-sys-edit.component';
+import { AdminCentralEditComponent } from './components/EditProfile/admin-central-edit/admin-central-edit.component';
+import { ListhopitalComponent } from './pages/listhopital/listhopital.component';
 
 export const routes: Routes = 
 [
@@ -90,6 +93,20 @@ export const routes: Routes =
       ]
     },
     {
+      path: "profile",
+      component: LayoutComponent, // Use layout component here
+      children: [
+        { path: "", component: ProfileComponent } // Page1Accueil will be displayed inside the layout
+      ]
+    },
+    {
+      path: "hopital",
+      component: LayoutComponent, // Use layout component here
+      children: [
+        { path: "", component: ListhopitalComponent } // Page1Accueil will be displayed inside the layout
+      ]
+    },
+    {
       path: "listlaborantin",
       component: LayoutComponent, // Use layout component here
       children: [
@@ -117,6 +134,8 @@ export const routes: Routes =
         { path: "", component: ListinfermierComponent } // Page1Accueil will be displayed inside the layout
       ]
     },
+    { path: 'AdminCentral-edit/:id', component: AdminCentralEditComponent },
+    { path: 'AdminSys-edit/:id', component: AdminSysEditComponent },
 
 
   

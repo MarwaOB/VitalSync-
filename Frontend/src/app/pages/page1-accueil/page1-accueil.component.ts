@@ -11,10 +11,11 @@ import { MenuComponent } from "../../components/menu/menu.component";
 import { LayoutComponent } from "../../components/layout/layout.component";
 import { AntecedentComponent } from "../../components/DossierPatient/antecedent/antecedent.component";
 import { ConsultationComponent } from "../../components/DossierPatient/consultation/consultation.component";
+import { ProfileComponent } from "../../components/profile/profile.component";
 
 @Component({
   selector: 'app-page1-accueil',
-  imports: [TablePatientsComponent, TableMedecinsComponent, TableBiologistesComponent, TableInfirmiersComponent, TablePharmComponent, TableLaborantinsComponent, TableRadiologuesComponent, HeaderComponent, MenuComponent, LayoutComponent, AntecedentComponent, ConsultationComponent],
+  imports: [TablePatientsComponent, TableMedecinsComponent, TableBiologistesComponent, TableInfirmiersComponent, TablePharmComponent, TableLaborantinsComponent, TableRadiologuesComponent, HeaderComponent, MenuComponent, LayoutComponent, AntecedentComponent, ConsultationComponent, ProfileComponent],
   templateUrl: './page1-accueil.component.html',
   styleUrl: './page1-accueil.component.css'
 })

@@ -1,6 +1,10 @@
+import { User } from './../../shared/models/Users/User';
 import { Component, OnInit } from '@angular/core';
-import { HeaderService, UserProfile } from '../../services/header/header.service';
+import { HeaderService } from '../../services/header/header.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
+
+
 
 @Component({
   selector: 'app-header',
@@ -8,22 +12,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  userProfile!: UserProfile;
+  //userProfile: UserProfile | null = null;
+  user: any = null;
 
-  constructor(private headerService: HeaderService , private router: Router) {
+  constructor(private userService: UserService , private headerrService: HeaderService ,private router: Router) {
 
   }
 
+
+
   ngOnInit(): void {
-    this.headerService.userProfile$.subscribe(profile => {
-      this.userProfile = profile;
-    });
+    // Access user data directly or subscribe to changes
+    this.user = this.userService.user;
   }
 
 
 
   logOut(): void {
-    this.headerService.logOut().subscribe({
+    this.headerrService.logOut().subscribe({
       next: (response) => {
         if (response.status === 'success') {
           console.log(response.message);  // Logged out successfully

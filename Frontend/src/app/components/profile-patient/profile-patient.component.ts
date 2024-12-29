@@ -27,7 +27,7 @@ export class ProfilePatientComponent {
   cancelEdit(): void {
     this.editMode = false;
   }
-  addContact() {
+  /*addContact() {
     if (!this.tempProfileData.personAContacterTelephone) {
       this.tempProfileData.personAContacterTelephone = [];
     }
@@ -40,7 +40,7 @@ export class ProfilePatientComponent {
   trackByIndex(index: number, item: any) {
     return index;
   }
-
+*/
 }
 
 

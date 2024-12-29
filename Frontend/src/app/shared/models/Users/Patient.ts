@@ -1,38 +1,12 @@
+import { CustomUser } from "./CustomUser";
 import { User } from "./User";
 
-export class Patient extends User {
-
-    personAContacterTelephone: string[];
-    dateDebutHospitalisation: Date;
-    dateFinHospitalisation: Date;
-    dpiNull: boolean;
-
-    constructor(
-        id: string,
-        nom: string,
-        prenom: string,
-        role: "patient",
-        nss: number,
-        dateDeNaissance: Date,
-        adresse: string,
-        telephone: string,
-        mutuelle: string,
-        hopital: string,
-        email: string,
-        password: string,
-        image: string,
-        personAContacterTelephone: string[] = [],
-        dateDebutHospitalisation: Date,
-        dateFinHospitalisation: Date,
-        dpiNull: boolean = true
-    ) {
-        super(id, nom, prenom, role, nss, dateDeNaissance, adresse, telephone, mutuelle, hopital, email, password, image);
-
-        this.personAContacterTelephone = personAContacterTelephone;
-        this.dateDebutHospitalisation = dateDebutHospitalisation;
-        this.dateFinHospitalisation = dateFinHospitalisation;
-        this.dpiNull = dpiNull;
-    }
-
-
-}
+// Interface for the Patient model
+export interface Patient {
+    id: number;
+    user: CustomUser;
+    person_a_contacter_telephone: string[]; // JSONField as an array of strings
+    date_debut_hospitalisation: string[]; // JSONField as an array of ISO date strings
+    date_fin_hospitalisation: string[]; // JSONField as an array of ISO date strings
+    dpi_null: boolean;
+  }

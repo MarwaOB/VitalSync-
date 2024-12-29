@@ -23,11 +23,11 @@
             <div class="icon-frame">
               <img class="img-2" src="assets/images/header/Notification.svg" alt="Notification Icon" />
             </div>
-            <img class="photo-profile" [src]="userProfile.profilePhoto" alt="Profile Photo" />
+            <img class="photo-profile" src="assets/images/header/Notification.svg" alt="Profile Photo" />
             <div class="nom-profile">
               <div class="profile-info">
-                <div class="name">{{userProfile.name}}</div>
-                <div class="email">{{userProfile.email}}</div>
+                <div class="name">{{ user?.first_name }}{{ user?.last_name }}</div>
+                <div class="email">{{user?.email}}</div>
               </div>
               <div class="logout-wrapper">
                 <div class="logout" (click)="logOut()">

@@ -49,4 +49,10 @@ export class LaborantinService {
     const labo = this.laborantins.find((m) => m.id === id);
     return of(labo);
   }
+  add(Laborantin: Laborantin): Observable<Laborantin> {
+    const newId = (this.laborantins.length + 1).toString(); // refaire la generation de id 
+    const newLaborantin = { ...Laborantin, id: newId };
+    this.laborantins.push(newLaborantin);
+    return of(newLaborantin);
+  }
 }

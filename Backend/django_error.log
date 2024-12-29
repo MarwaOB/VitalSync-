@@ -4722,3 +4722,203 @@ Internal Server Error: /log_out/
 "POST /log_out/ HTTP/1.1" 500 55
 Internal Server Error: /log_out/
 "POST /log_out/ HTTP/1.1" 500 55
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 60
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 194, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 194, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 187, in sign_in
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 72619
+Internal Server Error: /user/signin
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 145, in sign_in
+    body = json.loads(request.body.decode('utf-8'))
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\belra\OneDrive\Documents\tp\VitalSync-\Backend\users\views.py", line 188, in sign_in
+    except json.JSONDecodeError:
+           ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'
+"POST /user/signin HTTP/1.1" 500 75587

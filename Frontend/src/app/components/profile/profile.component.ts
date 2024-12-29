@@ -11,6 +11,8 @@ import { Infirmier } from '../../shared/models/Users/Infermier';
 import { Patient } from '../../shared/models/Users/Patient';
 import { AdminCentral } from '../../shared/models/Users/AdminCentral';
 import { AdminSys } from '../../shared/models/Users/AdminSys';
+import { UserService } from '../../services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -23,9 +25,17 @@ export class ProfileComponent implements OnInit {
 
   tempProfileData!: User | Medecin | Biologiste | Laborantin | Radiologue | Pharmacien | Infirmier | Patient | AdminCentral | AdminSys;
   editMode: boolean = false;
+user: any = null;
+
+  constructor(private userService: UserService  ,private router: Router) {
+
+  }
+
+
 
   ngOnInit(): void {
-    this.tempProfileData = { ...this.profileData };
+    // Access user data directly or subscribe to changes
+    this.user = this.userService.user;
   }
 
   saveChanges(): void {

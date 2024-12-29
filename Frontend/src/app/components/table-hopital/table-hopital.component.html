@@ -1,0 +1,80 @@
+<div class="table-container">
+    <div class="btn-container">
+        <button class="ajouter-btn" (click)="openAddOverlay()">
+            <i class="fas fa-user-plus"></i> Ajouter un hôpital
+        </button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Lieu</th>
+                <th>Nb de Patients</th>
+                <th>Nb de Personnels</th>
+                <th>Date de création</th>
+                <th>Clinique?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Hospital of Hospitals">
+                <td>{{ Hospital.id }}</td>
+                <td>{{ Hospital.nom }}</td>
+                <td>{{ Hospital.lieu }}</td>
+                <td>{{ Hospital.nombrePatients }}</td>
+                <td>{{ Hospital.nombrePersonnels }}</td>
+                <td>{{ Hospital.dateCreation | date }}</td>
+                <td>{{ Hospital.is_clinique ? 'Oui' : 'Non' }}</td>
+                <td class="actions-cell">
+                    <i class="fas fa-edit" (click)="editHospital(Hospital)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deleteHospital(Hospital.id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Overlay pour édition -->
+<div class="overlay" *ngIf="editMode">
+    <div class="form-container">
+        <div class="nom-prenom">
+            <div class="field">
+                <label>Nom</label>
+                <input type="text" [(ngModel)]="temphospitalData.nom" />
+            </div>
+            <div class="field">
+                <label>Lieu</label>
+                <input type="text" [(ngModel)]="temphospitalData.lieu" />
+            </div>
+        </div>
+
+        <div class="tel-email">
+            <div class="field">
+                <label>Nombre de patients</label>
+                <input type="number" [(ngModel)]="temphospitalData.nombrePatients" />
+            </div>
+            <div class="field">
+                <label>Nombre de personnels</label>
+                <input type="number" [(ngModel)]="temphospitalData.nombrePersonnels" />
+            </div>
+        </div>
+
+        <div class="date-naissance-adresse">
+            <div class="field">
+                <label>Date de création</label>
+                <input type="date" [(ngModel)]="temphospitalData.dateCreation" />
+            </div>
+            <div class="field">
+                <label>Clinique?</label>
+                <input type="checkbox" [(ngModel)]="temphospitalData.is_clinique" />
+            </div>
+        </div>
+
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelEdit()">Cancel</button>
+            <button (click)="saveChanges()">Save</button>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,5 @@
+
+<!--
 <div class="wrapper">
     <div class="button-container">
         <i class="fas fa-edit" (click)="editMode = !editMode"></i>
@@ -5,44 +7,44 @@
     <div class="nom-prenom">
         <div class="field">
             <label>Nom</label>
-            <input type="text" [value]="profileData.nom" readonly />
+            <input type="text" [value]="user.last_name" readonly />
         </div>
         <div class="field">
             <label>Prénom</label>
-            <input type="text" [value]="profileData.prenom" readonly />
+            <input type="text" [value]="user.first_name" readonly />
         </div>
     </div>
 
     <div class="tel-email">
         <div class="field">
             <label>Téléphone</label>
-            <input type="text" [value]="profileData.telephone" readonly />
+            <input type="text" [value]="user.telephone" readonly />
         </div>
         <div class="field">
             <label>Email</label>
-            <input type="email" [value]="profileData.email" readonly />
+            <input type="email" [value]="user.email" readonly />
         </div>
     </div>
 
     <div class="date-naissance-adresse">
         <div class="field">
             <label>Date de naissance</label>
-            <input type="text" [value]="profileData.dateDeNaissance" readonly />
+            <input type="text" [value]="user.date_de_naissance" readonly />
         </div>
         <div class="field">
             <label>Adresse</label>
-            <input type="text" [value]="profileData.adresse" readonly />
+            <input type="text" [value]="user.adresse" readonly />
         </div>
     </div>
 
     <div class="mutuelle-hospital">
         <div class="field">
             <label>Mutuelle</label>
-            <input type="text" [value]="profileData.mutuelle" readonly />
+            <input type="text" [value]="user.mutuelle" readonly />
         </div>
         <div class="field">
             <label>NSS</label>
-            <input type="text" [value]="profileData.nss" readonly />
+            <input type="text" [value]="user.nss" readonly />
         </div>
     </div>
 </div>
@@ -99,3 +101,4 @@
         </div>
     </div>
 </div>
+-->

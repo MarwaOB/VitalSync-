@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PatientService } from '../../../services/patient/patient.service';
 import { Patient } from '../../../shared/models/Users/Patient';
 import { CommonModule } from '@angular/common';
@@ -11,34 +11,41 @@ import { Router } from '@angular/router';
   templateUrl: './table-patients.component.html',
   styleUrl: './table-patients.component.css'
 })
-export class TablePatientsComponent {
-  patients: Patient[] = [];
+export class TablePatientsComponent implements OnInit {
+  patients: Patient[] = [];  // Store the patients
+  errorMessage: string = '';
+
   constructor(private patientService: PatientService, private router: Router) { }
 
-
-
-  
   ngOnInit(): void {
-
-    // Appeler le service pour obtenir tous les patients
-    this.patientService.getAll().subscribe((patients: Patient[]) => {
-      this.patients = patients;  // Stocker les patients dans le tableau
-    });
-
-
-    
-  }
-  voirDpi(patientId: string): void {
-    this.router.navigate(['/patient-dpi', patientId]);  // Redirection vers la page du DPI du patient
+    this.loadPatients();
   }
 
-  editPatient(patientId: string): void {
-    this.router.navigate(['/patient-edit', patientId]);  // Redirection vers la page du edit du patient
-    console.log('Édition du patient avec ID:', patientId);
+  loadPatients(): void {
+    this.patientService.getPatients().subscribe(
+      (response) => {
+        this.patients = response.patients;  // Store the patients data from the API
+        console.log('Patients loaded successfully:', this.patients);
+      },
+      error => {
+        this.errorMessage = 'Failed to load patients. Please try again later.';
+        console.error('Error loading patients:', error);
+      }
+    );
   }
 
-  deletePatient(id: string): void {
-    console.log('Suppression du patient avec ID:', id);
+  voirDpi(patientId: number): void {
+    this.router.navigate(['/patient-dpi', patientId]);  // Redirect to the patient's DPI page
   }
 
+  editPatient(patientId: number): void {
+    this.router.navigate(['/patient-edit', patientId]);  // Redirect to the edit patient page
+    console.log('Editing patient with ID:', patientId);
+  }
+
+  deletePatient(id: number): void {
+    console.log('Deleting patient with ID:', id);
+    // Here, you should call a service method to delete the patient and update the patients list after deletion
+  }
 }
+

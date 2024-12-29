@@ -11,7 +11,7 @@ import { NgModule } from '@angular/core';
 import { NgModel } from '@angular/forms';
 @Component({
   selector: 'app-signin',
-  imports: [FormsModule,HttpClientModule],
+  imports: [FormsModule,HttpClientModule, RouterModule],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css'
 })
@@ -20,19 +20,48 @@ export class SigninComponent implements OnInit {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  private container: HTMLElement | null = null;
+  private overlayBtn: HTMLElement | null = null;
+  acces: boolean = false;
+  
+  constructor(private renderer: Renderer2, private signInService: UserService, private router: Router) {}
 
-  constructor(private signInService: UserService, private router: Router) {}
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.overlayBtn = document.querySelector('.overlay-btn');
+    this.container = document.querySelector('.container');
+
+    if (this.overlayBtn) {
+      this.renderer.listen(this.overlayBtn, 'click', () => this.toggleRightPanel());
+    } else {
+      console.error('Overlay button not found');
+    }
+  }
+
+  toggleRightPanel(): void {
+    if (this.container) {
+      this.container.classList.toggle('right-panel-active');
+    }
+
+    if (this.overlayBtn) {
+      this.overlayBtn.classList.remove('btnScaled');
+      window.requestAnimationFrame(() => {
+        this.overlayBtn?.classList.add('btnScaled');
+      });
+    }
   }
 
   onSubmit(): void {
     this.signInService.signIn(this.username, this.password).subscribe(
       response => {
         if (response.status === 'success') {
-          // Redirect based on role
-          this.router.navigate(['/accueil']);
+          console.log(response.user_data);
+          this.signInService.setUserData(response.user_data);
+          this.acces = true;
+          console.log('Connexion réussie ! Vous pouvez maintenant choisir un hôpital.');
+          this.router.navigate(['/profileadmin']);
+          this.onSuivantClick();
         } else {
+          this.acces = false;
           this.errorMessage = response.message;
         }
       },
@@ -42,9 +71,13 @@ export class SigninComponent implements OnInit {
     );
   }
 
+  onSuivantClick(): void {
+    this.toggleRightPanel();
+  }
 
-
-
-
-
+  onSubmitContinuer(): void {
+    if (this.acces) {
+      this.router.navigate(['/accueil']);
+    }
+  }
 }

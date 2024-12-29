@@ -79,4 +79,10 @@ export class InfirmierService {
     const inf = this.infirmiers.find((m) => m.id === id);
     return of(inf);
   }
+  add(Infirmier: Infirmier): Observable<Infirmier> {
+    const newId = (this.infirmiers.length + 1).toString();
+    const newInfirmier = { ...Infirmier, id: newId };
+    this.infirmiers.push(newInfirmier);
+    return of(newInfirmier);
+  }
 }

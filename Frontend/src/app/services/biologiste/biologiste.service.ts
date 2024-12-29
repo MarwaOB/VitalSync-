@@ -78,4 +78,11 @@ export class BiologisteService {
     const bio = this.biologistes.find((m) => m.id === id);
     return of(bio);
   }
+  add(biologiste: Biologiste): Observable<Biologiste> {
+    const newId = (this.biologistes.length + 1).toString(); // refaire la generation de id 
+    const newBiologiste = { ...biologiste, id: newId };
+    this.biologistes.push(newBiologiste);
+    return of(newBiologiste);
+  }
+
 }
