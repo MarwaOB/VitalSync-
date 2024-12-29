@@ -19,8 +19,8 @@ urlpatterns = [
 
     #path('supprimer/toutes/ordonnances/non-valide/', views.supprimer_toutes_ordonnances_non_valide, name='supprimer_toutes_ordonnances_non_valide'),
     path("validee_ord/<int:ordonnance_id>/", views.valider_ordonnance, name="validee_ord"),
-    path('mark_as_administered/<int:ordonnance_id>/<str:medication_name>/', views.mark_as_administered, name='mark_as_administered'),
-
+    path('consultation/<int:consultation_id>/checklist/', views.checklist_view, name='checklist'),
+    path('consultation/<int:consultation_id>/mark_administered/', views.mark_administered, name='mark_administered'),
 
 ]
     

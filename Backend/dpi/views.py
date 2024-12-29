@@ -277,38 +277,17 @@ def ajouter_radiologique_bilan(request, consultation_id):
 
 
 
-def mark_as_administered(request, ordonnance_id, medication_name):
-    ordonnance = get_object_or_404(Ordonnance, id=ordonnance_id)
-    admin_meds = get_object_or_404(AdministrationMeds, ordonnance=ordonnance)
-
-    # Check if it's a POST request
-    if request.method == 'POST':
-        dose_administered = request.POST.get('dose_administered')
-        if dose_administered:
-            try:
-                dose_administered = Decimal(dose_administered)
-                admin_meds.mark_as_administered(medication_name, dose_administered)
-                return redirect('consultation_detail', consultation_id=ordonnance.consultation.id)
-            except ValueError as e:
-                return HttpResponseBadRequest(f"Error: {e}")
-    return redirect('consultation_detail', consultation_id=ordonnance.consultation.id)
-
-
 def consultation_detail(request, consultation_id):
     consultation = get_object_or_404(Consultation, id=consultation_id)
     dpi = consultation.dpi
     diagnostic = consultation.diagnostic
     soins = None
     soins_infermier_observations = None
-    admin_meds = None
-    checklist = None
     if diagnostic:  
         soins = diagnostic.soin
         if soins: 
             soins_infermier_observations = SoinInfermierObservation.objects.filter(soin=soins)
-            admin_meds = soins.administration
-            admin_meds.update_checklist()
-            checklist = admin_meds.checklist
+            
 
 
 
@@ -319,7 +298,6 @@ def consultation_detail(request, consultation_id):
         "bilan_biologique": consultation.bilanBiologique,
         "bilan_radiologique": consultation.bilanRadiologique,
         "SoinInfermierObservation": soins_infermier_observations,
-        "checklist": checklist,
     }
 
     return render(request, 'consultation_detail.html', context)
@@ -441,6 +419,40 @@ def afficher_ordonnances_valide(request):
         raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
 
 @csrf_exempt
+def checklist_view(request, consultation_id):
+    # Fetch the consultation and associated ordonnance
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+    ordonnance = consultation.diagnostic.ordonnance if consultation.diagnostic else None
+
+    if not ordonnance:
+        return HttpResponse("No ordonnance found for this consultation.", status=404)
+
+    # Get or create AdministrationMeds instance
+    administration_meds, created = AdministrationMeds.objects.get_or_create(ordonnance=ordonnance)
+
+    # Update the checklist dynamically
+    administration_meds.update_checklist()
+    soins = consultation.diagnostic.soin
+    
+    if soins is None: 
+        soins = Soin.objects.create(
+            dpi=consultation.dpi,
+            )
+    soins.aministration =  administration_meds  
+    soins.save()
+    consultation.diagnostic.soin = soins
+    consultation.diagnostic.save()
+
+    context = {
+        "consultation": consultation,
+        "ordonnance": ordonnance,
+        "checklist": administration_meds.checklist,
+    }
+
+    return render(request, 'checklist.html', context)
+
+
+@csrf_exempt
 @login_required
 def ajouter_soin(request, consultation_id):
     if request.method == 'POST':
@@ -455,6 +467,7 @@ def ajouter_soin(request, consultation_id):
 
         # Vérifier si soins existe, sinon créer un nouveau soin
         soins = diagnostic.soin
+    
         if soins is None: 
             soins = Soin.objects.create(dpi=dpi)
             diagnostic.soin = soins
@@ -468,8 +481,34 @@ def ajouter_soin(request, consultation_id):
             soin=soins  # Assignation correcte du soin
         )
 
+
+
+
         # Redirection vers la page des détails de la consultation
         return redirect('consultation_detail', consultation_id=consultation.id)
 
     # Rendre la page avec le formulaire et les soins existants
     return render(request, 'ajouter_soin.html')
+
+@csrf_exempt
+def mark_administered(request, consultation_id):
+    if request.method == 'POST':
+        med_name = request.POST.get('med_name')
+       
+
+        consultation = get_object_or_404(Consultation, id=consultation_id)
+        ordonnance = consultation.diagnostic.ordonnance if consultation.diagnostic else None
+
+        if not ordonnance:
+            return HttpResponse("No ordonnance found for this consultation.", status=404)
+
+        administration_meds = get_object_or_404(AdministrationMeds, ordonnance=ordonnance)
+
+        try:
+            administration_meds.mark_as_administered(med_name)
+        except ValueError as e:
+            return HttpResponse(str(e), status=400)
+
+        return redirect('checklist', consultation_id=consultation.id)
+
+    return HttpResponse("Invalid request method.", status=405)

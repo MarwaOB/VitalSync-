@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist for Consultation</title>
+</head>
+<body>
+    <h1>Checklist for Consultation {{ consultation.id }}</h1>
+    <h2>Ordonnance: {{ ordonnance.id }}</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Medication</th>
+                <th>Remaining Dose</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for med_name, details in checklist.items %}
+                <tr>
+                    <td>{{ med_name }}</td>
+                    <td>{{ details.remaining_dose }}</td>
+                    <td>
+                        {% if details.LED %}
+                            <span style="color: green;">ON</span>
+                        {% else %}
+                            <span style="color: red;">OFF</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if details.LED %}
+                            <form method="POST" action="{% url 'mark_administered' consultation.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="med_name" value="{{ med_name }}">
+                                <button type="submit">Administer</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'consultation_detail' consultation.id %}" class="btn">Back to Consultation</a>
+</body>
+</html>

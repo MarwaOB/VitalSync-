@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from users.models import Patient
 from io import BytesIO
 from django.core.files import File
@@ -223,7 +224,6 @@ class Medicament(models.Model):
     dosePrise = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True, default=0)
     # Dose totale prévue pour le traitement
     dosePrevues = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
-     # la quantité de med
     cycle = models.IntegerField(default = 1)
     lastPrise = models.DateField(null=True, blank=True)
 
@@ -324,6 +324,9 @@ class AdministrationMeds(models.Model):
         related_name='administration_meds'
     )
 
+    from datetime import datetime, timedelta
+    from django.utils.timezone import now
+
     def update_checklist(self):
         """
         Updates the checklist based on the ordonnance's medications and their doses.
@@ -332,17 +335,32 @@ class AdministrationMeds(models.Model):
         if self.ordonnance:
             self.checklist = {}
             for med in self.ordonnance.meds.all():
-                remaining_dose = med.dose - (med.dosePrise or 0)
-                # LED is ON if remaining_dose > 0
-                diagnostic = Diagnostic.objects.filter(Ordonnance = self.ordonnance)
-                consultation = Consultation.objects.filter(diagnostic = diagnostic)
-                critique = min( timedelta(days=med.duree)  + consultation.date, med.lastPrise + timedelta(days=2*med.cycle)  )
-                is_in_cycle = timezone.now() >= med.lastPrise and timezone.now() <= med.lastPrise+timedelta(days=med.cycle)
+                remaining_dose = float(med.dose*med.frequence - (med.dosePrise or 0))
+  
+                # Fetch the Diagnostic and Consultation
+                diagnostic = Diagnostic.objects.get(ordonnance=self.ordonnance)
+                consultation = Consultation.objects.get(diagnostic=diagnostic)
+
+                # Handle NoneType for lastPrise
+                if med.lastPrise is None:
+                    # Assign a default or skip calculation
+                    is_in_cycle = False  # Medication has no recorded lastPrise
+                else:
+                    is_in_cycle = med.lastPrise <= timezone.now() <= med.lastPrise + timedelta(days=med.cycle)
+
+                # Determine whether to show the LED
                 appear = not is_in_cycle and remaining_dose > 0
-                self.checklist[med.nom] = {'LED': appear, 'remaining_dose': remaining_dose}
+
+                # Update the checklist
+                self.checklist[med.nom] = {
+                    'LED': appear,
+                    'remaining_dose': remaining_dose,
+                    'lastPrise': med.lastPrise,  # Add for debugging, optional
+                }
+
             self.save()
 
-    def mark_as_administered(self, medication_name, dose_administered):
+    def mark_as_administered(self, medication_name):
         """
         Updates the checklist to mark a medication as administered with a given dose.
         """
@@ -350,10 +368,11 @@ class AdministrationMeds(models.Model):
             med = self.ordonnance.meds.filter(nom=medication_name).first()
             if med:
                 # Update the medication's dosePrise
-                med.dosePrise = med.dosePrise  + dose_administered
+                med.dosePrise = med.dosePrise + med.dose
                 med.save()
+                med.lastPrise = timezone.now() 
                 # Update the checklist
-                remaining_dose = med.dosePrevues - med.dosePrise
+                remaining_dose = float(med.dose*med.frequence - (med.dosePrise or 0))
                 is_in_cycle = timezone.now() >= med.lastPrise and timezone.now() <= med.lastPrise+timedelta(days=med.cycle)
                 appear = not is_in_cycle and remaining_dose > 0
                 self.checklist[med.nom] = {'LED': appear, 'remaining_dose': remaining_dose}
@@ -371,6 +390,7 @@ class AdministrationMeds(models.Model):
 
     def __str__(self):
         return f"Administration Checklist for Ordonnance {self.ordonnance}"
+
 class SoinInfermierObservation(models.Model):
     """
     Represents an observation related to a nurse's care (Soin).
