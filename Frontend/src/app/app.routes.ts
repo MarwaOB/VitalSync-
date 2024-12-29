@@ -63,6 +63,15 @@ export const routes: Routes =
       ]
     },
 
+    
+    {
+      path: "patient-profile/:id",
+      component: LayoutComponent, // Use layout component here
+      children: [
+        { path: "", component:  ProfilePatientComponent  } // Page1Accueil will be displayed inside the layout
+      ]
+    },
+
 
     {
       path: "profileadmin",

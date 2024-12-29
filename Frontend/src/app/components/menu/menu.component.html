@@ -23,34 +23,6 @@
                           
                         </div>
                     </div>
-                    <div class="frame" *ngIf="user?.role === 'medecin' || user?.role === 'laborantin'|| user?.role === 'radioloque'|| user?.role === 'infermier'">
-                        <div class="div"
-                            
-                            routerLink="/profileadmin" 
-                            routerLinkActive="active" 
-                            [routerLinkActiveOptions]="{ exact: true }">
-              
-                            <img class="img" src="assets/images/menu/profile.svg" />
-                            <div class="frame-2">
-                                <div class="text-wrapper">Profile</div>
-                            </div>
-                          
-                        </div>
-                    </div>
-                    <div class="frame" *ngIf="user?.role === 'patient' ">
-                        <div class="div"
-                            
-                            routerLink="/profileadmin" 
-                            routerLinkActive="active" 
-                            [routerLinkActiveOptions]="{ exact: true }">
-              
-                            <img class="img" src="assets/images/menu/profile.svg" />
-                            <div class="frame-2">
-                                <div class="text-wrapper">Profile</div>
-                            </div>
-                          
-                        </div>
-                    </div>
                     <div class="frame"*ngIf="user?.role === 'adminCentral' ">
                         <div class="div"
                         routerLink="/Dashboard" 
@@ -63,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="frame"*ngIf="user?.role === 'adminCentral'   ">
+                    <div class="frame"*ngIf="user?.role === 'adminCentral' ||  user?.role === 'medecin'||  user?.role === 'infermier' || user?.role === 'laborantin'|| user?.role === 'radiologue'">
                         <div class="div"
                         routerLink="/listpatient" 
                         routerLinkActive="active" 
@@ -123,6 +95,69 @@
                         </div>
                     </div>
                     
+
+                    <div class="frame" *ngIf="user?.role === 'medecin' || user?.role === 'laborantin'|| user?.role === 'radioloque'|| user?.role === 'infermier'">
+                        <div class="div"
+                            
+                            routerLink="/profileadmin" 
+                            routerLinkActive="active" 
+                            [routerLinkActiveOptions]="{ exact: true }">
+              
+                            <img class="img" src="assets/images/menu/profile.svg" />
+                            <div class="frame-2">
+                                <div class="text-wrapper">Profile</div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div  *ngIf="user?.role === 'patient' ">
+
+                        <div class="frame" *ngIf="user?.role === 'patient' ">
+                            <div class="div"
+                                
+                                routerLink="patient-profile/:{{ user?.id }}" 
+                                routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{ exact: true }">
+                
+                                <img class="img" src="assets/images/menu/profile.svg" />
+                                <div class="frame-2">
+                                    <div class="text-wrapper">Profile</div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                                
+                        <div class="frame" *ngIf="user?.role === 'patient' ">
+                            <div class="div"
+                                
+                                routerLink="patient-dpi/:{{ user?.id }}" 
+                                routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{ exact: true }">
+                
+                                <img class="img" src="assets/images/menu/profile.svg" />
+                                <div class="frame-2">
+                                    <div class="text-wrapper">Dossier Médical</div>
+                                </div>
+                            
+                            </div>
+                            
+                        </div>
+                   </div>
+                   <div class="frame" *ngIf="user?.role === 'laborantin' ">
+                    <div class="div"
+                        
+                        routerLink="generer_graphe" 
+                        routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{ exact: true }">
+        
+                        <img class="img" src="assets/images/menu/profile.svg" />
+                        <div class="frame-2">
+                            <div class="text-wrapper">Generer Graphe</div>
+                        </div>
+                    
+                    </div>
+                    
+                </div>
                    
 
                    
