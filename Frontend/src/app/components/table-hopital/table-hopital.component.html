@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let Hospital of Hospitals">
+            <tr *ngFor="let Hospital of hospitals">
                 <td>{{ Hospital.id }}</td>
                 <td>{{ Hospital.nom }}</td>
                 <td>{{ Hospital.lieu }}</td>
@@ -36,9 +36,19 @@
     </table>
 </div>
 
-<!-- Overlay pour édition -->
 <div class="overlay" *ngIf="editMode">
     <div class="form-container">
+        <div class="nom-prenom">
+            <div class="field">
+                <label>Username</label>
+                <input type="text" [(ngModel)]="temphospitalData.username" />
+            </div>
+            <div class="field">
+                <label>Motpasse</label>
+                <input type="password" [(ngModel)]="temphospitalData.password" />
+            </div>
+        </div>
+
         <div class="nom-prenom">
             <div class="field">
                 <label>Nom</label>
@@ -60,6 +70,7 @@
                 <input type="number" [(ngModel)]="temphospitalData.nombrePersonnels" />
             </div>
         </div>
+        
 
         <div class="date-naissance-adresse">
             <div class="field">
@@ -77,4 +88,4 @@
             <button (click)="saveChanges()">Save</button>
         </div>
     </div>
-</div>
+</div> 

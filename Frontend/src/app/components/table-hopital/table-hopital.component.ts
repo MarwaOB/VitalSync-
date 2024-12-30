@@ -14,55 +14,87 @@ import { FormsModule } from '@angular/forms';
 export class TableHopitalComponent implements OnInit {
 
   Hospitals: Hospital[] = [];
-  hospitalData: Hospital = { id: '', nom: '', lieu: '', dateCreation: new Date(''), nombrePatients: 0, nombrePersonnels: 0, is_clinique: false };
-  temphospitalData: Hospital = { id: '', nom: '', lieu: '', dateCreation: new Date(''), nombrePatients: 0, nombrePersonnels: 0, is_clinique: false };
-  editMode: boolean = false;
-
-  constructor(private HospitalService: HospitalService, private router: Router) { }
-
+   editMode: boolean = false;
+   hospitals: any[] = []; // Array to hold medecins data
+   loading: boolean = false; // Loading indicator
+   errorMessage: string | null = null; // Error message holder
+   temphospitalData: {  username: string; password: string;id: string; nom: string; lieu: string; dateCreation: Date; nombrePatients: number; nombrePersonnels: number; is_clinique: boolean; } = {
+    id: '',
+    nom: '',
+    lieu: '',
+    username: '',
+    password:'',
+    dateCreation: new Date(),
+    nombrePatients: 0,
+    nombrePersonnels: 0,
+    is_clinique: false
+};
+ 
+  constructor(private hospitalService: HospitalService, private router: Router) { }
   ngOnInit(): void {
-    this.HospitalService.getAll().subscribe((hospitals: Hospital[]) => {
-      this.Hospitals = hospitals;
+    this.fetchHospitals();
+  }
+
+  /**
+   * Fetch all Hospitals from the service.
+   */
+  fetchHospitals(): void {
+    this.loading = true;
+    this.errorMessage = null;
+  
+    this.hospitalService.getAll().subscribe({
+      next: (response) => {
+        console.log(response);  // Log the full response for debugging
+        this.hospitals = response.hospitals || [];
+        this.loading = false;
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to fetch hospitals. Please try again later.';
+        this.loading = false;
+        console.error('Error fetching hospitals:', error);
+      }
     });
   }
+  
+
 
   openAddOverlay(): void {
-    this.editMode = true;
-    this.temphospitalData = { id: '', nom: '', lieu: '', dateCreation: new Date(''), nombrePatients: 0, nombrePersonnels: 0, is_clinique: false };
-  }
+     this.editMode = true;
+    this.temphospitalData = { username: '',password:'',id: '', nom: '', lieu: '', dateCreation: new Date(''), nombrePatients: 0, nombrePersonnels: 0, is_clinique: false };
+   }
   addHospital(newHospital: Hospital): void {
-    this.HospitalService.add(newHospital).subscribe(() => {
-      this.HospitalService.getAll().subscribe((hospitals: Hospital[]) => {
-        this.Hospitals = hospitals;
-      });
-    });
+    // this.HospitalService.add(newHospital).subscribe(() => {
+    //   this.HospitalService.getAll().subscribe((hospitals: Hospital[]) => {
+    //     this.Hospitals = hospitals;
+    //   });
+    // });
   }
-
   saveChanges(): void {
-    if (this.temphospitalData.id) {
-      this.HospitalService.edit(this.temphospitalData).subscribe((updatedHospital) => {
-        if (updatedHospital) {
-          this.HospitalService.getAll().subscribe((hospitals: Hospital[]) => {
-            this.Hospitals = hospitals;
-          });
-        }
-      });
-    } else {
-      this.addHospital(this.temphospitalData);
-    }
+    // Call the service to add a new hospital
+    this.hospitalService.addHospital(this.temphospitalData).subscribe({
+      next: (response) => {
+        console.log('Hospital added successfully', response);
+        // You can reload or update the list of hospitals here
+        this.fetchHospitals(); // Assuming this fetches updated data
+        this.router.navigate(['/hopital']);
+
+      },
+      error: (error) => {
+        console.error('Error adding hospital', error);
+      }
+    });
     this.editMode = false;
   }
-
   cancelEdit(): void {
     this.editMode = false;
   }
 
   editHospital(hospital: Hospital): void {
-    this.temphospitalData = { ...hospital };
-    this.editMode = true;
+  //  this.temphospitalData = { ...hospital };
+    //this.editMode = true;
   }
 
-  deleteHospital(id: string): void {
+  deleteHospital(id: number): void {
   }
 
 }

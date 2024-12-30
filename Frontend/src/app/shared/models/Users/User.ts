@@ -12,7 +12,7 @@ export class User {
     adresse: string;
     telephone: string;
     mutuelle: string;
-    hospital: string;
+    hospital: number;
   
     constructor(
       id: number,
@@ -26,7 +26,7 @@ export class User {
       adresse: string,
       telephone: string,
       mutuelle: string,
-      hospital: string
+      hospital: number
     ) {
       this.id = id;
       this.username = username;

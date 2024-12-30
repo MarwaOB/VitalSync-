@@ -1,3 +1,4 @@
+import { Radiologue } from './../../../shared/models/Users/Radiologue';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,26 +19,28 @@ export class TableRadiologuesComponent {
    constructor(private radiologueService: RadiologueService) {}
  
    ngOnInit(): void {
-     this.fetchMedecins();
-   }
- 
-   /**
-    * Fetch all medecins from the service.
-    */
-   fetchMedecins(): void {
-     this.loading = true;
-     this.errorMessage = null;
- 
-     this.radiologueService.getAll().subscribe({
-       next: (response: { data: never[]; }) => {
-         this.radiologues = response.data || [];
-         this.loading = false;
-       },
-       error: (error: any) => {
-         this.errorMessage = 'Failed to fetch medecins. Please try again later.';
-         this.loading = false;
-         console.error('Error fetching medecins:', error);
-       }
-     });
-   }
+    this.fetchMedecins();
+  }
+
+  /**
+   * Fetch all medecins from the service.
+   */
+  fetchMedecins(): void {
+    this.loading = true;
+    this.errorMessage = null;
+
+    this.radiologueService.getAll().subscribe({
+      next: (response: { data: never[]; }) => {
+        this.radiologues = response.data || [];
+        this.loading = false;
+      },
+      error: (error: any) => {
+        this.errorMessage = 'Failed to fetch medecins. Please try again later.';
+        this.loading = false;
+        console.error('Error fetching medecins:', error);
+      }
+    });
+  }
+
+
 }

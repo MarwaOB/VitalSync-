@@ -8,7 +8,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MedecinService {
+  
   private apiUrl = 'http://127.0.0.1:8000/users/'; // Base API URL from Django
+  private apiUrl1 = 'http://127.0.0.1:8000/usersadd'; // Base API URL from Django
 
   constructor(private http: HttpClient) {}
 
@@ -36,7 +38,24 @@ export class MedecinService {
    * @param medecin The user object representing the new "medecin".
    * @returns Observable containing the newly created user data.
    */
-  add(medecin: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, medecin, { withCredentials: true });
-  }
+ 
+   
+
+     addMedecin(newMedecin: {
+      role: string;
+      username: string;
+      password: string;
+      first_name: string;
+      last_name: string;
+      adresse: string;
+      date_de_naissance: Date;
+      hospital: number;
+      mutuelle: string;
+      NSS: number;
+      email: string;
+      telephone: string;
+     }): Observable<any> {
+       console.log(newMedecin)
+       return this.http.post<any>(this.apiUrl1, newMedecin, { withCredentials: true });
+     }
 }

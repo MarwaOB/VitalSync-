@@ -3,11 +3,12 @@ import { PatientService } from '../../../services/patient/patient.service';
 import { Patient } from '../../../shared/models/Users/Patient';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-table-patients',
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule ],
   templateUrl: './table-patients.component.html',
   styleUrl: './table-patients.component.css'
 })

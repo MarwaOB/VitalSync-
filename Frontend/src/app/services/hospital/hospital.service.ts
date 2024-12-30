@@ -1,37 +1,54 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Hospital } from '../../shared/models/hospital';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class HospitalService {
-  private hospitals: Hospital[] = [
-    { id: '1', nom: 'Hôpital de Paris', lieu: 'Paris', dateCreation: new Date('2000-01-01'), nombrePatients: 200, nombrePersonnels: 50, is_clinique: false },
-    { id: '2', nom: 'Clinique de Lyon', lieu: 'Lyon', dateCreation: new Date('2010-05-20'), nombrePatients: 120, nombrePersonnels: 30, is_clinique: true },
-    { id: '3', nom: 'Hôpital de Marseille', lieu: 'Marseille', dateCreation: new Date('1998-07-15'), nombrePatients: 250, nombrePersonnels: 60, is_clinique: false },
-  ];
+  
   private hopital: Hospital | null = null;
+ hospitals : Hospital[] | undefined 
 
-  constructor() { }
+   private apiUrl = 'http://127.0.0.1:8000/hospitals/'; // Base API URL from Django
+   private apiUrl1 = 'http://127.0.0.1:8000/hospitals/add'; // Base API URL from Django
 
-  getAll(): Observable<Hospital[]> {
-    return of(this.hospitals);
-  }
-  add(Hospital: Hospital): Observable<Hospital> {
-    const newId = (this.hospitals.length + 1).toString(); // refaire la generation de id 
-    const newHospital = { ...Hospital, id: newId };
-    this.hospitals.push(newHospital);
-    return of(newHospital);
-  }
-  edit(updatedHospital: Hospital): Observable<Hospital | null> {
-    const index = this.hospitals.findIndex(h => h.id === updatedHospital.id);
-    if (index !== -1) {
-      this.hospitals[index] = { ...this.hospitals[index], ...updatedHospital };
-      return of(this.hospitals[index]);
+    constructor(private http: HttpClient) {}
+  
+    /**
+     * Fetch all users with the role "medecin".
+     * @returns Observable containing a list of users with the role "medecin".
+     */
+    getAll(): Observable<{hospitals: Hospital[]}> {
+      
+      return this.http.get<{hospitals: Hospital[]}>(this.apiUrl, { withCredentials: true }); // Include cookies with the request
     }
-    return of(null);
+  
+
+  
+    addHospital(newHospital: {
+      username: string;
+      password: string;
+      id: string;
+      nom: string;
+      lieu: string;
+      dateCreation: Date;
+      nombrePatients: number;
+      nombrePersonnels: number;
+      is_clinique: boolean;
+    }): Observable<any> {
+      console.log(newHospital)
+      return this.http.post<any>(this.apiUrl1, newHospital, { withCredentials: true });
+    }
+  edit(updatedHospital: Hospital): Observable<Hospital | null> {
+    // const index = this.hospitals.findIndex(h => h.id === updatedHospital.id);
+    // if (index !== -1) {
+    //   this.hospitals[index] = { ...this.hospitals[index], ...updatedHospital };
+    //   return of(this.hospitals[index]);
+    // }
+     return of(null);
   }
 
 }

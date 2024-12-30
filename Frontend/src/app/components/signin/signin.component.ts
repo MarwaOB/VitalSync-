@@ -1,4 +1,4 @@
-/*import { Renderer2 } from '@angular/core';
+import { Renderer2 } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Hospital } from '../../shared/models/hospital';
 import { HospitalService } from '../../services/hospital/hospital.service';
@@ -25,10 +25,7 @@ export class SigninComponent implements OnInit {
   acces: boolean = false;
   
   constructor(private renderer: Renderer2, private signInService: UserService, private router: Router) {}
-  errorMessage: string;
-  
-  constructor(private renderer: Renderer2, private signInService: UserService, private router: Router) {}
-
+ 
   ngOnInit(): void {
     this.overlayBtn = document.querySelector('.overlay-btn');
     this.container = document.querySelector('.container');
@@ -70,11 +67,19 @@ export class SigninComponent implements OnInit {
       }
     );
   }
+  onSubmitContinuer(): void {
+    if (this.acces) {
+      this.router.navigate(['/accueil']);
+    }
+ }
   
   onSuivantClick(): void {
     this.toggleRightPanel()
   };
 
 
+
+
+
+
 }
-*/
