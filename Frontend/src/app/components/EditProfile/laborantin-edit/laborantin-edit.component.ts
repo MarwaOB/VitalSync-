@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Laborantin } from '../../../shared/models/Users/Laborantin';
+import { User } from '../../../shared/models/Users/User';
 import { LaborantinService } from '../../../services/laborantin/laborantin.service';
 import { ProfileComponent } from "../../profile/profile.component";
 
@@ -13,7 +13,7 @@ import { ProfileComponent } from "../../profile/profile.component";
 })
 export class LaborantinEditComponent implements OnInit {
   laborantinId?: string;
-  laborantinData?: Laborantin;
+  laborantinData?: User;
 
   constructor(private route: ActivatedRoute, private laborantinService: LaborantinService) { }
 

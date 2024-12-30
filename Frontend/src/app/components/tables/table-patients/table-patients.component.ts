@@ -25,7 +25,6 @@ export class TablePatientsComponent implements OnInit {
     this.patientService.getPatients().subscribe(
       (response) => {
         this.patients = response.patients;  // Store the patients data from the API
-        console.log('Patients loaded successfully:', this.patients);
       },
       error => {
         this.errorMessage = 'Failed to load patients. Please try again later.';

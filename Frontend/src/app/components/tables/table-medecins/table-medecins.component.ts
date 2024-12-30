@@ -1,5 +1,4 @@
 import { MedecinService } from '../../../services/medecin/medecin.service';
-import { Medecin } from '../../../shared/models/Users/Medecin';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -11,22 +10,35 @@ import { Router } from '@angular/router';
   styleUrl: './table-medecins.component.css'
 })
 export class TableMedecinsComponent {
-  medecins: Medecin[] = [];
-  constructor(private medecinService: MedecinService, private router: Router) { }
+  medecins: any[] = []; // Array to hold medecins data
+  loading: boolean = false; // Loading indicator
+  errorMessage: string | null = null; // Error message holder
+
+  constructor(private medecinService: MedecinService) {}
 
   ngOnInit(): void {
-    this.medecinService.getAll().subscribe((meds: Medecin[]) => {
-      this.medecins = meds;
+    this.fetchMedecins();
+  }
+
+  /**
+   * Fetch all medecins from the service.
+   */
+  fetchMedecins(): void {
+    this.loading = true;
+    this.errorMessage = null;
+
+    this.medecinService.getAll().subscribe({
+      next: (response) => {
+        this.medecins = response.data || [];
+        this.loading = false;
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to fetch medecins. Please try again later.';
+        this.loading = false;
+        console.error('Error fetching medecins:', error);
+      }
     });
   }
 
-  editMedecin(medecinId: string): void {
-    this.router.navigate(['/medecin-edit', medecinId]);
-    console.log('Édition du medecin avec ID:', medecinId);
-  }
-
-  deleteMedecin(id: string): void {
-    console.log('Suppression du medecin avec ID:', id);
-  }
 
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Infirmier } from '../../../shared/models/Users/Infermier';
+import { User } from '../../../shared/models/Users/User';
 import { InfirmierService } from '../../../services/infirmier/infirmier.service';
 import { ProfileComponent } from "../../profile/profile.component";
 
@@ -13,7 +13,7 @@ import { ProfileComponent } from "../../profile/profile.component";
 })
 export class InfirmierEditComponent implements OnInit {
   infirmierId?: string;
-  infirmierData?: Infirmier;
+  infirmierData?: User;
 
   constructor(private route: ActivatedRoute, private infirmierService: InfirmierService) { }
 

@@ -17,15 +17,18 @@
             <tr *ngFor="let laborantin of laborantins">
                 <td>{{ laborantin.id }}</td>
                 <td>{{ laborantin.role }}</td>
-                <td>{{ laborantin.nss }}</td>
-                <td>{{ laborantin.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
+                <td>{{ laborantin.NSS }}</td>
+                <td>{{ laborantin.laboratinService | date:'dd/MM/yyyy' }}</td>
                 <td>{{ laborantin.adresse }}</td>
                 <td>{{ laborantin.telephone }}</td>
                 <td>{{ laborantin.mutuelle }}</td>
                 <td>{{ laborantin.hopital }}</td>
                 <td class="actions-cell">
-                    <i class="fas fa-edit" (click)="editlaborantin(laborantin.id)"></i>
-                    <i id="delete" class="fas fa-trash" (click)="deletelaborantin(laborantin.id)"></i>
+                   <!-- <i class="fas fa-edit" (click)="editlaborantin(laborantin.id)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deletelaborantin(laborantin.id)"></i>-->
+
+                    <i class="fas fa-edit"></i>
+                    <i id="delete" class="fas fa-trash"></i>
                 </td>
             </tr>
         </tbody>

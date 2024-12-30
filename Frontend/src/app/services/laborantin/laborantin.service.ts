@@ -1,58 +1,42 @@
 import { Injectable } from '@angular/core';
+import { User } from '../../shared/models/Users/User';
 import { Observable, of } from 'rxjs';
-import { Laborantin } from '../../shared/models/Users/Laborantin';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LaborantinService {
+  private apiUrl = 'http://127.0.0.1:8000/users/'; // Base API URL from Django
 
-  private laborantins: Laborantin[] = [
-    {
-      id: '11',
-      nom: 'nom',
-      prenom: 'prenom',
-      email: "email",
-      role: 'laborantin',
-      nss: 123456789,
-      dateDeNaissance: new Date('1980-05-20'),
-      adresse: '123 Rue de Paris, Lyon',
-      telephone: '0123456789',
-      mutuelle: 'mutuelle1.pdf',
-      hopital: '1',
-      password: "111111",
-      image: ""
-    },
-    {
-      id: '12',
-      nom: 'nom',
-      prenom: 'prenom',
-      email: "email",
-      role: 'laborantin',
-      nss: 987654321,
-      dateDeNaissance: new Date('1975-11-10'),
-      adresse: '45 Boulevard Saint-Germain, Paris',
-      telephone: '0654321987',
-      mutuelle: 'mutuelle2.pdf',
-      hopital: '2',
-      password: "121212",
-      image: ""
-    }
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
-
-  getAll(): Observable<Laborantin[]> {
-    return of(this.laborantins);
+  /**
+   * Fetch all users with the role "medecin".
+   * @returns Observable containing a list of users with the role "medecin".
+   */
+  getAll(): Observable<any> {
+    const role = 'laborantin';
+    const urlWithRole = `${this.apiUrl}?role=${role}`; // Append the role query parameter
+    return this.http.get<any>(urlWithRole, { withCredentials: true }); // Include cookies with the request
   }
-  getById(id: string): Observable<Laborantin | undefined> {
-    const labo = this.laborantins.find((m) => m.id === id);
-    return of(labo);
+
+  /**
+   * Fetch a specific user by ID.
+   * @param id The ID of the user to fetch.
+   * @returns Observable containing the user data or undefined.
+   */
+  getById(id: string): Observable<User | undefined> {
+    return this.http.get<User>(`${this.apiUrl}${id}/`, { withCredentials: true });
   }
-  add(Laborantin: Laborantin): Observable<Laborantin> {
-    const newId = (this.laborantins.length + 1).toString(); // refaire la generation de id 
-    const newLaborantin = { ...Laborantin, id: newId };
-    this.laborantins.push(newLaborantin);
-    return of(newLaborantin);
+
+  /**
+   * Add a new "medecin" user.
+   * @param laborantin The user object representing the new "medecin".
+   * @returns Observable containing the newly created user data.
+   */
+  add(laborantin: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, laborantin, { withCredentials: true });
   }
 }

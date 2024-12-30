@@ -186,8 +186,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
+
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-    "http://127.0.0.1:4200",  # Angular's default development server
-    # Add other URLs if needed
+    "http://localhost:4200",  # Replace with your frontend's URL
 ]
+SESSION_COOKIE_SAMESITE = 'None'  # Required for cross-origin cookies
+SESSION_COOKIE_SECURE = True     # If using HTTPS

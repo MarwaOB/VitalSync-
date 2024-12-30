@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RadiologueService } from '../../../services/radiologue/radiologue.service';
-import { Radiologue } from '../../../shared/models/Users/Radiologue';
+
 
 @Component({
   selector: 'app-table-radiologues',
@@ -11,21 +11,33 @@ import { Radiologue } from '../../../shared/models/Users/Radiologue';
   styleUrl: './table-radiologues.component.css'
 })
 export class TableRadiologuesComponent {
-  radiologues: Radiologue[] = [];
-  constructor(private radiologueService: RadiologueService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.radiologueService.getAll().subscribe((meds: Radiologue[]) => {
-      this.radiologues = meds;
-    });
-  }
-
-  editradiologue(radiologueId: string): void {
-    this.router.navigate(['/radiologue-edit', radiologueId]);
-    console.log('Édition du radiologue avec ID:', radiologueId);
-  }
-
-  deleteradiologue(id: string): void {
-    console.log('Suppression du radiologue avec ID:', id);
-  }
+  radiologues: any[] = []; // Array to hold medecins data
+   loading: boolean = false; // Loading indicator
+   errorMessage: string | null = null; // Error message holder
+ 
+   constructor(private radiologueService: RadiologueService) {}
+ 
+   ngOnInit(): void {
+     this.fetchMedecins();
+   }
+ 
+   /**
+    * Fetch all medecins from the service.
+    */
+   fetchMedecins(): void {
+     this.loading = true;
+     this.errorMessage = null;
+ 
+     this.radiologueService.getAll().subscribe({
+       next: (response: { data: never[]; }) => {
+         this.radiologues = response.data || [];
+         this.loading = false;
+       },
+       error: (error: any) => {
+         this.errorMessage = 'Failed to fetch medecins. Please try again later.';
+         this.loading = false;
+         console.error('Error fetching medecins:', error);
+       }
+     });
+   }
 }

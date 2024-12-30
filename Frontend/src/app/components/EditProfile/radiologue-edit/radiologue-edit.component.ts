@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Radiologue } from '../../../shared/models/Users/Radiologue';
+import { User } from '../../../shared/models/Users/User';
 import { RadiologueService } from '../../../services/radiologue/radiologue.service';
 import { ProfileComponent } from "../../profile/profile.component";
 
@@ -13,7 +13,7 @@ import { ProfileComponent } from "../../profile/profile.component";
 })
 export class RadiologueEditComponent implements OnInit {
   radiologueId?: string;
-  radiologueData?: Radiologue;
+  radiologueData?: User;
 
   constructor(private route: ActivatedRoute, private radiologueService: RadiologueService) { }
 

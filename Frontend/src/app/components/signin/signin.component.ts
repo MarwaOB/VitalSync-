@@ -1,4 +1,4 @@
-import { Renderer2 } from '@angular/core';
+/*import { Renderer2 } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Hospital } from '../../shared/models/hospital';
 import { HospitalService } from '../../services/hospital/hospital.service';
@@ -23,6 +23,9 @@ export class SigninComponent implements OnInit {
   private container: HTMLElement | null = null;
   private overlayBtn: HTMLElement | null = null;
   acces: boolean = false;
+  
+  constructor(private renderer: Renderer2, private signInService: UserService, private router: Router) {}
+  errorMessage: string;
   
   constructor(private renderer: Renderer2, private signInService: UserService, private router: Router) {}
 
@@ -55,29 +58,23 @@ export class SigninComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           console.log(response.user_data);
-          this.signInService.setUserData(response.user_data);
-          this.acces = true;
-          console.log('Connexion réussie ! Vous pouvez maintenant choisir un hôpital.');
+          this.errorMessage = '';
           this.router.navigate(['/profileadmin']);
-          this.onSuivantClick();
         } else {
-          this.acces = false;
           this.errorMessage = response.message;
         }
       },
       error => {
         this.errorMessage = 'An error occurred during sign-in. Please try again later.';
+        console.error(error);
       }
     );
   }
-
+  
   onSuivantClick(): void {
-    this.toggleRightPanel();
-  }
+    this.toggleRightPanel()
+  };
 
-  onSubmitContinuer(): void {
-    if (this.acces) {
-      this.router.navigate(['/accueil']);
-    }
-  }
+
 }
+*/

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Infirmier } from '../../../shared/models/Users/Infermier';
 import { InfirmierService } from '../../../services/infirmier/infirmier.service';
 
+
 @Component({
   selector: 'app-table-infirmiers',
   imports: [CommonModule],
@@ -11,22 +12,36 @@ import { InfirmierService } from '../../../services/infirmier/infirmier.service'
   styleUrl: './table-infirmiers.component.css'
 })
 export class TableInfirmiersComponent {
-  infirmiers: Infirmier[] = [];
-  constructor(private infirmierService: InfirmierService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.infirmierService.getAll().subscribe((meds: Infirmier[]) => {
-      this.infirmiers = meds;
-    });
-  }
-
-  editinfirmier(infirmierId: string): void {
-    this.router.navigate(['/infirmier-edit', infirmierId]);
-    console.log('Édition du infirmier avec ID:', infirmierId);
-  }
-
-  deleteinfirmier(id: string): void {
-    console.log('Suppression du infirmier avec ID:', id);
-  }
+ infermiers: any[] = []; // Array to hold medecins data
+   loading: boolean = false; // Loading indicator
+   errorMessage: string | null = null; // Error message holder
+ 
+   constructor(private infermierService: InfirmierService) {}
+ 
+   ngOnInit(): void {
+     this.fetchMedecins();
+   }
+ 
+   /**
+    * Fetch all medecins from the service.
+    */
+   fetchMedecins(): void {
+     this.loading = true;
+     this.errorMessage = null;
+ 
+     this.infermierService.getAll().subscribe({
+       next: (response: { data: never[]; }) => {
+         this.infermiers = response.data || [];
+         this.loading = false;
+       },
+       error: (error: any) => {
+         this.errorMessage = 'Failed to fetch medecins. Please try again later.';
+         this.loading = false;
+         console.error('Error fetching medecins:', error);
+       }
+     });
+   }
+ 
+ 
 }
 

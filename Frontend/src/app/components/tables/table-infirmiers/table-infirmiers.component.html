@@ -14,18 +14,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let infirmier of infirmiers">
+            <tr *ngFor="let infirmier of infermiers">
                 <td>{{ infirmier.id }}</td>
                 <td>{{ infirmier.role }}</td>
-                <td>{{ infirmier.nss }}</td>
-                <td>{{ infirmier.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
+                <td>{{ infirmier.NSS }}</td>
+                <td>{{ infirmier.date_de_naissance | date:'dd/MM/yyyy' }}</td>
                 <td>{{ infirmier.adresse }}</td>
                 <td>{{ infirmier.telephone }}</td>
                 <td>{{ infirmier.mutuelle }}</td>
                 <td>{{ infirmier.hopital }}</td>
                 <td class="actions-cell">
-                    <i class="fas fa-edit" (click)="editinfirmier(infirmier.id)"></i>
-                    <i id="delete" class="fas fa-trash" (click)="deleteinfirmier(infirmier.id)"></i>
+                  <!--  <i class="fas fa-edit" (click)="editinfirmier(infirmier.id)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deleteinfirmier(infirmier.id)"></i>-->
                 </td>
             </tr>
         </tbody>

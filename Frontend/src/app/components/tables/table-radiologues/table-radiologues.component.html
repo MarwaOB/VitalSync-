@@ -17,15 +17,18 @@
             <tr *ngFor="let radiologue of radiologues">
                 <td>{{ radiologue.id }}</td>
                 <td>{{ radiologue.role }}</td>
-                <td>{{ radiologue.nss }}</td>
-                <td>{{ radiologue.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
+                <td>{{ radiologue.NSS }}</td>
+                <td>{{ radiologue.date_de_naissance | date:'dd/MM/yyyy' }}</td>
                 <td>{{ radiologue.adresse }}</td>
                 <td>{{ radiologue.telephone }}</td>
                 <td>{{ radiologue.mutuelle }}</td>
                 <td>{{ radiologue.hopital }}</td>
                 <td class="actions-cell">
-                    <i class="fas fa-edit" (click)="editradiologue(radiologue.id)"></i>
-                    <i id="delete" class="fas fa-trash" (click)="deleteradiologue(radiologue.id)"></i>
+                  <!--  <i class="fas fa-edit" (click)="editradiologue(radiologue.id)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deleteradiologue(radiologue.id)"></i>-->
+
+                    <i class="fas fa-edit"></i>
+                    <i id="delete" class="fas fa-trash"></i>
                 </td>
             </tr>
         </tbody>

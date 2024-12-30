@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Medecin } from '../../shared/models/Users/Medecin';
-import { User } from '../../shared/models/Users/User';
+import { User } from '../../shared/models/Users/Usert';
 import { Biologiste } from '../../shared/models/Users/Biologiste';
 import { Laborantin } from '../../shared/models/Users/Laborantin';
 import { Radiologue } from '../../shared/models/Users/Radiologue';
@@ -38,10 +38,6 @@ user: any = null;
     this.user = this.userService.user;
   }
 
-  saveChanges(): void {
-    this.profileData = { ...this.tempProfileData };
-    this.editMode = false;
-  }
 
   cancelEdit(): void {
     this.editMode = false;

@@ -1,88 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Medecin } from '../../shared/models/Users/Medecin';
+import { User } from '../../shared/models/Users/User';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedecinService {
-  private medecins: Medecin[] = [
-    {
-      id: '13',
-      email: 'email@gmail.com',
-      nom: 'nom',
-      prenom: 'prenom',
-      role: 'medecin',
-      nss: 123456789,
-      dateDeNaissance: new Date('1980-05-20'),
-      adresse: '123 Rue de Paris, Lyon',
-      telephone: '0123456789',
-      mutuelle: 'mutuelle1.pdf',
-      hopital: '1',
-      password: "131313",
-      image: ""
-    },
-    {
-      id: '14',
-      email: 'email@gmail.com',
-      nom: 'nom',
-      prenom: 'prenom',
-      role: 'medecin',
-      nss: 987654321,
-      dateDeNaissance: new Date('1975-11-10'),
-      adresse: '45 Boulevard Saint-Germain, Paris',
-      telephone: '0654321987',
-      mutuelle: 'mutuelle2.pdf',
-      hopital: '2',
-      password: "141414",
-      image: ""
-    },
-    {
-      id: '15',
-      email: 'email@gmail.com',
-      nom: 'nom',
-      prenom: 'prenom',
-      role: 'medecin',
-      nss: 123456789,
-      dateDeNaissance: new Date('1980-05-20'),
-      adresse: '123 Rue de Paris, Lyon',
-      telephone: '0123456789',
-      mutuelle: 'mutuelle1.pdf',
-      hopital: '1',
-      password: "151515",
-      image: ""
-    },
-    {
-      id: '16',
-      email: 'email@gmail.com',
-      nom: 'nom',
-      prenom: 'prenom',
-      role: 'medecin',
-      nss: 987654321,
-      dateDeNaissance: new Date('1975-11-10'),
-      adresse: '45 Boulevard Saint-Germain, Paris',
-      telephone: '0654321987',
-      mutuelle: 'mutuelle2.pdf',
-      hopital: '2',
-      password: "161616",
-      image: ""
-    }
-  ];
+  private apiUrl = 'http://127.0.0.1:8000/users/'; // Base API URL from Django
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Medecin[]> {
-    return of(this.medecins);
+  /**
+   * Fetch all users with the role "medecin".
+   * @returns Observable containing a list of users with the role "medecin".
+   */
+  getAll(): Observable<any> {
+    const role = 'medecin';
+    const urlWithRole = `${this.apiUrl}?role=${role}`; // Append the role query parameter
+    return this.http.get<any>(urlWithRole, { withCredentials: true }); // Include cookies with the request
   }
-  getById(id: string): Observable<Medecin | undefined> {
-    const medecin = this.medecins.find((m) => m.id === id);
-    return of(medecin);
+
+  /**
+   * Fetch a specific user by ID.
+   * @param id The ID of the user to fetch.
+   * @returns Observable containing the user data or undefined.
+   */
+  getById(id: string): Observable<User | undefined> {
+    return this.http.get<User>(`${this.apiUrl}${id}/`, { withCredentials: true });
   }
-  add(Medecin: Medecin): Observable<Medecin> {
-    const newId = (this.medecins.length + 1).toString(); // refaire la generation de id 
-    const newMedecin = { ...Medecin, id: newId };
-    this.medecins.push(newMedecin);
-    return of(newMedecin);
+
+  /**
+   * Add a new "medecin" user.
+   * @param medecin The user object representing the new "medecin".
+   * @returns Observable containing the newly created user data.
+   */
+  add(medecin: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, medecin, { withCredentials: true });
   }
 }

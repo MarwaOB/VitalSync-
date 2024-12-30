@@ -1,4 +1,6 @@
 import logging, qrcode
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
@@ -21,7 +23,7 @@ from django.core.files.base import ContentFile
 from django.http import JsonResponse
 from django.contrib.auth import logout
 from rest_framework.permissions import IsAuthenticated
-from .serializers import PatientSerializer
+from .serializers import PatientSerializer ,CustomUserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -139,8 +141,6 @@ def add_user(request):
             return redirect('adminSys')  # Redirect to appropriate page for non-patient roles
 
     return render(request, 'adminSys.html')
-
-
 @csrf_exempt
 def sign_in(request):
     if request.method == "POST":
@@ -150,12 +150,16 @@ def sign_in(request):
             body = json.loads(request.body.decode('utf-8'))
             username = body.get('username')
             password = body.get('password')
+            print(f"Received data: {username}, {password}")
             
             # Authenticate user
             user = authenticate(request, username=username, password=password)
+            print(f"User after authentication: {user}")
             
             if user is not None:
+                print(f"user is not None")
                 role = user.role
+                print(f"Role: {role}")
                 login(request, user)
                 
                 user_data = {
@@ -190,13 +194,17 @@ def sign_in(request):
                 }
                 
                 if role in role_redirects:
-                    return JsonResponse({'status': 'success', 'user_data': user_data, 'redirect_url': 'some_redirect_url'}, status=200)
+                    print(f"Redirecting to: {role_redirects[role]}")
+                    return JsonResponse({'status': 'success', 'user_data': user_data, 'redirect_url': role_redirects[role]}, status=200)
                 else:
+                    print("Role not defined in redirects")
                     return JsonResponse({'status': 'error', 'message': 'Role non défini'}, status=400)
             else:
+                print("Authentication failed")
                 return JsonResponse({'status': 'error', 'message': "Nom d'utilisateur ou mot de passe incorrect."}, status=400)
         
         except Exception as e:
+            print(f"Error occurred: {str(e)}")
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
@@ -632,24 +640,118 @@ def log_out(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+@csrf_exempt 
+@api_view(['GET'])
 def show_patients(request):
+    # Get all patients
+    patients = Patient.objects.all()
+
+    # Serialize the patient data
+    serializer = PatientSerializer(patients, many=True)
+
+    # Return the serialized data in the response
+    return Response({"patients": serializer.data}, status=200)
+
+@csrf_exempt 
+@api_view(['GET'])
+def list_users_by_role(request):
+    if request.method == "GET":
+        try:
+            # Get the role from query parameters
+            role = request.GET.get('role')
+            if not role:
+                return Response({'status': 'error', 'message': 'Role parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Fetch users based on the role
+            users = CustomUser.objects.filter(role=role)
+            if not users.exists():
+                return Response({'status': 'error', 'message': f'No users found for role: {role}'}, status=status.HTTP_404_NOT_FOUND)
+            
+            # Serialize the data
+            serializer = CustomUserSerializer(users, many=True)
+            return Response({'status': 'success', 'data': serializer.data}, status=status.HTTP_200_OK)
         
-    print("we are here 1  ")
+        except Exception as e:
+            return Response({'status': 'error', 'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if request.method == 'GET':
-        # Check if the user is authenticated
-        print("we are here 2  ")
+    return Response({'status': 'error', 'message': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-       # if not request.user.is_authenticated:
-        #    return Response({"error": "Authentication required."}, status=401)
 
-        # Get all patients
-        patients = Patient.objects.all()
-        print(f"patients: {patients}")        # Serialize the patient data
-        serializer = PatientSerializer(patients, many=True)
-        print(f"serilaizer:  {serializer.data} ")
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Only authenticated users can access
+def add_user_api(request):
+    try:
+        # Extract data from the request
+        data = request.data
+        print(f"patients: {data}")  # Print the queryset for debugging
 
-        # Return the patient data in the response
-        return Response({"patients": serializer.data}, status=200)
-   
-    return Response({"error": "Invalid request method."}, status=405)
+        username = data.get('username')
+        password = data.get('password')
+        NSS = data.get('NSS')
+        last_name = data.get('last_name')
+        first_name = data.get('first_name')
+        role = data.get('role')
+        date_de_naissance = data.get('date_de_naissance')
+        adresse = data.get('adresse')
+        telephone = data.get('telephone')
+        email = data.get('email')
+        mutuelle = request.FILES.get('mutuelle')  # Uploaded file
+        hospital_id = data.get('hospital')  # Get the hospital ID
+        hospital = get_object_or_404(Hospital, id=hospital_id)
+        print(f"patients: {hospital}")  # Print the queryset for debugging
+
+        # Input validation
+        if CustomUser.objects.filter(username=username).exists():
+            return Response({"error": "Le nom d'utilisateur existe déjà."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if CustomUser.objects.filter(telephone=telephone).exists():
+            return Response({"error": "Le numéro de téléphone est déjà utilisé."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if CustomUser.objects.filter(email=email).exists():
+            return Response({"error": "L'email est déjà utilisé."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # # Parse date_de_naissance
+        # try:
+        #     date_de_naissance = datetime.strptime(date_de_naissance, '%Y-%m-%d').date()
+        # except ValueError:
+        #     return Response({"error": "Date de naissance invalide. Utilisez le format YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create the user
+        user = CustomUser.objects.create_user(
+            username=username,
+            password=password,
+            NSS=NSS,
+            first_name=first_name,
+            last_name=last_name,
+            role=role,
+            date_de_naissance=date_de_naissance,
+            adresse=adresse,
+            telephone=telephone,
+            mutuelle=mutuelle,
+            email=email,
+            hospital= hospital 
+        )
+        print(f"patients: {user}")  # Print the queryset for debugging
+
+        # Handle patient-specific data
+        if role == 'patient':
+            contact_person = data.get('contact_person')
+            if not contact_person:
+                return Response({"error": "Le champ 'contact_person' est requis pour les patients."}, status=status.HTTP_400_BAD_REQUEST)
+            Patient.objects.create(
+                user=user,
+                person_a_contacter_telephone=[contact_person],
+            )
+
+        # Serialize and return the created user
+        serializer = CustomUserSerializer(user)
+        return Response(
+            {"message": "Utilisateur créé avec succès.", "user": serializer.data},
+            status=status.HTTP_201_CREATED
+        )
+
+    except Exception as e:
+        return Response(
+            {"error": "Une erreur s'est produite lors de la création de l'utilisateur.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )

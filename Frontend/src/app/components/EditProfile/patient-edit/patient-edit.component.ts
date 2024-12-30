@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Patient } from '../../../shared/models/Users/Patient';
+import { Patient } from '../../../shared/models/Users/Patientt';
 import { PatientService } from '../../../services/patient/patient.service';
 import { ProfileComponent } from "../../profile/profile.component";
 import { ProfilePatientComponent } from "../../profile-patient/profile-patient.component";

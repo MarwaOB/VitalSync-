@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Laborantin } from '../../../shared/models/Users/Laborantin';
+import { User } from '../../../shared/models/Users/User';
 import { LaborantinService } from '../../../services/laborantin/laborantin.service';
 
 @Component({
@@ -11,21 +11,34 @@ import { LaborantinService } from '../../../services/laborantin/laborantin.servi
   styleUrl: './table-laborantins.component.css'
 })
 export class TableLaborantinsComponent {
-  laborantins: Laborantin[] = [];
-  constructor(private laborantinService: LaborantinService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.laborantinService.getAll().subscribe((meds: Laborantin[]) => {
-      this.laborantins = meds;
-    });
-  }
-
-  editlaborantin(laborantinId: string): void {
-    this.router.navigate(['/laborantin-edit', laborantinId]);
-    console.log('Édition du laborantin avec ID:', laborantinId);
-  }
-
-  deletelaborantin(id: string): void {
-    console.log('Suppression du laborantin avec ID:', id);
-  }
+  laborantins: any[] = []; // Array to hold medecins data
+     loading: boolean = false; // Loading indicator
+     errorMessage: string | null = null; // Error message holder
+   
+     constructor(private laboratinService: LaborantinService) {}
+   
+     ngOnInit(): void {
+       this.fetchMedecins();
+     }
+   
+     /**
+      * Fetch all medecins from the service.
+      */
+     fetchMedecins(): void {
+       this.loading = true;
+       this.errorMessage = null;
+   
+       this.laboratinService.getAll().subscribe({
+         next: (response: { data: never[]; }) => {
+           this.laborantins = response.data || [];
+           this.loading = false;
+         },
+         error: (error: any) => {
+           this.errorMessage = 'Failed to fetch medecins. Please try again later.';
+           this.loading = false;
+           console.error('Error fetching medecins:', error);
+         }
+       });
+     }
+   
 }

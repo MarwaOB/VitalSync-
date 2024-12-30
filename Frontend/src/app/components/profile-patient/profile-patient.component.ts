@@ -1,7 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Patient } from '../../shared/models/Users/Patient';
+import { Patient } from '../../shared/models/Users/Patientt';
 
 @Component({
   selector: 'app-profile-patient',
