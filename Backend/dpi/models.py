@@ -198,8 +198,12 @@ def __str__(self):
 
 class Ordonnance(models.Model):
     duree = models.IntegerField( null=True, blank=True,help_text="Duration of the prescription in days")
-    is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
     observation = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=[("en_attente", "En attente"), ("valide", "Validé"), ("rejete", "Rejeté")], default="en_attente")
+    validation_date = models.DateTimeField(null=True, blank=True)
+    is_valid = models.BooleanField(default=False)  # Ajout du champ manquant
+
+
 
 def __str__(self):
         return f"Ordonnance for Diagnostic " 

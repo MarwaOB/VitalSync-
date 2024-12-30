@@ -21,6 +21,8 @@ urlpatterns = [
     path("validee_ord/<int:ordonnance_id>/", views.valider_ordonnance, name="validee_ord"),
     path('consultation/<int:consultation_id>/checklist/', views.checklist_view, name='checklist'),
     path('consultation/<int:consultation_id>/mark_administered/', views.mark_administered, name='mark_administered'),
+    path("api/validate-ordonnance/<int:ordonnance_id>/", views.ValidateOrdonnanceAPIView.as_view(), name="validate-ordonnance"),
+
 
 ]
     

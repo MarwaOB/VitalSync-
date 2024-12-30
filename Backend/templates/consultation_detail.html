@@ -220,6 +220,13 @@
     <form action="{% url 'ord-view' consultation.id consultation.diagnostic.id %}" method="POST">
         <button type="submit" class="button">Afficher l'ordonnence de diagnostic </button>
     </form>
+
+    {% if consultation.diagnostic.ordonnance %}
+        <form action="{% url 'validate-ordonnance' consultation.diagnostic.ordonnance.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="button button-validate">Valider l'ordonnance</button>
+        </form>
+    {% endif %}
     <h2>Les soins infermiers</h2>
         <div id="soins-container">
             {% for soin in SoinInfermierObservation %}

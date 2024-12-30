@@ -178,8 +178,6 @@ def sign_in(request):
                         return redirect("radiologueHome")
                     elif role == 'laborantin':
                         return redirect("laborantinHome")
-                    elif role == 'pharmacien':
-                        return HttpResponse("pharmacien")
                     else:
                         return HttpResponse("Role non défini")
                 else:

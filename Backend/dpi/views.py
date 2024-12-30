@@ -26,10 +26,76 @@ from rest_framework.decorators import api_view
 from .serializers import OrdonnanceSerializer
 from decimal import Decimal
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+import requests
+from .models import Ordonnance
+import responses
+import random
+from rest_framework.renderers import JSONRenderer
 
 
+import random
+import responses
+import requests
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from django.utils import timezone
 
+@responses.activate
+def validate_ordonnance_mock():
+    # Randomly decide the validation result for demonstration purposes
+    validation_result = random.choice(["validated", "refused"])
+    
+    # Add the mock response for validation
+    responses.add(
+        responses.POST,
+        "https://sgph.example.com/api/validate",  # Exact URL to mock
+        json={"status": validation_result},  # Response body
+        status=200,  # HTTP status
+    )
+    response = requests.post("https://sgph.example.com/api/validate")
+    print(f"Status: {response.status_code}, Body: {response.json()}")  # Should print mocked response
+class ValidateOrdonnanceAPIView(APIView):
+    def post(self, request, ordonnance_id):
+        try:
+            ordonnance = Ordonnance.objects.get(id=ordonnance_id)
+            if ordonnance.status != "en_attente":
+                return HttpResponse("Ordonnance déjà traitée.", status=400)
 
+            # Activate mocking programmatically
+            with responses.RequestsMock() as rsps:
+                # Set up the mock response
+                validation_result = random.choice(["validated", "refused"])
+                rsps.add(
+                    responses.POST,
+                    "https://sgph.example.com/api/validate",  # Exact URL
+                    json={"status": validation_result},      # Mocked response
+                    status=200,
+                )
+
+                # Make the request (mocked)
+                sgph_response = requests.post("https://sgph.example.com/api/validate")
+
+                # Process the mocked response
+                if sgph_response.status_code == 200:
+                    sgph_data = sgph_response.json()
+                    if sgph_data["status"] == "validated":
+                        ordonnance.status = "valide"
+                        ordonnance.validation_date = timezone.now()
+                        ordonnance.is_valid = True
+                    elif sgph_data["status"] == "refused":
+                        ordonnance.status = "rejete"
+                    ordonnance.save()
+                    return HttpResponse("Ordonnance validée.", status=200)
+                else:
+                    return HttpResponse("Erreur du service SGPH.", status=503)
+
+        except Ordonnance.DoesNotExist:
+            return HttpResponse("Ordonnance introuvable.", status=404)
+        except Exception as e:
+            return HttpResponse(f"Erreur: {str(e)}", status=500)
 @csrf_exempt
 @login_required
 def ajouter_diagnostic(request, consultation_id):
@@ -54,7 +120,7 @@ def ajouter_diagnostic(request, consultation_id):
             ordonnance = form.save()
             if not ordonnance.meds.exists():  # Si l'ordonnance n'a pas de médicaments associés
                 messages.error(request, "Veuillez ajouter au moins un médicament à l'ordonnance.")
-                return redirect('ajouter_ordonnance', consultation_id=consultation.id)
+                return redirect('ajouter_diagnostic', consultation_id=consultation.id)
 
             # Créer le diagnostic et l'associer à l'ordonnance
             diagnostic = Diagnostic.objects.create(ordonnance=ordonnance)
