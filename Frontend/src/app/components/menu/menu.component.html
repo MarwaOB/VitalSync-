@@ -23,6 +23,7 @@
                           
                         </div>
                     </div>
+                    
                     <div class="frame"*ngIf="user?.role === 'adminCentral' ">
                         <div class="div"
                         routerLink="/Dashboard" 
@@ -35,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="frame"*ngIf="user?.role === 'adminCentral' ||  user?.role === 'medecin'||  user?.role === 'infermier' || user?.role === 'laborantin'|| user?.role === 'radiologue'">
+                    <div class="frame"*ngIf="user?.role === 'adminCentral' ||  user?.role === 'medecin'||  user?.role === 'adminSys'||  user?.role === 'infermier' || user?.role === 'laborantin'|| user?.role === 'radiologue'">
                         <div class="div"
                         routerLink="/listpatient" 
                         routerLinkActive="active" 
@@ -48,7 +49,7 @@
                     </div>
 
                     <!-- Parent menu item with submenu -->
-                    <div class="frame menu-item-with-submenu"*ngIf="user?.role === 'adminCentral' ">
+                    <div class="frame menu-item-with-submenu"*ngIf="user?.role === 'adminCentral' ||  user?.role === 'adminSys'">
                         <div class="div" (click)="toggleSubmenu($event)">
                             <img class="img" src="assets/images/menu/mdc.svg" />
                             <div class="text-wrapper">Médecins</div>
@@ -83,7 +84,7 @@
                         </div>
                     </div>
 
-                    <div class="frame" *ngIf="user?.role === 'adminCentral' ">
+                    <div class="frame" *ngIf="user?.role === 'adminCentral' ||  user?.role === 'adminSys'">
                         <div class="div"
                         routerLink="/listinfermier" 
                         routerLinkActive="active" 
@@ -127,20 +128,20 @@
                             </div>
                         </div>
                                 
-                        <div class="frame" *ngIf="user?.role === 'patient' ">
-                            <div class="div"
-                                
-                                routerLink="patient-dpi/:{{ user?.id }}" 
-                                routerLinkActive="active" 
-                                [routerLinkActiveOptions]="{ exact: true }">
-                
-                                <img class="img" src="assets/images/menu/profile.svg" />
-                                <div class="frame-2">
-                                    <div class="text-wrapper">Dossier Médical</div>
-                                </div>
+                        
+                   </div>
+                   <div class="frame" *ngIf="user?.role === 'adminSys'|| user?.role === 'adminCentral' || user?.role === 'medecin'|| user?.role === 'laborantin' || user?.role === 'radioloque' || user?.role === 'infermier'">
+                        <div class="div"
                             
+                            routerLink="/listdpi" 
+                            routerLinkActive="active" 
+                            [routerLinkActiveOptions]="{ exact: true }">
+            
+                            <img class="img" src="assets/images/menu/profile.svg" />
+                            <div class="frame-2">
+                                <div class="text-wrapper">Dossier Médical</div>
                             </div>
-                            
+                        
                         </div>
                    </div>
                    <div class="frame" *ngIf="user?.role === 'laborantin' ">

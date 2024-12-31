@@ -1,0 +1,66 @@
+<div class="table-container">
+    <div class="btn-container">
+        <button class="ajouter-btn" (click)="openAddOverlay()">
+            <i class="fas fa-user-plus"></i> Ajouter un Dpi
+        </button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>QRcode</th>
+                <th>Medecin</th>
+                <th>Patient</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dpi of dpis" >
+                <td>{{ dpi.id }}</td>
+                <td>{{ dpi.patient_id }}</td>
+                <td>{{ dpi.medecin_id }}</td>
+                <td>{{ dpi.QR_Code  }}</td>
+                
+                <td class="eye-cell">
+                    <i *ngIf="!isDpiNull(dpi)" class="fas fa-eye" (click)="voirDpi(dpi.id)"></i>
+                </td>
+                <td class="actions-cell">
+                    <i class="fas fa-edit" (click)="editdpi(dpi.id)"></i>
+                    <i id="delete" class="fas fa-trash" (click)="deletedpi(dpi.id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<form *ngIf="editMode" (ngSubmit)="saveChanges1()" enctype="multipart/form-data" #profileForm="ngForm">
+    <div class="overlay">
+        <div class="form-container">
+           
+           
+            <div class="field">
+                <label for="medecin">Sélectionner un medecin</label>
+                <select id="medecin" [(ngModel)]="tempUserData.medecin_id" name="medecin" required>
+                    <option value="" disabled selected>-- Choisir un medecin --</option>
+                    <option *ngFor="let medecin of medecins" [value]="medecin.id">{{ medecin.first_name }} {{ medecin.last_name }}</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="patient">Sélectionner un patient</label>
+                <select id="patient" [(ngModel)]="tempUserData.patient_id" name="patient" required>
+                    <option value="" disabled selected>-- Choisir un patient --</option>
+                    <option *ngFor="let patient of patients" [value]="patient.id">{{ patient.user.first_name }} {{ patient.user.last_name }}</option>
+                </select>
+            </div>
+
+            <!-- Save and Cancel buttons -->
+            <div class="butSaveCancel">
+                <button type="button" id="cancel" (click)="cancelEdit()">Cancel</button>
+                <button type="submit" [disabled]="profileForm.invalid">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

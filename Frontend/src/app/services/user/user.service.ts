@@ -24,7 +24,6 @@ export class UserService {
   private apiUrl = 'http://127.0.0.1:8000/user/signin';
   private userSubject = new BehaviorSubject<UserData | null>(this.getUserFromLocalStorage());
   user$ = this.userSubject.asObservable();
-
   constructor(private http: HttpClient) {}
 
   signIn(username: string, password: string): Observable<any> {

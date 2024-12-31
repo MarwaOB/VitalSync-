@@ -11,6 +11,7 @@ export class MedecinService {
   
   private apiUrl = 'http://127.0.0.1:8000/users/'; // Base API URL from Django
   private apiUrl1 = 'http://127.0.0.1:8000/usersadd'; // Base API URL from Django
+  private apiUrl2 = 'http://127.0.0.1:8000/medecin_same_hospital'; // Base API URL from Django
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +24,9 @@ export class MedecinService {
     const urlWithRole = `${this.apiUrl}?role=${role}`; // Append the role query parameter
     return this.http.get<any>(urlWithRole, { withCredentials: true }); // Include cookies with the request
   }
-
+  get_medecin_same_hospital(): Observable<any> {
+    return this.http.get<any>(this.apiUrl2, { withCredentials: true }); // Include cookies with the request
+  }
   /**
    * Fetch a specific user by ID.
    * @param id The ID of the user to fetch.
@@ -32,6 +35,7 @@ export class MedecinService {
   getById(id: string): Observable<User | undefined> {
     return this.http.get<User>(`${this.apiUrl}${id}/`, { withCredentials: true });
   }
+
 
   /**
    * Add a new "medecin" user.

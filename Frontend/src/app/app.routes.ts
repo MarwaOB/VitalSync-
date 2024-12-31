@@ -23,12 +23,12 @@ import { ListmedecinComponent } from './pages/listmedecin/listmedecin.component'
 import { ListpharmaComponent } from './pages/listpharma/listpharma.component';
 import { ListlaborantinComponent } from './pages/listlaborantin/listlaborantin.component';
 import { ListradiologueComponent } from './pages/listradiologue/listradiologue.component';
-import { ListbiologistesComponent } from './pages/listbiologistes/listbiologistes.component';
 import { ListinfermierComponent } from './pages/listinfermier/listinfermier.component';
 import { AntecedentComponent } from './components/DossierPatient/antecedent/antecedent.component';
 import { AdminSysEditComponent } from './components/EditProfile/admin-sys-edit/admin-sys-edit.component';
 import { AdminCentralEditComponent } from './components/EditProfile/admin-central-edit/admin-central-edit.component';
 import { ListhopitalComponent } from './pages/listhopital/listhopital.component';
+import { ListdpiComponent } from './pages/listdpi/listdpi.component';
 
 export const routes: Routes = 
 [
@@ -60,6 +60,13 @@ export const routes: Routes =
       component: LayoutComponent, // Use layout component here
       children: [
         { path: "", component:  PatientDpiComponent  } // Page1Accueil will be displayed inside the layout
+      ]
+    },
+    {
+      path: "listdpi",
+      component: LayoutComponent, // Use layout component here
+      children: [
+        { path: "", component:  ListdpiComponent  } // Page1Accueil will be displayed inside the layout
       ]
     },
 
@@ -129,13 +136,7 @@ export const routes: Routes =
         { path: "", component: ListradiologueComponent } // Page1Accueil will be displayed inside the layout
       ]
     },
-    {
-      path: "listbiologiste",
-      component: LayoutComponent, // Use layout component here
-      children: [
-        { path: "", component: ListbiologistesComponent } // Page1Accueil will be displayed inside the layout
-      ]
-    },
+    
     {
       path: "listinfermier",
       component: LayoutComponent, // Use layout component here

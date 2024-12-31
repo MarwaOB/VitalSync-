@@ -1,4 +1,10 @@
 <div class="table-container">
+    <div class="btn-container">
+        <button class="ajouter-btn" (click)="openAddOverlay()">
+            <i class="fas fa-user-plus"></i> Ajouter un Patient
+        </button>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -28,6 +34,7 @@
                 <td>{{ patient.user.hospital }}</td>
                 <td class="eye-cell">
                     <i *ngIf="!patient.dpi_null" class="fas fa-eye" (click)="voirDpi(patient.id)"></i>
+                    <i *ngIf="patient.dpi_null" class="fas fa-plus" (click)="creerDpi()"></i>
                 </td>
                 <td class="actions-cell">
                     <i class="fas fa-edit" (click)="editPatient(patient.id)"></i>
@@ -37,3 +44,111 @@
         </tbody>
     </table>
 </div>
+
+<form *ngIf="editMode" (ngSubmit)="saveChanges()" enctype="multipart/form-data" #profileForm="ngForm">
+    <div class="overlay">
+        <div class="form-container">
+            <!-- Nom and Prénom -->
+            <div class="nom-prenom">
+                <div class="field">
+                    <label for="first_name">Username</label>
+                    <input type="text" id="username" [(ngModel)]="tempUserData.username" name="username" required />
+                </div>
+                <div class="field">
+                    <label for="last_name">Password</label>
+                    <input type="password" id="password" [(ngModel)]="tempUserData.password" name="password" required />
+                </div>
+            </div>
+            <div class="nom-prenom">
+                <div class="field">
+                    <label for="first_name">Nom</label>
+                    <input type="text" id="first_name" [(ngModel)]="tempUserData.first_name" name="first_name" required />
+                </div>
+                <div class="field">
+                    <label for="last_name">Prénom</label>
+                    <input type="text" id="last_name" [(ngModel)]="tempUserData.last_name" name="last_name" required />
+                </div>
+            </div>
+
+            <!-- Téléphone and Email -->
+            <div class="tel-email">
+                <div class="field">
+                    <label for="telephone">Téléphone</label>
+                    <input type="text" id="telephone" [(ngModel)]="tempUserData.telephone" name="telephone" required />
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" [(ngModel)]="tempUserData.email" name="email" required />
+                </div>
+            </div>
+
+            <!-- Date de Naissance and Adresse -->
+            <div class="date-naissance-adresse">
+                <div class="field">
+                    <label for="date_de_naissance">Date de naissance</label>
+                    <input type="date" id="date_de_naissance" [(ngModel)]="tempUserData.date_de_naissance" name="date_de_naissance" required />
+                </div>
+                <div class="field">
+                    <label for="adresse">Adresse</label>
+                    <input type="text" id="adresse" [(ngModel)]="tempUserData.adresse" name="adresse" required />
+                </div>
+            </div>
+
+            <!-- Mutuelle and NSS for Medecin -->
+            <div class="">
+                <div class="field">
+                    <label for="mutuelle">Mutuelle</label>
+                    <input type="file" id="mutuelle" [(ngModel)]="tempUserData.mutuelle" accept="application/pdf" name="mutuelle" />
+                </div>
+                <div class="field">
+                    <label for="NSS">NSS</label>
+                    <input type="number" id="NSS" [(ngModel)]="tempUserData.NSS" name="NSS" />
+                </div>
+            </div>
+            <div class="">
+                <div class="field">
+                    <label for="contact_person">Personne a contacter</label>
+                    <input type="text" id="contact_person" [(ngModel)]="tempUserData.contact_person" name="contact_person" required />
+                </div>
+                
+            </div>
+           
+
+            <div class="field">
+                <label for="hospital">Sélectionner un Hôpital</label>
+                <select id="hospital" [(ngModel)]="tempUserData.hospital" name="hospital" required>
+                    <option value="" disabled selected>-- Choisir un hôpital --</option>
+                    <option *ngFor="let hospital of hospitals" [value]="hospital.id">{{ hospital.nom }}</option>
+                </select>
+            </div>
+
+            <!-- Save and Cancel buttons -->
+            <div class="butSaveCancel">
+                <button type="button" id="cancel" (click)="cancelEdit()">Cancel</button>
+                <button type="submit" [disabled]="profileForm.invalid">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form *ngIf="creerMode" (ngSubmit)="saveChanges1()" enctype="multipart/form-data" #profileForm="ngForm">
+    <div class="overlay">
+        <div class="form-container">
+           
+           
+            <div class="field">
+                <label for="hospital">Sélectionner un Hôpital</label>
+                <select id="hospital" [(ngModel)]="tempUserData.hospital" name="hospital" required>
+                    <option value="" disabled selected>-- Choisir un hôpital --</option>
+                    <option *ngFor="let hospital of hospitals" [value]="hospital.id">{{ hospital.nom }}</option>
+                </select>
+            </div>
+
+            <!-- Save and Cancel buttons -->
+            <div class="butSaveCancel">
+                <button type="button" id="cancel" (click)="cancelEdit()">Cancel</button>
+                <button type="submit" [disabled]="profileForm.invalid">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

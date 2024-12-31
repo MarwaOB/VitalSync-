@@ -23,6 +23,9 @@ export class PatientDpiComponent implements OnInit {
     this.selectedSection = section;
     console.log(`Selected section: ${this.selectedSection}`); // Log the selected section
   }
+
+
+  
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
