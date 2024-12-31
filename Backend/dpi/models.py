@@ -23,7 +23,7 @@ class Antecedent(models.Model):
     )  # One-to-Many relationship with Dpi
 
     def __str__(self):
-        return f"{self.titre} (DPI: {self.dpi.nom})"
+        return f"{self.titre} (DPI: {self.dpi.patient.user.get_full_name()})"
 
 class Dpi(models.Model):
     QR_Code = models.ImageField(upload_to='qr_codes/', blank=True)
@@ -176,19 +176,20 @@ class Examen(models.Model):
 
 class Diagnostic(models.Model):
    
-   ordonnance = models.OneToOneField('Ordonnance', on_delete=models.CASCADE, related_name='ordonnance' )
+    ordonnance = models.OneToOneField('Ordonnance', on_delete=models.CASCADE, related_name='ordonnance' )
 
-def __str__(self):
-        return f"Diagnostic for consultation "   
+    def __str__(self):
+    
+        return f"Diagnostic with ordonnance (Duration: {self.ordonnance.duree} days)"
 
 class Ordonnance(models.Model):
-    
-    duree = models.IntegerField( null=True, blank=True,help_text="Duration of the prescription in days")
-    is_valid = models.BooleanField(default=False)  # False = not valid, True = valid
+    duree = models.IntegerField(null=True, blank=True, help_text="Duration of the prescription in days")
+    is_valid = models.BooleanField(default=False)
     observation = models.TextField(null=True, blank=True)
 
-def __str__(self):
-        return f"Ordonnance for Diagnostic " 
+    def __str__(self):
+        valid_status = "valid" if self.is_valid else "not valid"
+        return f"Ordonnance ({valid_status}, {self.duree or 'no duration'} days)"
 
 class Medicament(models.Model):
     
