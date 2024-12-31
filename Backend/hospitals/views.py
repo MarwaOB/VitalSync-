@@ -5,7 +5,10 @@ from .models import Hospital
 from .serializers import HospitalSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.decorators import api_view, permission_classes
+from dpi.serializers import DpiSerializer
+from rest_framework.response import Response
+from rest_framework import status
 @api_view(['GET'])
 def show_Hospitals(request):
     try:
@@ -88,5 +91,26 @@ def add_hospital(request):
         logging.error(f"Error creating hospital or user: {e}")
         return Response(
             {"error": "An error occurred while creating the hospital or user.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+        
+@api_view(['GET'])
+def show_dpi(request):
+    try:
+        if request.user.role == "medecin":
+            # Get all patients with dpi_null set to True
+            dpis = Dpi.objects.filter(medecin=request.user)
+        else:
+            dpis = Dpi.objects.filter(medecin__hospital=request.user.hospital)
+
+        # Serialize the patient data
+        serializer = DpiSerializer(dpis, many=True)
+
+        # Return the serialized data in the response
+        return Response({"dpis": serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"error": "An error occurred while retrieving dpis.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )

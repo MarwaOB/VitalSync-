@@ -9,7 +9,7 @@ urlpatterns = [
     path("ajouter_radiologique_bilan/<int:consultation_id>/", views.ajouter_radiologique_bilan, name="ajouter_radiologique_bilan"),
     path("ajouter_resume/<int:consultation_id>/", views.ajouter_resume, name="ajouter_resume"),
     path("ajouter_examen/<int:consultation_id>/", views.ajouter_examen, name="ajouter_examen"),
-
+    path("show_dpi", views.show_dpi, name="show_dpi"),
 
     
 ]

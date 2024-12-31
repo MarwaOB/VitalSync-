@@ -1,9 +1,9 @@
+import qrcode
 from django.db import models
 from users.models import Patient
 from io import BytesIO
 from django.core.files import File
 from PIL import Image
-import qrcode
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.core.exceptions import ValidationError

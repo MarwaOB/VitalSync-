@@ -1,4 +1,5 @@
 import logging, qrcode
+from datetime import datetime
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.decorators import api_view
 from django.shortcuts import render, redirect, get_object_or_404
@@ -640,17 +641,32 @@ def log_out(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+
 @csrf_exempt 
 @api_view(['GET'])
 def show_patients(request):
-    # Get all patients
-    patients = Patient.objects.all()
+    try:
+        print(f'request.user.role {request.user.role}')
+        # Get all patients based on the role of the authenticated user
+        if request.user.role == "adminCentral":
+            patients = Patient.objects.all()
+        else:
+            patients = Patient.objects.filter(user__hospital=request.user.hospital)
 
-    # Serialize the patient data
-    serializer = PatientSerializer(patients, many=True)
+        print(f'patients {patients} ')
 
-    # Return the serialized data in the response
-    return Response({"patients": serializer.data}, status=200)
+        # Serialize the patient data
+        serializer = PatientSerializer(patients, many=True)
+
+        # Return the serialized data in the response
+        return Response({"patients": serializer.data}, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response(
+            {"error": "An error occurred while retrieving patients.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
 
 @csrf_exempt 
 @api_view(['GET'])
@@ -661,9 +677,12 @@ def list_users_by_role(request):
             role = request.GET.get('role')
             if not role:
                 return Response({'status': 'error', 'message': 'Role parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
-            
-            # Fetch users based on the role
-            users = CustomUser.objects.filter(role=role)
+                
+            if request.user.role == "adminCentral":
+                # Fetch users based on the role
+                users = CustomUser.objects.filter(role=role)
+            else:
+                users = CustomUser.objects.filter(role=role, hospital=request.user.hospital)
             if not users.exists():
                 return Response({'status': 'error', 'message': f'No users found for role: {role}'}, status=status.HTTP_404_NOT_FOUND)
             
@@ -676,15 +695,12 @@ def list_users_by_role(request):
 
     return Response({'status': 'error', 'message': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])  # Only authenticated users can access
 def add_user_api(request):
     try:
         # Extract data from the request
         data = request.data
-        print(f"patients: {data}")  # Print the queryset for debugging
-
         username = data.get('username')
         password = data.get('password')
         NSS = data.get('NSS')
@@ -697,8 +713,15 @@ def add_user_api(request):
         email = data.get('email')
         mutuelle = request.FILES.get('mutuelle')  # Uploaded file
         hospital_id = data.get('hospital')  # Get the hospital ID
-        hospital = get_object_or_404(Hospital, id=hospital_id)
-        print(f"patients: {hospital}")  # Print the queryset for debugging
+
+        # Validate the hospital_id
+        if not hospital_id:
+            return Response({"error": "L'ID de l'hôpital est requis."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            hospital = Hospital.objects.get(id=hospital_id)
+        except Hospital.DoesNotExist:
+            return Response({"error": "Hôpital introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
 
         # Input validation
         if CustomUser.objects.filter(username=username).exists():
@@ -710,11 +733,11 @@ def add_user_api(request):
         if CustomUser.objects.filter(email=email).exists():
             return Response({"error": "L'email est déjà utilisé."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # # Parse date_de_naissance
-        # try:
-        #     date_de_naissance = datetime.strptime(date_de_naissance, '%Y-%m-%d').date()
-        # except ValueError:
-        #     return Response({"error": "Date de naissance invalide. Utilisez le format YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+        # Parse date_de_naissance
+        try:
+            date_de_naissance = datetime.strptime(date_de_naissance, '%Y-%m-%d').date()
+        except (ValueError, TypeError):
+            return Response({"error": "Date de naissance invalide. Utilisez le format YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create the user
         user = CustomUser.objects.create_user(
@@ -729,9 +752,8 @@ def add_user_api(request):
             telephone=telephone,
             mutuelle=mutuelle,
             email=email,
-            hospital= hospital 
+            hospital=hospital
         )
-        print(f"patients: {user}")  # Print the queryset for debugging
 
         # Handle patient-specific data
         if role == 'patient':
@@ -740,7 +762,7 @@ def add_user_api(request):
                 return Response({"error": "Le champ 'contact_person' est requis pour les patients."}, status=status.HTTP_400_BAD_REQUEST)
             Patient.objects.create(
                 user=user,
-                person_a_contacter_telephone=[contact_person],
+                person_a_contacter_telephone=contact_person,
             )
 
         # Serialize and return the created user
@@ -753,5 +775,103 @@ def add_user_api(request):
     except Exception as e:
         return Response(
             {"error": "Une erreur s'est produite lors de la création de l'utilisateur.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def creer_dpi_api(request):
+    try:
+        # Extract patient and doctor IDs from the request data
+        patient_id = request.data.get('patient_id')
+        medecin_id = request.data.get('medecin_id')
+        print(f'patient {patient_id}')
+        print(f'medecin {medecin_id}')
+        if not patient_id:
+            return Response({"error": "L'ID du patient est requis."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            patient = Patient.objects.get(id=patient_id)
+        except Patient.DoesNotExist:
+            return Response({"error": "Patient introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
+
+        if not medecin_id:
+            return Response({"error": "L'ID du médecin est requis."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            medecin = CustomUser.objects.get(id=medecin_id)
+        except CustomUser.DoesNotExist:
+            return Response({"error": "Médecin introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
+
+        if hasattr(patient, 'dpi'):
+            return Response(
+                {"error": "Un DPI existe déjà pour ce patient.", "dpi_id": patient.dpi.id},
+                status=status.HTTP_400_BAD_REQUEST
+                )
+        existing_dpi = Dpi.objects.filter(patient=patient).first()
+        if existing_dpi:
+            return Response(
+                {"error": "Un DPI existe déjà pour ce patient.", "dpi_id": existing_dpi.id},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+        print(f'patient {patient}')
+        print(f'medecin {medecin}')
+
+        # Create the DPI
+        dpi = Dpi.objects.create(patient=patient, medecin=medecin)
+        print(f'dpi {dpi}')
+
+        # Update the patient's DPI status
+        patient.dpi_null = False
+        patient.save()
+
+        return Response(
+            {'status': 'success', 'message': 'DPI created successfully.', 'dpi_id': dpi.id},
+            status=status.HTTP_201_CREATED
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+@api_view(['GET'])
+def show_patients_nodpi(request):
+    try:
+        # Get all patients with dpi_null set to True
+        patients = Patient.objects.filter(dpi_null=True, user__hospital=request.user.hospital)
+        # Serialize the patient data
+        serializer = PatientSerializer(patients, many=True)
+
+        # Return the serialized data in the response
+        return Response({"patients": serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"error": "An error occurred while retrieving patients.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+@api_view(['GET'])
+def show_medecin_same_hospital(request):
+    try:
+        # Get all patients with dpi_null set to True
+        medecin = CustomUser.objects.filter(hospital=request.user.hospital)
+
+        # Serialize the patient data
+        serializer = CustomUserSerializer(medecin, many=True)
+
+        # Return the serialized data in the response
+        return Response({"medecin": serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"error": "An error occurred while retrieving medecins.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )

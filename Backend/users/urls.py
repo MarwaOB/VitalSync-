@@ -27,7 +27,9 @@ urlpatterns = [
     path('patients/', views.show_patients, name='show_patients'),
     path('users/', views.list_users_by_role, name='list_users_by_role'),
     path('usersadd', views.add_user_api, name='add_user_api'),
-
+    path('CreerDpi', views.creer_dpi_api, name='creer_dpi_api'),
+    path('Patients_No_Dpi', views.show_patients_nodpi, name='show_patients_nodpi'),
+    path('medecin_same_hospital', views.show_medecin_same_hospital, name='show_medecin_same_hospital'),
 
 
 

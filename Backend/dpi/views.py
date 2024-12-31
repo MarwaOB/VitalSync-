@@ -1,4 +1,5 @@
 import logging, qrcode
+from rest_framework.decorators import api_view
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
@@ -194,3 +195,25 @@ def ajouter_resume(request, consultation_id):
 
         # Redirection vers la page des détails de la consultation (ou du DPI)
         return redirect('consultation_detail', consultation_id=consultation.id)
+               
+@api_view(['GET'])
+def show_dpi(request):
+    try:
+        if request.user.role == "medecin":
+            # Get all patients with dpi_null set to True
+            dpis = Dpi.objects.filter(medecin=request.user)
+        else:
+            dpis = Dpi.objects.filter(medecin__hospital=request.user.hospital)
+
+        # Serialize the patient data
+        print(f'dpi {dpis}')
+        serializer = DpiSerializer(dpis, many=True)
+        print(f'dpis {serializer.data}')
+
+        # Return the serialized data in the response
+        return Response({"dpis": serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"error": "An error occurred while retrieving dpis.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
