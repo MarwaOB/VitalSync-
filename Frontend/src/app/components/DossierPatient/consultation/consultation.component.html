@@ -1,6 +1,6 @@
 <div class="table-container" *ngIf="!currentComponent">
     <h2>Consultation du patient :</h2>
-    <div class="btn-container">
+    <div class="btn-container" *ngIf="user?.role === 'medecin'  ">
         <button class="ajouter-btn" (click)="ajouterConsultation()">
             Ajouter une consultation
         </button>
@@ -13,7 +13,7 @@
                 <th>Diag</th>
                 <th>Bilan Radio</th>
                 <th>Bilan Bio</th>
-                <th>Actions</th>
+                <!-- <th >Actions</th> -->
             </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@
                     <div class="eye">
                         <i *ngIf="consultation.diagnosticId" class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'diag')"></i>
-                        <i *ngIf="!consultation.diagnosticId" class="fas fa-plus"
+                        <i *ngIf="!consultation.diagnosticId &&  user?.role === 'medecin'  " class="fas fa-plus"
                             (click)="creerDiagnostic(consultation)"></i>
                     </div>
                 </td>
@@ -37,7 +37,7 @@
                     <div class="eye">
                         <i *ngIf="consultation.bilanRadiologiqueId" class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'bilanRadio')"></i>
-                        <i *ngIf="!consultation.bilanRadiologiqueId" class="fas fa-plus"
+                        <i *ngIf="!consultation.bilanRadiologiqueId &&  user?.role === 'medecin'  " class="fas fa-plus"
                             (click)="creerBilanRadio(consultation)"></i>
                     </div>
                 </td>
@@ -45,16 +45,16 @@
                     <div class="eye">
                         <i *ngIf="consultation.bilanBiologiqueId" class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'bilanBio')"></i>
-                        <i *ngIf="!consultation.bilanBiologiqueId" class="fas fa-plus"
+                        <i *ngIf="!consultation.bilanBiologiqueId &&  user?.role === 'medecin'  " class="fas fa-plus"
                             (click)="creerBilanBio(consultation)"></i>
                     </div>
                 </td>
-                <td>
+                <!-- <td >
                     <div class="eye">
                         <i id="delete" class="fas fa-trash-alt" (click)="supprimer(consultation.id)"
                             title="Supprimer"></i>
                     </div>
-                </td>
+                </td> -->
             </tr>
         </tbody>
     </table>

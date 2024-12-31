@@ -1,5 +1,5 @@
 import logging, qrcode
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view ,permission_classes
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
@@ -13,7 +13,11 @@ from django.contrib import messages
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
+from .serializers import DpiSerializer ,AntecedentSerializer ,ConsultationSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth import authenticate, login
+from rest_framework.permissions import IsAuthenticated
 
 @login_required
 @csrf_exempt
@@ -217,3 +221,160 @@ def show_dpi(request):
             {"error": "An error occurred while retrieving dpis.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+
+
+              
+@api_view(['GET'])
+def show_antecedant(request):
+    try:
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response({"error": "L'ID du Dpi est requis."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except dpi.DoesNotExist:
+            return Response({"error": "dpi introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
+
+        antecedents = Antecedent.objects.filter(dpi=dpi)
+       
+
+        serializer = AntecedentSerializer(antecedents, many=True)
+        print(f'antecedents {serializer.data}')
+
+        # Return the serialized data in the response
+        return Response({"antecedents": serializer.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"error": "An error occurred while retrieving antecedents.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def ajouter_antecedant_api(request):
+    try:
+        titre = request.data.get('titre')
+        description = request.data.get('description')
+        is_chirugical = request.data.get('is_chirugical')
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response({"error": "L'ID du Dpi est requis."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except dpi.DoesNotExist:
+            return Response({"error": "dpi introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Crear l'antecedant 
+        antecedant = Antecedent.objects.create(
+            titre=titre,
+            description =description,
+            is_chirugical=is_chirugical, 
+            dpi=dpi
+            )
+     
+        return Response(
+            {'status': 'success', 'message': 'Antecedant created successfully.', 'antecedant.id': antecedant.id},
+            status=status.HTTP_201_CREATED
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def ajouter_Consultation_api(request):
+    try:
+        # Extract dpi_id from the request data
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response(
+                {"error": "L'ID du Dpi est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except Dpi.DoesNotExist:
+            return Response(
+                {"error": "Dpi introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Get the current date
+        current_date = timezone.now().date()
+
+        # Check for duplicate consultation on the same date
+        if Consultation.objects.filter(date=current_date, dpi=dpi).exists():
+            return Response(
+                {"error": "Une consultation à la même date pour ce patient existe déjà."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Create the consultation
+        consultation = Consultation.objects.create(date=current_date, dpi=dpi)
+
+        return Response(
+            {
+                'status': 'success',
+                'message': 'Consultation created successfully.',
+                'consultation_id': consultation.id
+            },
+            status=status.HTTP_201_CREATED
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+@api_view(['GET'])
+def show_consultations(request):
+    try:
+        # Extract dpi_id from query parameters
+        dpi_id = request.query_params.get('dpi_id')
+        if not dpi_id:
+            return Response(
+                {"error": "L'ID du Dpi est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except Dpi.DoesNotExist:
+            return Response(
+                {"error": "Dpi introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Fetch consultations for the given Dpi
+        consultations = Consultation.objects.filter(dpi=dpi)
+
+        # Serialize the consultation data
+        serializer = ConsultationSerializer(consultations, many=True)
+
+        # Return the serialized data in the response
+        return Response(
+            {"consultations": serializer.data},
+            status=status.HTTP_200_OK
+        )
+    except Exception as e:
+        return Response(
+            {
+                "error": "An error occurred while retrieving consultations.",
+                "details": str(e)
+            },
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+

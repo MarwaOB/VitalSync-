@@ -56,7 +56,6 @@ export class TabledpiComponent {
     this.medecinService.getAll().subscribe({
       next: (response) => {
         this.medecins = response.data || [];
-        console.log(this.medecins)
         this.loading = false;
       },
       error: (error) => {
@@ -72,7 +71,8 @@ export class TabledpiComponent {
 
     this.dpiService.getAll().subscribe({
       next: (response) => {
-        this.dpis = response.data || [];
+        this.dpis = response.dpis || [];
+        console.log(this.dpis)
         this.loading = false;
       },
       error: (error: any) => {
@@ -87,9 +87,7 @@ export class TabledpiComponent {
     this.patientService.getPatients_by_role().subscribe(
       
       (response) => {
-        console.log(response.patients)
         this.patients = response.patients;  // Store the patients data from the API
-        console.log(this.patients[0].id)
 
       },
       error => {
@@ -111,7 +109,6 @@ export class TabledpiComponent {
    }
  
    saveChanges1(): void {
-     console.log(this.tempUserData);
     // Call the service to add a new dpi
     this.dpiService.addDpi(this.tempUserData).subscribe({
      next: (response: any) => {

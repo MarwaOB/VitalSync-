@@ -17,6 +17,7 @@ export class PatientDpiComponent implements OnInit {
   // jai le id du patient 
   // set dpi de ce patient 
   selectedSection: string = 'antecedents';
+  
 
   selectSection(section: string) 
   {

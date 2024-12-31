@@ -1,7 +1,7 @@
 
 <div class="table-container">
     <h2>Antécédents Médicaux du patient : </h2>
-    <div class="btn-container">
+    <div class="btn-container" *ngIf="user?.role === 'medecin'||user?.role === 'radioloque'  ">
         <button class="ajouter-btn" (click)="ajouterAntecedent()">
             Ajouter un antécédent</button>
     </div>
@@ -14,7 +14,8 @@
                 <th>Titre</th>
                 <th>Description</th>
                 <th>Chirurgical</th>
-                <th>Actions</th>
+
+                <th *ngIf="user?.role === 'medecin'||user?.role === 'radioloque'  ">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -28,11 +29,11 @@
                         plus</button>
                 </td>
                 <td>{{ antecedent.isChirurgical ? 'Oui' : 'Non' }}</td>
-                <td>
+                <td *ngIf="user?.role === 'radioloque'  ">
                     <div class="eye">
                         <i class="fas fa-edit" (click)="modifier(antecedent.id)" title="Modifier"></i>
-                        <i id="delete" class="fas fa-trash-alt" (click)="supprimer(antecedent.id)"
-                            title="Supprimer"></i>
+                        <!-- <i id="delete" class="fas fa-trash-alt" (click)="supprimer(antecedent.id)"
+                            title="Supprimer"></i> -->
                     </div>
                 </td>
             </tr>

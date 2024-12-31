@@ -805,11 +805,11 @@ def creer_dpi_api(request):
         except CustomUser.DoesNotExist:
             return Response({"error": "Médecin introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
 
-        if hasattr(patient, 'dpi'):
-            return Response(
-                {"error": "Un DPI existe déjà pour ce patient.", "dpi_id": patient.dpi.id},
-                status=status.HTTP_400_BAD_REQUEST
-                )
+        # if hasattr(patient, 'dpi'):
+        #     return Response(
+        #         {"error": "Un DPI existe déjà pour ce patient.", "dpi_id": patient.dpi.id},
+        #         status=status.HTTP_400_BAD_REQUEST
+        #         )
         existing_dpi = Dpi.objects.filter(patient=patient).first()
         if existing_dpi:
             return Response(

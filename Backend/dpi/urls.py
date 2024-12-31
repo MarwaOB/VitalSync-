@@ -10,6 +10,8 @@ urlpatterns = [
     path("ajouter_resume/<int:consultation_id>/", views.ajouter_resume, name="ajouter_resume"),
     path("ajouter_examen/<int:consultation_id>/", views.ajouter_examen, name="ajouter_examen"),
     path("show_dpi", views.show_dpi, name="show_dpi"),
+    path("show_antecedant", views.show_antecedant, name="show_antecedant"),
+    path("ajouter_antecedant_api", views.ajouter_antecedant_api, name="ajouter_antecedant_api")
 
     
 ]

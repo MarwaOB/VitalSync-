@@ -9,6 +9,7 @@ import { ConsultationService } from '../../../services/DossierPatient/Consultati
 import { Diagnostic } from '../../../shared/models/Dpi/Diagnostic';
 import { Biologique } from '../../../shared/models/Dpi/BilanBiologique';
 import { Radiologique } from '../../../shared/models/Dpi/BilanRadiologique';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-consultation',
@@ -26,10 +27,14 @@ export class ConsultationComponent implements OnInit {
   detailType: string = '';
   showDetails: boolean = false;
   currentComponent: string = '';
+  user: any = null;
 
-  constructor(private consultationService: ConsultationService) { }
+
+  constructor(private consultationService: ConsultationService ,  private userService :UserService) { }
 
   ngOnInit(): void {
+    this.user = this.userService.user;
+
     this.consultations = this.consultationService.getConsultations();
   }
 

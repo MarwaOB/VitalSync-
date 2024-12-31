@@ -4,6 +4,7 @@ import { Antecedent } from '../../../shared/models/Dpi/Antecedent';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-antecedent',
@@ -16,6 +17,7 @@ export class AntecedentComponent implements OnInit {
   editMode: boolean = false;
   showDetails: boolean = false;
   selectedAntecedent: Antecedent | null = null;
+  user: any = null;
 
   tempAntecedant: Antecedent = {
     titre: '', isChirurgical: false, description: '',
@@ -23,8 +25,10 @@ export class AntecedentComponent implements OnInit {
     dpiId: ''
   };
 
-  constructor(private antecedentService: AntecedentService) { }
+  constructor(private antecedentService: AntecedentService , private userService :UserService) { }
   ngOnInit(): void {
+    this.user = this.userService.user;
+
     this.antecedents = this.antecedentService.getAntecedents();
   }
   saveChanges(): void {

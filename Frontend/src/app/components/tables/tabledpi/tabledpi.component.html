@@ -12,15 +12,16 @@
                 <th>QRcode</th>
                 <th>Medecin</th>
                 <th>Patient</th>
+                <th>Dpi</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let dpi of dpis" >
                 <td>{{ dpi.id }}</td>
-                <td>{{ dpi.patient_id }}</td>
-                <td>{{ dpi.medecin_id }}</td>
-                <td>{{ dpi.QR_Code  }}</td>
+                <td>{{ dpi.QR_Code }}</td>
+                <td>{{ dpi.medecin }}</td>
+                <td>{{ dpi.patient  }}</td>
                 
                 <td class="eye-cell">
                     <i *ngIf="!isDpiNull(dpi)" class="fas fa-eye" (click)="voirDpi(dpi.id)"></i>

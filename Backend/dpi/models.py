@@ -244,3 +244,4 @@ class Consultation(models.Model):
         
     def __str__(self):
         return f"Consultation on {self.date} for {self.dpi.patient.user.get_full_name()}"
+
