@@ -20,6 +20,18 @@ import { Dpi } from '../../../shared/models/Dpi/Dpi';
 })
 export class TablePatientsComponent implements OnInit {
   patients: Patient[] = [];  // Store the patients
+  filteredPatients: Patient[] = []; // Tableau pour stocker les patients filtrés
+  searchId: any=0;
+  searchNom: string = '';
+  searchNss: any=0;
+  searchDateNaissance: string = '';
+  searchAdresse: string = '';
+  searchTelephone: string = '';
+  searchMutuelle: string = '';
+  searchHopital: any=0;
+  searchDateDebutHospitalisation: string = '';
+  searchDateFinHospitalisation: string = '';
+
   errorMessage: string = '';
   medecins: User[] = [];
   hospitals: Hospital[] = [];
@@ -44,7 +56,7 @@ export class TablePatientsComponent implements OnInit {
 
 };
 tempdpi:  { id_medecin: number; id_patient: number;  } = {
- 
+
   id_medecin : 0,
   id_patient:0,
 
@@ -62,6 +74,7 @@ tempdpi:  { id_medecin: number; id_patient: number;  } = {
     this.loadPatients();
     this.fetchHospitals();
     this.fetchMedecins();
+      this.filteredPatients = this.patients;  // Initialiser avec tous les patients
 
   }
 
@@ -128,7 +141,7 @@ tempdpi:  { id_medecin: number; id_patient: number;  } = {
   }
 
   creerDpi(): void {
-    this.tempdpi = {  
+    this.tempdpi = {
       id_patient: 0,
       id_medecin: 0,
 
@@ -136,7 +149,7 @@ tempdpi:  { id_medecin: number; id_patient: number;  } = {
 
     this.creerMode = true;
   }
- 
+
 
   saveChanges(): void {
     console.log(this.tempUserData);
@@ -171,7 +184,7 @@ tempdpi:  { id_medecin: number; id_patient: number;  } = {
   //   }
   // });
   this.editMode = false;
-  
+
   }
   cancelEdit(): void {
     this.editMode = false;
@@ -180,7 +193,7 @@ tempdpi:  { id_medecin: number; id_patient: number;  } = {
 
 
 
-  
+
 
   loadPatients(): void {
     this.patientService.getPatients().subscribe(
@@ -207,5 +220,30 @@ tempdpi:  { id_medecin: number; id_patient: number;  } = {
    // console.log('Deleting patient with ID:', id);
     // Here, you should call a service method to delete the patient and update the patients list after deletion
   }
+
+
+  filtrer(): void {
+    this.filteredPatients = this.patients.filter(patient => {
+      return (
+        (this.searchId ? patient.id === this.searchId : true) &&
+        (this.searchNom ? patient.user.first_name.toLowerCase() === this.searchNom.toLowerCase() : true) &&
+        (this.searchNss ? patient.user.NSS.toString() === this.searchNss : true) &&
+        (this.searchDateNaissance ? patient.user.date_de_naissance == this.formatDate(this.searchDateNaissance.trim()) : true) &&
+        (this.searchAdresse ? patient.user.adresse.toLowerCase() === this.searchAdresse.toLowerCase() : true) &&
+        (this.searchTelephone ? patient.person_a_contacter_telephone === this.searchTelephone : true)
+        // &&
+        //(this.searchMutuelle ? patient.mutuelle.toLowerCase() === this.searchMutuelle.toLowerCase() : true) &&
+        //(this.searchHopital ? patient.hopital.toLowerCase() === this.searchHopital.toLowerCase() : true) &&
+        //(this.searchDateDebutHospitalisation ? patient.dateDebutHospitalisation.toISOString().slice(0, 10) === this.formatDate(this.searchDateDebutHospitalisation.trim()) : true) &&
+        //(this.searchDateFinHospitalisation ? patient.dateFinHospitalisation.toISOString().slice(0, 10) === this.formatDate(this.searchDateFinHospitalisation.trim()) : true)
+      );
+    });
+  }
+
+  private formatDate(dateString: string): string {
+    const [day, month, year] = dateString.split('/'); // Séparer la date en jour, mois, et année
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Reconstruire la date au format YYYY-MM-DD
+  }
+
 }
 

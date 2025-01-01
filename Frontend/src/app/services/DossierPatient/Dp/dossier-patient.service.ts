@@ -12,12 +12,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DossierPatientService 
 {
+  
   private patient: Patient | null = null;
   private medecin: Medecin | null = null;
   private dp: Dpi | null = null;
 
   private apiUrl = 'http://127.0.0.1:8000/show_dpi'; // Base API URL from Django
   private apiUrl1 = 'http://127.0.0.1:8000/CreerDpi'; // Base API URL from Django
+  private apiUrl2 = 'http://127.0.0.1:8000/show_dpi_by_id'; // Base API URL from Django
 
   constructor(private http: HttpClient) {}
     getAll(): Observable<any> {
@@ -32,12 +34,16 @@ export class DossierPatientService
      console.log(newDpi)
      return this.http.post<any>(this.apiUrl1, newDpi, { withCredentials: true });
    }
-
+   getAntecedentsByPatientId(patientId: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl2, { withCredentials: true });
+  }
    
-  setPatient(patient: Patient): void {
+  setPatient(patient: Patient): void 
+  {
     this.patient = patient;
   }
-  setMedecin(medecin: Medecin): void {
+  setMedecin(medecin: Medecin): void 
+  {
     this.medecin = medecin;
   }
 

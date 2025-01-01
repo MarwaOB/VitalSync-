@@ -29,11 +29,18 @@ import { AdminSysEditComponent } from './components/EditProfile/admin-sys-edit/a
 import { AdminCentralEditComponent } from './components/EditProfile/admin-central-edit/admin-central-edit.component';
 import { ListhopitalComponent } from './pages/listhopital/listhopital.component';
 import { ListdpiComponent } from './pages/listdpi/listdpi.component';
+import { RoleGuard } from './auth/role.guard';
 
-export const routes: Routes = 
+export const routes: Routes =
 [
-    { path: "", component: SigninComponent },
-    { path: "header", component: HeaderComponent },
+    //{ path: "", component: SigninComponent },
+
+    { path: '', component: HomepageComponent },
+
+    // {path: "login",component:PageSignInComponent},
+
+     { path: "signin", component: SigninComponent },
+
     //{ path: "accueil", component: Page1AccueilComponent } ,// Page1Accueil will be displayed inside the layout
 
     {
@@ -52,7 +59,7 @@ export const routes: Routes =
     { path: 'radiologue-edit/:id', component: RadiologueEditComponent },
     {path: 'homepage',component: HomepageComponent },
     {path: 'contact', component: ContactComponent},
-    {path: 'menu', component: MenuComponent},
+    
     {path: 'profile', component: ProfilePatientComponent},
 
     {
@@ -66,11 +73,11 @@ export const routes: Routes =
       path: "listdpi",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component:  ListdpiComponent  } // Page1Accueil will be displayed inside the layout
+        { path: "", component:  ListdpiComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral','medecin','laborantin','radioloque','infemier'] }  } // Page1Accueil will be displayed inside the layout
       ]
     },
 
-    
+
     {
       path: "patient-profile/:id",
       component: LayoutComponent, // Use layout component here
@@ -91,21 +98,21 @@ export const routes: Routes =
       path: "listpatient",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListpatientComponent } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListpatientComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral'] }  } // Page1Accueil will be displayed inside the layout
       ]
     },
     {
       path: "listmedecin",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListmedecinComponent  } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListmedecinComponent,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral'] }  } // Page1Accueil will be displayed inside the layout
       ]
     },
     {
       path: "listpharma",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListpharmaComponent } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListpharmaComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral'] } } // Page1Accueil will be displayed inside the layout
       ]
     },
     {
@@ -119,37 +126,37 @@ export const routes: Routes =
       path: "hopital",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListhopitalComponent } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListhopitalComponent ,canActivate: [RoleGuard], data: { roles: ['adminCentral'] } } // Page1Accueil will be displayed inside the layout
       ]
     },
     {
       path: "listlaborantin",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListlaborantinComponent } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListlaborantinComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral'] } } // Page1Accueil will be displayed inside the layout
       ]
     },
     {
       path: "listradiologue",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListradiologueComponent } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListradiologueComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral'] } } // Page1Accueil will be displayed inside the layout
       ]
     },
-    
+
     {
       path: "listinfermier",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListinfermierComponent } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListinfermierComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral'] } } // Page1Accueil will be displayed inside the layout
       ]
     },
     { path: 'AdminCentral-edit/:id', component: AdminCentralEditComponent },
     { path: 'AdminSys-edit/:id', component: AdminSysEditComponent },
 
 
-  
- 
+
+
 
 ];
 

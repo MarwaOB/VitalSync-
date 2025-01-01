@@ -5,6 +5,7 @@ import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
+import { ShareddpiService } from '../../../services/shareddpi/shareddpi.service';
 
 @Component({
   selector: 'app-antecedent',
@@ -13,33 +14,38 @@ import { UserService } from '../../../services/user/user.service';
   styleUrl: './antecedent.component.css'
 })
 export class AntecedentComponent implements OnInit {
-  antecedents: Antecedent[] = [];
+  antecedents: any[] = [];
   editMode: boolean = false;
   showDetails: boolean = false;
   selectedAntecedent: Antecedent | null = null;
   user: any = null;
+  dpi : any= null ;
 
   tempAntecedant: Antecedent = {
     titre: '', isChirurgical: false, description: '',
     id: '',
     dpiId: ''
   };
+  
 
-  constructor(private antecedentService: AntecedentService , private userService :UserService) { }
+  constructor(private antecedentService: AntecedentService ,private userservice: UserService ,  private shareddpiService:ShareddpiService , private userService :UserService) { }
   ngOnInit(): void {
-    this.user = this.userService.user;
+    this.user = this.userservice.getUserFromLocalStorage;
+    this.dpi=this.shareddpiService.getDpiData();
+    this.antecedents = this.dpi.antecedents;
 
-    this.antecedents = this.antecedentService.getAntecedents();
+   // this.antecedents = this.antecedentService.getAntecedents();
   }
   saveChanges(): void {
-    if (this.tempAntecedant.id) {
+    if (this.tempAntecedant.id) 
+      {
       const success = this.antecedentService.updateAntecedent(this.tempAntecedant);
       if (success) {
         console.log('Antécédent mis à jour avec succès');
       } else {
         console.log('Échec de la mise à jour');
       }
-    } else {
+     } else {
       const success = this.antecedentService.addAntecedent(this.tempAntecedant);
       if (success) {
         console.log('Antécédent ajouté avec succès');
@@ -74,7 +80,7 @@ export class AntecedentComponent implements OnInit {
     this.tempAntecedant = { titre: '', isChirurgical: false, description: '', id: '', dpiId: '' };
     this.editMode = true;
   }
-  voirPlus(antecedent: Antecedent): void {
+  voirPlus(antecedent: any): void {
     this.selectedAntecedent = antecedent;
     this.showDetails = true;
   }

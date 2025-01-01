@@ -4,6 +4,23 @@
             <i class="fas fa-user-plus"></i> Ajouter un Infermier
         </button>
     </div>
+    <div class="search-wrapper">
+      <input type="text" [(ngModel)]="searchId" placeholder="ID" />
+      <input type="text" [(ngModel)]="searchNom" placeholder=" Nom" />
+      <input type="text" [(ngModel)]="searchNss" placeholder="NSS" />
+      <input type="text" [(ngModel)]="searchDateNaissance" placeholder="Date de Naissance" />
+      <input type="text" [(ngModel)]="searchAdresse" placeholder="Adresse" />
+      <input type="text" [(ngModel)]="searchTelephone" placeholder="Téléphone" />
+      <input type="text" [(ngModel)]="searchMutuelle" placeholder="Mutuelle" />
+      <input type="text" [(ngModel)]="searchHopital" placeholder="Hôpital" />
+  </div>
+
+
+    <div class="btn-container">
+      <button class="ajouter-btn" (click)="filtrer()">
+           Filtrer
+      </button>
+  </div>
     <table class="table">
         <thead>
             <tr>
@@ -19,7 +36,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let infirmier of infermiers">
+            <tr *ngFor="let infirmier of infermiers of filteredPharmaciens">
                 <td>{{ infirmier.id }}</td>
                 <td>{{ infirmier.role }}</td>
                 <td>{{ infirmier.NSS }}</td>
@@ -83,7 +100,7 @@
                     <input type="text" id="adresse" [(ngModel)]="tempUserData.adresse" name="adresse" required />
                 </div>
             </div>
-            
+
 
             <!-- Mutuelle and NSS for Medecin -->
             <div class="">

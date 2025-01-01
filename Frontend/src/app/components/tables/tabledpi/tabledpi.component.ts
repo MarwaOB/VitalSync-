@@ -1,3 +1,4 @@
+import { Antecedent } from './../../../shared/models/Dpi/Antecedent';
 import { Patient } from './../../../shared/models/Users/Patientt';
 import { Component, NgModule } from '@angular/core';
 import { MedecinService } from '../../../services/medecin/medecin.service';
@@ -9,6 +10,7 @@ import { User } from '../../../shared/models/Users/User';
 import { Dpi } from '../../../shared/models/Dpi/Dpi';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { ShareddpiService } from '../../../services/shareddpi/shareddpi.service';
 
 @Component({
   selector: 'app-tabledpi',
@@ -20,6 +22,10 @@ export class TabledpiComponent {
    patients: any[] = []; // Array to hold medecins data
    dpis: any[] = []; // Array to hold medecins data
    loading: boolean = false; // Loading indicator
+   dpi:any ;
+   antecedents:any ;
+   dpiId:number = 0 ;
+
    errorMessage: string | null = null; // Error message holder
    medecins: User[] = [];
    hospitals: Hospital[] = [];
@@ -35,6 +41,7 @@ export class TabledpiComponent {
      private dpiService: DossierPatientService,
 
      private patientService: PatientService,
+     private shareddpiService: ShareddpiService ,// inject the shared service
 
      private router: Router
    ) {}
@@ -138,10 +145,21 @@ export class TabledpiComponent {
      // Add delete functionality if needed
    }
    
-  voirDpi(patientId: number): void {
-    this.router.navigate(['/patient-dpi', patientId]);  // Redirect to the patient's DPI page
-  }
+   voirDpi(patientId: number): void {
+    this.dpiService.getAntecedentsByPatientId(patientId).subscribe({
+      
+      next: (response: any) => {
+        console.log('Antecedents view successfully', response);
+        // You can reload or update the list of hospitals here
+        this.shareddpiService.setDpiData(response.data.dpi_id,patientId,response.data.antecedents,response.data.consultations);
 
-
+        this.router.navigate(['/patient-dpi', patientId]);
+  
+      },
+      error: (error: any) => {
+        console.error('Antecedents view no ', error);
+      }
+    });
+       }
 
 }

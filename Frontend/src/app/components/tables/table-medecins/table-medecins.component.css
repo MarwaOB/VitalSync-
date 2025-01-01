@@ -291,3 +291,45 @@ button {
     color: var(--colorVert1);
     border: 1px solid #EFF0F2;
 }
+
+/* Conteneur de la recherche */
+.search-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;  /* Permet aux champs de passer à la ligne suivante */
+
+  gap: 10px;  /* Espacement entre les champs */
+  max-width: 100%;  /* Largeur maximale des champs */
+  margin: 0 auto;  /* Centrer les champs */
+}
+
+/* Style général pour les champs de recherche */
+.search-wrapper input {
+  padding: 10px;
+  border: 2px solid #00796b;  /* Bordure couleur vert clair */
+  border-radius: 50px;  /* Bords arrondis */
+  font-size: 16px;  /* Taille du texte */
+  background-color: #f1f8f6;  /* Fond léger */
+  flex: 1 1 20%;  /* Chaque champ occupe environ 30% de la largeur */
+
+  transition: all 0.3s ease;  /* Effet de transition lors du focus */
+}
+
+/* Focus sur les champs */
+.search-wrapper input:focus {
+  border-color: #004d40;  /* Bordure plus foncée au focus */
+  background-color: #e0f2f1;  /* Fond plus foncé au focus */
+  outline: none;  /* Retirer le contour par défaut */
+}
+
+/* Style du placeholder */
+.search-wrapper input::placeholder {
+  color: #00796b;  /* Couleur du texte du placeholder */
+  font-style: italic;  /* Style en italique */
+}
+
+/* Effet de survol sur les champs */
+.search-wrapper input:hover {
+  border-color: #004d40;  /* Bordure plus foncée au survol */
+}
+

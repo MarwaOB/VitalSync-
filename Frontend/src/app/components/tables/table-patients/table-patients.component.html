@@ -4,7 +4,24 @@
             <i class="fas fa-user-plus"></i> Ajouter un Patient
         </button>
     </div>
+    <div class="search-wrapper">
+      <input type="text" [(ngModel)]="searchId" placeholder="ID" />
+      <input type="text" [(ngModel)]="searchNom" placeholder="Nom" />
+      <input type="text" [(ngModel)]="searchNss" placeholder=" NSS" />
+      <input type="text" [(ngModel)]="searchDateNaissance" placeholder="Date de Naissance" />
+      <input type="text" [(ngModel)]="searchAdresse" placeholder="Adresse" />
+      <input type="text" [(ngModel)]="searchTelephone" placeholder="Téléphone" />
+      <input type="text" [(ngModel)]="searchMutuelle" placeholder="Mutuelle" />
+      <input type="text" [(ngModel)]="searchHopital" placeholder="Hôpital" />
+      <input type="text" [(ngModel)]="searchDateDebutHospitalisation" placeholder="Date Début Hospitalisation" />
+      <input type="text" [(ngModel)]="searchDateFinHospitalisation" placeholder=" Date Fin Hospitalisation" />
+    </div>
 
+      <div class="btn-container">
+        <button class="ajouter-btn" (click)="filtrer()">
+             Filtrer
+        </button>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -23,7 +40,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let patient of patients">
+            <tr *ngFor="let patient of patients of filteredPatients">
                 <td>{{ patient.id }}</td>
                 <td>{{ patient.user.role }}</td>
                 <td>{{ patient.user.NSS }}</td>
@@ -110,9 +127,9 @@
                     <label for="contact_person">Personne a contacter</label>
                     <input type="text" id="contact_person" [(ngModel)]="tempUserData.contact_person" name="contact_person" required />
                 </div>
-                
+
             </div>
-           
+
 
             <div class="field">
                 <label for="hospital">Sélectionner un Hôpital</label>
@@ -134,8 +151,8 @@
 <form *ngIf="creerMode" (ngSubmit)="saveChanges1()" enctype="multipart/form-data" #profileForm="ngForm">
     <div class="overlay">
         <div class="form-container">
-           
-           
+
+
             <div class="field">
                 <label for="hospital">Sélectionner un Hôpital</label>
                 <select id="hospital" [(ngModel)]="tempUserData.hospital" name="hospital" required>

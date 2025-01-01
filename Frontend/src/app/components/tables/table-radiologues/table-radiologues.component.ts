@@ -21,7 +21,17 @@ export class TableRadiologuesComponent {
   radiologues: any[] = []; // Array to hold medecins data
    loading: boolean = false; // Loading indicator
    errorMessage: string | null = null; // Error message holder
- 
+
+   filteredPharmaciens: Radiologue[] = [];
+   searchId: string = '';
+   searchNom: string = '';
+   searchNss: string = '';
+   searchDateNaissance: string = '';
+   searchAdresse: string = '';
+   searchTelephone: string = '';
+   searchMutuelle: string = '';
+   searchHopital: string = '';
+
    laborantins: any[] = []; // Array to hold medecins data
    medecins: User[] = [];
    hospitals: Hospital[] = [];
@@ -39,9 +49,9 @@ export class TableRadiologuesComponent {
      telephone: '',
      email: '',
      hospital: 0,
- 
+
  };
- 
+
    constructor(
      private medecinService: MedecinService,
      private radiologigueService: RadiologueService,
@@ -50,16 +60,18 @@ export class TableRadiologuesComponent {
 
      private router: Router
    ) {}
- 
+
    ngOnInit(): void {
      this.fetchMedecins();
      this.fetchHospitals();
+     //this.radiologues = medecins;
+     this.filteredPharmaciens = this.radiologues;  // Initialisation avec tous les pharmaciens
    }
- 
+
    fetchMedecins(): void {
      this.loading = true;
      this.errorMessage = null;
- 
+
      this.radiologigueService.getAll().subscribe({
        next: (response) => {
          this.radiologues = response.data || [];
@@ -72,7 +84,7 @@ export class TableRadiologuesComponent {
        }
      });
    }
- 
+
    fetchHospitals(): void {
      this.hospitalService.getAll().subscribe({
        next: (response) => {
@@ -83,7 +95,7 @@ export class TableRadiologuesComponent {
        }
      });
    }
- 
+
    openAddOverlay(): void {
      this.tempUserData = {  role: 'radioloque',
        first_name: '',
@@ -97,10 +109,10 @@ export class TableRadiologuesComponent {
        telephone: '',
        email: '',
        hospital: 0, };
- 
+
      this.editMode = true;
    }
- 
+
    saveChanges(): void {
      console.log(this.tempUserData);
     // Call the service to add a new hospital
@@ -110,7 +122,7 @@ export class TableRadiologuesComponent {
        // You can reload or update the list of hospitals here
        this.fetchMedecins(); // Assuming this fetches updated data
        this.router.navigate(['/listradiologue']);
- 
+
      },
      error: (error: any) => {
        console.error('Error adding radiologue', error);
@@ -118,18 +130,38 @@ export class TableRadiologuesComponent {
    });
    this.editMode = false;
    }
- 
+
    cancelEdit(): void {
      this.editMode = false;
    }
- 
+
    editMedecin(medecin: User): void {
     // this.tempUserData = { ...medecin };
     // this.editMode = true;
    }
- 
+
    deleteMedecin(id: number): void {
      // Add delete functionality if needed
    }
 
+   filtrer(): void {
+    this.filteredPharmaciens = this.radiologues.filter(pharmacien => {
+      return (
+        (this.searchId ? pharmacien.id.toString() === this.searchId.trim() : true) &&
+        (this.searchNom ? pharmacien.nom.toLowerCase().trim() === this.searchNom.toLowerCase().trim() : true) &&
+        (this.searchNss ? pharmacien.nss.toString() === this.searchNss.trim() : true) &&
+        (this.searchDateNaissance ?
+          pharmacien.dateDeNaissance.toISOString().slice(0, 10) === this.formatDate(this.searchDateNaissance.trim()) : true) &&        (this.searchAdresse ? pharmacien.adresse.toLowerCase().trim() === this.searchAdresse.toLowerCase().trim() : true) &&
+        (this.searchTelephone ? pharmacien.telephone === this.searchTelephone.trim() : true) &&
+        (this.searchMutuelle ? pharmacien.mutuelle.toLowerCase().trim() === this.searchMutuelle.toLowerCase().trim() : true) &&
+        (this.searchHopital ? pharmacien.hopital.toLowerCase().trim() === this.searchHopital.toLowerCase().trim() : true)
+      );
+    });
+  }
+  private formatDate(dateString: string): string {
+    const [day, month, year] = dateString.split('/'); // Séparer la date en jour, mois, et année
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Reconstruire la date au format YYYY-MM-DD
+  }
+
 }
+

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HospitalService } from '../../../services/hospital/hospital.service';
 import { Hospital } from '../../../shared/models/hospital';
+import { Medecin } from '../../../shared/models/Users/Medecin';
 
 @Component({
   selector: 'app-table-medecins',
@@ -17,6 +18,16 @@ import { Hospital } from '../../../shared/models/hospital';
 })
 export class TableMedecinsComponent implements OnInit {
   medecins: User[] = [];
+  filteredPharmaciens: User[] = [];
+  searchId: string = '';
+  searchNom: string = '';
+  searchNss: string = '';
+  searchDateNaissance: string = '';
+  searchAdresse: string = '';
+  searchTelephone: string = '';
+  searchMutuelle: string = '';
+  searchHopital: any = 0;
+
   hospitals: Hospital[] = [];
   editMode: boolean = false;
   loading: boolean = false;
@@ -46,6 +57,8 @@ export class TableMedecinsComponent implements OnInit {
   ngOnInit(): void {
     this.fetchMedecins();
     this.fetchHospitals();
+    this.filteredPharmaciens = this.medecins;  // Initialisation avec tous les pharmaciens
+
   }
 
   fetchMedecins(): void {
@@ -122,5 +135,23 @@ export class TableMedecinsComponent implements OnInit {
 
   deleteMedecin(id: number): void {
     // Add delete functionality if needed
+  }
+  filtrer(): void {
+    this.filteredPharmaciens = this.medecins.filter(pharmacien => {
+      return (
+        (this.searchId ? pharmacien.id.toString() === this.searchId.trim() : true) &&
+        (this.searchNom ? pharmacien.first_name.toLowerCase().trim() === this.searchNom.toLowerCase().trim() : true) &&
+        (this.searchNss ? pharmacien.NSS.toString() === this.searchNss.trim() : true) &&
+        (this.searchDateNaissance ?
+          pharmacien.date_de_naissance === this.formatDate(this.searchDateNaissance.trim()) : true) &&        (this.searchAdresse ? pharmacien.adresse.toLowerCase().trim() === this.searchAdresse.toLowerCase().trim() : true) &&    (this.searchAdresse ? pharmacien.adresse.toLowerCase().trim() === this.searchAdresse.toLowerCase().trim() : true) &&
+        (this.searchTelephone ? pharmacien.telephone === this.searchTelephone.trim() : true) &&
+        (this.searchMutuelle ? pharmacien.mutuelle.toLowerCase().trim() === this.searchMutuelle.toLowerCase().trim() : true) &&
+        (this.searchHopital ? pharmacien.hospital == this.searchHopital : true)
+      );
+    });
+  }
+  private formatDate(dateString: string): string {
+    const [day, month, year] = dateString.split('/'); // Séparer la date en jour, mois, et année
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Reconstruire la date au format YYYY-MM-DD
   }
 }

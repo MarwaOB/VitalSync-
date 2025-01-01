@@ -1,33 +1,110 @@
 <div class="table-container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Numéro de Sécurité Sociale</th>
-                <th>Date de Naissance</th>
-                <th>Adresse</th>
-                <th>Téléphone</th>
-                <th>Mutuelle</th>
-                <th>Hôpital</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let pharmacien of pharmaciens">
-                <td>{{ pharmacien.id }}</td>
-                <td>{{ pharmacien.role }}</td>
-                <td>{{ pharmacien.nss }}</td>
-                <td>{{ pharmacien.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
-                <td>{{ pharmacien.adresse }}</td>
-                <td>{{ pharmacien.telephone }}</td>
-                <td>{{ pharmacien.mutuelle }}</td>
-                <td>{{ pharmacien.hopital }}</td>
-                <td class="actions-cell">
-                    <i class="fas fa-edit" (click)="editpharmacien(pharmacien.id)"></i>
-                    <i id="delete" class="fas fa-trash" (click)="deletepharmacien(pharmacien.id)"></i>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+
+  <div class="btn-container">
+      <button class="ajouter-btn" (click)="openAddOverlay()">
+          <i class="fas fa-user-plus"></i> Ajouter un Pharmacien
+      </button>
+  </div>
+  <div class="search-wrapper">
+    <input type="text" [(ngModel)]="searchId" placeholder="ID" />
+    <input type="text" [(ngModel)]="searchNom" placeholder=" Nom" />
+    <input type="text" [(ngModel)]="searchNss" placeholder="NSS" />
+    <input type="text" [(ngModel)]="searchDateNaissance" placeholder="Date de Naissance" />
+    <input type="text" [(ngModel)]="searchAdresse" placeholder="Adresse" />
+    <input type="text" [(ngModel)]="searchTelephone" placeholder="Téléphone" />
+    <input type="text" [(ngModel)]="searchMutuelle" placeholder="Mutuelle" />
+    <input type="text" [(ngModel)]="searchHopital" placeholder="Hôpital" />
+</div>
+
+
+  <div class="btn-container">
+    <button class="ajouter-btn" (click)="filtrer()">
+         Filtrer
+    </button>
+</div>
+  <table class="table">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Numéro de Sécurité Sociale</th>
+              <th>Date de Naissance</th>
+              <th>Adresse</th>
+              <th>Téléphone</th>
+              <th>Mutuelle</th>
+              <th>Hôpital</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let pharmacien of pharmaciens of filteredPharmaciens">
+              <td>{{ pharmacien.id }}</td>
+              <td>{{ pharmacien.role }}</td>
+              <td>{{ pharmacien.nss }}</td>
+              <td>{{ pharmacien.dateDeNaissance | date:'dd/MM/yyyy' }}</td>
+              <td>{{ pharmacien.adresse }}</td>
+              <td>{{ pharmacien.telephone }}</td>
+              <td>{{ pharmacien.mutuelle }}</td>
+              <td>{{ pharmacien.hopital }}</td>
+              <td class="actions-cell">
+                  <i class="fas fa-edit" (click)="editpharmacien(pharmacien.id)"></i>
+                  <i id="delete" class="fas fa-trash" (click)="deletepharmacien(pharmacien.id)"></i>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+
+<div class="overlay" *ngIf="editMode">
+  <div class="form-container">
+      <div class="nom-prenom">
+          <div class="field">
+              <label>Nom</label>
+              <input type="text" [(ngModel)]="profileData.nom" />
+          </div>
+          <div class="field">
+              <label>Prénom</label>
+              <input type="text" [(ngModel)]="profileData.prenom" />
+          </div>
+      </div>
+
+      <div class="tel-email">
+          <div class="field">
+              <label>Téléphone</label>
+              <input type="text" [(ngModel)]="profileData.telephone" />
+          </div>
+          <div class="field">
+              <label>Email</label>
+              <input type="email" [(ngModel)]="profileData.email" />
+          </div>
+      </div>
+
+      <div class="date-naissance-adresse">
+          <div class="field">
+              <label>Date de naissance</label>
+              <input type="text" [(ngModel)]="profileData.dateDeNaissance" />
+          </div>
+          <div class="field">
+              <label>Adresse</label>
+              <input type="text" [(ngModel)]="profileData.adresse" />
+          </div>
+      </div>
+
+      <div class="mutuelle-hospital" *ngIf="profileData instanceof Medecin">
+          <div class="field">
+              <label>Mutuelle</label>
+              <input type="text" [(ngModel)]="profileData.mutuelle" />
+          </div>
+          <div class="field">
+              <label>NSS</label>
+              <input type="text" [(ngModel)]="profileData.nss" />
+          </div>
+      </div>
+      <div class="butSaveCancel">
+          <button id="cancel" (click)="cancelEdit()">Cancel</button>
+
+          <button (click)="saveChanges()">Save</button>
+      </div>
+  </div>
 </div>
