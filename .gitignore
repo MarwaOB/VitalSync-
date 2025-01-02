@@ -42,5 +42,9 @@ my.cnf
 # Backup files
 *.bak
 *.backup
+
+# Environment and log files in Backend
+*.log
+chrome-mac-arm64
+
 .env
-django_error.log

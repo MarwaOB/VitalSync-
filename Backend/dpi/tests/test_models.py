@@ -1,21 +1,45 @@
 from django.test import TestCase
 from mixer.backend.django import mixer
 from django.core.exceptions import ValidationError
-from dpi.models import Ordonnance, Diagnostic
+from dpi.models import Ordonnance, Diagnostic, Antecedent, Dpi, Biologique, Radiologique, Examen
 
 
 class AntecedentModelTest(TestCase):
     def setUp(self):
-        self.dpi = mixer.blend('dpi.Dpi',patient=mixer.blend('users.Patient', user=mixer.blend('users.CustomUser', NSS='1212345')) )
-
+        self.dpi = mixer.blend(
+            'dpi.Dpi',
+            patient=mixer.blend(
+            'users.Patient',
+            user=mixer.blend(
+                'users.CustomUser',
+                NSS='12345667',
+                first_name='patienttest',
+                last_name='lastnametast',
+                date_de_naissance='2001-06-12',
+                email='patienttest@example.com',
+                phone_number='1234567890',
+                address='123 Test St',
+                city='Testville',
+                postal_code='12345',
+                country='Testland',
+                role='patient',
+                telephone='1234567890',
+                adresse='123 Test St',
+                mutuelle=None,
+                hospital=None
+            )
+            )
+        )
     
-        self.antecedent = mixer.blend('dpi.Antecedent', titre="Antécédent Test", dpi=self.dpi)
+    
+        self.antecedent = mixer.blend('dpi.Antecedent', titre="Antécédent Test", dpi=self.dpi ,description="Test Description", is_chirugical=True)
 
     def test_antecedent_str(self):
         self.assertEqual(
             str(self.antecedent), 
             f"{self.antecedent.titre} (DPI: {self.antecedent.dpi.patient.user.get_full_name()})"
         )
+
 class DiagnosticModelTest(TestCase):
     def setUp(self):
         self.ordonnance = mixer.blend('dpi.Ordonnance', duree=15, is_valid=True, observation="Test Observation")
@@ -37,10 +61,33 @@ class OrdonnanceModelTest(TestCase):
             str(self.ordonnance),
             f"Ordonnance ({valid_status}, {self.ordonnance.duree or 'no duration'} days)"
         )
+
 class DpiModelTest(TestCase):
     def setUp(self):
-        self.dpi = mixer.blend('dpi.Dpi', patient=mixer.blend('users.Patient'))
-
+        self.dpi = mixer.blend(
+                    'dpi.Dpi',
+                    patient=mixer.blend(
+                    'users.Patient',
+                    user=mixer.blend(
+                        'users.CustomUser',
+                        NSS='12345778',
+                        first_name='patienttest',
+                        last_name='lastnametast',
+                        date_de_naissance='2001-06-12',
+                        email='patienttest@example.com',
+                        phone_number='1234567890',
+                        address='123 Test St',
+                        city='Testville',
+                        postal_code='12345',
+                        country='Testland',
+                        role='patient',
+                        telephone='1234567890',
+                        adresse='123 Test St',
+                        mutuelle=None,
+                        hospital=None
+                    )
+                    )
+                )
     def test_dpi_qr_code_generation(self):
         self.dpi.save()
         self.assertTrue(self.dpi.QR_Code)

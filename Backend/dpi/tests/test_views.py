@@ -1,28 +1,67 @@
 import pytest
 from django.urls import reverse
-from django.contrib.auth import get_user_model
 from django.utils.timezone import now
 from users.models import Patient, CustomUser
+from dpi.models import Consultation, Dpi ,Biologique, Radiologique
+from hospitals.models import Hospital
 from django.test import TestCase, Client
 from mixer.backend.django import mixer
-from dpi.models import Consultation, Diagnostic, Ordonnance, Biologique, Radiologique
+from django.test import TestCase
+
+@pytest.fixture
+def setup_data():
+    # Création d'un hôpital avec mixer
+    hospital = mixer.blend(
+        Hospital,
+        nom="Hopital Test",
+        lieu="123 Test St",
+        dateCreation="2024-01-01",
+        nombrePatients=100,
+        nombrePersonnels=50,
+        is_clinique=False
+    )
+
+    # Création d'un médecin avec mixer
+    medecin = mixer.blend(
+        CustomUser,
+        username="testermedecin",
+        role="medecin"
+    )
+    medecin.set_password("testpassword")
+    medecin.save()
+
+    # Création d'un utilisateur patient avec mixer
+    user = mixer.blend(
+        CustomUser,
+        username="testeruser",
+        role="patient",
+        first_name="Test",
+        last_name="User",
+        email="testuser@example.com",
+        NSS=123456789,
+        telephone="1234567890",
+        adresse="123 Test St",
+        hospital=hospital
+    )
+    user.set_password("testpassword")
+    user.save()
+
+    # Création d'un objet Patient et DPI avec mixer
+    patient = mixer.blend(Patient, user=user)
+    dpi = mixer.blend(Dpi, patient=patient)
+
+    return {"hospital": hospital, "medecin": medecin, "user": user, "patient": patient, "dpi": dpi}
+
+
 
 @pytest.mark.django_db
-def test_ajouter_consultation_success(client):
+def test_ajouter_consultation_success(client, setup_data):
+    # Récupération des données depuis la fixture
+    dpi = setup_data["dpi"]
+    medecin = setup_data["medecin"]
 
-    # Création d'un utilisateur de type patient
-    medecin = CustomUser.objects.create_user(username="testmedecin", password="testpassword", role='medecin')
-
-    user = CustomUser.objects.create_user(username="testuser", password="testpassword", role='patient')
-    
-    # Création d'un objet Patient associé à cet utilisateur
-    patient = Patient.objects.create(user=user)
-
-    # Connexion de l'utilisateur
-    client.login(username="testmedecin", password="testpassword")
-
-    # Création d'un DPI pour cet utilisateur de type patient
-    dpi = Dpi.objects.create(patient=patient)
+    # Connexion de l'utilisateur médecin
+    client.login(username=medecin.username, password="testpassword")
 
     # Appel de la vue pour ajouter une consultation
     url = reverse('ajouter_consultation', args=[dpi.id])
@@ -34,39 +73,26 @@ def test_ajouter_consultation_success(client):
 
 
 @pytest.mark.django_db
-def test_ajouter_consultation_duplicate(client):
+def test_ajouter_consultation_duplicate(client, setup_data):
+    dpi = setup_data["dpi"]
+    medecin = setup_data["medecin"]
 
-    # Création d'un utilisateur connecté (CustomUser)
-    medecin = CustomUser.objects.create_user(username="testmedecin", password="testpassword", role='medecin')
+    client.login(username=medecin.username, password="testpassword")
 
-    
-    user = CustomUser.objects.create_user(username="testuser", password="testpassword")
-    
-    client.login(username="testuser", password="testpassword")
+    # Création de la consultation avec mixer
+    mixer.blend(Consultation, dpi=dpi, date=now().date())
 
-    patient = Patient.objects.create(user=user)
-
-    # Création d'un DPI
-    dpi = Dpi.objects.create(patient=patient)
-
-    # Création d'une consultation pour aujourd'hui
-    Consultation.objects.create(dpi=dpi, date=now().date())
-
-    # Appel de la vue
     url = reverse('ajouter_consultation', args=[dpi.id])
     response = client.get(url)
 
-    # Debugging: Afficher le contenu de la réponse pour vérifier la présence du message
     print(response.content.decode())
 
-    # Vérification du message d'erreur
     assert response.status_code == 200
     assert "Une consultation à la même date pour ce patient existe déjà." in response.content.decode()
 
 
 @pytest.mark.django_db
 def test_ajouter_consultation_login_required(client):
-
     # Tentative d'accès à la vue sans être connecté
     url = reverse('ajouter_consultation', args=[1])  # DPI avec ID 1
     response = client.get(url)

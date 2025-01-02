@@ -40,9 +40,13 @@
         <!-- DPI Form -->
         <div>
             <h2>Attribuer un patient{% if request.user.role == 'adminSys' %} et un médecin{% endif %}</h2>
-            {{ dpi_form.patient }}
+            <div id = "patient" >  
+                {{ dpi_form.patient }}
+            </div>
             {% if request.user.role == 'adminSys' %}
+            <div id = "medecin" >  
                 {{ dpi_form.medecin }}
+            </div>
             {% endif %}
         </div>        
 
