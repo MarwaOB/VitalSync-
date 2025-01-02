@@ -48,3 +48,6 @@ my.cnf
 chrome-mac-arm64
 
 .env
+django_error.log
+
+chrome-mac-arm64/

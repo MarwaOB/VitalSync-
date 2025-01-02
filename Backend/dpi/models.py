@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from users.models import Patient
 from io import BytesIO
 from django.core.files import File
@@ -9,6 +10,9 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django. template. loader import get_template 
 from xhtml2pdf import pisa
+from datetime import timedelta, datetime
+from django.utils import timezone
+
 
 
 
@@ -173,19 +177,34 @@ class Examen(models.Model):
     def __str__(self):
         return f"Examen {self.type} for Bilan {self.bilan_radiologique}"
 
-
 class Diagnostic(models.Model):
+    ordonnance = models.OneToOneField(
+        'Ordonnance', 
+        on_delete=models.CASCADE, 
+        related_name='ordonnance'
+    )
    
-    ordonnance = models.OneToOneField('Ordonnance', on_delete=models.CASCADE, related_name='ordonnance' )
+    soin = models.OneToOneField(
+        'Soin',
+        on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
+        related_name='soin_in',
+        null=True,  # Allow setting to NULL
+    )
+
+
 
     def __str__(self):
     
         return f"Diagnostic with ordonnance (Duration: {self.ordonnance.duree} days)"
 
 class Ordonnance(models.Model):
-    duree = models.IntegerField(null=True, blank=True, help_text="Duration of the prescription in days")
-    is_valid = models.BooleanField(default=False)
+    duree = models.IntegerField( null=True, blank=True,help_text="Duration of the prescription in days")
     observation = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=[("en_attente", "En attente"), ("valide", "Validé"), ("rejete", "Rejeté")], default="en_attente")
+    validation_date = models.DateTimeField(null=True, blank=True)
+    is_valid = models.BooleanField(default=False)  # Ajout du champ manquant
+
+
 
     def __str__(self):
         valid_status = "valid" if self.is_valid else "not valid"
@@ -208,11 +227,11 @@ class Medicament(models.Model):
     #ajouter une observation , indication, retriction 
     observation = models.TextField(null=True, blank=True)
     # Dose prise à chaque prise
-    dosePrise = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
+    dosePrise = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True, default=0)
     # Dose totale prévue pour le traitement
     dosePrevues = models.DecimalField(max_digits=10, decimal_places=3, null=True, blank=True)
-     # la quantité de med
-    qte = models.IntegerField(default = 1)
+    cycle = models.IntegerField(default = 1)
+    lastPrise = models.DateField(null=True, blank=True)
 
     # Référence vers l'ordonnance
     ordonnance = models.ForeignKey(
@@ -229,6 +248,7 @@ class Medicament(models.Model):
 
 
 class Consultation(models.Model):
+    
     date = models.DateField(null=True, blank=True)  # Allow null and blank values
     dpi = models.ForeignKey(
         'Dpi', 
@@ -274,3 +294,131 @@ class Consultation(models.Model):
         
     def __str__(self):
         return f"Consultation on {self.date} for {self.dpi.patient.user.get_full_name()}"
+
+class Soin(models.Model):
+    dpi = models.ForeignKey(
+        'Dpi', 
+        on_delete=models.CASCADE, 
+        related_name='soins'
+    )  # One-to-Many relationship with Dpi
+    
+    aministration = models.OneToOneField(
+        'AdministrationMeds',
+        on_delete=models.SET_NULL,  # Change this from CASCADE to SET_NULL
+        related_name='administration_meds',
+        null=True,  # Allow setting to NULL
+    )
+
+
+
+    def clean(self):
+        """
+        Ensure that at least one nurse is assigned to the Soin.
+        """
+        super().clean()
+        if not self.infermiers.exists():
+            raise ValidationError("A Soin must have at least one Infermier assigned.")
+
+    def __str__(self):
+        return f"Soin for {self.dpi.patient.user.get_full_name()} - Observation: {self.observation[:30]}..."
+
+
+class AdministrationMeds(models.Model):
+    checklist = models.JSONField(default=dict, blank=True)  # Stores the checklist as a dictionary
+    ordonnance = models.OneToOneField(
+        'Ordonnance',
+        on_delete=models.CASCADE,
+        related_name='administration_meds'
+    )
+
+    from datetime import datetime, timedelta
+    from django.utils.timezone import now
+
+    def update_checklist(self):
+        """
+        Updates the checklist based on the ordonnance's medications and their doses.
+        Each medication in the ordonnance is represented in the checklist with its status (LED on/off).
+        """
+        if self.ordonnance:
+            self.checklist = {}
+            for med in self.ordonnance.meds.all():
+                remaining_dose = float(med.dose*med.frequence - (med.dosePrise or 0))
+  
+                # Fetch the Diagnostic and Consultation
+                diagnostic = Diagnostic.objects.get(ordonnance=self.ordonnance)
+                consultation = Consultation.objects.get(diagnostic=diagnostic)
+
+                # Handle NoneType for lastPrise
+                if med.lastPrise is None:
+                    # Assign a default or skip calculation
+                    is_in_cycle = False  # Medication has no recorded lastPrise
+                else:
+                    is_in_cycle = med.lastPrise <= timezone.now() <= med.lastPrise + timedelta(days=med.cycle)
+
+                # Determine whether to show the LED
+                appear = not is_in_cycle and remaining_dose > 0
+
+                # Update the checklist
+                self.checklist[med.nom] = {
+                    'LED': appear,
+                    'remaining_dose': remaining_dose,
+                    'lastPrise': med.lastPrise,  # Add for debugging, optional
+                }
+
+            self.save()
+
+    def mark_as_administered(self, medication_name):
+        """
+        Updates the checklist to mark a medication as administered with a given dose.
+        """
+        if medication_name in self.checklist:
+            med = self.ordonnance.meds.filter(nom=medication_name).first()
+            if med:
+                # Update the medication's dosePrise
+                med.dosePrise = med.dosePrise + med.dose
+                med.save()
+                med.lastPrise = timezone.now() 
+                # Update the checklist
+                remaining_dose = float(med.dose*med.frequence - (med.dosePrise or 0))
+                is_in_cycle = timezone.now() >= med.lastPrise and timezone.now() <= med.lastPrise+timedelta(days=med.cycle)
+                appear = not is_in_cycle and remaining_dose > 0
+                self.checklist[med.nom] = {'LED': appear, 'remaining_dose': remaining_dose}
+                self.save()
+            else:
+                raise ValueError(f"Medication '{medication_name}' not found in the ordonnance.")
+        else:
+            raise ValueError(f"Medication '{medication_name}' not found in the checklist.")
+
+    def all_administered(self):
+        """
+        Checks if all medications in the checklist have their LED turned off (i.e., no remaining doses).
+        """
+        return all(not status['LED'] for status in self.checklist.values())
+
+    def __str__(self):
+        return f"Administration Checklist for Ordonnance {self.ordonnance}"
+
+class SoinInfermierObservation(models.Model):
+    """
+    Represents an observation related to a nurse's care (Soin).
+    """
+    date_time = models.DateTimeField(auto_now_add=True)  # Automatically set the date and time when the record is created
+    observation = models.TextField()  
+    soins_infermier = models.TextField() 
+    infermier = models.ForeignKey(
+        'users.CustomUser',
+        on_delete=models.CASCADE,
+        related_name='assigned_soins_infermiers',
+        limit_choices_to={'role': 'infermier'},
+        null=True,
+        blank=True
+    )
+
+    soin = models.ForeignKey(
+        'Soin', 
+        on_delete=models.CASCADE, 
+        related_name='observations'
+    )  # Links each observation to a specific Soin (care)
+
+    def __str__(self):
+        return f"Observation for Soin ID {self.soin.id} at {self.date_time.strftime('%Y-%m-%d %H:%M:%S')}"

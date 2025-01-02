@@ -63,7 +63,7 @@ class MedicamentForm(forms.ModelForm):
 
     class Meta:
         model = Medicament
-        fields = ['nom', 'duree','frequence', 'dose' , 'unite', 'qte', 'mode_administration','observation']
+        fields = ['nom', 'duree','frequence', 'dose' , 'unite', 'cycle', 'mode_administration','observation']
 
 
 
@@ -101,7 +101,7 @@ class OrdonnanceForm(forms.ModelForm):
                         frequence=int(medicament_fields[2]),
                         dose=dose,
                         unite=medicament_fields[4],
-                        qte= int(medicament_fields[5]),
+                        cycle= int(medicament_fields[5]),
                         mode_administration=medicament_fields[6],
                         dosePrise=0,
                         dosePrevues=Decimal(medicament_fields[1]) * Decimal(medicament_fields[3]) * Decimal (medicament_fields[2]),

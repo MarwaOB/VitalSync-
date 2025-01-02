@@ -13,11 +13,16 @@ urlpatterns = [
     path("ajouter_radiologique_bilan/<int:consultation_id>/", views.ajouter_radiologique_bilan, name="ajouter_radiologique_bilan"),
     path("ajouter_resume/<int:consultation_id>/", views.ajouter_resume, name="ajouter_resume"),
     path("ajouter_examen/<int:consultation_id>/", views.ajouter_examen, name="ajouter_examen"),
+    path("ajouter_soin/<int:consultation_id>/", views.ajouter_soin, name="ajouter_soin"),
     path('ordonnances/non-valide/', views.afficher_ordonnances_non_valide, name='afficher_ordonnances_non_valide'),
     path('ordonnances/valide/', views.afficher_ordonnances_valide, name='afficher_ordonnances_valide'),
 
     #path('supprimer/toutes/ordonnances/non-valide/', views.supprimer_toutes_ordonnances_non_valide, name='supprimer_toutes_ordonnances_non_valide'),
     path("validee_ord/<int:ordonnance_id>/", views.valider_ordonnance, name="validee_ord"),
+    path('consultation/<int:consultation_id>/checklist/', views.checklist_view, name='checklist'),
+    path('consultation/<int:consultation_id>/mark_administered/', views.mark_administered, name='mark_administered'),
+    path("api/validate-ordonnance/<int:ordonnance_id>/", views.ValidateOrdonnanceAPIView.as_view(), name="validate-ordonnance"),
+
 
 ]
     

@@ -48,7 +48,7 @@ class TestCreationDPIWithVisuals(LiveServerTestCase):
         self.browser.get(self.live_server_url + reverse('sign_in'))
         time.sleep(2)  # Pause pour voir la page de connexion
 
-        username_input = self.browser.find_element(By.NAME, "username")
+        username_input = self.browser.find_element(By.NAME, "identifier")
         password_input = self.browser.find_element(By.NAME, "password")
         username_input.send_keys("admin")
         password_input.send_keys("password")

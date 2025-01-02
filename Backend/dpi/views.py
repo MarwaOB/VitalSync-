@@ -1,4 +1,5 @@
 import logging
+from datetime import timedelta
 from datetime import datetime
 import os
 import qrcode
@@ -7,7 +8,7 @@ from reportlab.lib.pagesizes import A5
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -15,7 +16,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.utils import timezone
 from django.template.loader import get_template
 from users.models import CustomUser, Patient
-from .models import Dpi, Antecedent, Consultation, Ordonnance, Diagnostic, Medicament, Biologique, Radiologique, Examen
+from .models import Dpi, Antecedent, Consultation, Ordonnance, Diagnostic, Medicament, Biologique, Radiologique, Examen , Soin , SoinInfermierObservation , AdministrationMeds 
 from .forms import OrdonnanceForm
 from users.forms import AntecedentFormSet, DpiForm
 from rest_framework.views import APIView
@@ -23,14 +24,78 @@ from rest_framework.response import Response
 from rest_framework import status, permissions, serializers
 from rest_framework.decorators import api_view
 from .serializers import OrdonnanceSerializer
+from decimal import Decimal
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+import requests
+from .models import Ordonnance
+import responses
+import random
+from rest_framework.renderers import JSONRenderer
+import random
+import responses
+import requests
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from django.utils import timezone
 
+@responses.activate
+def validate_ordonnance_mock():
+    # Randomly decide the validation result for demonstration purposes
+    validation_result = random.choice(["validated", "refused"])
+    
+    # Add the mock response for validation
+    responses.add(
+        responses.POST,
+        "https://sgph.example.com/api/validate",  # Exact URL to mock
+        json={"status": validation_result},  # Response body
+        status=200,  # HTTP status
+    )
+    response = requests.post("https://sgph.example.com/api/validate")
+    print(f"Status: {response.status_code}, Body: {response.json()}")  # Should print mocked response
+class ValidateOrdonnanceAPIView(APIView):
+    def post(self, request, ordonnance_id):
+        try:
+            ordonnance = Ordonnance.objects.get(id=ordonnance_id)
+            if ordonnance.status != "en_attente":
+                return HttpResponse("Ordonnance déjà traitée.", status=400)
 
+            # Activate mocking programmatically
+            with responses.RequestsMock() as rsps:
+                # Set up the mock response
+                validation_result = random.choice(["validated", "refused"])
+                rsps.add(
+                    responses.POST,
+                    "https://sgph.example.com/api/validate",  # Exact URL
+                    json={"status": validation_result},      # Mocked response
+                    status=200,
+                )
 
+                # Make the request (mocked)
+                sgph_response = requests.post("https://sgph.example.com/api/validate")
 
+                # Process the mocked response
+                if sgph_response.status_code == 200:
+                    sgph_data = sgph_response.json()
+                    if sgph_data["status"] == "validated":
+                        ordonnance.status = "valide"
+                        ordonnance.validation_date = timezone.now()
+                        ordonnance.is_valid = True
+                    elif sgph_data["status"] == "refused":
+                        ordonnance.status = "rejete"
+                    ordonnance.save()
+                    return HttpResponse("Ordonnance validée.", status=200)
+                else:
+                    return HttpResponse("Erreur du service SGPH.", status=503)
+
+        except Ordonnance.DoesNotExist:
+            return HttpResponse("Ordonnance introuvable.", status=404)
+        except Exception as e:
+            return HttpResponse(f"Erreur: {str(e)}", status=500)
 @csrf_exempt
 @login_required
-
 def ajouter_diagnostic(request, consultation_id):
     # Récupérer la consultation associée ou retourner une 404 si elle n'existe pas
     consultation = get_object_or_404(Consultation, id=consultation_id)
@@ -53,27 +118,28 @@ def ajouter_diagnostic(request, consultation_id):
             ordonnance = form.save()
             if not ordonnance.meds.exists():  # Si l'ordonnance n'a pas de médicaments associés
                 messages.error(request, "Veuillez ajouter au moins un médicament à l'ordonnance.")
-                return redirect('ajouter_ordonnance', consultation_id=consultation.id)
+                return redirect('ajouter_diagnostic', consultation_id=consultation.id)
 
             # Créer le diagnostic et l'associer à l'ordonnance
             diagnostic = Diagnostic.objects.create(ordonnance=ordonnance)
 
-            # Associer ce diagnostic à la consultation
+            # Associer ce diagnostic et soin à la consultation
             consultation.diagnostic = diagnostic
             consultation.save()  # Sauvegarder les changements dans la base de données
 
-            messages.success(request, "Diagnostic ajouté avec succès à la consultation.")
-             # Redirection après l'ajout du diagnostic
-            return redirect('ord-view', consultation_id=consultation.id, diagnostic_id=diagnostic.id)
+            messages.success(request, "Diagnostic et soin ajoutés avec succès à la consultation.")
 
+            # Redirection après l'ajout du diagnostic et du soin
+            return redirect('ord-view', consultation_id=consultation.id, diagnostic_id=diagnostic.id)
 
     else:
         form = OrdonnanceForm()
 
     return render(request, 'creer_ord.html', {
         'form': form,
-        'consultation': consultation.id # Passer l'objet consultation au template
+        'consultation': consultation.id  # Passer l'objet consultation au template
     })
+
 
 @csrf_exempt
 @login_required
@@ -272,18 +338,34 @@ def ajouter_radiologique_bilan(request, consultation_id):
 
     return render(request, "consultation_detail.html", {"consultation": consultation})
 
-@csrf_exempt
+
+
+
 def consultation_detail(request, consultation_id):
-    # Fetch the consultation or return a 404 error if it doesn't exist
     consultation = get_object_or_404(Consultation, id=consultation_id)
+    dpi = consultation.dpi
+    diagnostic = consultation.diagnostic
+    soins = None
+    soins_infermier_observations = None
+    if diagnostic:  
+        soins = diagnostic.soin
+        if soins: 
+            soins_infermier_observations = SoinInfermierObservation.objects.filter(soin=soins)
+            
+
+
+
+    # Get the ordonnance and update checklist
 
     context = {
         "consultation": consultation,
         "bilan_biologique": consultation.bilanBiologique,
         "bilan_radiologique": consultation.bilanRadiologique,
+        "SoinInfermierObservation": soins_infermier_observations,
     }
 
-    return render(request, "consultation_detail.html", context)
+    return render(request, 'consultation_detail.html', context)
+
 
 @csrf_exempt
 @login_required
@@ -399,3 +481,98 @@ def afficher_ordonnances_valide(request):
     else:
         # Si l'utilisateur n'a pas le rôle requis, lever une erreur 404
         raise Http404("Vous n'êtes pas autorisé à valider cette ordonnance.")
+
+@csrf_exempt
+def checklist_view(request, consultation_id):
+    # Fetch the consultation and associated ordonnance
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+    ordonnance = consultation.diagnostic.ordonnance if consultation.diagnostic else None
+
+    if not ordonnance:
+        return HttpResponse("No ordonnance found for this consultation.", status=404)
+
+    # Get or create AdministrationMeds instance
+    administration_meds, created = AdministrationMeds.objects.get_or_create(ordonnance=ordonnance)
+
+    # Update the checklist dynamically
+    administration_meds.update_checklist()
+    soins = consultation.diagnostic.soin
+    
+    if soins is None: 
+        soins = Soin.objects.create(
+            dpi=consultation.dpi,
+            )
+    soins.aministration =  administration_meds  
+    soins.save()
+    consultation.diagnostic.soin = soins
+    consultation.diagnostic.save()
+
+    context = {
+        "consultation": consultation,
+        "ordonnance": ordonnance,
+        "checklist": administration_meds.checklist,
+    }
+
+    return render(request, 'checklist.html', context)
+
+
+@csrf_exempt
+@login_required
+def ajouter_soin(request, consultation_id):
+    if request.method == 'POST':
+        # Récupérer les données envoyées via le formulaire
+        observation = request.POST.get('observation')  # Texte pour l'observation
+        soins_infermier = request.POST.get('soin')  # Texte pour les soins infirmiers
+
+        # Récupérer l'objet Consultation correspondant
+        consultation = get_object_or_404(Consultation, id=consultation_id)
+        dpi = consultation.dpi
+        diagnostic = consultation.diagnostic
+
+        # Vérifier si soins existe, sinon créer un nouveau soin
+        soins = diagnostic.soin
+    
+        if soins is None: 
+            soins = Soin.objects.create(dpi=dpi)
+            diagnostic.soin = soins
+            diagnostic.save()
+       
+        # Créer une nouvelle observation de soin infirmier
+        SoinInfermierObservation.objects.create(
+            observation=observation,
+            soins_infermier=soins_infermier,
+            infermier=request.user,
+            soin=soins  # Assignation correcte du soin
+        )
+
+
+
+
+        # Redirection vers la page des détails de la consultation
+        return redirect('consultation_detail', consultation_id=consultation.id)
+
+    # Rendre la page avec le formulaire et les soins existants
+    return render(request, 'ajouter_soin.html')
+
+@csrf_exempt
+def mark_administered(request, consultation_id):
+    if request.method == 'POST':
+        med_name = request.POST.get('med_name')
+       
+
+        consultation = get_object_or_404(Consultation, id=consultation_id)
+        ordonnance = consultation.diagnostic.ordonnance if consultation.diagnostic else None
+
+        if not ordonnance:
+            return HttpResponse("No ordonnance found for this consultation.", status=404)
+
+        administration_meds = get_object_or_404(AdministrationMeds, ordonnance=ordonnance)
+
+        try:
+            administration_meds.mark_as_administered(med_name)
+        except ValueError as e:
+            return HttpResponse(str(e), status=400)
+
+        return redirect('checklist', consultation_id=consultation.id)
+
+    return HttpResponse("Invalid request method.", status=405)

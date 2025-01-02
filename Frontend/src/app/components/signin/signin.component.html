@@ -1,0 +1,72 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in || Sign up from</title>
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form (ngSubmit)="onSubmitHospital()" action="#">
+                <h1>Choisir un hopital</h1>
+                <div class="infield">
+                    <select id="hospital" [(ngModel)]="selectedHospital" name="hospital">
+                        <option value="" disabled selected>Choisir un hôpital</option>
+                        <option class="optionHospital" *ngFor="let hospital of hospitals" [value]="hospital.id">
+                            {{ hospital.nom }} - {{ hospital.lieu }}
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit">Terminer</button>
+            </form>
+
+        </div>
+        <div class="form-container sign-in-container">
+            <form (ngSubmit)="onSubmitSignIn()">
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+                <span>Utiliser mon compte</span>
+                <div class="infield">
+                    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" />
+                </div>
+                <div class="infield">
+                    <input type="password" placeholder="Mot de Passe" [(ngModel)]="password" name="password" />
+                </div>
+                <a href="#" class="forgot">Mot de passe oublié ?</a>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container" id="overlayCon">
+
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Bon retour !</h1>
+                    <p>Veuillez choisir un hôpital parmi la liste mentionnée</p>
+                    <button>Retour</button>
+                </div>
+
+                <div class="overlay-panel overlay-right">
+                    <h1>Bienvenu !</h1>
+                    <p>Connectez-vous d'abord pour choisir un hôpital</p>
+                    <button (click)="onSuivantClick()">Suivant</button>
+
+                </div>
+
+            </div>
+            <button id="overlayBtn"></button>
+        </div>
+    </div>
+
+</body>
+
+</html>

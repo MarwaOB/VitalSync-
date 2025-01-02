@@ -1,0 +1,102 @@
+from django.test import TestCase
+from users.models import CustomUser, Patient
+from .models import (
+    Antecedent, Dpi, Biologique, Radiologique, Examen, Diagnostic, Ordonnance, Medicament, Consultation, Soin, AdministrationMeds
+)
+from django.core.exceptions import ValidationError
+from datetime import date
+
+class ModelsTestCase(TestCase):
+
+    def setUp(self):
+        # Create test users for the test cases
+        self.medecin = CustomUser.objects.create(username="medecin1", role="medecin")
+        self.patient_user = CustomUser.objects.create(username="patient1", NSS="331122")
+        self.patient = Patient.objects.create(user=self.patient_user)
+
+        # Create a DPI (Dossier Patient Informatisé) instance
+        self.dpi = Dpi.objects.create(patient=self.patient, medecin=self.medecin)
+
+    def test_antecedent_creation(self):
+        # Test creation of an Antecedent linked to a DPI
+        antecedent = Antecedent.objects.create(
+            titre="Test Antecedent",
+            description="Description of antecedent",
+            is_chirugical=False,
+            dpi=self.dpi
+        )
+        # Ensure the string representation is correct
+        self.assertEqual(str(antecedent), f"Test Antecedent (DPI: {self.dpi.patient.user.username})")
+
+    def test_dpi_qr_code_generation(self):
+        # Test that a QR code is generated when saving a DPI
+        dpi = Dpi.objects.create(patient=self.patient)
+        dpi.save()
+        self.assertTrue(dpi.QR_Code)
+
+    def test_biologique_creation(self):
+        # Test creation of a Biologique bilan (biological report)
+        bilan = Biologique.objects.create(
+            laborantin=self.medecin,
+            description="Test Biologique",
+            tauxGlycemie=5.5,  # Example blood sugar level
+            tauxPressionArterielle=120.80,  # Example blood pressure
+            tauxCholesterol=200.50  # Example cholesterol level
+        )
+        # Ensure the string representation is meaningful
+        self.assertEqual(str(bilan), "Biologique Bilan for Consultation ")
+
+    def test_radiologique_creation(self):
+        # Test creation of a Radiologique bilan (radiological report)
+        bilan = Radiologique.objects.create(radioloque=self.medecin)
+        self.assertEqual(str(bilan), "Radiologique Bilan for Consultation ")
+
+    def test_consultation_validation(self):
+        # Test creation and string representation of a Consultation
+        consultation = Consultation.objects.create(
+            date=date.today(),
+            dpi=self.dpi,
+            resume="Consultation summary"
+        )
+        # Verify the string representation includes the consultation date and patient's full name
+        self.assertEqual(str(consultation), f"Consultation on {date.today()} for {self.patient_user.get_full_name()}")
+
+    def test_consultation_with_both_bilans_and_diagnostic(self):
+        # Test that a Consultation cannot have both Biologique bilan and Diagnostic at the same time
+        bilan_bio = Biologique.objects.create(description="Test Biologique", laborantin=self.medecin)
+        diagnostic = Diagnostic.objects.create()
+        consultation = Consultation(
+            date=date.today(),
+            dpi=self.dpi,
+            diagnostic=diagnostic,
+            bilanBiologique=bilan_bio
+        )
+        # Expect ValidationError when calling clean() due to conflicting attributes
+        with self.assertRaises(ValidationError):
+            consultation.clean()
+
+    def test_ordonnance_creation(self):
+        # Test creation of an Ordonnance (prescription)
+        ordonnance = Ordonnance.objects.create(duree=10, is_valid=True, observation="Take twice a day")
+        # Ensure the string representation is correct
+        self.assertEqual(str(ordonnance), "Ordonnance for Diagnostic ")
+
+    def test_medicament_cleaning(self):
+        # Test validation of Medicament duration (should not be negative)
+        ordonnance = Ordonnance.objects.create(duree=10)
+        medicament = Medicament(
+            nom="Test Med",
+            duree=-1,  # Invalid duration
+            ordonnance=ordonnance
+        )
+        # Expect ValidationError when calling clean()
+        with self.assertRaises(ValidationError):
+            medicament.clean()
+
+    def test_administration_meds_checklist_update(self):
+        # Test that the checklist attribute of AdministrationMeds is updated correctly
+        ordonnance = Ordonnance.objects.create(duree=10)
+        admin_meds = AdministrationMeds.objects.create(ordonnance=ordonnance)
+        admin_meds.update_checklist()
+        # Verify the checklist is of dictionary type
+        self.assertIsInstance(admin_meds.checklist, dict)

@@ -49,6 +49,21 @@
             <input type="hidden" name="action" value="show_users">
             <button type="submit" class="button">Show Hospitals</button>
         </form>
+
+         
+        <!-- Form to add a new user -->
+        <form method="POST" action="{% url 'admin_Sys_Home' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_user">
+            <button type="submit" class="button">Add New User</button>
+        </form>
+
+        <!-- Form to show users -->
+        <form method="POST" action="{% url 'admin_Sys_Home' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="show_users">
+            <button type="submit" class="button">Show Users</button>
+        </form>
     </div>
 </body>
 </html>
