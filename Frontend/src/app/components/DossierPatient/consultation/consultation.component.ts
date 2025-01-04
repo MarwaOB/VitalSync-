@@ -10,6 +10,7 @@ import { Diagnostic } from '../../../shared/models/Dpi/Diagnostic';
 import { Biologique } from '../../../shared/models/Dpi/BilanBiologique';
 import { Radiologique } from '../../../shared/models/Dpi/BilanRadiologique';
 import { UserService } from '../../../services/user/user.service';
+import { ShareddpiService } from '../../../services/shareddpi/shareddpi.service';
 
 @Component({
   selector: 'app-consultation',
@@ -19,23 +20,30 @@ import { UserService } from '../../../services/user/user.service';
 })
 export class ConsultationComponent implements OnInit {
 
-  consultations: Consultation[] = [];
-  selectedConsultation: Consultation | null = null;
-  selectedDiagnostic: Diagnostic | null = null;
-  selectedBilanRadiologique: Radiologique | null = null;
-  selectedBilanBiologique: Biologique | null = null;
+  consultations: any[] = [];
+  selectedConsultation: any | null = null;
+  selectedDiagnostic: any | null = null;
+  selectedBilanRadiologique: any | null = null;
+  selectedBilanBiologique: any | null = null;
   detailType: string = '';
   showDetails: boolean = false;
   currentComponent: string = '';
   user: any = null;
+  
 
-
-  constructor(private consultationService: ConsultationService ,  private userService :UserService) { }
+  constructor(private consultationService: ConsultationService ,private shareddpiService:ShareddpiService ,  private userService :UserService) { }
 
   ngOnInit(): void {
-    this.user = this.userService.user;
-
-    this.consultations = this.consultationService.getConsultations();
+    this.user = this.userService.getUserFromLocalStorage;
+    this.shareddpiService.getConsultations().subscribe({
+      next: (consultations) => {
+        this.consultations = consultations || [];  // Assign the value to antecedents or an empty array
+        console.log('Consultations:', this.consultations);
+      },
+      error: (err) => {
+        console.error('Error fetching Consultaions:', err);
+      }
+    });
   }
 
   getShortDescription(description: string): string {

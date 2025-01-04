@@ -30,7 +30,6 @@ urlpatterns = [
     path('CreerDpi', views.creer_dpi_api, name='creer_dpi_api'),
     path('Patients_No_Dpi', views.show_patients_nodpi, name='show_patients_nodpi'),
     path('medecin_same_hospital', views.show_medecin_same_hospital, name='show_medecin_same_hospital'),
-
-
-
+    path('recherche_dpi_qrcode_api/', views.recherche_dpi_qrcode_api, name='recherche_dpi_qrcode_api'),
+    path('recherche_nss_api/<int:nss>/', views.recherche_nss_api, name='recherche_nss_api'),
 ]

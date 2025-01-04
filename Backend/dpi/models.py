@@ -42,61 +42,6 @@ class Dpi(models.Model):
         blank=True
     )
 
-    def save(self, *args, **kwargs):
-    # Save the DPI instance first
-     super().save(*args, **kwargs)
-
-    # Generate QR Code based on the patient's NSS
-     if self.patient and self.patient.user.NSS:
-        qr_data = self.patient.user.NSS
-        qr_img = qrcode.make(qr_data)
-
-        # Convert qr_img to RGBA to avoid mode compatibility issues
-        qr_img = qr_img.convert('RGBA')
-
-        canvas = Image.new('RGBA', (290, 290), (255, 255, 255, 255))  # White background with transparency
-
-        # Calculate the position to center the QR code
-        qr_width, qr_height = qr_img.size
-        canvas_width, canvas_height = canvas.size
-
-        left = (canvas_width - qr_width) // 2  # Center horizontally
-        upper = (canvas_height - qr_height) // 2  # Center vertically
-        box = (left, upper, left + qr_width, upper + qr_height)
-
-        # Paste the QR code onto the canvas
-        canvas.paste(qr_img, box, qr_img)  # Using the mask to ensure transparency is preserved
-
-        # Create a filename
-        filename = f'qr_code_{self.patient.user.NSS}.png'
-
-        # Save to the QR_Code field
-        buffer = BytesIO()
-        canvas.save(buffer, format='PNG')
-        file_obj = File(buffer)
-
-        self.QR_Code.save(filename, file_obj, save=False)  # Save the QR code file
-
-        # Save the DPI instance again to persist the QR_Code field
-        super().save(*args, **kwargs)
-
-        # Send the email with the QR code attached
-        if self.patient and self.patient.user.email:
-            subject = 'Your QR Code'
-            message = 'Dear Patient, \n\nPlease find your QR code attached to this email.'
-            email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [self.patient.user.email])
-
-            # Attach the QR code image
-            file_obj.seek(0)  # Reset the file pointer to the beginning
-            email.attach(filename, file_obj.read(), 'image/png')
-
-            # Send the email
-            email.send()
-
-        # Close resources
-        buffer.close()
-        canvas.close()
-
 
 
 class Bilan(models.Model):

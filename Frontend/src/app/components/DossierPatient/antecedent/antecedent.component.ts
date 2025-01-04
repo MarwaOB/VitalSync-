@@ -21,18 +21,24 @@ export class AntecedentComponent implements OnInit {
   user: any = null;
   dpi : any= null ;
 
-  tempAntecedant: Antecedent = {
+  tempAntecedant: any = {
     titre: '', isChirurgical: false, description: '',
     id: '',
     dpiId: ''
   };
   
-
   constructor(private antecedentService: AntecedentService ,private userservice: UserService ,  private shareddpiService:ShareddpiService , private userService :UserService) { }
   ngOnInit(): void {
     this.user = this.userservice.getUserFromLocalStorage;
-    this.dpi=this.shareddpiService.getDpiData();
-    this.antecedents = this.dpi.antecedents;
+    this.shareddpiService.getAntecedents().subscribe({
+      next: (antecedents) => {
+        this.antecedents = antecedents || [];  // Assign the value to antecedents or an empty array
+        console.log('Antecedents:', this.antecedents);
+      },
+      error: (err) => {
+        console.error('Error fetching antecedents:', err);
+      }
+    });
 
    // this.antecedents = this.antecedentService.getAntecedents();
   }
@@ -67,15 +73,15 @@ export class AntecedentComponent implements OnInit {
       this.editMode = true;
     }
   }
-  supprimer(antecedentId: string): void {
-    const success = this.antecedentService.removeAntecedent(antecedentId);
-    if (success) {
-      console.log('Antécédent supprimé avec succès');
-      this.antecedents = this.antecedentService.getAntecedents(); // Recharger la liste après suppression
-    } else {
-      console.log('Échec de la suppression');
-    }
-  }
+  // supprimer(antecedentId: string): void {
+  //   const success = this.antecedentService.removeAntecedent(antecedentId);
+  //   if (success) {
+  //     console.log('Antécédent supprimé avec succès');
+  //     this.antecedents = this.antecedentService.getAntecedents(); // Recharger la liste après suppression
+  //   } else {
+  //     console.log('Échec de la suppression');
+  //   }
+  // }
   ajouterAntecedent(): void {
     this.tempAntecedant = { titre: '', isChirurgical: false, description: '', id: '', dpiId: '' };
     this.editMode = true;

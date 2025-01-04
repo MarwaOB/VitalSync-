@@ -25,11 +25,15 @@ export class TabledpiComponent {
    dpi:any ;
    antecedents:any ;
    dpiId:number = 0 ;
-
+   searcheddpi:any ; 
    errorMessage: string | null = null; // Error message holder
    medecins: User[] = [];
    hospitals: Hospital[] = [];
    editMode: boolean = false;
+   qr_path : any ;
+   searchNss : any ;
+   imagePath: string | null = null; // Holds the base64 string or file path
+
    tempUserData:  { patient_id : number; medecin_id : number; }=
    {  
     patient_id: 0,
@@ -104,6 +108,7 @@ export class TabledpiComponent {
     );
   }
   
+  
  
    openAddOverlay(): void 
    {
@@ -151,15 +156,103 @@ export class TabledpiComponent {
       next: (response: any) => {
         console.log('Antecedents view successfully', response);
         // You can reload or update the list of hospitals here
-        this.shareddpiService.setDpiData(response.data.dpi_id,patientId,response.data.antecedents,response.data.consultations);
+        console.log('dpi id', response.dpi_id);
+        console.log('dpi id', response.antecedents);
 
-        this.router.navigate(['/patient-dpi', patientId]);
-  
+        this.shareddpiService.setDpiPatientAntecedents(response.dpi_id,patientId,response.antecedents);
+
       },
       error: (error: any) => {
         console.error('Antecedents view no ', error);
       }
     });
-       }
+    this.dpiService.getConsultationsByPatientId(patientId).subscribe({
+      
+      next: (response: any) => {
+        console.log('Consultaions view successfully', response);
+        // You can reload or update the list of hospitals here
+        this.shareddpiService.setConsultations(response.consultations);
 
+        this.router.navigate(['/patient-dpi', patientId]);
+  
+      },
+      error: (error: any) => {
+        console.error('Consultaiona view no ', error);
+      }
+    });
+
+       }
+       onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+      
+        if (input.files && input.files[0]) {
+          const file = input.files[0];
+      
+          if (file.type === 'image/png') {
+            // Assume the path follows a known directory structure, e.g., `/media/qr_codes/`
+            this.qr_path = `qr_codes/${file.name}`; // Example: `qr_codes/qr_code_88888888.png`
+            console.log('QR Path:', this.qr_path);
+          } else {
+            this.qr_path = null;
+            alert('Only PNG files are allowed.');
+          }
+        }
+      }
+      filtrerParNss(): void {
+        if (!this.searchNss) {
+            alert('Please enter a valid NSS.');
+            return;
+        }
+    
+        console.log('Filtering by NSS:', this.searchNss);
+        this.dpiService.filterBynss(this.searchNss).subscribe({
+          next: (response: any) => {
+            console.log('Filtered  nss ID:', response);
+      
+            if (response && response.dpi_id) {
+              this.dpis = this.dpis.filter(dpi => dpi.id === response.dpi_id);
+            } else {
+              alert('No matching DPI found.');
+              this.dpis = []; // Clear the list if no match is found
+            }
+          },
+          error: (error: any) => {
+            console.error('Error filtering by image:', error);
+            alert('Failed to filter DPI data. Please try again.');
+          }
+        });
+    }
+    
+      filtrerParQrCode(): void {
+        if (!this.qr_path) {
+          alert('No valid QR code path provided.');
+          return;
+        }
+        console.log('Filtered DPI ID   3333:', this.qr_path);
+
+        this.dpiService.filterByImage(this.qr_path).subscribe({
+          next: (response: any) => {
+            console.log('Filtered DPI ID:', response);
+      
+            if (response && response.dpi_id) {
+              this.dpis = this.dpis.filter(dpi => dpi.id === response.dpi_id);
+            } else {
+              alert('No matching DPI found.');
+              this.dpis = []; // Clear the list if no match is found
+            }
+          },
+          error: (error: any) => {
+            console.error('Error filtering by image:', error);
+            alert('Failed to filter DPI data. Please try again.');
+          }
+        });
+      }
+    
+    
+
+  private formatDate(dateString: string): string {
+    const [day, month, year] = dateString.split('/'); // Séparer la date en jour, mois, et année
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Reconstruire la date au format YYYY-MM-DD
+  }
 }
+ 

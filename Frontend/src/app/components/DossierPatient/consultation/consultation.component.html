@@ -27,25 +27,25 @@
                 </td>
                 <td>
                     <div class="eye">
-                        <i *ngIf="consultation.diagnosticId" class="fas fa-eye"
+                        <i *ngIf="consultation.diagnosticId && !consultation.bilanRadiologiqueId  && !consultation.bilanBiologiqueId  " class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'diag')"></i>
-                        <i *ngIf="!consultation.diagnosticId &&  user?.role === 'medecin'  " class="fas fa-plus"
+                        <i *ngIf="!consultation.diagnosticId && !consultation.bilanRadiologiqueId  && !consultation.bilanBiologiqueId  " class="fas fa-plus"
                             (click)="creerDiagnostic(consultation)"></i>
                     </div>
                 </td>
                 <td>
                     <div class="eye">
-                        <i *ngIf="consultation.bilanRadiologiqueId" class="fas fa-eye"
+                        <i *ngIf="consultation.bilanRadiologiqueId && !consultation.diagnosticId" class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'bilanRadio')"></i>
-                        <i *ngIf="!consultation.bilanRadiologiqueId &&  user?.role === 'medecin'  " class="fas fa-plus"
+                        <i *ngIf="!consultation.bilanRadiologiqueId && !consultation.diagnosticId " class="fas fa-plus"
                             (click)="creerBilanRadio(consultation)"></i>
                     </div>
                 </td>
                 <td>
                     <div class="eye">
-                        <i *ngIf="consultation.bilanBiologiqueId" class="fas fa-eye"
+                        <i *ngIf="consultation.bilanBiologiqueId  && !consultation.diagnosticId" class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'bilanBio')"></i>
-                        <i *ngIf="!consultation.bilanBiologiqueId &&  user?.role === 'medecin'  " class="fas fa-plus"
+                        <i *ngIf="!consultation.bilanBiologiqueId  && !consultation.diagnosticId  " class="fas fa-plus"
                             (click)="creerBilanBio(consultation)"></i>
                     </div>
                 </td>

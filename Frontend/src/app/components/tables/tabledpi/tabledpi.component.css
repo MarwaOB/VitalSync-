@@ -154,6 +154,106 @@ button {
     flex: 1;
 }
 
+.personnesListe {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    color: #86929E;
+    background: #FFFFFF;
+    padding: 10px;
+    border-radius: 5px;
+    border: 0.5px solid #EFF0F2;
+  }
+  
+  
+  .personnesListe li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .addContact {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .personnesListe input {
+    display: flex;
+  }
+  
+  .icon-add {
+    font-size: 18px;
+    color: var(--colorNavTex);
+    cursor: pointer;
+    margin-top: 5px;
+    display: inline-block;
+  }
+  .search-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  }
+  
+  .search-wrapper input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  }
+  
+  /* Conteneur de la recherche */
+  .search-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;  /* Permet aux champs de passer à la ligne suivante */
+  
+  gap: 10px;  /* Espacement entre les champs */
+  max-width: 100%;  /* Largeur maximale des champs */
+  margin: 0 auto;  /* Centrer les champs */
+  }
+  
+  /* Style général pour les champs de recherche */
+  .search-wrapper input {
+  padding: 10px;
+  border: 2px solid #00796b;  /* Bordure couleur vert clair */
+  border-radius: 50px;  /* Bords arrondis */
+  font-size: 16px;  /* Taille du texte */
+  background-color: #f1f8f6;  /* Fond léger */
+  flex: 1 1 20%;  /* Chaque champ occupe environ 30% de la largeur */
+  
+  transition: all 0.3s ease;  /* Effet de transition lors du focus */
+  }
+  
+  /* Focus sur les champs */
+  .search-wrapper input:focus {
+  border-color: #004d40;  /* Bordure plus foncée au focus */
+  background-color: #e0f2f1;  /* Fond plus foncé au focus */
+  outline: none;  /* Retirer le contour par défaut */
+  }
+  
+  /* Style du placeholder */
+  .search-wrapper input::placeholder {
+  color: #00796b;  /* Couleur du texte du placeholder */
+  font-style: italic;  /* Style en italique */
+  }
+  
+  /* Effet de survol sur les champs */
+  .search-wrapper input:hover {
+  border-color: #004d40;  /* Bordure plus foncée au survol */
+  }
+  
+
 @media (max-width: 768px) {
 
     .nom-prenom,

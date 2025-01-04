@@ -1,3 +1,6 @@
+
+
+
 import logging, qrcode
 from datetime import datetime
 from rest_framework.decorators import api_view, permission_classes
@@ -15,9 +18,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from pyzbar.pyzbar import decode
 from django.core.files.storage import FileSystemStorage
-from PIL import Image
 from django.db.models import Max
 import io
+from io import BytesIO
 import matplotlib.pyplot as plt
 import base64
 from django.core.files.base import ContentFile
@@ -28,6 +31,16 @@ from .serializers import PatientSerializer ,CustomUserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+import qrcode
+from django.db import models
+from users.models import Patient
+from io import BytesIO
+from django.core.files import File
+from PIL import Image
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.core.exceptions import ValidationError
+import requests
 
 @csrf_exempt
 
@@ -196,6 +209,7 @@ def sign_in(request):
                 
                 if role in role_redirects:
                     print(f"Redirecting to: {role_redirects[role]}")
+
                     return JsonResponse({'status': 'success', 'user_data': user_data, 'redirect_url': role_redirects[role]}, status=200)
                 else:
                     print("Role not defined in redirects")
@@ -234,10 +248,7 @@ def creerDPI(request):
 
             dpi.save()
 
-            # Update the patient's DPI status
-            patient = dpi.patient
-            patient.dpi_null = False
-            patient.save()
+          
 
             # Save antecedents
             for form in formset:
@@ -781,35 +792,27 @@ def add_user_api(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+@permission_classes([IsAuthenticated])
 def creer_dpi_api(request):
     try:
-        # Extract patient and doctor IDs from the request data
         patient_id = request.data.get('patient_id')
         medecin_id = request.data.get('medecin_id')
-        print(f'patient {patient_id}')
-        print(f'medecin {medecin_id}')
-        if not patient_id:
-            return Response({"error": "L'ID du patient est requis."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not patient_id or not medecin_id:
+            return Response(
+                {"error": "Les IDs du patient et du médecin sont requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         try:
             patient = Patient.objects.get(id=patient_id)
-        except Patient.DoesNotExist:
-            return Response({"error": "Patient introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
-
-        if not medecin_id:
-            return Response({"error": "L'ID du médecin est requis."}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
             medecin = CustomUser.objects.get(id=medecin_id)
-        except CustomUser.DoesNotExist:
-            return Response({"error": "Médecin introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
+        except (Patient.DoesNotExist, CustomUser.DoesNotExist) as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
-        # if hasattr(patient, 'dpi'):
-        #     return Response(
-        #         {"error": "Un DPI existe déjà pour ce patient.", "dpi_id": patient.dpi.id},
-        #         status=status.HTTP_400_BAD_REQUEST
-        #         )
         existing_dpi = Dpi.objects.filter(patient=patient).first()
         if existing_dpi:
             return Response(
@@ -817,26 +820,53 @@ def creer_dpi_api(request):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-
-        print(f'patient {patient}')
-        print(f'medecin {medecin}')
-
-        # Create the DPI
-        dpi = Dpi.objects.create(patient=patient, medecin=medecin)
-        print(f'dpi {dpi}')
-
         # Update the patient's DPI status
         patient.dpi_null = False
         patient.save()
+        dpi = Dpi.objects.create(patient=patient, medecin=medecin)
+
+        # Générer le QR Code
+        if patient.user.NSS:
+            qr_data = patient.user.NSS
+            qr_img = qrcode.make(qr_data)
+            qr_img = qr_img.convert('RGBA')
+
+            canvas = Image.new('RGBA', (290, 290), (255, 255, 255, 255))
+            qr_width, qr_height = qr_img.size
+            canvas_width, canvas_height = canvas.size
+            box = (
+                (canvas_width - qr_width) // 2,
+                (canvas_height - qr_height) // 2,
+                (canvas_width + qr_width) // 2,
+                (canvas_height + qr_height) // 2,
+            )
+            canvas.paste(qr_img, box, qr_img)
+
+            buffer = BytesIO()
+            canvas.save(buffer, format='PNG')
+            filename = f'qr_code_{patient.user.NSS}.png'
+            dpi.QR_Code.save(filename, File(buffer), save=True)
+
+            # Envoyer un email avec le QR code
+            if patient.user.email:
+                subject = 'Votre QR Code'
+                message = 'Veuillez trouver votre QR code attaché à cet email.'
+                email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [patient.user.email])
+                buffer.seek(0)
+                email.attach(filename, buffer.read(), 'image/png')
+                email.send()
+
+            buffer.close()
+            canvas.close()
 
         return Response(
-            {'status': 'success', 'message': 'DPI created successfully.', 'dpi_id': dpi.id},
+            {'status': 'success', 'message': 'DPI créé avec succès.', 'dpi_id': dpi.id},
             status=status.HTTP_201_CREATED
         )
 
     except Exception as e:
         return Response(
-            {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
+            {'status': 'error', 'message': 'Une erreur s\'est produite.', 'details': str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
@@ -845,6 +875,8 @@ def creer_dpi_api(request):
 @api_view(['GET'])
 def show_patients_nodpi(request):
     try:
+        print(f"user role show medecin  {request.user.role}")
+
         # Get all patients with dpi_null set to True
         patients = Patient.objects.filter(dpi_null=True, user__hospital=request.user.hospital)
         # Serialize the patient data
@@ -862,6 +894,7 @@ def show_patients_nodpi(request):
 @api_view(['GET'])
 def show_medecin_same_hospital(request):
     try:
+
         # Get all patients with dpi_null set to True
         medecin = CustomUser.objects.filter(hospital=request.user.hospital)
 
@@ -874,4 +907,104 @@ def show_medecin_same_hospital(request):
         return Response(
             {"error": "An error occurred while retrieving medecins.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])  # Require authentication
+def recherche_dpi_qrcode_api(request):
+    # Get the QR code URL from query parameters
+    qr_code_url = request.GET.get('qr_code_url')
+    if not qr_code_url:
+        return Response(
+            {"error": "L'URL de l'image du QR code est requise."},
+            status=400
+        )
+    
+    try:
+        # Download the image from the provided URL
+        response = requests.get(qr_code_url)
+        if response.status_code != 200:
+            return Response(
+                {"error": "Impossible de télécharger l'image depuis l'URL fournie."},
+                status=400
+            )
+        
+        # Load the image using PIL
+        img = Image.open(BytesIO(response.content))
+
+        # Decode the QR code
+        decoded_objects = decode(img)
+        if not decoded_objects:
+            return Response(
+                {"error": "Aucun QR code valide trouvé dans l'image."},
+                status=400
+            )
+
+        # Extract NSS (assuming the QR code directly contains NSS data)
+        nss = decoded_objects[0].data.decode('utf-8')
+        user = CustomUser.objects.get(NSS=nss)
+        patient = Patient.objects.get(user=user)
+        dpi = Dpi.objects.get(patient = patient)
+
+        return Response(
+            {"status": "success", "dpi_id": dpi.id},
+            status=200
+        )
+
+    except Exception as e:
+        logging.error(f"Erreur lors du traitement du QR code : {e}")
+        return Response(
+            {"error": "Une erreur s'est produite lors du traitement du QR code."},
+            status=500
+        )
+
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])  # Require authentication
+def recherche_nss_api(request ,nss):
+    # Get the NSS from query parameters
+    
+    if not nss:
+        return Response(
+            {"error": "Le NSS est requis."},
+            status=400
+        )
+    
+    try:
+        # Retrieve the user based on NSS
+        user = CustomUser.objects.get(NSS=nss)
+        
+        # Retrieve the patient associated with the user
+        patient = Patient.objects.get(user=user)
+        
+        # Retrieve the DPI associated with the patient
+        dpi = Dpi.objects.get(patient=patient)
+        
+        return Response(
+            {"status": "success", "dpi_id": dpi.id},
+            status=200
+        )
+
+    except CustomUser.DoesNotExist:
+        return Response(
+            {"error": "Aucun utilisateur trouvé avec ce NSS."},
+            status=404
+        )
+    except Patient.DoesNotExist:
+        return Response(
+            {"error": "Aucun patient trouvé pour cet utilisateur."},
+            status=404
+        )
+    except Dpi.DoesNotExist:
+        return Response(
+            {"error": "Aucun DPI trouvé pour ce patient."},
+            status=404
+        )
+    except Exception as e:
+        logging.error(f"Erreur lors du traitement : {e}")
+        return Response(
+            {"error": "Une erreur s'est produite lors du traitement."},
+            status=500
         )

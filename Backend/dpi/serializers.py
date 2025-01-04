@@ -22,19 +22,21 @@ class AntecedentSerializer(serializers.ModelSerializer):
 
 # Dpi Serializer
 class DpiSerializer(serializers.ModelSerializer):
+    patient_name = serializers.CharField(source='patient.user.get_full_name', read_only=True)
+    medecin_name = serializers.CharField(source='medecin.get_full_name', read_only=True)
     patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
     medecin = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.filter(role='medecin'))
 
     class Meta:
         model = Dpi
-        fields = ['id', 'QR_Code', 'patient', 'medecin']
+        fields = ['id', 'QR_Code', 'patient', 'medecin', 'patient_name', 'medecin_name']
 
     def create(self, validated_data):
         instance = super().create(validated_data)
         instance.save()  # Ensure QR code generation logic is executed
         return instance
 
-
+        
 # Biologique Serializer
 class BiologiqueSerializer(serializers.ModelSerializer):
     laborantin = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.filter(role='laborantin'))

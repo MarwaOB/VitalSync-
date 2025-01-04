@@ -4,7 +4,31 @@
             <i class="fas fa-user-plus"></i> Ajouter un Dpi
         </button>
     </div>
-
+    <div class="search-wrapper">
+        <input 
+            type="file" 
+            (change)="onFileSelected($event)" 
+            accept=".png" 
+            placeholder="QR Code" 
+        />
+        <input type="number" [(ngModel)]="searchNss" placeholder="NSS" />
+    </div>
+    
+    <div class="btn-container">
+        <button 
+            class="ajouter-btn" 
+            (click)="filtrerParNss()" 
+            [disabled]="!searchNss">
+            Filtrer par NSS
+        </button>
+        <button 
+            class="ajouter-btn" 
+            (click)="filtrerParQrCode()" 
+            [disabled]="!qr_path">
+            Filtrer par QR Code
+        </button>
+    </div>
+    
     <table class="table">
         <thead>
             <tr>
@@ -19,9 +43,11 @@
         <tbody>
             <tr *ngFor="let dpi of dpis" >
                 <td>{{ dpi.id }}</td>
-                <td>{{ dpi.QR_Code }}</td>
-                <td>{{ dpi.medecin }}</td>
-                <td>{{ dpi.patient  }}</td>
+                <td>
+                    <img [src]="'../../../..'+ dpi.QR_Code" alt="QR Code" class="dpi-image">
+                </td>
+                <td>{{ dpi.medecin_name }}</td>
+                <td>{{ dpi.patient_name  }}</td>
                 
                 <td class="eye-cell">
                     <i *ngIf="!isDpiNull(dpi)" class="fas fa-eye" (click)="voirDpi(dpi.id)"></i>

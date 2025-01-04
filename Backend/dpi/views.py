@@ -200,34 +200,90 @@ def ajouter_resume(request, consultation_id):
         # Redirection vers la page des détails de la consultation (ou du DPI)
         return redirect('consultation_detail', consultation_id=consultation.id)
                
+
 @api_view(['GET'])
 def show_dpi(request):
     try:
+        # Initialize the list of DPIs
+        dpis = []
+        print(f'request.user.role: {request.user.role}')
         if request.user.role == "medecin":
-            # Get all patients with dpi_null set to True
+            # Get all DPIs for the logged-in medecin
             dpis = Dpi.objects.filter(medecin=request.user)
-        else:
-            dpis = Dpi.objects.filter(medecin__hospital=request.user.hospital)
 
-        # Serialize the patient data
-        print(f'dpi {dpis}')
+        elif request.user.role == "radioloque":
+            # Filter DPIs with pending radiological bilans
+            user_hospital = request.user.hospital
+            dpis = Dpi.objects.filter(medecin__hospital=user_hospital)
+            dpis_with_pending_bilan = []
+            for dpi in dpis:
+                last_consultation_with_bilan = dpi.consultations.filter(bilanRadiologique__isnull=False).last()
+                if last_consultation_with_bilan and last_consultation_with_bilan.bilanRadiologique.radioloque is None:
+                    dpis_with_pending_bilan.append(dpi)
+            dpis = dpis_with_pending_bilan
+
+        elif request.user.role == "laborantin":
+            # Filter DPIs with pending biological bilans
+            user_hospital = request.user.hospital
+            dpis = Dpi.objects.filter(medecin__hospital=user_hospital)
+            dpis_with_pending_bilan = []
+            for dpi in dpis:
+                last_consultation_with_bilan = dpi.consultations.filter(bilanBiologique__isnull=False).last()
+                if last_consultation_with_bilan and last_consultation_with_bilan.bilanBiologique.laborantin is None:
+                    dpis_with_pending_bilan.append(dpi)
+            dpis = dpis_with_pending_bilan
+
+        elif request.user.role == "adminSys":
+            # Get all DPIs for the adminSys role
+            dpis = Dpi.objects.filter(medecin__hospital=request.user.hospital)
+            print(f'dpis admin sys : {dpis}')
+
+        # Serialize the DPI data
         serializer = DpiSerializer(dpis, many=True)
-        print(f'dpis {serializer.data}')
 
         # Return the serialized data in the response
         return Response({"dpis": serializer.data}, status=status.HTTP_200_OK)
+
     except Exception as e:
+        # Return an error response in case of an exception
         return Response(
-            {"error": "An error occurred while retrieving dpis.", "details": str(e)},
+            {"error": "An error occurred while retrieving DPIs.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+              
+
+@api_view(['GET'])
+def show_antecedant(request, patient_id):
+    try:
+        # Get patient using the patient_id from the URL
+        patient = Patient.objects.get(id=patient_id)
+
+        # Get the DPI associated with the patient
+        dpi = Dpi.objects.get(patient=patient)
+
+        # Get antecedents associated with the DPI
+        antecedents = Antecedent.objects.filter(dpi=dpi)
+
+        # Serialize the antecedents
+        serializer = AntecedentSerializer(antecedents, many=True)
+
+        # Return the serialized data in the response
+        return Response({"antecedents": serializer.data, "dpi_id": dpi.id}, status=status.HTTP_200_OK)
+
+    except Patient.DoesNotExist:
+        return Response({"error": "Patient not found."}, status=status.HTTP_404_NOT_FOUND)
+    except Dpi.DoesNotExist:
+        return Response({"error": "No DPI found for this patient."}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": "An error occurred.", "details": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
               
 @api_view(['GET'])
-def show_antecedant(request):
+def show_dpi_by_patient(request):
     try:
-        dpi_id = request.data.get('dpi_id')
+        dpi_id = 3
         if not dpi_id:
             return Response({"error": "L'ID du Dpi est requis."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -236,14 +292,11 @@ def show_antecedant(request):
         except dpi.DoesNotExist:
             return Response({"error": "dpi introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
 
-        antecedents = Antecedent.objects.filter(dpi=dpi)
-       
-
-        serializer = AntecedentSerializer(antecedents, many=True)
-        print(f'antecedents {serializer.data}')
+        serializer = DpiSerializer(dpi, many=True)
+        print(f'Dpi {serializer.data}')
 
         # Return the serialized data in the response
-        return Response({"antecedents": serializer.data}, status=status.HTTP_200_OK)
+        return Response({"Dpi": serializer.data}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response(
             {"error": "An error occurred while retrieving antecedents.", "details": str(e)},
@@ -337,44 +390,41 @@ def ajouter_Consultation_api(request):
             {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
 @api_view(['GET'])
-def show_consultations(request):
+def show_consultations(request,patient_id):
     try:
-        # Extract dpi_id from query parameters
-        dpi_id = request.query_params.get('dpi_id')
-        if not dpi_id:
-            return Response(
-                {"error": "L'ID du Dpi est requis."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        # Extract patient_id from query parameters (for GET requests)
+      
+        if not patient_id:
+            return Response({"error": "L'ID du patient est requis."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Check if the specified Dpi exists
+        # Check if the specified Patient exists
         try:
-            dpi = Dpi.objects.get(id=dpi_id)
-        except Dpi.DoesNotExist:
-            return Response(
-                {"error": "Dpi introuvable avec l'ID spécifié."},
-                status=status.HTTP_404_NOT_FOUND
-            )
+            patient = Patient.objects.get(id=patient_id)
+        except Patient.DoesNotExist:
+            return Response({"error": "Patient introuvable avec l'ID spécifié."}, status=status.HTTP_404_NOT_FOUND)
 
-        # Fetch consultations for the given Dpi
+        # Get the DPI associated with the patient (assuming only one DPI per patient)
+        try:
+            dpi = Dpi.objects.get(patient=patient)
+        except Dpi.DoesNotExist:
+            return Response({"error": "Aucun DPI trouvé pour ce patient."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Fetch consultations related to the specified DPI
         consultations = Consultation.objects.filter(dpi=dpi)
+
+        # If no consultations are found, handle that case
+        if not consultations:
+            return Response({"message": "Aucune consultation trouvée pour ce DPI."}, status=status.HTTP_404_NOT_FOUND)
 
         # Serialize the consultation data
         serializer = ConsultationSerializer(consultations, many=True)
-
+        
         # Return the serialized data in the response
-        return Response(
-            {"consultations": serializer.data},
-            status=status.HTTP_200_OK
-        )
+        return Response({"consultations": serializer.data, "dpi_id": dpi.id}, status=status.HTTP_200_OK)
+
     except Exception as e:
         return Response(
-            {
-                "error": "An error occurred while retrieving consultations.",
-                "details": str(e)
-            },
+            {"error": "An error occurred while retrieving consultations.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
