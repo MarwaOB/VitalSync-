@@ -227,14 +227,23 @@ def render_pdf_view(request, consultation_id,diagnostic_id):
 @csrf_exempt
 def ajouter_consultation(request, dpi_id):
     dpi = get_object_or_404(Dpi, id=dpi_id)
+    patient = dpi.patient  # Get the patient associated with the DPI
     message = None  # Default message is None
 
-    try:
+    try: 
+            
         current_date = timezone.now().date()
         # Check for duplicate consultation
         if Consultation.objects.filter(date=current_date, dpi=dpi).exists():
+            cons = Consultation.objects.get(date=current_date, dpi=dpi)
             message = "Une consultation à la même date pour ce patient existe déjà."
-            return render(request, 'dpiShow.html', {'dpi': dpi, 'message': message})
+            return render(request, 'dpiShow.html', {
+                'patient': patient,
+                'dpi': dpi,
+                'antecedents': dpi.antecedents.all(),
+                'message': message,
+                'latest_consultation': cons
+            })
 
         # Create the consultation
         consultation = Consultation.objects.create(date=current_date, dpi=dpi)
@@ -243,10 +252,22 @@ def ajouter_consultation(request, dpi_id):
     except MultiValueDictKeyError as e:
         missing_field = str(e)
         message = f"Le champ '{missing_field}' est obligatoire."
-        return render(request, 'dpiShow.html', {'dpi': dpi, 'message': message})
+        return render(request, 'dpiShow.html', {
+                'patient': patient,
+                'dpi': dpi,
+                'antecedents': dpi.antecedents.all(),
+                'message': message,
+                'latest_consultation': consultation
 
-    return render(request, 'dpiShow.html', {'dpi': dpi, 'message': message})
-# Configure logging
+
+            })
+    return render(request, 'dpiShow.html', {
+                'patient': patient,
+                'dpi': dpi,
+                'antecedents': dpi.antecedents.all(),
+                'message': message,
+
+            })# Configure logging
 logger = logging.getLogger(__name__)
 
 

@@ -3,64 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ordonnances non validées</title>
+    <title>Ordonnances Non Validées</title>
     <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f6f5f7;
             margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            margin: 40px auto;
             padding: 20px;
-            background-color: #f4f4f4;
         }
+
         h1, h2, h3 {
-            color: #333;
+            color: var(--colorVert1);
+            font-weight: 700;
+            text-align: center;
         }
+
+        h1 { font-size: 24px; margin-bottom: 30px; }
+        h2 { font-size: 20px; margin-bottom: 25px; }
+        h3 { font-size: 18px; margin-bottom: 20px; }
+
+        p {
+            color: var(--colorNavText);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .button {
+            width: 100%;
+            padding: 13px 10px;
+            background: var(--colorVert1);
+            color: #FFF;
+            border: 1px solid var(--colorVert1);
+            border-radius: 6px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background: #FFF;
+            color: var(--colorVert1);
+        }
+
+        form {
+            background: #FFF;
+            padding: 40px;
+            border-radius: 13px;
+            box-shadow: 25px 30px 15px rgba(85, 85, 85, 0.1);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        textarea, input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #f3f3f3;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus, input:focus, select:focus {
+            outline: none;
+            border-color: var(--colorVert1);
+            box-shadow: 0 0 0 2px rgba(5, 104, 94, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
         .section {
-            background: #fff;
+            margin-bottom: 40px;
+        }
+
+        .antecedent, .antecedant-section, .examen-section {
+            background-color: #f9f9f9;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .section strong {
+
+        .antecedent strong, .examen-section strong {
+            color: var(--colorVert2);
+            font-weight: 600;
+        }
+
+        label {
             display: block;
-            margin-top: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #828282;
+            margin-bottom: 8px;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--input-border);
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .soins {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid var(--input-border);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            background: #f3f3f3;
             border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-bottom: 15px;
         }
-        .button:hover {
-            background-color: #0056b3;
+
+        img {
+            border-radius: 8px;
+            border: 1px solid var(--input-border);
         }
     </style>
 </head>
 <body>
-    {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    <h1>Les ordonnences non validées </h1>
+    <div class="container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h1>Les ordonnances non validées</h1>
 
-    {% if ordonnances %}
-    {% for ordonnance in ordonnances %}
+        {% if ordonnances %}
+        {% for ordonnance in ordonnances %}
         <div class="section">
             <h2>Ordonnance ID {{ ordonnance.ordonnance.id }}</h2>
-            {% if ordonnance.ordonnance.observation  %}
+            {% if ordonnance.ordonnance.observation %}
             <p><strong>Observation :</strong> {{ ordonnance.ordonnance.observation }}</p>
             {% endif %}
             {% if ordonnance.consultation.dpi.patient %}
@@ -75,65 +190,61 @@
             {% if ordonnance.ordonnance.meds %}
             <table class="medicament-table">
                 <thead>
-                    {% load custom_filters %}
-
                 </thead>
                 <tbody>
                     {% for medicament in ordonnance.ordonnance.meds.all %}
-                    <td style="width: 90%;"> <strong>{{ medicament.nom }}</strong>  
-                        {{ medicament.dose | format_dose }} 
-                        {{ medicament.unite }} 
-                        {{ medicament.frequence }} fois par jours pendant 
-                        {{ medicament.duree }} jours 
-                        {% if  medicament.mode_administration == 'PO' %}
-                         per os
-                        {% else %}
-                        par voie {{ medicament.mode_administration }}  
-                        {% endif %}
-                        {% if medicament.observation %} 
-                            ({{ medicament.observation }})
-                        {% endif %}
-                    </td>
-                    <td style="text-align: right;"><strong>Qte:</strong>{{ medicament.qte }}</td>
-
+                    <tr>
+                        <td style="width: 90%;"> 
+                            <strong>{{ medicament.nom }}</strong>  
+                            {{ medicament.dose | format_dose }} 
+                            {{ medicament.unite }} 
+                            {{ medicament.frequence }} fois par jour pendant 
+                            {{ medicament.duree }} jours 
+                            {% if medicament.mode_administration == 'PO' %}
+                             per os
+                            {% else %}
+                            par voie {{ medicament.mode_administration }}  
+                            {% endif %}
+                            {% if medicament.observation %} 
+                                ({{ medicament.observation }})
+                            {% endif %}
+                        </td>
+                        <td style="text-align: right;">
+                            <strong>Qte:</strong>{{ medicament.qte }}
+                        </td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <br>
-        {% else %}
+            {% else %}
             <p>Aucun médicament associé à cette ordonnance.</p>
-        {% endif %}
+            {% endif %}
 
-    
             <div class="section">
                 {% if ordonnance.ordonnance and ordonnance.consultation %}
-
                     <form action="{% url 'ord-view' ordonnance.consultation.id ordonnance.id %}" method="GET">
-                        <button type="submit" class="btn-consulter">Visualiser</button>
+                        <button type="submit" class="button">Visualiser</button>
                     </form>
-
                 {% else %}
-                            <p>Pas de consultation ou de diagnostic associé.</p>
+                <p>Pas de consultation ou de diagnostic associé.</p>
                 {% endif %}
             </div>
+
             <div class="section">
                 {% if ordonnance.ordonnance and ordonnance.consultation %}
-
                     <form action="{% url 'validee_ord' ordonnance.ordonnance.id %}" method="GET">
-                        <button type="submit" class="btn-consulter">Validé cette ordonnance </button>
+                        <button type="submit" class="button">Valider cette ordonnance</button>
                     </form>
-                    
                 {% else %}
-                            <p>Pas de consultation ou de diagnostic associé.</p>
+                <p>Pas de consultation ou de diagnostic associé.</p>
                 {% endif %}
             </div>
         </div>
-    {% endfor %}
-    
-{% else %}
-    <p>Aucune ordonnance trouvée </p>
-{% endif %}
-
+        {% endfor %}
+        {% else %}
+        <p>Aucune ordonnance trouvée.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
-

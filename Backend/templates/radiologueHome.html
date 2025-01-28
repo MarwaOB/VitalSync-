@@ -5,49 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DPI du Patient</title>
     <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f6f5f7;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        h1, h2, h3 {
-            color: #333;
+
+        h1 {
+            color: var(--colorVert1);
+            font-weight: 700;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
         }
+
+        h2 {
+            color: var(--colorVert2);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--colorNavText);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
         .section {
             background: #fff;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 850px;
         }
+
         .section strong {
             display: block;
             margin-top: 10px;
+            color: var(--colorVert2);
         }
+
         .btn-consulter {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: var(--colorVert1);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
         }
+
         .btn-consulter:hover {
-            background-color: #0056b3;
+            background-color: var(--colorVert2);
         }
+
         .search-bar {
             margin-bottom: 20px;
             display: flex;
             gap: 10px;
+            width: 100%;
+            max-width: 850px;
         }
+
         .search-bar input {
             flex: 1;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--input-border);
             border-radius: 5px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 14px;
         }
+
         .search-bar button {
             padding: 10px 20px;
             background-color: #28a745;
@@ -55,17 +100,21 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
         }
+
         .search-bar button:hover {
             background-color: #218838;
         }
     </style>
 </head>
 <body>
-  <h1>Bilan a realiser <h1>
+
+    <h1>Bilan à réaliser</h1>
     {% if message %}
-    <p>{{ message }}</p>
-{% endif %}
+        <p>{{ message }}</p>
+    {% endif %}
 
     {% if dpis %}
         {% for dpi in dpis %}
@@ -80,7 +129,7 @@
             </div>
         {% endfor %}
     {% else %}
-        <p>Aucun Test a realiser pour l'instant.</p>
+        <p>Aucun test à réaliser pour l'instant.</p>
     {% endif %}
     
 </body>

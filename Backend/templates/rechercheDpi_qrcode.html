@@ -5,38 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recherche DPI par QR Code</title>
     <style>
+        /* Global styles */
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f6f5f7;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         h1, h2, h3 {
-            color: #333;
+            color: var(--colorVert1);
+            font-weight: 700;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
         }
+
         .section {
             background: #fff;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
         }
+
         .section strong {
             display: block;
             margin-top: 10px;
         }
+
         .btn-consulter {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: var(--colorVert1);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
         }
+
         .btn-consulter:hover {
-            background-color: #0056b3;
+            background-color: var(--colorVert2);
         }
+
         form {
             background-color: #fff;
             padding: 20px;
@@ -44,34 +67,41 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
-            color: #333;
+            color: var(--colorNavText);
         }
+
         input[type="file"] {
             display: inline-block;
             padding: 10px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--input-border);
             border-radius: 5px;
         }
+
         button {
-            padding: 10px 20px;
-            background-color: #007bff;
+            padding: 12px 24px;
+            background-color: var(--colorVert1);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: var(--colorVert2);
         }
+
         ul {
             padding: 0;
             list-style-type: none;
         }
+
         li {
             margin: 5px 0;
             padding: 5px;

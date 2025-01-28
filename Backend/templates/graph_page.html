@@ -4,9 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphique des Bilans</title>
+    <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            color: var(--colorVert1);
+            text-align: center;
+        }
+
+        .graph-container {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .graph-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-consulter {
+            padding: 10px 20px;
+            background-color: var(--colorVert1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn-consulter:hover {
+            background-color: var(--colorVert2);
+        }
+    </style>
 </head>
 <body>
+
     <h1>Graphique des Bilans</h1>
-    <img src="{{ graph_url }}" alt="Graphique Biologique">
+
+    <div class="graph-container">
+        <img src="{{ graph_url }}" alt="Graphique Biologique">
+    </div>
+
 </body>
 </html>

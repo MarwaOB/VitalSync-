@@ -10,13 +10,17 @@
             margin: 10mm; /* Marges pour l'impression */
         }
         body {
-
             font-family: Arial, sans-serif;
             font-size: 12pt;
             line-height: 1.5;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
         h1 {
             text-align: center;
+            color: #05685E;
         }
         .header-row {
             display: flex;
@@ -36,74 +40,116 @@
         .right {
             text-align: right; /* Optionnel */
         }
+
         .medicament-row {
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid #ddd;
             padding: 5px 0;
         }
+
         .medicament-row span {
             flex: 1;
         }
-        
 
+        table {
+            width: 100%;
+            border: none;
+            margin-bottom: 10px;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .messages {
+            margin: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .alert {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
     </style>
 </head>
-<body >
+<body>
     
     <!-- Patient Details -->
-    <table style="width: 100%; border: none;">
-        <tr>
-            <td style="text-align: left;"><strong>Dr. {{ dpi.medecin.first_name }} {{ dpi.medecin.last_name }}</strong></td>
-            <td style="text-align: right;">Patient: {{ patient.user.first_name }} {{ patient.user.last_name }}</td>
+    <div class="header-row">
+        <div class="left">
+            <strong>Dr. {{ dpi.medecin.first_name }} {{ dpi.medecin.last_name }}</strong>
+        </div>
+        <div class="right">
+            Patient: {{ patient.user.first_name }} {{ patient.user.last_name }}
+        </div>
+    </div>
 
-        </tr>
+    <span class="right">Age: {{ age }} ans</span>
 
-    </table>
-    <span  class="right"> Age : {{age}} ans</span>
-
+    {% load custom_filters %}
+    <p>Date: {{ consultation.date }}</p>
+    <h1>Ordonnance</h1>
     
-          {% load custom_filters %}
-
-        <p>Date: {{ consultation.date }}</p>
-        <h1 style="text-align: center;">Ordonnance</h1>
-        <!-- Medicaments List -->
-       
-        {% if medicaments %}
+    <!-- Medicaments List -->
+    {% if medicaments %}
         <div>
             {% for medicament in medicaments %}
-            <table style="width: 100%; border: none;">
-                <tr>
-                    <td style="width: 90%;"> <strong>{{ medicament.nom }}</strong>  
+                <div class="medicament-row">
+                    <div style="width: 90%;">
+                        <strong>{{ medicament.nom }}</strong> 
                         {{ medicament.dose | format_dose }} 
                         {{ medicament.unite }} 
-                        {{ medicament.frequence }} fois par jours pendant 
+                        {{ medicament.frequence }} fois par jour pendant 
                         {{ medicament.duree }} jours 
-                        {% if  medicament.mode_administration == 'PO' %}
-                         per os
+                        {% if medicament.mode_administration == 'PO' %}
+                            per os
                         {% else %}
-                        par voie {{ medicament.mode_administration }}  
+                            par voie {{ medicament.mode_administration }}
                         {% endif %}
                         {% if medicament.observation %} 
                             ({{ medicament.observation }})
                         {% endif %}
-                    </td>
-                    <td style="text-align: right;"><strong>Qte:</strong>{{ medicament.qte }}</td>
-                </tr>
-            </table>
-            
-            <br>
+                    </div>
+                    <div class="right">
+                        <strong>Qte:</strong> {{ medicament.qte }}
+                    </div>
+                </div>
             {% endfor %}
-
-           
         </div>
-        {% else %}
+    {% else %}
         <p>No medicaments found for this ordonnance.</p>
-        {% endif %}
+    {% endif %}
 
-        <div>
-        {{ordonnance.observation}}
-        </div>
+    <div>
+        {{ ordonnance.observation }}
+    </div>
 </body>
 </html>
-

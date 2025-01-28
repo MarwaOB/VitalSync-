@@ -4,90 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un utilisateur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            background-color: #f6f5f7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
-        input, select, textarea, button {
+
+        .container {
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
         }
-        button {
-            background: #007BFF;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
+
+        form {
+            background: #FFF;
+            padding: 40px;
+            border-radius: 13px;
+            box-shadow: 25px 30px 15px rgba(85, 85, 85, 0.1);
+            width: 100%;
         }
-        button:hover {
-            background: #0056b3;
-        }
+
         h1 {
-            color: #333;
+            color: var(--colorVert1);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
             margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: #828282;
+            margin-bottom: 8px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #f3f3f3;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--colorVert1);
+            box-shadow: 0 0 0 2px rgba(5, 104, 94, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px 10px;
+            background: var(--colorVert1);
+            color: #FFF;
+            border: 1px solid var(--colorVert1);
+            border-radius: 6px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #FFF;
+            color: var(--colorVert1);
+        }
+
+        .section {
+            margin-bottom: 40px;
         }
     </style>
 </head>
 <body>
-    <h1>Ajouter un nouvel hôpital</h1>
-    <form method="POST" action="/add-hospital/">
-        {% csrf_token %}
-        
-        <!-- Informations sur l'hôpital -->
-        <label for="name">Nom de l'hôpital</label>
-        <input type="text" id="name" name="name" required>
+    <div class="container">
+        <form method="POST" action="/add-hospital/">
+            {% csrf_token %}
+            
+            <div class="section">
+                <h1>Ajouter un nouvel hôpital</h1>
+                
+                <div class="form-group">
+                    <label for="name">Nom de l'hôpital</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
 
-        <label for="lieu">Lieu</label>
-        <input type="text" id="lieu" name="lieu" required>
+                <div class="form-group">
+                    <label for="lieu">Lieu</label>
+                    <input type="text" id="lieu" name="lieu" required>
+                </div>
 
-        <label for="type">Type</label>
-        <select id="type" name="type" required>
-            <option value="hopital">Hôpital</option>
-            <option value="clinique">Clinique</option>
-        </select>
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select id="type" name="type" required>
+                        <option value="hopital">Hôpital</option>
+                        <option value="clinique">Clinique</option>
+                    </select>
+                </div>
 
-        <label for="date_de_creation">Date de création</label>
-        <input type="date" id="date_de_creation" name="date_de_creation" required>
+                <div class="form-group">
+                    <label for="date_de_creation">Date de création</label>
+                    <input type="date" id="date_de_creation" name="date_de_creation" required>
+                </div>
+            </div>
 
-        <h1>Ajouter l'admin système</h1>
-        
-        <!-- Informations sur l'admin système -->
-        <label for="username">Nom d'utilisateur</label>
-        <input type="text" id="username" name="username" required>
+            <div class="section">
+                <h1>Ajouter l'admin système</h1>
+                
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
 
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" required>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
 
-        <label for="date_de_naissance">Date de naissance</label>
-        <input type="date" id="date_de_naissance" name="date_de_naissance" required>
+                <div class="form-group">
+                    <label for="date_de_naissance">Date de naissance</label>
+                    <input type="date" id="date_de_naissance" name="date_de_naissance" required>
+                </div>
 
-        <label for="adresse">Adresse</label>
-        <textarea id="adresse" name="adresse" required></textarea>
+                <div class="form-group">
+                    <label for="adresse">Adresse</label>
+                    <textarea id="adresse" name="adresse" required></textarea>
+                </div>
 
-        <label for="telephone">Numéro de téléphone</label>
-        <input type="tel" id="telephone" name="telephone" required>
+                <div class="form-group">
+                    <label for="telephone">Numéro de téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" required>
+                </div>
 
-        <label for="mutuelle">Mutuelle (facultatif)</label>
-        <textarea id="mutuelle" name="mutuelle"></textarea>
+                <div class="form-group">
+                    <label for="mutuelle">Mutuelle (facultatif)</label>
+                    <textarea id="mutuelle" name="mutuelle"></textarea>
+                </div>
+            </div>
 
-        <button type="submit">Ajouter</button>
-    </form>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
 </body>
 </html>

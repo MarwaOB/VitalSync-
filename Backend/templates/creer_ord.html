@@ -3,135 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creer ordonnence</title>
+    <title>Créer ordonnance</title>
+    <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--colorVert1);
+        }
+
+        .messages {
+            margin: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .alert {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        form {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid var(--input-border);
+            font-size: 14px;
+        }
+
+        button {
+            background-color: var(--colorVert2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+
+        button:hover {
+            background-color: #1c6e5e;
+        }
+
+        #medicaments_container {
+            margin-bottom: 20px;
+        }
+
+        .medicament_row {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .medicament_row input,
+        .medicament_row select,
+        .medicament_row textarea {
+            margin-right: 10px;
+        }
+
+        .medicament_row button {
+            background-color: #e74c3c;
+        }
+
+        .medicament_row button:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-add {
+            background-color: var(--colorVert1);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .btn-add:hover {
+            background-color: #045d52;
+        }
+    </style>
 </head>
 <body>
-    
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-{% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
+    <h1>Créer une nouvelle ordonnance</h1>
+    <form method="POST" action="{% url 'ajouter_diagnostic' consultation %}">
+        {% csrf_token %}
 
-<h1>Créer une nouvelle ordonnance</h1>
-<form method="POST" action="{% url 'ajouter_diagnostic' consultation %}">
+        <div>
+            <label for="{{ form.observation.id_for_label }}">Observation de l'ordonnance: </label>
+            <br>
+            {{ form.observation }}
+        </div>
 
-    {% csrf_token %}
+        <div id="medicaments_container">
+            <div class="medicament_row" id="medicament_0">
+                <input type="text" name="medicaments_0_nom" placeholder="Nom du médicament" required>
+                <input type="number" name="medicaments_0_duree" placeholder="Durée (jours)" required>
+                <input type="number" name="medicaments_0_frequence" placeholder="Fréquence de prise par jour" required>
+                <input type="number" name="medicaments_0_cycle" placeholder="Cycle (jours)" required>
+                <input type="number" step="0.01" name="medicaments_0_dose" placeholder="Dose par prise" required>
 
-    <div>
-        <label for="{{ form.observation.id_for_label }}">Observation de l'ordonnance: </label>
-        <br>
-        {{ form.observation }}
-    </div>
-    
-    <div id="medicaments_container">
-        <div class="medicament_row" id="medicament_0">
-
-            <input type="text" name="medicaments_0_nom" placeholder="Nom du médicament">
-            <input type="number" name="medicaments_0_duree" placeholder="Durée (jours)">
-            <input type="number" name="medicaments_0_frequence" placeholder="frequence de prise par jour">
-            <input type="number" name="medicaments_0_cycle" placeholder="par n jours">
-            <input type="number" step="0.01" name="medicaments_0_dose" placeholder="Dose par prise">
-            
-            <select name="medicaments_0_unite">
-                {% for value, label in form.unite.field.choices %}
-                <option value="{{ value }}"> {{value}}</option>
-                {% endfor %}
-            </select>
-
-            <!-- Conteneur pour le mode d'administration (invisible au début) -->
-            <div id="medicaments_0_mode_administration_container" >
-       
-                <select name="medicaments_0_mode_administration">
-                    {% for value, label in form.mode_administration.field.choices %}
-                    <option value="{{value}}">{{label}}</option>
+                <select name="medicaments_0_unite" required>
+                    {% for value, label in form.unite.field.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
                     {% endfor %}
                 </select>
 
+                <div id="medicaments_0_mode_administration_container">
+                    <select name="medicaments_0_mode_administration" required>
+                        {% for value, label in form.mode_administration.field.choices %}
+                        <option value="{{ value }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <textarea name="medicaments_0_observation" placeholder="Observation sur le médicament"></textarea>
+
+                <button type="button" onclick="removeMedicament(0)">-</button>
             </div>
-
-            <textarea name="medicaments_0_observation" placeholder="Observation sur le médicament"></textarea>
-
-
-            <button type="button" onclick="removeMedicament(0)">-</button>
-        </div>
-    </div>
-
-    <input type="hidden" name="medicaments" id="medicaments">
-
-    <button type="button" onclick="addMedicament()">Ajouter un médicament</button>
-    <button type="submit" onclick="updateHiddenField()">Enregistrer l'ordonnance</button>
-</form>
-</body>
-<script>
-    let medicamentIndex = 1;
-
-    function addMedicament() {
-    let container = document.getElementById('medicaments_container');
-    let newMedicament = document.createElement('div');
-    newMedicament.classList.add('medicament_row');
-    newMedicament.id = 'medicament_' + medicamentIndex;
-
-    newMedicament.innerHTML = `
-        <input type="text" name="medicaments_${medicamentIndex}_nom" placeholder="Nom du médicament" required>
-        <input type="number" name="medicaments_${medicamentIndex}_duree" placeholder="Durée (jours)" required>
-        <input type="number" name="medicaments_${medicamentIndex}_frequence" placeholder="Fréquence par jour" required>
-        <input type="number" step="0.01" name="medicaments_${medicamentIndex}_dose" placeholder="Dose par prise" required>
-        <input type="number" name="medicaments_${medicamentIndex}_cycle" placeholder="Cycle (jours)" required>
-
-        <select name="medicaments_${medicamentIndex}_unite" required>
-            {% for value, label in form.unite.field.choices %}
-            <option value="{{ value }}">{{ label }}</option>
-            {% endfor %}
-        </select>
-
-        <div id="medicaments_${medicamentIndex}_mode_administration_container">
-            <select name="medicaments_${medicamentIndex}_mode_administration" required>
-                {% for value, label in form.mode_administration.field.choices %}
-                <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
         </div>
 
-        <textarea name="medicaments_${medicamentIndex}_observation" placeholder="Observation sur le médicament"></textarea>
+        <input type="hidden" name="medicaments" id="medicaments">
 
-        <button type="button" onclick="removeMedicament(${medicamentIndex})">-</button>
-    `;
+        <button type="button" onclick="addMedicament()" class="btn-add">Ajouter un médicament</button>
+        <button type="submit" onclick="updateHiddenField()">Enregistrer l'ordonnance</button>
+    </form>
 
-    container.appendChild(newMedicament);
-    medicamentIndex++;
-    updateHiddenField();
-}
-    function removeMedicament(index) {
-        let medicamentRow = document.getElementById('medicament_' + index);
-        medicamentRow.remove();
-        updateHiddenField();
-    }
+    <script>
+        let medicamentIndex = 1;
 
-    function updateHiddenField() {
-    let medicaments = [];
-    document.querySelectorAll('.medicament_row').forEach(function(row) {
-        let nom = row.querySelector('input[name^="medicaments_"][name$="_nom"]').value;
-        let duree = row.querySelector('input[name^="medicaments_"][name$="_duree"]').value;
-        let dose = row.querySelector('input[name^="medicaments_"][name$="_dose"]').value;
-        let frequence = row.querySelector('input[name^="medicaments_"][name$="_frequence"]').value;
-        let cycle = row.querySelector('input[name^="medicaments_"][name$="_cycle"]').value;
-        let unite = row.querySelector('select[name^="medicaments_"][name$="_unite"]').value;
-        let observation = row.querySelector('textarea[name^="medicaments_"][name$="_observation"]').value || '';
-        let mode_administration = row.querySelector('select[name^="medicaments_"][name$="_mode_administration"]').value;
+        function addMedicament() {
+            let container = document.getElementById('medicaments_container');
+            let newMedicament = document.createElement('div');
+            newMedicament.classList.add('medicament_row');
+            newMedicament.id = 'medicament_' + medicamentIndex;
 
-        if (nom && duree && dose && frequence && cycle) {
-            medicaments.push(`${nom},${duree},${frequence},${dose},${unite},${cycle},${mode_administration},${observation}`);
+            newMedicament.innerHTML = `
+                <input type="text" name="medicaments_${medicamentIndex}_nom" placeholder="Nom du médicament" required>
+                <input type="number" name="medicaments_${medicamentIndex}_duree" placeholder="Durée (jours)" required>
+                <input type="number" name="medicaments_${medicamentIndex}_frequence" placeholder="Fréquence par jour" required>
+                <input type="number" step="0.01" name="medicaments_${medicamentIndex}_dose" placeholder="Dose par prise" required>
+                <input type="number" name="medicaments_${medicamentIndex}_cycle" placeholder="Cycle (jours)" required>
+
+                <select name="medicaments_${medicamentIndex}_unite" required>
+                    {% for value, label in form.unite.field.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+
+                <div id="medicaments_${medicamentIndex}_mode_administration_container">
+                    <select name="medicaments_${medicamentIndex}_mode_administration" required>
+                        {% for value, label in form.mode_administration.field.choices %}
+                        <option value="{{ value }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <textarea name="medicaments_${medicamentIndex}_observation" placeholder="Observation sur le médicament"></textarea>
+
+                <button type="button" onclick="removeMedicament(${medicamentIndex})">-</button>
+            `;
+
+            container.appendChild(newMedicament);
+            medicamentIndex++;
+            updateHiddenField();
         }
-    });
 
-    document.getElementById('medicaments').value = medicaments.join(';');
-}
+        function removeMedicament(index) {
+            let medicamentRow = document.getElementById('medicament_' + index);
+            medicamentRow.remove();
+            updateHiddenField();
+        }
 
+        function updateHiddenField() {
+            let medicaments = [];
+            document.querySelectorAll('.medicament_row').forEach(function(row) {
+                let nom = row.querySelector('input[name^="medicaments_"][name$="_nom"]').value;
+                let duree = row.querySelector('input[name^="medicaments_"][name$="_duree"]').value;
+                let dose = row.querySelector('input[name^="medicaments_"][name$="_dose"]').value;
+                let frequence = row.querySelector('input[name^="medicaments_"][name$="_frequence"]').value;
+                let cycle = row.querySelector('input[name^="medicaments_"][name$="_cycle"]').value;
+                let unite = row.querySelector('select[name^="medicaments_"][name$="_unite"]').value;
+                let observation = row.querySelector('textarea[name^="medicaments_"][name$="_observation"]').value || '';
+                let mode_administration = row.querySelector('select[name^="medicaments_"][name$="_mode_administration"]').value;
 
-</script>
+                if (nom && duree && dose && frequence && cycle) {
+                    medicaments.push(`${nom},${duree},${frequence},${dose},${unite},${cycle},${mode_administration},${observation}`);
+                }
+            });
+
+            document.getElementById('medicaments').value = medicaments.join(';');
+        }
+    </script>
+</body>
+</html>

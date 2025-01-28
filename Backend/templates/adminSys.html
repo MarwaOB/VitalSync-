@@ -5,24 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un utilisateur</title>
     <style>
-        /* Add your existing styles here */
+        /* Global styles */
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f6f5f7;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        h1 {
+            color: var(--colorVert1);
+            font-weight: 700;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
         form {
             background: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
         }
+
         label {
             font-weight: bold;
             margin-top: 10px;
             display: block;
         }
+
         input, select, textarea, button {
             width: 100%;
             padding: 10px;
@@ -31,14 +54,18 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         button {
-            background: #007BFF;
+            background-color: var(--colorVert1);
             color: white;
             font-size: 16px;
             cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
         }
+
         button:hover {
-            background: #0056b3;
+            background-color: var(--colorVert2);
         }
 
         .error-message {
@@ -46,23 +73,22 @@
             margin-bottom: 15px;
         }
 
-        /* Style for hidden patient fields */
         .patient-fields {
             display: none;
         }
     </style>
     <script>
-        // JavaScript to toggle patient-specific fields based on the role selection
+        // Toggle patient-specific fields based on selected role
         function togglePatientFields() {
             const role = document.getElementById('role').value;
             const patientFields = document.getElementById('patient-fields');
             const emailField = document.getElementById('email-field');
             if (role === 'patient') {
                 patientFields.style.display = 'block';
-                emailField.style.display = 'block';  // Show the email field for patients
+                emailField.style.display = 'block';
             } else {
                 patientFields.style.display = 'none';
-                emailField.style.display = 'none';  // Hide the email field for other roles
+                emailField.style.display = 'none';
             }
         }
     </script>
@@ -88,13 +114,13 @@
         <input type="password" id="password" name="password" required>
 
         <label for="NSS">NSS</label>
-        <input type="text" id="NSS" name="NSS" required> 
+        <input type="text" id="NSS" name="NSS" required>
 
         <label for="first_name">Prénom</label>
-        <input type="text" id="first_name" name="first_name" required> 
+        <input type="text" id="first_name" name="first_name" required>
 
         <label for="last_name">Nom de famille</label>
-        <input type="text" id="last_name" name="last_name" required> 
+        <input type="text" id="last_name" name="last_name" required>
 
         <label for="role">Rôle</label>
         <select id="role" name="role" required onchange="togglePatientFields()">

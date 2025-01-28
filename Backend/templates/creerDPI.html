@@ -21,9 +21,71 @@
             document.getElementById("id_form-TOTAL_FORMS").value = parseInt(formCount) + 1;
         }
     </script>
+    <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            color: var(--colorVert1);
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--colorVert2);
+        }
+
+        .form-row {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-row input, .form-row textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: var(--colorVert1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: var(--colorVert2);
+        }
+
+        .qr-img {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    {% if messages %}
+
+{% if messages %}
     <div class="messages">
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -32,6 +94,7 @@
         {% endfor %}
     </div>
 {% endif %}
+
     <h1>Create DPI</h1>
 
     <form method="post">
@@ -40,15 +103,15 @@
         <!-- DPI Form -->
         <div>
             <h2>Attribuer un patient{% if request.user.role == 'adminSys' %} et un médecin{% endif %}</h2>
-            <div id = "patient" >  
+            <div id="patient">
                 {{ dpi_form.patient }}
             </div>
             {% if request.user.role == 'adminSys' %}
-            <div id = "medecin" >  
+            <div id="medecin">
                 {{ dpi_form.medecin }}
             </div>
             {% endif %}
-        </div>        
+        </div>
 
         <!-- Antecedents Formset -->
         <div id="formset-container">
@@ -70,5 +133,6 @@
             <img src="{{ dpi_form.instance.QR_Code.url }}" alt="QR Code">
         {% endif %}
     </div>
+
 </body>
 </html>

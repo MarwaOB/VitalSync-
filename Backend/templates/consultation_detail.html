@@ -4,358 +4,434 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultation Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fc;
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f6f5f7;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        h1, h2, h3 {
-            color: #333;
-        }
-        p {
-            color: #555;
-        }
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-        .button:hover {
-            background-color: #45a049;
-        }
-        form {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        textarea, input[type="text"], select {
+
+        .container {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
         }
+
+        h1, h2, h3 {
+            color: var(--colorVert1);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        h1 { font-size: 24px; margin-bottom: 30px; }
+        h2 { font-size: 20px; margin-bottom: 25px; }
+        h3 { font-size: 18px; margin-bottom: 20px; }
+
+        p {
+            color: var(--colorNavText);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .button {
+            width: 100%;
+            padding: 13px 10px;
+            background: var(--colorVert1);
+            color: #FFF;
+            border: 1px solid var(--colorVert1);
+            border-radius: 6px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background: #FFF;
+            color: var(--colorVert1);
+        }
+
+        form {
+            background: #FFF;
+            padding: 40px;
+            border-radius: 13px;
+            box-shadow: 25px 30px 15px rgba(85, 85, 85, 0.1);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        textarea, input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #f3f3f3;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus, input:focus, select:focus {
+            outline: none;
+            border-color: var(--colorVert1);
+            box-shadow: 0 0 0 2px rgba(5, 104, 94, 0.1);
+        }
+
         textarea {
+            min-height: 100px;
             resize: vertical;
         }
+
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
+
         .antecedent, .antecedant-section, .examen-section {
             background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .antecedent strong, .examen-section strong {
+            color: var(--colorVert2);
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: #828282;
+            margin-bottom: 8px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--input-border);
+            margin: 20px 0;
+        }
+
+        .alert {
             padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .soins {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid var(--input-border);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            background: #f3f3f3;
+            border-radius: 5px;
+            width: 100%;
             margin-bottom: 15px;
         }
-        .antecedent strong, .examen-section strong {
-            color: #333;
-        }
-        .antecedent p, .examen-section p {
-            color: #666;
-        }
-        .antecedent hr, .examen-section hr {
-            border: 0;
-            border-top: 1px solid #ddd;
-            margin-top: 10px;
-        }
-        .antecedant-section label, .examen-section label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
-        #antecedants-container, #examens-container {
-            margin-top: 20px;
-        }
-        .section button {
-            margin-top: 10px;
-        }
-        hr {
-            border: 1px solid #ddd;
-            margin-top: 20px;
+
+        img {
+            border-radius: 8px;
+            border: 1px solid var(--input-border);
         }
     </style>
 </head>
 <body>
-    {% if messages %}
-  {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
-      {{ message }}
-    </div>
-  {% endfor %}
- {% endif %}
-
-    <h1>Consultation Details</h1>
-
-    <h2>Consultation on {{ consultation.date }}</h2>
-    <p><strong>Patient:</strong> {{ consultation.dpi.patient.user.get_full_name }}</p>
-    <p><strong>Summary:</strong></p>
-
-    {% if user.role == 'medecin' %}
-    <form action="{% url 'ajouter_resume' consultation.id %}" method="POST">
-        <textarea name="resume" placeholder="{{ consultation.resume }}" rows="5"></textarea>
-        
-        <h2>Antécédents</h2>
-        <div id="antecedants-container">
-            {% for antecedent in consultation.dpi.antecedents.all %}
-            <div class="antecedent">
-                {% if antecedent.is_chirugical %}
-                <strong>Type d'antécédent:</strong> Chirurgical  <br>
-                {% else %}
-                <strong>Type d'antécédent:</strong> Médical <br>
-                {% endif %}
-
-                <strong>Titre:</strong> {{ antecedent.titre }} <br>
-                <strong>Description:</strong> {{ antecedent.description }} <br>
-                <hr>
-            </div>
-            {% empty %}
-            <p>Aucun antécédent trouvé.</p>
-            {% endfor %}
-        </div>
-
-        <div class="section">
-            <h2>Ajouter Des antécédents</h2>
-            {% csrf_token %}
-            <div id="antecedants-container">
-                <!-- Antécédents sections will be added here -->
-            </div>
-            <button type="button" onclick="ajouterAntecedant()" class="button">Ajouter un nouvel antécédent</button>
-        </div>
-
-        <button type="submit" class="button">Save</button>
-    </form>
-    {% endif %}
-
-    {% if consultation.diagnostic == null %}
-    <h3>Bilans</h3>
-    {% if user.role == 'medecin' %}
-    {% if bilan_biologique %}
-    <p><strong>Biologique Bilan:</strong></p>
-    <ul>
-        <li><strong>Laborantin:</strong> {{ bilan_biologique.laborantin }}</li>
-        <li><strong>Description:</strong> {{ bilan_biologique.description }}</li>
-        <li><strong>Taux Glycémie:</strong> {{ bilan_biologique.tauxGlycemie }}</li>
-        <li><strong>Taux Pression Artérielle:</strong> {{ bilan_biologique.tauxPressionArterielle }}</li>
-        <li><strong>Taux Cholestérol:</strong> {{ bilan_biologique.tauxCholesterol }}</li>
-    </ul>
-    {% else %}
-    <p>No Biologique Bilan created yet.</p>
-    <form action="{% url 'ajouter_biologique_bilan' consultation.id %}" method="POST">
-        <button type="submit" class="button">Demander un Bilan Biologique</button>
-    </form>
-    {% endif %}
-    {% else %}
-    {% if user.role == 'laborantin' %}
-    <form action="{% url 'faire_bilan' consultation.id %}" method="POST">
-        <button type="submit" class="button">Faire le Bilan Biologique</button>
-    </form>
-    {% endif %}
-    {% endif %}
-
-    {% if bilan_radiologique %}
-    {% if user.role == 'radioloque' %}
-    <p><strong>Radiologique Bilan:</strong></p>
-    <label for="date">Date </label>
-    <input type="date" id="date" name="date" required>
-    <ul>
-        <div class="section">
-            <h2>Ajouter Un Examen Radiologique</h2>
-            <form action="{% url 'ajouter_examen' consultation.id %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div id="examens-container">
-                    <!-- Examen Radiologique sections will be added here -->
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
                 </div>
-                <button type="button" onclick="ajouterTest()" class="button">Ajouter un autre test</button>
-                <button type="submit" class="button">Soumettre</button>
-            </form>
-        </div>
-    {% else %}
-    {% if user.role == 'medecin' %}
-        <li><strong>Radiologist:</strong> {{ bilan_radiologique.radioloque }}</li>
-        <h3>Examens Radiologiques :</h3>
-        <ul>
-            {% for examen in bilan_radiologique.examens.all %}
-            <li>
-                <strong>Type:</strong> {{ examen.type }} <br>
-                <strong>Description:</strong> {{ examen.description }} <br>
-                {% if examen.images %}
-                <img src="{{ examen.images.url }}" alt="Examen Image" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
-                {% else %}
-                <em>Pas d'image disponible</em>
-                {% endif %}
-            </li>
-            <hr>
             {% endfor %}
-        </ul>
         {% endif %}
 
-    {% endif %}
-    </ul>
-    {% else %}
-    {% if user.role == 'medecin' %}
-    <p>No Radiologique Bilan created yet.</p>
-    <form action="{% url 'ajouter_radiologique_bilan' consultation.id %}" method="POST">
-        <button type="submit" class="button">Demander un Bilan Radiologique</button>
-    </form>
-    {% endif %}
-    {% endif %}
-    {% endif %}
+        <h1>Consultation Details</h1>
 
-    {% if consultation.bilanBiologique == null %}
-    {% if consultation.bilanRadiologique ==  null %}
-
-    {% if user.role == 'medecin' %}
-    {% if consultation.diagnostic %}
-    <form action="{% url 'ord-view' consultation.id consultation.diagnostic.id %}" method="POST">
-        <button type="submit" class="button">Afficher l'ordonnence de diagnostic </button>
-    </form>
-
-    {% if consultation.diagnostic.ordonnance %}
-        <form action="{% url 'validate-ordonnance' consultation.diagnostic.ordonnance.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="button button-validate">Valider l'ordonnance</button>
-        </form>
-    {% endif %}
-    <h2>Les soins infermiers</h2>
-        <div id="soins-container">
-            {% for soin in SoinInfermierObservation %}
-            <div class="soins">
-                <strong>Date:</strong> {{ soin.date_time }} <br>
-                <strong>infermier:</strong> {{ soin.infermier.get_full_name }} <br>
-                <strong>Soin infermier:</strong> {{ soin.soins_infermier }} <br>
-                <strong>Observation:</strong> {{ soin.observation }} <br>
-                <hr>
+        <h2>Consultation on {{ consultation.date }}</h2>
+        <p><strong>Patient:</strong> {{ consultation.dpi.patient.user.get_full_name }}</p>
+        <p><strong>Résumé:</strong></p>
+    
+        {% if user.role == 'medecin' %}
+        <form action="{% url 'ajouter_resume' consultation.id %}" method="POST">
+            <textarea name="resume" placeholder="{{ consultation.resume }}" rows="5"></textarea>
+            
+            <h2>Antécédents</h2>
+            <div id="antecedants-container">
+                {% for antecedent in consultation.dpi.antecedents.all %}
+                <div class="antecedent">
+                    {% if antecedent.is_chirugical %}
+                    <strong>Type d'antécédent:</strong> Chirurgical  <br>
+                    {% else %}
+                    <strong>Type d'antécédent:</strong> Médical <br>
+                    {% endif %}
+    
+                    <strong>Titre:</strong> {{ antecedent.titre }} <br>
+                    <strong>Description:</strong> {{ antecedent.description }} <br>
+                    <hr>
+                </div>
+                {% empty %}
+                <p>Aucun antécédent trouvé.</p>
+                {% endfor %}
             </div>
-            {% empty %}
-            <p>Aucun soin n a ete trouvé.</p>
-            {% endfor %}
-        </div>
-
-
-    {% else %}
-    <p>No Diagnostic created yet.</p>
-    <form action="{% url 'creer_ord' consultation.id %}" method="POST">
-        <button type="submit" class="button"> Ajouter un diagnostic </button>
-    </form>
-    {% endif %}
-    {% endif %}
-
-    {% if consultation.diagnostic %}
-    {% if user.role == 'infermier' %}
-    <h1> Soins infermiers</h1>
     
-   
+            <div class="section">
+                <h2>Ajouter Des antécédents</h2>
+                {% csrf_token %}
+                <div id="antecedants-container">
+                    <!-- Antécédents sections will be added here -->
+                </div>
+                <button type="button" onclick="ajouterAntecedant()" class="button">Ajouter un nouvel antécédent</button>
+            </div>
     
-    <form action="{% url 'ajouter_soin' consultation.id %}" method="POST">
-        <h2>Administration des medicaments </h2> 
+            <button type="submit" class="button">Save</button>
+        </form>
+        {% endif %}
+    
+        {% if consultation.diagnostic == null %}
+        <h3>Bilans</h3>
+        {% if user.role == 'medecin' %}
+        {% if bilan_biologique %}
+        <p><strong>Biologique Bilan:</strong></p>
+        <ul>
+            <li><strong>Laborantin:</strong> {{ bilan_biologique.laborantin }}</li>
+            <li><strong>Description:</strong> {{ bilan_biologique.description }}</li>
+            <li><strong>Taux Glycémie:</strong> {{ bilan_biologique.tauxGlycemie }}</li>
+            <li><strong>Taux Pression Artérielle:</strong> {{ bilan_biologique.tauxPressionArterielle }}</li>
+            <li><strong>Taux Cholestérol:</strong> {{ bilan_biologique.tauxCholesterol }}</li>
+        </ul>
+        {% else %}
+        <p>No Biologique Bilan created yet.</p>
+        <form action="{% url 'ajouter_biologique_bilan' consultation.id %}" method="POST">
+            <button type="submit" class="button">Demander un Bilan Biologique</button>
+        </form>
+        {% endif %}
+        {% else %}
+        {% if user.role == 'laborantin' %}
+        <form action="{% url 'faire_bilan' consultation.id %}" method="POST">
+            <button type="submit" class="button">Faire le Bilan Biologique</button>
+        </form>
+        {% endif %}
+        {% endif %}
+    
+        {% if bilan_radiologique %}
+        {% if user.role == 'radioloque' %}
+        <p><strong>Radiologique Bilan:</strong></p>
+        <label for="date">Date </label>
+        <input type="date" id="date" name="date" required>
+        <ul>
+            <div class="section">
+                <h2>Ajouter Un Examen Radiologique</h2>
+                <form action="{% url 'ajouter_examen' consultation.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div id="examens-container">
+                        <!-- Examen Radiologique sections will be added here -->
+                    </div>
+                    <button type="button" onclick="ajouterTest()" class="button">Ajouter un autre test</button>
+                    <button type="submit" class="button">Soumettre</button>
+                </form>
+            </div>
+        {% else %}
+        {% if user.role == 'medecin' %}
+            <li><strong>Radiologist:</strong> {{ bilan_radiologique.radioloque }}</li>
+            <h3>Examens Radiologiques :</h3>
+            <ul>
+                {% for examen in bilan_radiologique.examens.all %}
+                <li>
+                    <strong>Type:</strong> {{ examen.type }} <br>
+                    <strong>Description:</strong> {{ examen.description }} <br>
+                    {% if examen.images %}
+                    <img src="{{ examen.images.url }}" alt="Examen Image" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+                    {% else %}
+                    <em>Pas d'image disponible</em>
+                    {% endif %}
+                </li>
+                <hr>
+                {% endfor %}
+            </ul>
+            {% endif %}
+    
+        {% endif %}
+        </ul>
+        {% else %}
+        {% if user.role == 'medecin' %}
+        <p>No Radiologique Bilan created yet.</p>
+        <form action="{% url 'ajouter_radiologique_bilan' consultation.id %}" method="POST">
+            <button type="submit" class="button">Demander un Bilan Radiologique</button>
+        </form>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    
+        {% if consultation.bilanBiologique == null %}
+        {% if consultation.bilanRadiologique ==  null %}
+    
+        {% if user.role == 'medecin' %}
+        {% if consultation.diagnostic %}
+        <form action="{% url 'ord-view' consultation.id consultation.diagnostic.id %}" method="POST">
+            <button type="submit" class="button">Afficher l'ordonnence de diagnostic </button>
+        </form>
+    
+        {% if consultation.diagnostic.ordonnance %} 
+        {% if consultation.diagnostic.ordonnance.status == 'rejete' %} 
+        {% if consultation.diagnostic.ordonnance.status == 'valide' %} 
+
+            <form action="{% url 'validate-ordonnance' consultation.diagnostic.ordonnance.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="button button-validate">Valider l'ordonnance</button>
+            </form>
+        {% endif %}
+        {% endif %}
+        {% endif %}
 
         <h2>Les soins infermiers</h2>
-        <div id="soins-container">
-            {% for soin in SoinInfermierObservation %}
-            <div class="soins">
-                <strong>Date:</strong> {{ soin.date_time }} <br>
-                <strong>infermier:</strong> {{ soin.infermier.get_full_name }} <br>
-                <strong>Soin infermier:</strong> {{ soin.soins_infermier }} <br>
-                <strong>Observation:</strong> {{ soin.observation }} <br>
-                <hr>
+            <div id="soins-container">
+                {% for soin in SoinInfermierObservation %}
+                <div class="soins">
+                    <strong>Date:</strong> {{ soin.date_time }} <br>
+                    <strong>infermier:</strong> {{ soin.infermier.get_full_name }} <br>
+                    <strong>Soin infermier:</strong> {{ soin.soins_infermier }} <br>
+                    <strong>Observation:</strong> {{ soin.observation }} <br>
+                    <hr>
+                </div>
+                {% empty %}
+                <p>Aucun soin n a ete trouvé.</p>
+                {% endfor %}
             </div>
-            {% empty %}
-            <p>Aucun soin n a ete trouvé.</p>
-            {% endfor %}
-        </div>
-        <h3>Saisir votre soin infermier</h3>
-        <textarea name="soin"  rows="5"></textarea>
-        <h3>Saisir votre observation</h3>
-        <textarea name="observation"  rows="5"></textarea>
-
+    
+    
+        {% else %}
+        <p>No Diagnostic created yet.</p>
+        <form action="{% url 'creer_ord' consultation.id %}" method="POST">
+            <button type="submit" class="button"> Ajouter un diagnostic </button>
+        </form>
+        {% endif %}
+        {% endif %}
+    
+        {% if consultation.diagnostic %}
+        {% if user.role == 'infermier' %}
+        <h1> Soins infermiers</h1>
+        
        
-        <button type="submit" class="button"> Sauvegarder </button>
-        <a href="{% url 'checklist' consultation.id %}" class="btn btn-primary">Manage Checklist</a>
+        
+        <form action="{% url 'ajouter_soin' consultation.id %}" method="POST">
+            <h2>Administration des medicaments </h2> 
+    
+            <h2>Les soins infermiers</h2>
+            <div id="soins-container">
+                {% for soin in SoinInfermierObservation %}
+                <div class="soins">
+                    <strong>Date:</strong> {{ soin.date_time }} <br>
+                    <strong>infermier:</strong> {{ soin.infermier.get_full_name }} <br>
+                    <strong>Soin infermier:</strong> {{ soin.soins_infermier }} <br>
+                    <strong>Observation:</strong> {{ soin.observation }} <br>
+                    <hr>
+                </div>
+                {% empty %}
+                <p>Aucun soin n a ete trouvé.</p>
+                {% endfor %}
+            </div>
+            <h3>Saisir votre soin infermier</h3>
+            <textarea name="soin"  rows="5"></textarea>
+            <h3>Saisir votre observation</h3>
+            <textarea name="observation"  rows="5"></textarea>
+    
+           
+            <button type="submit" class="button"> Sauvegarder </button>
+            <a href="{% url 'checklist' consultation.id %}" class="btn btn-primary">Administrer Medicaments</a>
+    
+        </form>
+    
+        {% endif %}
+        {% endif %}
+    
+    
+        {% endif %}
+        {% endif %}
+    </div>
 
-    </form>
-
-    {% endif %}
-    {% endif %}
-
-
-    {% endif %}
-    {% endif %}
-  
-
-
-  
-
+    <script>
+        function ajouterAntecedant() {
+            const container = document.getElementById('antecedants-container');
+    
+            // Create a new div for each antecedent to be added
+            const div = document.createElement('div');
+            div.classList.add('antecedant-section');
+    
+            div.innerHTML = `
+                <label for="type_antecedant">Type d'antécédent :</label>
+                <select name="type_antecedant[]">
+                    <option value="Chirurgical">Chirurgical</option>
+                    <option value="Médical">Médical</option>
+                </select>
+                <label for="titre">Titre :</label>
+                <input type="text" name="titre[]" placeholder="Titre de l'antécédent">
+                <label for="description">Description :</label>
+                <textarea name="description[]" placeholder="Décrire l'antécédent" rows="5" style="width: 100%; margin-bottom: 10px;"></textarea>
+                <hr>
+            `;
+    
+            // Append the new antecedent section to the container
+            container.appendChild(div);
+        }
+    
+        function ajouterTest() {
+            const container = document.getElementById('examens-container');
+    
+            // Create a new div for each test to be added
+            const div = document.createElement('div');
+            div.classList.add('examen-section');
+    
+            div.innerHTML = `
+                <label for="type_examen">Type d'Examen :</label>
+                <select name="type_examen[]">
+                    <option value="radiographie">Radiographie</option>
+                    <option value="scanner">Scanner (CT)</option>
+                    <option value="irm">IRM</option>
+                    <option value="echographie">Échographie</option>
+                    <option value="mammographie">Mammographie</option>
+                    <option value="angiographie">Angiographie</option>
+                    <option value="scintigraphie">Scintigraphie</option>
+                    <option value="tep">Tomographie par émission de positons (PET)</option>
+                    <option value="radiologie_interventionnelle">Radiologie Interventionnelle</option>
+                </select>
+    
+                <label for="compte_rendu">Compte rendu de l'examen :</label>
+                <textarea name="compte_rendu[]" placeholder="Écrire un autre compte rendu" rows="5" style="width: 100%; margin-bottom: 10px;"></textarea>
+                
+                
+                
+                <label for="image">Insérer une image :</label>
+                <input type="file" name="image[]" accept="image/*" style="margin-bottom: 10px;">
+                <hr>
+            `;
+    
+            // Append the new exam section to the container
+            container.appendChild(div);
+        }
+    </script>
 </body>
 </html>
-
-<script>
-    function ajouterAntecedant() {
-        const container = document.getElementById('antecedants-container');
-
-        // Create a new div for each antecedent to be added
-        const div = document.createElement('div');
-        div.classList.add('antecedant-section');
-
-        div.innerHTML = `
-            <label for="type_antecedant">Type d'antécédent :</label>
-            <select name="type_antecedant[]">
-                <option value="Chirurgical">Chirurgical</option>
-                <option value="Médical">Médical</option>
-            </select>
-            <label for="titre">Titre :</label>
-            <input type="text" name="titre[]" placeholder="Titre de l'antécédent">
-            <label for="description">Description :</label>
-            <textarea name="description[]" placeholder="Décrire l'antécédent" rows="5" style="width: 100%; margin-bottom: 10px;"></textarea>
-            <hr>
-        `;
-
-        // Append the new antecedent section to the container
-        container.appendChild(div);
-    }
-
-    function ajouterTest() {
-        const container = document.getElementById('examens-container');
-
-        // Create a new div for each test to be added
-        const div = document.createElement('div');
-        div.classList.add('examen-section');
-
-        div.innerHTML = `
-            <label for="type_examen">Type d'Examen :</label>
-            <select name="type_examen[]">
-                <option value="radiographie">Radiographie</option>
-                <option value="scanner">Scanner (CT)</option>
-                <option value="irm">IRM</option>
-                <option value="echographie">Échographie</option>
-                <option value="mammographie">Mammographie</option>
-                <option value="angiographie">Angiographie</option>
-                <option value="scintigraphie">Scintigraphie</option>
-                <option value="tep">Tomographie par émission de positons (PET)</option>
-                <option value="radiologie_interventionnelle">Radiologie Interventionnelle</option>
-            </select>
-
-            <label for="compte_rendu">Compte rendu de l'examen :</label>
-            <textarea name="compte_rendu[]" placeholder="Écrire un autre compte rendu" rows="5" style="width: 100%; margin-bottom: 10px;"></textarea>
-            
-            
-            
-            <label for="image">Insérer une image :</label>
-            <input type="file" name="image[]" accept="image/*" style="margin-bottom: 10px;">
-            <hr>
-        `;
-
-        // Append the new exam section to the container
-        container.appendChild(div);
-    }
-</script>

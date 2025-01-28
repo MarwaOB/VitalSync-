@@ -29,6 +29,8 @@ import matplotlib.pyplot as plt
 from django.db.models import Q
 import base64
 from django.core.files.base import ContentFile
+from django.utils.timezone import now  # Utilisez `now` pour obtenir la date actuelle
+
 
 
 @csrf_exempt
@@ -320,10 +322,13 @@ def Consultation_dpi(request):
         try:
             dpi = Dpi.objects.get(id=dpi_id)  # Fetch DPI by its ID
             patient = dpi.patient  # Get the patient associated with the DPI
+            latest_consultation = dpi.consultations.order_by('-date').first()  # Dernière consultation par date
             return render(request, 'dpiShow.html', {
                 'patient': patient,
                 'dpi': dpi,
                 'antecedents': dpi.antecedents.all(),
+                'latest_consultation': latest_consultation,
+
             })
         except Dpi.DoesNotExist:
             raise Http404("DPI not found.")
@@ -686,7 +691,6 @@ def choose_hospital(request):
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
 
-from django.utils.timezone import now  # Utilisez `now` pour obtenir la date actuelle
 
 @csrf_exempt
 @login_required

@@ -4,24 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faire le Bilan</title>
+    <style>
+        :root {
+            --colorVert1: #05685E;
+            --colorVert2: #22797B;
+            --colorNavText: #6A727A;
+            --input-border: #DED2D9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            color: var(--colorVert1);
+            text-align: center;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: var(--colorVert1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-container button:hover {
+            background-color: var(--colorVert2);
+        }
+    </style>
 </head>
 <body>
+
     <h1>Faire le Bilan pour {{ consultation.dpi.patient.user.first_name }} {{ consultation.dpi.patient.user.last_name }}</h1>
     
     {% if not form.is_valid %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Soumettre</button>
-    </form>
+    <div class="form-container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Soumettre</button>
+        </form>
+    </div>
     {% endif %}
 
     <!-- Add a button for generating the graph -->
     {% if form.is_valid %}
-    <form action="{% url 'generate_graph' consultation.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="button">Générer le Graphique</button>
-    </form>
+    <div class="form-container">
+        <form action="{% url 'generate_graph' consultation.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="button">Générer le Graphique</button>
+        </form>
+    </div>
     {% endif %}
     
 </body>
