@@ -6,13 +6,15 @@ import { Dpi } from '../../../shared/models/Dpi/Dpi';
 import { AntecedentService } from '../Antecedent/antecedent.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from '../../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DossierPatientService 
 {
-  
+  constructor(private http: HttpClient, private userService: UserService) {}
+
   
   private patient: Patient | null = null;
   private medecin: Medecin | null = null;
@@ -24,9 +26,12 @@ export class DossierPatientService
   private apiUrl2 = 'http://127.0.0.1:8000/show_antecedant'; // Base API URL from Django
   private apiUrl3 = 'http://127.0.0.1:8000/show_consultations'; // Base API URL from Django
 
-  constructor(private http: HttpClient) {}
-    getAll(): Observable<any> {
-    return this.http.get<any>(this.apiUrl, { withCredentials: true }); // Include cookies with the request
+  getAll(): Observable<any> {
+    const userRole = this.userService.user?.role; // Access the user's role
+    const userId = this.userService.user?.id; // Access the user's id
+    const urlWithParams = `${this.apiUrl}?role=${userRole}&id=${userId}`; // Append both role and id as query parameters
+    
+    return this.http.get<any>(urlWithParams, { withCredentials: true }); // Make the request with the modified URL
   }
 
   addDpi(newDpi: {

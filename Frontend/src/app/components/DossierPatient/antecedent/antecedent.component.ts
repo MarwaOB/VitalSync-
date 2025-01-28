@@ -13,7 +13,8 @@ import { ShareddpiService } from '../../../services/shareddpi/shareddpi.service'
   templateUrl: './antecedent.component.html',
   styleUrl: './antecedent.component.css'
 })
-export class AntecedentComponent implements OnInit {
+export class AntecedentComponent implements OnInit 
+{
   antecedents: any[] = [];
   editMode: boolean = false;
   showDetails: boolean = false;
@@ -21,10 +22,11 @@ export class AntecedentComponent implements OnInit {
   user: any = null;
   dpi : any= null ;
 
-  tempAntecedant: any = {
-    titre: '', isChirurgical: false, description: '',
-    id: '',
-    dpiId: ''
+  tempAntecedant: any = 
+  {
+    titre: '', is_chirugical: false, description: '',
+    id: 0,
+    dpi_id: 0
   };
   
   constructor(private antecedentService: AntecedentService ,private userservice: UserService ,  private shareddpiService:ShareddpiService , private userService :UserService) { }
@@ -52,7 +54,7 @@ export class AntecedentComponent implements OnInit {
         console.log('Échec de la mise à jour');
       }
      } else {
-      const success = this.antecedentService.addAntecedent(this.tempAntecedant);
+      const success = this.antecedentService.addantecedent(this.tempAntecedant);
       if (success) {
         console.log('Antécédent ajouté avec succès');
       } else {
@@ -82,8 +84,37 @@ export class AntecedentComponent implements OnInit {
   //     console.log('Échec de la suppression');
   //   }
   // }
+  
+  saveChanges1(): void {
+
+    this.shareddpiService.getDpiId().subscribe((dpiId) => {
+      if (dpiId !== null) {
+        this.tempAntecedant.dpi_id = dpiId; // Assign the retrieved dpiId
+        console.log('Sending data:', this.tempAntecedant); // Log the data being sent
+  
+        // Send the antecedent data to the backend
+        this.antecedentService.addantecedent(this.tempAntecedant).subscribe({
+          next: (response: any) => {
+            console.log('Antecedent added successfully', response);
+          },
+          error: (error: any) => {
+            console.error('Error adding antecedent:', error);
+            if (error.error) {
+              console.error('Server Response:', error.error);
+            }
+          }
+        });
+  
+        // Exit edit mode
+        this.editMode = false;
+      } else {
+        console.error('DPI ID is null. Cannot proceed.');
+      }
+    });
+  }
+  
   ajouterAntecedent(): void {
-    this.tempAntecedant = { titre: '', isChirurgical: false, description: '', id: '', dpiId: '' };
+    this.tempAntecedant = { titre: '', is_chirugical: false, description: '', id: 0, dpi_id: 0 };
     this.editMode = true;
   }
   voirPlus(antecedent: any): void {

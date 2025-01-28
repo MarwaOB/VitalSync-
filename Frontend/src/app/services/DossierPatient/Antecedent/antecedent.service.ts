@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Antecedent } from '../../../shared/models/Dpi/Antecedent';
 import { DossierPatientService } from '../Dp/dossier-patient.service';
+import { Observable } from 'rxjs';
+import { ShareddpiService } from '../../shareddpi/shareddpi.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -37,18 +40,25 @@ export class AntecedentService {
       dpiId: "1"
     }
   ];
+  private apiUrl = 'http://127.0.0.1:8000/ajouter_antecedant_api'; // Base API URL from Django
 
-  constructor(private dossierPatientService: DossierPatientService) { }
 
-  addAntecedent(antecedent: Antecedent): boolean {
-    antecedent.id = (this.antecedents.length + 1).toString();
-    const dpi = this.dossierPatientService.getDpi();
-    if (dpi) {
-      antecedent.dpiId = dpi.id;
-    }
-    this.antecedents.push(antecedent);
-    return true;
-  }
+  constructor(private http: HttpClient, private dossierPatientService: DossierPatientService,private shareddpiservice: ShareddpiService) { }
+
+ 
+  addantecedent(newAntecedent: {
+    titre: string, is_chirugical: boolean, description: string,
+    id: number,
+    dpi_id: number
+
+   }): Observable<any> {
+     console.log(newAntecedent)
+     return this.http.post<any>(this.apiUrl, newAntecedent, { withCredentials: true });
+   }
+  
+   
+  
+
   getAntecedents(): Antecedent[] {
     return this.antecedents;
   }

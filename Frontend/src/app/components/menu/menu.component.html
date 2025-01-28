@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="frame"*ngIf="user?.role === 'adminCentral' ||  user?.role === 'medecin'||  user?.role === 'adminSys'||  user?.role === 'infermier' || user?.role === 'laborantin'|| user?.role === 'radiologue'">
+                    <div class="frame"*ngIf="user?.role === 'adminCentral' ||  user?.role === 'adminSys'||  user?.role === 'infermier' || user?.role === 'laborantin'|| user?.role === 'radiologue'">
                         <div class="div"
                         routerLink="/listpatient" 
                         routerLinkActive="active" 
@@ -130,7 +130,7 @@
                                 
                         
                    </div>
-                   <div class="frame" *ngIf="user?.role === 'adminSys'|| user?.role === 'adminCentral' || user?.role === 'medecin'|| user?.role === 'laborantin' || user?.role === 'radioloque' || user?.role === 'infermier'">
+                   <div class="frame" *ngIf="user?.role === 'adminSys' || user?.role === 'medecin'|| user?.role === 'laborantin' || user?.role === 'radioloque' || user?.role === 'infermier'">
                         <div class="div"
                             
                             routerLink="/listdpi" 
@@ -139,7 +139,7 @@
             
                             <img class="img" src="assets/images/menu/profile.svg" />
                             <div class="frame-2">
-                                <div class="text-wrapper">Dossier Médical</div>
+                                <div class="text-wrapper">Dossier Médicaux</div>
                             </div>
                         
                         </div>

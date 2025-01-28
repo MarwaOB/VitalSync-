@@ -1,6 +1,6 @@
 <div class="table-container" *ngIf="!currentComponent">
     <h2>Consultation du patient :</h2>
-    <div class="btn-container" *ngIf="user?.role === 'medecin'  ">
+    <div class="btn-container"  >
         <button class="ajouter-btn" (click)="ajouterConsultation()">
             Ajouter une consultation
         </button>
@@ -27,25 +27,25 @@
                 </td>
                 <td>
                     <div class="eye">
-                        <i *ngIf="consultation.diagnosticId && !consultation.bilanRadiologiqueId  && !consultation.bilanBiologiqueId  " class="fas fa-eye"
+                        <i *ngIf="consultation.diagnostic && !consultation.bilanRadiologique  && !consultation.bilanBiologique  " class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'diag')"></i>
-                        <i *ngIf="!consultation.diagnosticId && !consultation.bilanRadiologiqueId  && !consultation.bilanBiologiqueId  " class="fas fa-plus"
+                        <i *ngIf="!consultation.diagnostic && !consultation.bilanRadiologique  && !consultation.bilanBiologique  " class="fas fa-plus"
                             (click)="creerDiagnostic(consultation)"></i>
                     </div>
                 </td>
                 <td>
                     <div class="eye">
-                        <i *ngIf="consultation.bilanRadiologiqueId && !consultation.diagnosticId" class="fas fa-eye"
+                        <i *ngIf="consultation.bilanRadiologique && !consultation.diagnostic" class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'bilanRadio')"></i>
-                        <i *ngIf="!consultation.bilanRadiologiqueId && !consultation.diagnosticId " class="fas fa-plus"
+                        <i *ngIf="!consultation.bilanRadiologique && !consultation.diagnostic " class="fas fa-plus"
                             (click)="creerBilanRadio(consultation)"></i>
                     </div>
                 </td>
                 <td>
                     <div class="eye">
-                        <i *ngIf="consultation.bilanBiologiqueId  && !consultation.diagnosticId" class="fas fa-eye"
+                        <i *ngIf="consultation.bilanBiologique  && !consultation.diagnostic" class="fas fa-eye"
                             (click)="voirComposantDetail(consultation, 'bilanBio')"></i>
-                        <i *ngIf="!consultation.bilanBiologiqueId  && !consultation.diagnosticId  " class="fas fa-plus"
+                        <i *ngIf="!consultation.bilanBiologique  && !consultation.diagnostic  " class="fas fa-plus"
                             (click)="creerBilanBio(consultation)"></i>
                     </div>
                 </td>
@@ -73,6 +73,26 @@
         </div>
     </div>
 </div>
+
+<div class="overlay" *ngIf="editMode">
+    <div class="form-container">
+        
+
+        <div class="description">
+            <div class="field">
+                <label>Resume de la consultation  </label>
+                <input type="textarea" [(ngModel)]="tempConsultaion.resume" />
+            </div>
+        </div>
+
+        <div class="butSaveCancel">
+            <button id="cancel" (click)="cancelEdit()">Cancel</button>
+            <button (click)="saveChanges1()">Save</button>
+        </div>
+    </div>
+</div>
+
+
 
 <div *ngIf="currentComponent === 'diag'">
     <app-diagnostic [consultation]="selectedConsultation" [diagnostic]="selectedDiagnostic"></app-diagnostic>

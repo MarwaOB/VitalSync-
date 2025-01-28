@@ -13,7 +13,12 @@ urlpatterns = [
     path('show_antecedant/<int:patient_id>/', views.show_antecedant, name='show_antecedant'),
     path("ajouter_antecedant_api", views.ajouter_antecedant_api, name="ajouter_antecedant_api"),
     path('show_consultations/<int:patient_id>/', views.show_consultations, name='show_consultations'),
-    path("ajouter_Consultation_api", views.ajouter_Consultation_api, name="ajouter_Consultation_api")
+    path("ajouter_Consultation_api", views.ajouter_Consultation_api, name="ajouter_Consultation_api"),
+    path('ajouter_biologique_bilan_api', views.ajouter_biologique_bilan_api, name='ajouter_biologique_bilan_api'),
+    path('ajouter_radiologique_bilan_api', views.ajouter_radiologique_bilan_api, name='ajouter_radiologique_bilan_api'),
+    path('ajouter_examen_api', views.ajouter_examen_api, name='ajouter_examen_api'),
+    path('faire_bilan_api', views.faire_bilan_api, name='faire_bilan_api'),
+    path('generate_graph_api', views.generate_graph_api, name='generate_graph_api'),
 
     
 ]

@@ -1,5 +1,5 @@
 <div class="table-container">
-    <div class="btn-container">
+    <div  *ngIf="user?.role === 'adminSys' || user?.role === 'medecin' " class="btn-container">
         <button class="ajouter-btn" (click)="openAddOverlay()">
             <i class="fas fa-user-plus"></i> Ajouter un Dpi
         </button>
@@ -50,7 +50,7 @@
                 <td>{{ dpi.patient_name  }}</td>
                 
                 <td class="eye-cell">
-                    <i *ngIf="!isDpiNull(dpi)" class="fas fa-eye" (click)="voirDpi(dpi.id)"></i>
+                    <i *ngIf="!isDpiNull(dpi)" class="fas fa-eye" (click)="voirDpi(dpi.patientap)"></i>
                 </td>
                 <td class="actions-cell">
                     <i class="fas fa-edit" (click)="editdpi(dpi.id)"></i>
@@ -69,11 +69,25 @@
            
             <div class="field">
                 <label for="medecin">Sélectionner un medecin</label>
-                <select id="medecin" [(ngModel)]="tempUserData.medecin_id" name="medecin" required>
-                    <option value="" disabled selected>-- Choisir un medecin --</option>
-                    <option *ngFor="let medecin of medecins" [value]="medecin.id">{{ medecin.first_name }} {{ medecin.last_name }}</option>
+                <select 
+                    id="medecin" 
+                    [(ngModel)]="tempUserData.medecin_id" 
+                    name="medecin" 
+                    [disabled]="user?.role === 'medecin'" 
+                    required>
+                    
+                    <!-- If user is a medecin, show their name only -->
+                    <option *ngIf="user?.role === 'medecin'" [value]="user.id" selected>
+                        {{ user.first_name }} {{ user.last_name }}
+                    </option>
+            
+                    <!-- If user is not a medecin, show list of medecins -->
+                    <option *ngFor="let medecin of medecins" [value]="medecin.id">
+                        {{ medecin.first_name }} {{ medecin.last_name }}
+                    </option>
                 </select>
             </div>
+            
 
             <div class="field">
                 <label for="patient">Sélectionner un patient</label>

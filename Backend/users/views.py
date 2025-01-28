@@ -177,6 +177,7 @@ def sign_in(request):
                 login(request, user)
                 
                 user_data = {
+                    'id' : user.id,
                     'nss' : user.NSS ,
                     'username': user.username,
                     'email': user.email,
@@ -652,24 +653,49 @@ def log_out(request):
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Patient, Hospital
+from .serializers import PatientSerializer
 
-@csrf_exempt 
 @api_view(['GET'])
 def show_patients(request):
     try:
-        print(f'request.user.role {request.user.role}')
-        # Get all patients based on the role of the authenticated user
-        if request.user.role == "adminCentral":
+        # Vérification du rôle de l'utilisateur authentifié
+        print(f"Authenticated user role: {request.user.role}")
+        role = request.GET.get('role')
+        hospital_id = request.GET.get('id')
+
+        # Récupérer les patients en fonction du rôle
+        if role == "adminCentral":
+            # L'administrateur central peut voir tous les patients
             patients = Patient.objects.all()
         else:
-            patients = Patient.objects.filter(user__hospital=request.user.hospital)
+            # Pour les autres utilisateurs, filtrer par hôpital
+            if not hospital_id:
+                return Response(
+                    {"error": "L'ID de l'hôpital est requis."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            try:
+                hopital = Hospital.objects.get(id=hospital_id)
+            except Hospital.DoesNotExist:
+                return Response(
+                    {"error": "Hôpital introuvable."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
 
-        print(f'patients {patients} ')
+            # Filtrer les patients de l'hôpital correspondant
+            patients = Patient.objects.filter(user__hospital=hopital)
 
-        # Serialize the patient data
+        # Afficher les patients trouvés (pour debug)
+        print(f"Patients found: {patients}")
+
+        # Sérialiser les données des patients
         serializer = PatientSerializer(patients, many=True)
 
-        # Return the serialized data in the response
+        # Retourner les données sérialisées
         return Response({"patients": serializer.data}, status=status.HTTP_200_OK)
 
     except Exception as e:
@@ -677,7 +703,6 @@ def show_patients(request):
             {"error": "An error occurred while retrieving patients.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
 
 @csrf_exempt 
 @api_view(['GET'])

@@ -11,6 +11,7 @@ import { Dpi } from '../../../shared/models/Dpi/Dpi';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { ShareddpiService } from '../../../services/shareddpi/shareddpi.service';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-tabledpi',
@@ -33,7 +34,7 @@ export class TabledpiComponent {
    qr_path : any ;
    searchNss : any ;
    imagePath: string | null = null; // Holds the base64 string or file path
-
+   user:any;
    tempUserData:  { patient_id : number; medecin_id : number; }=
    {  
     patient_id: 0,
@@ -43,10 +44,9 @@ export class TabledpiComponent {
    constructor(
      private medecinService: MedecinService,
      private dpiService: DossierPatientService,
-
+     private userService: UserService  ,
      private patientService: PatientService,
      private shareddpiService: ShareddpiService ,// inject the shared service
-
      private router: Router
    ) {}
  
@@ -54,6 +54,8 @@ export class TabledpiComponent {
      this.fetchMedecins_by_role();
      this.loadPatients_by_role();
      this.fetchdpi();
+     this.user = this.userService.user;
+
    }
  
 
@@ -109,33 +111,42 @@ export class TabledpiComponent {
   }
   
   
+  openAddOverlay(): void {
+    this.tempUserData = {  
+      medecin_id: this.user?.role === 'medecin' ? this.user.id : 0,  // Pre-fill for medecin
+      patient_id: 0
+    };
+    
+    this.editMode = true;
+  }
  
-   openAddOverlay(): void 
-   {
-     this.tempUserData = 
-     {  
-      medecin_id: 0,
-      patient_id: 0, };
- 
-     this.editMode = true;
-   }
- 
-   saveChanges1(): void {
-    // Call the service to add a new dpi
+  saveChanges1(): void {
+    console.log('Sending data:', this.user); // Log the data being sent
+
+    if (this.user?.role === 'medecin') {
+      this.tempUserData.medecin_id = this.user.id; // Ensure the correct ID is assigned
+    }
+  
+    console.log('Sending data:', this.tempUserData); // Log the data being sent
+  
     this.dpiService.addDpi(this.tempUserData).subscribe({
-     next: (response: any) => {
-       console.log('laborantin added successfully', response);
-       // You can reload or update the list of hospitals here
-       this.fetchMedecins_by_role(); // Assuming this fetches updated data
-       this.router.navigate(['/listdpi']);
- 
-     },
-     error: (error: any) => {
-       console.error('Error adding radiologue', error);
-     }
-   });
-   this.editMode = false;
-   }
+      next: (response: any) => {
+        console.log('DPI added successfully', response);
+        this.fetchdpi(); // Refresh list
+        this.router.navigate(['/listdpi']);
+      },
+      error: (error: any) => {
+        console.error('Error adding DPI:', error);
+        if (error.error) {
+          console.error('Server Response:', error.error);
+        }
+      }
+    });
+  
+    this.editMode = false;
+  }
+  
+  
  
    cancelEdit(): void {
      this.editMode = false;
@@ -151,6 +162,7 @@ export class TabledpiComponent {
    }
    
    voirDpi(patientId: number): void {
+    console.log('dddddddd',patientId)
     this.dpiService.getAntecedentsByPatientId(patientId).subscribe({
       
       next: (response: any) => {
@@ -160,6 +172,7 @@ export class TabledpiComponent {
         console.log('dpi id', response.antecedents);
 
         this.shareddpiService.setDpiPatientAntecedents(response.dpi_id,patientId,response.antecedents);
+              //  this.router.navigate(['/patient-dpi', patientId]);
 
       },
       error: (error: any) => {

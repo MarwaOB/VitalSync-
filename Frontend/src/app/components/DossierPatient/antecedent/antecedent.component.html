@@ -1,7 +1,7 @@
 
 <div class="table-container">
     <h2>Antécédents Médicaux du patient : </h2>
-    <div class="btn-container" *ngIf="user?.role === 'medecin'||user?.role === 'radioloque'  ">
+     <div class="btn-container"   > 
         <button class="ajouter-btn" (click)="ajouterAntecedent()">
             Ajouter un antécédent</button>
     </div>
@@ -51,8 +51,8 @@
             </div>
             <br>
             <div class="field">
-                <label>Est chi</label>
-                <select id="isChirurgical" [(ngModel)]="tempAntecedant.isChirurgical">
+                <label>Est chirugical?</label>
+                <select id="is_chirugical" [(ngModel)]="tempAntecedant.is_chirugical">
                     <option [value]="true">Oui</option>
                     <option [value]="false">Non</option>
                 </select>
@@ -68,7 +68,7 @@
 
         <div class="butSaveCancel">
             <button id="cancel" (click)="cancelEdit()">Cancel</button>
-            <button (click)="saveChanges()">Save</button>
+            <button (click)="saveChanges1()">Save</button>
         </div>
     </div>
 </div>

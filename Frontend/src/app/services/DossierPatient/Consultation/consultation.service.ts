@@ -11,6 +11,7 @@ import { Radiologique } from '../../../shared/models/Dpi/BilanRadiologique';
 import { Examen } from '../../../shared/models/Dpi/Examen';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -82,8 +83,19 @@ export class ConsultationService {
     { id: 'EXAM002', type: 'radiologique', description: 'Examen des poumons', images: "image2", bilanRadiologiqueId: "bilanRadio1" },
   ];
 
+  private apiUrl = 'http://127.0.0.1:8000/ajouter_Consultation_api'; // Base API URL from Django
 
-  constructor(private dossierPatientService: DossierPatientService) { }
+  constructor(private http: HttpClient,private dossierPatientService: DossierPatientService) { }
+  
+  addconsultation(newConsultaion: {
+     resume: string,
+    dpi_id: number
+
+   }): Observable<any> {
+     console.log(newConsultaion)
+     return this.http.post<any>(this.apiUrl, newConsultaion, { withCredentials: true });
+   }
+
   addConsultation(Consultation: Consultation): boolean {
     Consultation.id = (this.Consultations.length + 1).toString();
     const dpi = this.dossierPatientService.getDpi();

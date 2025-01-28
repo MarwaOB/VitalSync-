@@ -54,7 +54,7 @@ export class SigninComponent implements OnInit {
     this.signInService.signIn(this.username, this.password).subscribe(
       response => {
         if (response.status === 'success') {
-          console.log(response.user_data);
+          console.log('userrrrrr datttta ', response.user_data);
           this.errorMessage = '';
           this.signInService.setUserData(response.user_data);
           this.router.navigate(['/profileadmin']);

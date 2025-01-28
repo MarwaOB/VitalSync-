@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 interface UserData {
+  id:number;
   nss: number ;
   username: string;
   email: string;

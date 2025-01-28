@@ -66,7 +66,7 @@ export const routes: Routes =
       path: "patient-dpi/:id",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component:  PatientDpiComponent  } // Page1Accueil will be displayed inside the layout
+        { path: "", component:  PatientDpiComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral','medecin','laborantin','radioloque','infermier']   }} // Page1Accueil will be displayed inside the layout
       ]
     },
     {
@@ -98,7 +98,7 @@ export const routes: Routes =
       path: "listpatient",
       component: LayoutComponent, // Use layout component here
       children: [
-        { path: "", component: ListpatientComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','adminCentral'] }  } // Page1Accueil will be displayed inside the layout
+        { path: "", component: ListpatientComponent ,canActivate: [RoleGuard], data: { roles: ['adminSys','medecin' ,'adminCentral'] }  } // Page1Accueil will be displayed inside the layout
       ]
     },
     {

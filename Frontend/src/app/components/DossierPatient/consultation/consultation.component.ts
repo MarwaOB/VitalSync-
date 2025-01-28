@@ -21,6 +21,7 @@ import { ShareddpiService } from '../../../services/shareddpi/shareddpi.service'
 export class ConsultationComponent implements OnInit {
 
   consultations: any[] = [];
+  editMode:boolean = false;
   selectedConsultation: any | null = null;
   selectedDiagnostic: any | null = null;
   selectedBilanRadiologique: any | null = null;
@@ -29,6 +30,12 @@ export class ConsultationComponent implements OnInit {
   showDetails: boolean = false;
   currentComponent: string = '';
   user: any = null;
+  tempConsultaion: any = 
+  {
+    resume: '', 
+    dpi_id: 0
+  };
+  
   
 
   constructor(private consultationService: ConsultationService ,private shareddpiService:ShareddpiService ,  private userService :UserService) { }
@@ -100,17 +107,53 @@ export class ConsultationComponent implements OnInit {
     }
   }
 
-  ajouterConsultation(): void {
-    const Consultation: Consultation = {
-      id: '',
-      date: new Date(''),
-      dpiId: '',
-      resume: 'Résumé de la consultation Ajoutee',
-      diagnosticId: '',
-      bilanBiologiqueId: '',
-      bilanRadiologiqueId: '',
-    };
-    this.consultationService.addConsultation(Consultation);
 
+  cancelEdit(): void {
+    this.editMode = false;
+  }
+  saveChanges1(): void {
+    this.shareddpiService.getDpiId().subscribe((dpiId) => {
+      if (dpiId !== null) {
+        this.tempConsultaion.dpi_id = dpiId; // Assign the retrieved dpiId
+        console.log('Sending data:', this.tempConsultaion); // Log the data being sent
+  
+        // Send the consultation data to the backend
+        this.consultationService.addconsultation(this.tempConsultaion).subscribe({
+          next: (response: any) => {
+            console.log('Consultation added successfully', response);
+  
+            // Retrieve the existing consultations and add the new one
+            this.shareddpiService.getConsultations().subscribe((existingConsultations) => {
+              const updatedConsultations = existingConsultations ? [...existingConsultations, response] : [response];
+  
+              // Update consultations in shared service and localStorage
+              this.shareddpiService.setConsultations(updatedConsultations);
+            });
+          },
+          error: (error: any) => {
+            console.error('Error adding Consultation:', error);
+            if (error.error) {
+              console.error('Server Response:', error.error);
+            }
+          }
+        });
+  
+        // Exit edit mode
+        this.editMode = false;
+      } else {
+        console.error('DPI ID is null. Cannot proceed.');
+      }
+    });
+  }
+  
+  
+ 
+  ajouterConsultation(): void {
+    this.tempConsultaion = {
+      dpi_id: 0,
+      resume: '',
+     
+    };
+    this.editMode = true;
   }
 }

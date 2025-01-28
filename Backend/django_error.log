@@ -6647,3 +6647,41 @@ Internal Server Error: /recherche_dpi_qrcode_api/
 "GET /recherche_dpi_qrcode_api/?qr_code_url=http://127.0.0.1:8000/media/qr_codes/qr_code_131.png HTTP/1.1" 500 68
 Internal Server Error: /recherche_dpi_qrcode_api/
 "GET /recherche_dpi_qrcode_api/?qr_code_url=http://127.0.0.1:8000/media/qr_codes/qr_code_131.png HTTP/1.1" 500 5837
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /user/signin
+"POST /user/signin HTTP/1.1" 500 94
+Internal Server Error: /ajouter_antecedant_api
+"POST /ajouter_antecedant_api HTTP/1.1" 500 112

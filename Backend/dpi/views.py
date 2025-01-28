@@ -18,6 +18,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate, login
 from rest_framework.permissions import IsAuthenticated
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
+import io
+from django.core.files.images import ImageFile
 
 @login_required
 @csrf_exempt
@@ -200,29 +205,41 @@ def ajouter_resume(request, consultation_id):
         # Redirection vers la page des détails de la consultation (ou du DPI)
         return redirect('consultation_detail', consultation_id=consultation.id)
                
-
 @api_view(['GET'])
 def show_dpi(request):
     try:
         # Initialize the list of DPIs
         dpis = []
-        print(f'request.user.role: {request.user.role}')
-        if request.user.role == "medecin":
-            # Get all DPIs for the logged-in medecin
-            dpis = Dpi.objects.filter(medecin=request.user)
 
-        elif request.user.role == "radioloque":
+        # Get the role and id from query parameters
+        role = request.GET.get('role')
+        id = request.GET.get('id')
+
+        if role == "medecin":
+            # Check if the medecin exists
+            try:
+                medecin = CustomUser.objects.get(id=id, role="medecin")
+            except CustomUser.DoesNotExist:
+                return Response(
+                    {"error": "Médecin introuvable avec l'ID spécifié."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            # Get all DPIs for the specified medecin
+            dpis = Dpi.objects.filter(medecin=medecin)
+
+        elif role == "radiologue":
             # Filter DPIs with pending radiological bilans
             user_hospital = request.user.hospital
             dpis = Dpi.objects.filter(medecin__hospital=user_hospital)
             dpis_with_pending_bilan = []
             for dpi in dpis:
                 last_consultation_with_bilan = dpi.consultations.filter(bilanRadiologique__isnull=False).last()
-                if last_consultation_with_bilan and last_consultation_with_bilan.bilanRadiologique.radioloque is None:
+                if last_consultation_with_bilan and last_consultation_with_bilan.bilanRadiologique.radiologue is None:
                     dpis_with_pending_bilan.append(dpi)
             dpis = dpis_with_pending_bilan
 
-        elif request.user.role == "laborantin":
+        elif role == "laborantin":
             # Filter DPIs with pending biological bilans
             user_hospital = request.user.hospital
             dpis = Dpi.objects.filter(medecin__hospital=user_hospital)
@@ -233,10 +250,9 @@ def show_dpi(request):
                     dpis_with_pending_bilan.append(dpi)
             dpis = dpis_with_pending_bilan
 
-        elif request.user.role == "adminSys":
+        elif role == "adminSys":
             # Get all DPIs for the adminSys role
             dpis = Dpi.objects.filter(medecin__hospital=request.user.hospital)
-            print(f'dpis admin sys : {dpis}')
 
         # Serialize the DPI data
         serializer = DpiSerializer(dpis, many=True)
@@ -250,7 +266,6 @@ def show_dpi(request):
             {"error": "An error occurred while retrieving DPIs.", "details": str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-              
 
 @api_view(['GET'])
 def show_antecedant(request, patient_id):
@@ -309,6 +324,9 @@ def show_dpi_by_patient(request):
 @permission_classes([IsAuthenticated])  # Ensure the user is authenticated
 def ajouter_antecedant_api(request):
     try:
+
+        print(f"POST Data: {request.POST}")
+
         titre = request.data.get('titre')
         description = request.data.get('description')
         is_chirugical = request.data.get('is_chirugical')
@@ -426,5 +444,416 @@ def show_consultations(request,patient_id):
     except Exception as e:
         return Response(
             {"error": "An error occurred while retrieving consultations.", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def ajouter_biologique_bilan_api(request):
+    try:
+        # Extract dpi_id from the request data
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response(
+                {"error": "L'ID du Dpi est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except Dpi.DoesNotExist:
+            return Response(
+                {"error": "Dpi introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+
+        consultation_id = request.data.get('consultation_id')
+        if not consultation_id:
+            return Response(
+                {"error": "L'ID de la consultation est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            consultation = Consultation.objects.get(id=consultation_id)
+        except consultation.DoesNotExist:
+            return Response(
+                {"error": "Consultation introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+      
+        bilanBiologique =  Biologique.objects.create() 
+        consultation.bilanBiologique = bilanBiologique  
+        consultation.save()
+
+        return Response(
+            {
+                'status': 'success',
+                'message': 'bilanBiologique created successfully.',
+                'bilanBiologique_id': bilanBiologique.id
+            },
+            status=status.HTTP_201_CREATED
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def ajouter_radiologique_bilan_api(request):
+    try:
+        # Extract dpi_id from the request data
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response(
+                {"error": "L'ID du Dpi est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except Dpi.DoesNotExist:
+            return Response(
+                {"error": "Dpi introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+
+        consultation_id = request.data.get('consultation_id')
+        if not consultation_id:
+            return Response(
+                {"error": "L'ID de la consultation est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            consultation = Consultation.objects.get(id=consultation_id)
+        except consultation.DoesNotExist:
+            return Response(
+                {"error": "Consultation introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        bilan_radiologique = Radiologique.objects.create()
+        bilan_radiologique.bilan_type =radiologique
+        bilan_radiologique.save()
+        consultation.bilanRadiologique = bilan_radiologique
+        consultation.save()
+        return Response(
+            {
+                'status': 'success',
+                'message': 'bilanBiologique created successfully.',
+                'bilanBiologique_id': bilanBiologique.id
+            },
+            status=status.HTTP_201_CREATED
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def ajouter_examen_api(request):
+    try:
+        # Extract dpi_id from the request data
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response(
+                {"error": "L'ID du Dpi est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except Dpi.DoesNotExist:
+            return Response(
+                {"error": "Dpi introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Extract consultation_id from the request data
+        consultation_id = request.data.get('consultation_id')
+        if not consultation_id:
+            return Response(
+                {"error": "L'ID de la consultation est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Consultation exists
+        try:
+            consultation = Consultation.objects.get(id=consultation_id)
+        except Consultation.DoesNotExist:
+            return Response(
+                {"error": "Consultation introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Check if BilanRadiologique exists, if not, create it
+        bilan_radiologique = consultation.bilanRadiologique
+        if not bilan_radiologique:
+            bilan_radiologique = Radiologique.objects.create(
+                radiologue=request.user,
+                date=request.data.get('date')  # Use request.data for JSON input
+            )
+            consultation.bilanRadiologique = bilan_radiologique
+            consultation.save()
+
+        # Assign radiologue to the BilanRadiologique and save it
+        bilan_radiologique.radiologue = request.user
+        consultation.is_bilanRadiologique_fait = True
+        bilan_radiologique.save()
+
+        # Extract lists for examen creation
+        compte_rendu_list = request.data.get('compte_rendu_list', [])
+        image_list = request.data.get('image_list', [])
+        type_examen_list = request.data.get('type_examen_list', [])
+
+        # Create Examen objects for each item in the lists
+        if len(compte_rendu_list) == len(image_list) == len(type_examen_list):
+            for compte_rendu, image, type_examen in zip(compte_rendu_list, image_list, type_examen_list):
+                Examen.objects.create(
+                    type=type_examen,
+                    description=compte_rendu,
+                    images=image,
+                    bilan_radiologique=bilan_radiologique
+                )
+        else:
+            return Response(
+                {"error": "Les listes de compte_rendu, image et type_examen doivent avoir la même longueur."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        return Response(
+            {
+                'status': 'success',
+                'message': 'Examen created successfully.',
+            },
+            status=status.HTTP_201_CREATED
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'An error occurred.', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def faire_bilan_api(request):
+    try:
+        # Extract dpi_id from the request data
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response(
+                {"error": "L'ID du Dpi est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except Dpi.DoesNotExist:
+            return Response(
+                {"error": "Dpi introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Extract consultation_id from the request data
+        consultation_id = request.data.get('consultation_id')
+        if not consultation_id:
+            return Response(
+                {"error": "L'ID de la consultation est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Consultation exists
+        try:
+            consultation = Consultation.objects.get(id=consultation_id)
+        except Consultation.DoesNotExist:
+            return Response(
+                {"error": "Consultation introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Extract bilan and other parameters
+        bilan = consultation.bilanBiologique
+        description = request.data.get('description')
+        taux1 = request.data.get('taux1')
+        taux2 = request.data.get('taux2')
+        taux3 = request.data.get('taux3')
+        date = timezone.now().date()
+
+        # Check if taux1, taux2, taux3 are provided
+        if taux1 is None or taux2 is None or taux3 is None:
+            return Response(
+                {"error": "Les taux sont requis (taux1, taux2, taux3)."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Update bilan with the provided data
+        bilan.tauxGlycemie = taux1
+        bilan.tauxPressionArterielle = taux2
+        bilan.tauxCholesterol = taux3
+        bilan.description = description
+        bilan.laborantin = request.user
+        bilan.date = date
+        bilan.save()
+
+        # Mark consultation as having completed the bilanBiologique
+        consultation.is_bilanBiologique_fait = True
+        consultation.save()
+
+        return Response(
+            {
+                'status': 'success',
+                'message': 'Bilan biologique mis à jour avec succès.',
+                'bilanBiologique_id': bilan.id
+            },
+            status=status.HTTP_200_OK  # Changed to HTTP_200_OK for an update request
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'Une erreur est survenue.', 'details': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Ensure the user is authenticated
+def generate_graph_api(request):
+    try:
+        # Extract dpi_id from the request data
+        dpi_id = request.data.get('dpi_id')
+        if not dpi_id:
+            return Response(
+                {"error": "L'ID du Dpi est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Dpi exists
+        try:
+            dpi = Dpi.objects.get(id=dpi_id)
+        except Dpi.DoesNotExist:
+            return Response(
+                {"error": "Dpi introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Extract consultation_id from the request data
+        consultation_id = request.data.get('consultation_id')
+        if not consultation_id:
+            return Response(
+                {"error": "L'ID de la consultation est requis."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the specified Consultation exists
+        try:
+            consultation = Consultation.objects.get(id=consultation_id)
+        except Consultation.DoesNotExist:
+            return Response(
+                {"error": "Consultation introuvable avec l'ID spécifié."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Extract bilan and other parameters
+        bilan = consultation.bilanBiologique
+        taux1 = bilan.tauxGlycemie
+        taux2 = bilan.tauxPressionArterielle
+        taux3 = bilan.tauxCholesterol
+
+        # Initialize data
+        current_data = [taux1, taux2, taux3]
+        previous_data = []
+
+        # Fetch all consultations belonging to the same DPI
+        consultations = consultation.dpi.consultations.filter(date__lt=consultation.date).order_by('-date')
+
+        # Iterate through consultations to find the earliest with a valid bilanBiologique
+        for previous_consultation in consultations:
+            bilan = previous_consultation.bilanBiologique
+            if bilan and bilan.tauxGlycemie is not None:
+                previous_data = [
+                    bilan.tauxGlycemie,
+                    bilan.tauxPressionArterielle,
+                    bilan.tauxCholesterol
+                ]
+                break  # Stop iterating once a valid consultation is found
+
+        # Generate the graph
+        fig, ax = plt.subplots()
+
+        # Plot the current data
+        ax.bar([1, 2, 3], current_data, label='Nouveau Bilan')
+
+        if previous_data:
+            # Plot the previous data as stacked bars
+            ax.bar([1, 2, 3], previous_data, bottom=current_data, label='Bilan Précédent')
+
+        # Set custom x-axis labels
+        ax.set_xticks([1, 2, 3])
+        ax.set_xticklabels(['Glycémie', 'Pression Artérielle', 'Cholestérol'])
+        ax.set_xlabel('Paramètres Mesurés')  # Title for the x-axis
+
+        # Set labels and titles
+        ax.set_ylabel('Taux')
+        ax.set_title('Comparaison des Bilans')
+        ax.legend()
+
+        # Save the graph to an image file
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+
+        # Save the image to the media directory
+        filename = f'graphesBiologiques/graph_{consultation.id}.png'
+        graph_path = consultation.grapheBiologique.storage.save(filename, ImageFile(buffer))
+
+        # Close the plot
+        plt.close(fig)
+
+        return Response(
+            {
+                'status': 'success',
+                'message': 'Graphique généré avec succès.',
+                'graph_path': graph_path
+            },
+            status=status.HTTP_200_OK
+        )
+
+    except Exception as e:
+        return Response(
+            {'status': 'error', 'message': 'Une erreur est survenue.', 'details': str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
