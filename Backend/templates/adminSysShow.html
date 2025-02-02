@@ -46,6 +46,13 @@
     </style>
 </head>
 <body>
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="messages">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="container">
         <h1>Users in Your Hospital</h1>
         <table>

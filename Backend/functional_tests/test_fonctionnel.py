@@ -98,8 +98,8 @@ class TestCreationDPIWithVisuals(LiveServerTestCase):
 
         # Vérifier le succès
         WebDriverWait(self.browser, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, 'success-message'))
+            EC.presence_of_element_located((By.CLASS_NAME, 'messages'))
         )
-        success_message = self.browser.find_element(By.CLASS_NAME, 'success-message')
+        success_message = self.browser.find_element(By.CLASS_NAME, 'messages')
         self.assertIn("DPI créé avec succès", success_message.text)
         time.sleep(1)  # Pause pour voir le message de succès

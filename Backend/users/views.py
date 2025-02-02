@@ -228,7 +228,8 @@ def creerDPI(request):
                 antecedent = form.save(commit=False)
                 antecedent.dpi = dpi
                 antecedent.save()
-
+            
+            messages.success(request, "DPI créé avec succès")
             return redirect('admin_Sys_Home' if request.user.role == 'adminSys' else 'medecin_Home')
         else:
             print("DPI form errors:", dpi_form.errors)

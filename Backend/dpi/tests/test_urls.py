@@ -4,8 +4,16 @@ from django.test import TestCase
 class TestUrls(TestCase):
 
     def test_dpi_ajouter_url(self):
+        """
+        Vérifie que l'URL nommée 'ajouter_diagnostic' est correctement résolue.
+        """
+
+        # Génère l'URL correspondant à la vue 'ajouter_diagnostic' avec un ID de consultation = 1
         path = reverse('ajouter_diagnostic', kwargs={'consultation_id': 1})
+
+        # Vérifie que l'URL générée correspond bien à la vue attendue
         assert resolve(path).view_name == 'ajouter_diagnostic'
+        
 
     def test_consultation_detail_url(self):
         path = reverse('consultation_detail', kwargs={'consultation_id': 1})

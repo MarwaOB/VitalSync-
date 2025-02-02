@@ -30,8 +30,6 @@ class AntecedentModelTest(TestCase):
             )
             )
         )
-    
-    
         self.antecedent = mixer.blend('dpi.Antecedent', titre="Antécédent Test", dpi=self.dpi ,description="Test Description", is_chirugical=True)
 
     def test_antecedent_str(self):
